@@ -1,0 +1,39 @@
+window {
+  font-size: 22px;
+  font-family: "FiraMonoNerdFont";
+  background-color: rgba(43,58,59,0.6);
+  color: white;
+  border-radius: 3px;
+}
+
+#outer-box {
+  /* border: 1px solid #bbccdd; */
+  border-bottom: 3px solid white;
+}
+
+#entry {
+  padding: 0.25em;
+}
+
+#entry:selected {
+  background-color: #bbccdd;
+}
+
+#text:selected {
+  color: #000000;
+}
+
+#input {
+  background-color: rgba(43,58,59,0.2);
+  color: white;
+  padding: 0.25em;
+  /* border: none; */
+  border-bottom: 1px solid #bbccdd;
+  border-radius: 0px;
+}
+
+image{
+  /* margin-left .25em; */
+  margin-right 1em;
+}
+
