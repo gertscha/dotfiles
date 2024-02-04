@@ -221,7 +221,6 @@ Selection of default vim keybinds
     [number]G           Goto line [number] or bottom if no number
     { and }             Jump paragraphs
     /                   Search forward
-    \                   Search backward
     gn                  Goto next match of previous search and enter visual mode
     gN                  Goto previous match of previous search and enter visual mode
     %                   Goto matching matching brace, on same line goto brace face cursor

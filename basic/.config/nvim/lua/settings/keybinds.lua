@@ -71,5 +71,6 @@ keymap('n', 'N', 'Nzzzv', opts("Go to previous search hit"))
 -- Keymap for better default experience
 keymap({'n', 'v', 'i'}, '<C-z>', '<nop>', {silent=true})
 keymap('n', 'Q', '<nop>', {silent=true})
+keymap('n', '<C-f>', '<nop>', {silent=true}) -- page down, use <C-d> instead
 keymap('n', '<F1>', '<nop>', {silent=true}) -- would open help, accidental when pressing ESC
 
