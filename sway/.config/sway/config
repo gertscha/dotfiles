@@ -239,4 +239,11 @@ bar {
     swaybar_command waybar
 }
 
+#
+# Autostart apps
+#
+exec thunderbird
+workspace 1
+exec foot
+
 include /etc/sway/config.d/*
