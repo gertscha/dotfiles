@@ -10,11 +10,12 @@ nala install wl-clipboard ripgrep curl unzip gettext
 nala install golang
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-#zsh
+# oh-my-zsh install, .zshrc is setup accordingly
 cd ~
-mkdir -p build/oh-my-zsh
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mv .oh-my-zsh/* build/oh-my-zsh/
+mkdir -p build
+cd build
+git clone https://github.com/ohmyzsh/ohmyzsh.git
+mv ohmyzsh oh-my-zsh
 
 # neovim
 cd ~
@@ -29,8 +30,8 @@ sudo make install
 #tmux
 cd ~
 mkdir -p build/tmux/plugins
-cd ~/build/tmux
-git clone https://github.com/tmux-plugins/tpm ~/build/tmux
+cd build/tmux
+git clone https://github.com/tmux-plugins/tpm
 
 #load configuration
 cd ~/dotfiles
