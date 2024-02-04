@@ -1,9 +1,14 @@
 ignore-empty-password
 
-color=1d1f21
-indicator-idle-visible
 indicator-radius=150
 indicator-thickness=30
+indicator-y-position=300
+color=1d1f21
+
+image=~/.config/sway/highway_dark.jpg
+scaling=fill
+font=FiraMono
+font-size=14
 
 inside-color=1d1f21
 inside-clear-color=1d1f21

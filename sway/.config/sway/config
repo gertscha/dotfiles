@@ -30,8 +30,8 @@ exec_always wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Documents/wallpapers/lowpoly_street.png fill
+# wallpaper
+output * bg ~/.config/sway/lowpoly_street.png fill
 #
 # Example configuration:
 #
@@ -238,6 +238,12 @@ bindsym $mod+r mode "resize"
 bar {
     swaybar_command waybar
 }
+
+#
+# Swayidle
+#
+exec swayidle -w \
+    before-sleep 'swaylock -f'
 
 #
 # Autostart apps
