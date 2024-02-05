@@ -31,7 +31,7 @@ exec_always wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1
 ### Output configuration
 #
 # wallpaper
-output * bg ~/.config/sway/lowpoly_street.png fill
+output * bg ~/Documents/wallpapers/lowpoly_street.png fill
 #
 # Example configuration:
 #

@@ -4,7 +4,7 @@
 apt update
 apt install nala
 nala install git build-essential ninja-build curl cmake zsh tmux
-nala install wl-clipboard ripgrep curl unzip gettext
+nala install wl-clipboard ripgrep curl unzip gettext stow
 
 # some languages
 nala install golang
