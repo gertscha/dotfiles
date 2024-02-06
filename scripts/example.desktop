@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=#someapp
+Exec=/#absolutepath/#someappimage.AppImage
+Icon=#icon-name
+Type=Application
