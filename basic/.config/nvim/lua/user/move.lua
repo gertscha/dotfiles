@@ -6,7 +6,22 @@ local M = {
 }
 
 function M.config()
-  require('move').setup({})
+  require('move').setup({
+    line = {
+      enable = true, -- Enables line movement
+      indent = true  -- Toggles indentation
+    },
+    block = {
+      enable = true, -- Enables block movement
+      indent = true  -- Toggles indentation
+    },
+    word = {
+      enable = true, -- Enables word movement
+    },
+    char = {
+      enable = false -- Enables char movement
+    }
+  })
   -- Command	  Description	                                            Mode
   -- MoveLine	  Moves a line up or down	                                Normal
   -- MoveHChar	Moves the character under the cursor, left or right	    Normal
