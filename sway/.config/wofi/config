@@ -1,4 +1,7 @@
 mode=drun
 allow_images=true
 image_size=28
+prompt=search
+columns=1
+gtk-dark=true
 width=50%

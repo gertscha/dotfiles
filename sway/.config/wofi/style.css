@@ -1,14 +1,19 @@
 window {
-  font-size: 22px;
+  font-size: 20px;
   font-family: "FiraMonoNerdFont";
   background-color: rgba(43,58,59,0.6);
   color: white;
   border-radius: 3px;
 }
 
+image{
+  margin-left: .25em;
+  margin-right: 0.25em;
+}
+
 #outer-box {
   /* border: 1px solid #bbccdd; */
-  border-bottom: 3px solid white;
+  border-bottom: 2px solid white;
 }
 
 #entry {
@@ -17,10 +22,16 @@ window {
 
 #entry:selected {
   background-color: #bbccdd;
+  border-radius: 0px;
 }
 
 #text:selected {
   color: #000000;
+  background-color: #bbccdd;
+}
+
+#img:selected {
+  background-color: #bbccdd;
 }
 
 #input {
@@ -30,10 +41,5 @@ window {
   /* border: none; */
   border-bottom: 1px solid #bbccdd;
   border-radius: 0px;
-}
-
-image{
-  /* margin-left .25em; */
-  margin-right 1em;
 }
 
