@@ -81,6 +81,12 @@ gaps inner 2px
 gaps outer 5px
 default_border pixel 2 # disables the title bar of individual windows
 
+### GTK setup
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Dracula'
+}
+
 
 ### Key bindings
 #
@@ -251,5 +257,10 @@ exec swayidle -w \
 exec thunderbird
 workspace 1
 exec foot
+exec swaymsg {
+  exec owncloud
+  focus owncloud
+  kill
+}
 
 include /etc/sway/config.d/*
