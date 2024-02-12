@@ -31,7 +31,7 @@ exec_always wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1
 ### Output configuration
 #
 # wallpaper
-output * bg ~/Documents/wallpapers/lowpoly_street.png fill
+output * bg ~/.config/sway/lowpoly_street.png fill
 #
 # Example configuration:
 #
@@ -115,7 +115,7 @@ exec_always {
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. This will end the Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
     # Custom Binds
-    bindsym $mod+Shift+p exec wlogout
+    bindsym $mod+Shift+p exec wlogout -p layer-shell
     bindsym $mod+m exec nautilus
     bindsym $mod+n exec chromium
 
