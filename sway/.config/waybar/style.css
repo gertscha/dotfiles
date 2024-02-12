@@ -89,11 +89,16 @@ button:hover {
 #tray,
 #mode,
 #idle_inhibitor,
-#scratchpad,
 #mpd {
     padding: 0 10px;
     margin: 2px 2px;
+    color: #000000;
+}
+
+#scratchpad {
     color: #bbccdd;
+    padding: 0 10px;
+    margin: 2px 2px;
 }
 
 #window,
