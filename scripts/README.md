@@ -20,3 +20,13 @@ Use `desktop-file-validate` to check the file.
 There are also tools to automate this, for example
 [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
 
+# KVM/QEMU
+There are still some issues regaring the polkit.
+The password prompt does not appear. Some apps fail to launch, some
+produce errors since they fail to authenticate.
+To fix this for virt-manager add it to the proper groups:
+```
+sudo usermod -a -G libvirt $(whoami)
+sudo usermod -a -G kvm $(whoami)
+```
+
