@@ -24,7 +24,7 @@ include /etc/sway/config-vars.d/*
 
 ### Autostart
 exec_always nm-applet --indicator
-exec_always wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.8
+exec_always wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.4
 exec_always wpctl set-volume @DEFAULT_SINK@ 0.2
 exec_always wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1
 
@@ -128,6 +128,8 @@ exec_always {
     bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ .01-
     bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ .01+
     bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
+    bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ .01-
+    bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ .01+
     bindsym Print exec grimshot --notify copy screen
     bindsym Control+Print exec grimshot --notify copy window
     bindsym Alt+Print exec grimshot --notify copy active
