@@ -22,3 +22,11 @@ Cloning this repo into the home directory and then running
 the stow commands inside the dotfiles folder generates the
 symlinks in the correct locations.
 
+## Windows
+On Windows I use `mklink` to manually create the symbolic link for Neovim.
+```
+mklink /j "C:\Users\#username\AppData\Local\nvim" "D:\#path_to_repository\neovim\.config\nvim"
+```
+This creates a [Junction](https://learn.microsoft.com/en-us/windows/win32/fileio/hard-links-and-junctions#junctions)
+which can go to other volumes.
+

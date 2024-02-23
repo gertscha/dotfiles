@@ -36,6 +36,7 @@ git clone https://github.com/tmux-plugins/tpm
 #load configuration
 cd ~/dotfiles
 stow base
+stow neovim
 cd ~
 
 # firewall, don't know if this is really needed
