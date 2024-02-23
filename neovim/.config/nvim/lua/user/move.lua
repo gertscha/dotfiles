@@ -3,10 +3,7 @@ local M = {
   "fedepujol/move.nvim",
   event = { "BufRead", "BufNewFile" },
   dependencies = { "folke/which-key.nvim", },
-}
-
-function M.config()
-  require('move').setup({
+  opts = {
     line = {
       enable = true, -- Enables line movement
       indent = true  -- Toggles indentation
@@ -21,7 +18,10 @@ function M.config()
     char = {
       enable = false -- Enables char movement
     }
-  })
+  },
+}
+
+function M.config()
   -- Command	  Description	                                            Mode
   -- MoveLine	  Moves a line up or down	                                Normal
   -- MoveHChar	Moves the character under the cursor, left or right	    Normal

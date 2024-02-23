@@ -224,10 +224,12 @@ Selection of default vim keybinds
     gn                  Goto next match of previous search and enter visual mode
     gN                  Goto previous match of previous search and enter visual mode
     %                   Goto matching matching brace, on same line goto brace face cursor
-    f[x]                Find next occurence of character [x]
-    F[x]                Find previous occurence of character [x]
-    ;                   Repeat previous f,F movement
-    ,                   Repeat previous f,F movement backwards
+    f[x]                Find next occurence of character [x] on the current line
+    t[x]                Same as 'f[x]' but cursor moved before the character instead
+    F[x]                Find previous occurence of character [x] on the current line
+    T[x]                Same as 'F[x]' but cursor moved before the character instead
+    ;                   Repeat previous f,F,t,T movement
+    ,                   Repeat previous f,F,t,T movement backwards
     H,L,M               Move the cursor to Top,Bottom,Middle of the screen
   // Indentation
     >>                  Indent line
