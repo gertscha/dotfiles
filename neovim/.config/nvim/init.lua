@@ -27,7 +27,7 @@ require "settings.keybinds"
 require "settings.autocmds"
 add_plugin "user.colorscheme"
 add_plugin "user.devicons"
-add_plugin "user.move"
+add_plugin "user.move" -- move lines around
 add_plugin "user.comment"
 add_plugin "user.which-key"
 add_plugin "user.oil" -- a filemanager
@@ -42,7 +42,7 @@ add_plugin "user.mason"
 add_plugin "user.lspconfig"
 add_plugin "user.cmp" -- autocompletion
 add_plugin "user.telescope" -- fuzzy finder
-add_plugin "user.wininfo"
+add_plugin "user.wininfo" -- Breadcrumbs, show context info 
 -- add_plugin "user.schemastore"
 -- add_plugin "user.autopairs"
 -- add_plugin "user.toggleterm"

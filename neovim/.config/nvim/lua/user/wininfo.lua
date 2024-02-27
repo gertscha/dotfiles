@@ -7,7 +7,6 @@ local M = {
       -- actually this depends on navic
       -- but it has no config they are swapped
       "LunarVim/breadcrumbs.nvim",
-      opts = {},
     },
   },
 }
@@ -22,9 +21,10 @@ function M.config()
     },
     click = true,
     separator = " " .. icons.ui.ChevronRight .. " ",
-    depth_limit = 0,
+    depth_limit = 4,
     depth_limit_indicator = "..",
   }
+  require("breadcrumbs").setup()
 end
 
 return M
