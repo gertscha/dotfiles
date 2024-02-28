@@ -35,7 +35,7 @@ git clone https://github.com/tmux-plugins/tpm
 
 #load configuration
 cd ~/dotfiles
-stow base
+stow basic
 stow neovim
 cd ~
 
