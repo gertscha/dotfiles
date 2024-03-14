@@ -51,6 +51,7 @@ vim.api.nvim_set_keymap("n", "WW", ":w<enter>", opts("Save current buffer"))
 
 -- make paste use the most recent yank
 keymap('n', '<leader>p', '"0p', opts("Paste most recent yank"))
+keymap('v', '<leader>p', '"0p', opts("Paste most recent yank"))
 
 -- keep cursor in place when appending lines
 keymap('n', 'J', 'mzJ`z', opts("Append line below to current line"))
