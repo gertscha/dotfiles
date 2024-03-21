@@ -65,6 +65,10 @@ opt.softtabstop = 2
 
 opt.timeoutlen = 300
 
+-- Set highlight on search, but clear on pressing <Esc> in normal mode
+vim.opt.hlsearch = true
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
 opt.undofile = true
 --opt.undodir = "~/.nvim/undo"
 opt.undolevels = 10000

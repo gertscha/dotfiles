@@ -1,13 +1,9 @@
 local M = {
   "SmiteshP/nvim-navic",
+  -- "LunarVim/breadcrumbs.nvim",
   event = { "BufRead", "BufNewFile" },
   dependencies = {
     "neovim/nvim-lspconfig",
-    {
-      -- actually this depends on navic
-      -- but it has no config they are swapped
-      "LunarVim/breadcrumbs.nvim",
-    },
   },
 }
 
@@ -24,7 +20,7 @@ function M.config()
     depth_limit = 4,
     depth_limit_indicator = "..",
   }
-  require("breadcrumbs").setup()
+  -- require("breadcrumbs").setup()
 end
 
 return M

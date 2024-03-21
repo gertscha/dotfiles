@@ -1,7 +1,7 @@
 -- Code completion
 local M = {
   "hrsh7th/nvim-cmp",
-  event = "VeryLazy",
+  event = "InsertEnter",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
@@ -33,11 +33,11 @@ function M.setup()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
 
-  require("luasnip.loaders.from_vscode").lazy_load()
+  luasnip.config.setup {}
+  -- require("luasnip.loaders.from_vscode").lazy_load()
 
   local select_opts = { behavior = cmp.SelectBehavior.Select }
 
-  vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
   cmp.setup({
     snippet = {
@@ -45,16 +45,17 @@ function M.setup()
         luasnip.lsp_expand(args.body)
       end,
     },
-    sources = cmp.config.sources({
-      { name = "nvim_lsp", keyword_length = 2 }, -- inform lsp that cmp exists
-      { name = "path", keyword_length = 2 },
+    completion = { completeopt = 'menu,menuone,noselect' },
+    sources = {
+      { name = "nvim_lsp" }, -- inform lsp that cmp exists
+      { name = "luasnip" },
+      { name = "path" },
       { name = "buffer", keyword_length = 2 },
-      { name = "luasnip", keyword_length = 2 },
       { name = "nvim_lsp_signature_help", keyword_length = 2 },
       -- { name = "dap", keyword_length = 2 },
-      { name = "crates" },
+      -- { name = "crates" },
       { name = "nvim_lua" },
-    }, {}),
+    },
     sorting = {
       priority_weight = 1.0,
       comparators = {
@@ -101,36 +102,42 @@ function M.setup()
         return vim_item
       end,
     },
-    mapping = {
-      ["<C-s>"] = cmp.mapping({ i = cmp.mapping.complete({ reason = cmp.ContextReason.Manual }) }),
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item(select_opts)
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item(select_opts)
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      -- ["<C-r>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }), -- For some reason this mapping seems to mess with the <Tab> mapping ?!
-      ["<C-i>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
-      ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Insert }),
-      ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
-      ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
-      -- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    mapping = cmp.mapping.preset.insert {
+      -- Select the [n]ext item
+      ['<C-n>'] = cmp.mapping.select_next_item(),
+      -- Select the [p]revious item
+      ['<C-p>'] = cmp.mapping.select_prev_item(),
       ["<C-e>"] = cmp.mapping.abort(),
+
+      -- Accept ([y]es) the completion.
+      --  This will auto-import if your LSP supports it.
+      --  This will expand snippets if the LSP sent a snippet.
+      ['<C-y>'] = cmp.mapping.confirm { select = true },
+      ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Insert }),
+
+      -- Manually trigger a completion from nvim-cmp.
+      --  Generally you don't need this, because nvim-cmp will display
+      --  completions whenever it has completion options available.
+      ['<C-Space>'] = cmp.mapping.complete {},
+
+      -- Think of <c-l> as moving to the right of your snippet expansion.
+      --  So if you have a snippet that's like:
+      --  function $name($args)
+      --    $body
+      --  end
+      --
+      -- <c-l> will move you to the right of each of the expansion locations.
+      -- <c-h> is similar, except moving you backwards.
+      ['<C-l>'] = cmp.mapping(function()
+        if luasnip.expand_or_locally_jumpable() then
+          luasnip.expand_or_jump()
+        end
+      end, { 'i', 's' }),
+      ['<C-h>'] = cmp.mapping(function()
+        if luasnip.locally_jumpable(-1) then
+          luasnip.jump(-1)
+        end
+      end, { 'i', 's' }),
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
