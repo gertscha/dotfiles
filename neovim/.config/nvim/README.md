@@ -126,8 +126,8 @@ r<Space>                Populate command line with ":Git rebase "
 <leader>n               Go to file 1
 <leader>m               Go to file 2
 <leader>b               Go to file 3
-<C-o>                   Go to previous file in swap list
-<C-p>                   Go to next file in swap list
+<C-k>                   Go to previous file in swap list
+<C-l>                   Go to next file in swap list
 ```
 
 ## CMP

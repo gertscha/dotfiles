@@ -42,7 +42,7 @@ function M.config()
 
   require('which-key').register({
     ["<leader>"] = {
-      a = { function() harpoon:list():append() end, prefix("Add file") },
+      a = { function() harpoon:list():add() end, prefix("Add file") },
       h = { function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, prefix("Open List") },
       n = { function() harpoon:list():select(1) end, prefix("switch to 1") },
       m = { function() harpoon:list():select(2) end, prefix("switch to 2") },
