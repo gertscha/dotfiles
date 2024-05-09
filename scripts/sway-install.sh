@@ -7,7 +7,7 @@ apt install nala
 nala install sway waybar swayidle swaylock foot
 nala install brightnessctl swayimg wlogout
 nala install mako-notifier wayland-protocols xwayland
-nala install wofi grim slurp grimshot swayimg
+nala install wofi grim slurp grimshot
 
 cd ~/dotfiles
 stow sway
