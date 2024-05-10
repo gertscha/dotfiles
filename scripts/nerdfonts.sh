@@ -2,7 +2,7 @@
 
 # install some nerdfonts
 cd ~
-apt install -y unzip wget
+sudo apt install -y unzip wget
 mkdir -p .fonts
 cd .fonts
 

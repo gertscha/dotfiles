@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # install the basics, nerdfonts are a separate script
-apt update
-apt install nala
-nala install git build-essential ninja-build curl cmake zsh tmux
-nala install wl-clipboard ripgrep curl unzip gettext stow
+sudo apt update
+sudo apt install nala
+sudo nala install git build-essential ninja-build curl cmake zsh tmux
+sudo nala install wl-clipboard ripgrep curl unzip gettext stow
 
 # oh-my-zsh install, .zshrc is setup accordingly
 cd ~

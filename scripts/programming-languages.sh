@@ -1,5 +1,5 @@
 # go
-nala install golang
+sudo nala install golang
 
 # rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
