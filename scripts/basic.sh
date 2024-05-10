@@ -6,10 +6,6 @@ apt install nala
 nala install git build-essential ninja-build curl cmake zsh tmux
 nala install wl-clipboard ripgrep curl unzip gettext stow
 
-# some languages
-nala install golang
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
 # oh-my-zsh install, .zshrc is setup accordingly
 cd ~
 mkdir -p build
@@ -23,17 +19,8 @@ mkdir -p build/tmux/plugins
 cd build/tmux
 git clone https://github.com/tmux-plugins/tpm
 
-#load configuration
+# load configuration
 cd ~/dotfiles
 stow basic
-stow neovim
 cd ~
 
-# firewall, don't know if this is really needed
-sudo nala install ufw
-sudo ufw limit 22/tcp
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw enable

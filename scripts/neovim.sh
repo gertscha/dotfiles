@@ -1,4 +1,6 @@
-# neovim
+# setup neovim
+
+# build it
 cd ~
 mkdir -p build
 cd build
@@ -7,3 +9,8 @@ cd neovim
 git checkout stable
 make CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
+
+# load configuration
+cd ~/dotfiles
+stow neovim
+cd ~
