@@ -1,48 +1,48 @@
 local M = {
-  "lewis6991/gitsigns.nvim",
-  tag = "v0.7",
-  event = { "BufRead", "BufNewFile" },
-  cmd = "Gitsigns",
+  'lewis6991/gitsigns.nvim',
+  tag = 'v0.7',
+  event = { 'BufRead', 'BufNewFile' },
+  cmd = 'Gitsigns',
 }
 
 function M.config()
-  local icons = require "settings.icons"
-  require("gitsigns").setup {
+  local icons = require 'settings.icons'
+  require('gitsigns').setup {
     signs = {
       add = {
-        hl = "GitSignsAdd",
+        hl = 'GitSignsAdd',
         text = icons.ui.BoldLineMiddle,
-        numhl = "GitSignsAddNr",
-        linehl = "GitSignsAddLn", },
+        numhl = 'GitSignsAddNr',
+        linehl = 'GitSignsAddLn', },
       change = {
-        hl = "GitSignsChange",
+        hl = 'GitSignsChange',
         text = icons.ui.BoldLineDashedMiddle,
-        numhl = "GitSignsChangeNr",
-        linehl = "GitSignsChangeLn", },
+        numhl = 'GitSignsChangeNr',
+        linehl = 'GitSignsChangeLn', },
       delete = {
-        hl = "GitSignsDelete",
+        hl = 'GitSignsDelete',
         text = icons.ui.TriangleShortArrowRight,
-        numhl = "GitSignsDeleteNr",
-        linehl = "GitSignsDeleteLn", },
+        numhl = 'GitSignsDeleteNr',
+        linehl = 'GitSignsDeleteLn', },
       topdelete = {
-        hl = "GitSignsDelete",
+        hl = 'GitSignsDelete',
         text = icons.ui.TriangleShortArrowRight,
-        numhl = "GitSignsDeleteNr",
-        linehl = "GitSignsDeleteLn", },
+        numhl = 'GitSignsDeleteNr',
+        linehl = 'GitSignsDeleteLn', },
       changedelete = {
-        hl = "GitSignsChange",
+        hl = 'GitSignsChange',
         text = icons.ui.BoldLineMiddle,
-        numhl = "GitSignsChangeNr",
-        linehl = "GitSignsChangeLn", },
+        numhl = 'GitSignsChangeNr',
+        linehl = 'GitSignsChangeLn', },
     },
     current_line_blame = true,
     current_line_blame_opts = {
       virt_text = true,
-      virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+      virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
       delay = 3000,
       ignore_whitespace = false,
     },
-    current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
+    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
     numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
     linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
@@ -55,9 +55,9 @@ function M.config()
     max_file_length = 40000,
     preview_config = {
       -- Options passed to nvim_open_win
-      border = "rounded",
-      style = "minimal",
-      relative = "cursor",
+      border = 'rounded',
+      style = 'minimal',
+      relative = 'cursor',
       row = 0,
       col = 1,
     },

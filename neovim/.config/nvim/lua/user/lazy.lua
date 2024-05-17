@@ -12,16 +12,14 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   }
 end
+-- Add lazy to the `runtimepath`, this allows us to `require` it.
 vim.opt.rtp:prepend(lazypath)
 
 -- we use a global table to make plugins explicit yet convenient to add
-require("lazy").setup {
+require('lazy').setup {
   spec = LAZY_PLUGIN_SPEC,
-  install = {
-    colorscheme = { "darkplus", "default" },
-  },
   ui = {
-    border = "rounded",
+    border = 'rounded',
     size = { width = 0.8, height = 0.8 },
   },
   checker = {
@@ -35,8 +33,8 @@ require("lazy").setup {
     rtp = {
       reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory
       disabled_plugins = {
-        -- "gzip",
-        -- "tarPlugin",
+        -- 'gzip',
+        -- 'tarPlugin',
       },
     },
   },

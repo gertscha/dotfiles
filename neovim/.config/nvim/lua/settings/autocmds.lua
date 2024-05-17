@@ -12,27 +12,13 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end,
 })
 
--- allow q to close more windows
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = {
-    "netrw",
-    -- "Jaq",
-    -- "qf",
-    -- "git",
-    "help",
-    "man",
-    "lspinfo",
-    "oil",
-    -- "spectre_panel",
-    -- "lir",
-    -- "DressingSelect",
-  },
+-- Set local settings for terminal buffers
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = vim.api.nvim_create_augroup("custom-term-open", {}),
   callback = function()
-    vim.cmd [[
-      nnoremap <silent> <buffer> q :close<CR>
-      set nobuflisted
-    ]]
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.scrolloff = 0
   end,
 })
-
 

@@ -7,46 +7,48 @@ local opt = vim.opt
 opt.backup = false
 opt.writebackup = true
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
-opt.autowrite = true -- Enable auto write if the buffer changes
+opt.autowrite = false -- Enable auto write if the buffer changes
 opt.hidden = true -- Allow buffers to exist in the background, needed for Toggleterm
 
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.mouse = "a" -- Enable mouse mode
 --opt.spelllang = { "en" }
-opt.fileencoding = "utf-8" -- is the default value
-opt.termguicolors = true -- True color support
+-- opt.fileencoding = "utf-8" -- is the default value
+-- opt.termguicolors = true -- True color support
 
 vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
 opt.conceallevel = 0 -- show all markup in markdown files
 opt.cursorline = true -- Enable highlighting of the current line
 opt.hlsearch = false -- highlight all matches on previous search pattern
-opt.completeopt = "menu,menuone,noselect" -- use pop menu for options in insertmode
+opt.completeopt = { "menu", "menuone", "noselect" } -- use pop menu for options in insertmode
 opt.laststatus = 0 -- change when the last window has a status line, 0 never, 2 default
 opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.showmode = false -- Dont show mode since we have a statusline
-opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.numberwidth = 4 -- set number column width {default 4}
 opt.winminwidth = 5 -- Minimum window width
 opt.list = false -- Show some invisible characters (tabs...
 -- opt.listchars = '' -- Do not show invisible characters
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 
-opt.inccommand = "nosplit" -- preview incremental substitute
+opt.inccommand = "split" -- preview incremental substitute
 
 opt.number = true -- Print line number
 opt.relativenumber = true -- set relative numbered lines
 
-opt.formatoptions = "jcrolnt" -- tcqj
+opt.formatoptions = "croqnjl" -- tcj
 --opt.grepformat = "%f:%l:%c:%m"
 --opt.grepprg = "rg --vimgrep"
 --opt.shortmess:append({ W = true, I = true, c = true })
 opt.shiftround = true -- Round indent
-opt.smartcase = true -- Don't ignore case with capitals
 --opt.iskeyword:append("-") -- hyphenated words recognized by a single word 
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.wrap = false -- Disable line wrap
 
+opt.smartcase = true -- Don't ignore case with capitals
 opt.ignorecase = true -- Ignore case in patterns
+
+opt.autoindent = true -- Copy indents from current line
 opt.smartindent = true -- Insert indents automatically
 
 -- Changes the effect of the |:mksession| command.
@@ -63,8 +65,6 @@ opt.shiftwidth = 2 -- Size of an indent
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.softtabstop = 2
 
-opt.timeoutlen = 300
-
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -73,11 +73,13 @@ opt.undofile = true
 --opt.undodir = "~/.nvim/undo"
 opt.undolevels = 10000
 
+opt.timeoutlen = 300
 opt.updatetime = 200 -- Save swap file and trigger CursorHold
 
 -- configure netrw
-vim.g.netrw_winsize = 30
-vim.g.netrw_keepdir = 0
-vim.g.netrw_banner = 0 -- use 'I' to show it again
-vim.g.netrw_sort_sequence = [[[\/]$,*]] -- Show directories first (sorting)
-vim.g.netrw_liststyle = 0 -- long list, cycle with 'i'
+-- vim.g.netrw_winsize = 30
+-- vim.g.netrw_keepdir = 0
+-- vim.g.netrw_banner = 0 -- use 'I' to show it again
+-- vim.g.netrw_sort_sequence = [[[\/]$,*]] -- Show directories first (sorting)
+-- vim.g.netrw_liststyle = 0 -- long list, cycle with 'i'
+

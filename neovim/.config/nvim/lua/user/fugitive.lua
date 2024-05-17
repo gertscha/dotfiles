@@ -1,17 +1,17 @@
 -- git integration
 local M = {
   'tpope/vim-fugitive',
-  cmd = "Git",
+  cmd = 'Git',
   keys = {
-    { '<leader>g', desc="Open Git" },
+    { '<leader>g', desc='Open Git' },
   },
-  tag = "v3.7",
+  tag = 'v3.7',
   config = function()
 
     -- this is the default
     local kopts = {
-      mode = "n", -- NORMAL mode
-      prefix = "", -- the prefix is prepended to every mapping part of `mappings`
+      mode = 'n', -- NORMAL mode
+      prefix = '', -- the prefix is prepended to every mapping part of `mappings`
       buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
       silent = true, -- use `silent` when creating keymaps
       noremap = true, -- use `noremap` when creating keymaps
@@ -21,8 +21,8 @@ local M = {
 
     -- fugitive (the other keybindings are default, see list at the bottom)
     require('which-key').register({
-      ["<leader>"] = {
-        g = { vim.cmd.Git, "Open Git" },
+      ['<leader>'] = {
+        g = { vim.cmd.Git, 'Open Git' },
       }
     }, kopts)
   end,
@@ -64,13 +64,13 @@ return M
 -- [[                      Jump [count] sections backward.
 -- ]]                      Jump [count] sections forward.
 -- *                       On the first column of a + or - diff line, search for the corresponding - or + line.  Otherwise, defer to built-in |star|.
--- #                       Same as "*", but search backward.
--- gu                      Jump to file [count] in the "Untracked" or "Unstaged" section.
--- gU                      Jump to file [count] in the "Unstaged" section.
--- gs                      Jump to file [count] in the "Staged" section.
--- gp                      Jump to file [count] in the "Unpushed" section.
--- gP                      Jump to file [count] in the "Unpulled" section.
--- gr                      Jump to file [count] in the "Rebasing" section.
+-- #                       Same as '*', but search backward.
+-- gu                      Jump to file [count] in the 'Untracked' or 'Unstaged' section.
+-- gU                      Jump to file [count] in the 'Unstaged' section.
+-- gs                      Jump to file [count] in the 'Staged' section.
+-- gp                      Jump to file [count] in the 'Unpushed' section.
+-- gP                      Jump to file [count] in the 'Unpulled' section.
+-- gr                      Jump to file [count] in the 'Rebasing' section.
 -- gi                      Open .git/info/exclude in a split.  Use a count to open .gitignore.
 --
 -- --Commit maps  
@@ -83,16 +83,16 @@ return M
 -- cs                      Create a `squash!` commit for the commit under the cursor.
 -- cS                      Create a `squash!` commit for the commit under the cursor and immediately rebase it.
 -- cA                      Create a `squash!` commit for the commit under the cursor and edit the message.
--- c<Space>                Populate command line with ":Git commit ".
+-- c<Space>                Populate command line with ':Git commit '.
 -- crc                     Revert the commit under the cursor.
 -- crn                     Revert the commit under the cursor in the index and work tree, but do not actually commit the changes.
--- cr<Space>               Populate command line with ":Git revert ".
--- cm<Space>               Populate command line with ":Git merge ".
+-- cr<Space>               Populate command line with ':Git revert '.
+-- cm<Space>               Populate command line with ':Git merge '.
 --
 -- --Checkout/branch maps  
 -- coo                     Check out the commit under the cursor.
--- cb<Space>               Populate command line with ":Git branch ".
--- co<Space>               Populate command line with ":Git checkout ".
+-- cb<Space>               Populate command line with ':Git branch '.
+-- co<Space>               Populate command line with ':Git checkout '.
 --                                                 *fugitive_cz*
 -- --Stash maps  
 -- czz                     Push stash.  Pass a [count] of 1 to add `--include-untracked` or 2 to add `--all`.
@@ -102,7 +102,7 @@ return M
 -- cza                     Apply topmost stash, or stash@{count}, preserving the index.
 -- czP                     Pop topmost stash, or stash@{count}.
 -- czp                     Pop topmost stash, or stash@{count}, preserving the index.
--- cz<Space>               Populate command line with ":Git stash ".
+-- cz<Space>               Populate command line with ':Git stash '.
 --
 -- --Rebase maps  
 -- ri                      Perform an interactive rebase.  Uses ancestor of
@@ -117,7 +117,7 @@ return M
 -- rw                      Perform an interactive rebase with the commit under the cursor set to `reword`.
 -- rm                      Perform an interactive rebase with the commit under the cursor set to `edit`.
 -- rd                      Perform an interactive rebase with the commit under the cursor set to `drop`.
--- r<Space>                Populate command line with ":Git rebase ".
+-- r<Space>                Populate command line with ':Git rebase '.
 --
 -- --Miscellaneous maps  
 -- gq                      Close the status buffer.

@@ -2,15 +2,16 @@
 -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 return {
 
-  -- html = {},
-  -- pyright = {},
-  -- bashls = {},
-  -- golangci_lint_ls = {},
-  -- codelldb = {}, -- gives error
-  -- cpptools = {}, -- might need manual install
-  -- rust_analyzer = {},
+  -- html = true,
+  -- cssls = true,
+  -- pyright = true,
+  -- golangci_lint_ls = true,
+  -- codelldb = true, -- gives error
+  -- cpptools = true, -- might need manual install
 
-  texlab = {},
+  bashls = true,
+  texlab = true,
+  rust_analyzer = true,
 
   -- https://clangd.llvm.org/config
   clangd = {

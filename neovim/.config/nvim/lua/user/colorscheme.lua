@@ -25,23 +25,23 @@ function M.config()
     },
     plugins = { -- Uncomment the plugins that you use to highlight them
     -- Available plugins:
-    -- "dap",
-    -- "dashboard",
-    "gitsigns",
-    -- "hop",
-    -- "indent-blankline",
-    -- "lspsaga",
-    -- "mini",
-    -- "neogit",
-    -- "neorg",
-    "nvim-cmp",
-    -- "nvim-navic",
-    -- "nvim-tree",
-    "nvim-web-devicons",
-    -- "sneak",
-    "telescope",
-    -- "trouble",
-    "which-key",
+    -- 'dap',
+    -- 'dashboard',
+    'gitsigns',
+    -- 'hop',
+    -- 'indent-blankline',
+    -- 'lspsaga',
+    -- 'mini',
+    -- 'neogit',
+    -- 'neorg',
+    'nvim-cmp',
+    -- 'nvim-navic',
+    -- 'nvim-tree',
+    'nvim-web-devicons',
+    -- 'sneak',
+    'telescope',
+    -- 'trouble',
+    'which-key',
     },
     disable = {
       colored_cursor = true, -- Disable the colored cursor
@@ -55,7 +55,7 @@ function M.config()
       darker = false -- Enable higher contrast text for darker style
     },
 
-    lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+    lualine_style = 'default', -- Lualine style ( can be 'stealth' or 'default' )
 
     async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
 
@@ -65,12 +65,12 @@ function M.config()
   })
 
   -- There are 5 different styles available:
-  -- "darker", "lighter", "oceanic", "palenight", "deep ocean"
-  vim.g.material_style = "darker"
+  -- 'darker', 'lighter', 'oceanic', 'palenight', 'deep ocean'
+  vim.g.material_style = 'darker'
   vim.cmd 'colorscheme material'
 
   -- command toggle style selection ui
-  -- :lua require("material.functions").find_style() 
+  -- :lua require('material.functions').find_style() 
 end
 
 return M

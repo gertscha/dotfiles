@@ -1,37 +1,37 @@
 -- a much simpler plugin:
 -- return {
---   "eoh-bse/minintro.nvim",
+--   'eoh-bse/minintro.nvim',
 --   lazy = false,
 --   priority = 1000,
 --   config = function()
---     require("minintro").setup({ color = "#98c379" })
+--     require('minintro').setup({ color = '#98c379' })
 --   end,
 -- }
 
 -- start screen
 local M = {
   'goolord/alpha-nvim',
-  event = "VimEnter",
+  event = 'VimEnter',
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'nvim-lua/plenary.nvim',
   },
   config = function()
 
-    local path = require("plenary.path")
-    local dashboard = require("alpha.themes.dashboard")
-    local nvim_web_devicons = require("nvim-web-devicons")
+    local path = require('plenary.path')
+    local dashboard = require('alpha.themes.dashboard')
+    local nvim_web_devicons = require('nvim-web-devicons')
     local cdir = vim.fn.getcwd()
 
     local function getGreeting(name)
-      local tableTime = os.date("*t")
+      local tableTime = os.date('*t')
       local hour = tableTime.hour
       local greetingsTable = {
-        [1] = "  Sleep well",
-        [2] = "  Good morning",
-        [3] = "  Good afternoon",
-        [4] = "  Good evening",
-        [5] = "  Good night",
+        [1] = '  Sleep well',
+        [2] = '  Good morning',
+        [3] = '  Good afternoon',
+        [4] = '  Good evening',
+        [5] = '  Good night',
       }
       local greetingIndex = 0
       if hour == 23 or hour < 7 then
@@ -45,24 +45,24 @@ local M = {
       elseif hour >= 21 then
         greetingIndex = 5
       end
-      return greetingsTable[greetingIndex] .. ", " .. name
+      return greetingsTable[greetingIndex] .. ', ' .. name
     end
 
-    local userName = "Alexander"
+    local userName = 'Alexander'
     local greeting = getGreeting(userName)
 
     local greetHeading = {
-      type = "text",
+      type = 'text',
       val = greeting,
       opts = {
-        position = "center",
-        hl = "String",
+        position = 'center',
+        hl = 'String',
       },
     }
 
     local function get_extension(fn)
-      local match = fn:match("^.+(%..+)$")
-      local ext = ""
+      local match = fn:match('^.+(%..+)$')
+      local ext = ''
       if match ~= nil then
         ext = match:sub(2)
       end
@@ -70,7 +70,7 @@ local M = {
     end
 
     local function icon(fn)
-      local nwd = require("nvim-web-devicons")
+      local nwd = require('nvim-web-devicons')
       local ext = get_extension(fn)
       return nwd.get_icon(fn, ext, { default = true })
     end
@@ -82,30 +82,30 @@ local M = {
 
       local ico, hl = icon(fn)
       local hl_option_type = type(nvim_web_devicons.highlight)
-      if hl_option_type == "boolean" then
+      if hl_option_type == 'boolean' then
         if hl and nvim_web_devicons.highlight then
           table.insert(fb_hl, { hl, 0, 1 })
         end
       end
-      if hl_option_type == "string" then
+      if hl_option_type == 'string' then
         table.insert(fb_hl, { nvim_web_devicons.highlight, 0, 1 })
       end
-      ico_txt = ico .. "  "
+      ico_txt = ico .. '  '
 
-      local file_button_el = dashboard.button(sc, ico_txt .. short_fn, "<cmd>e " .. fn .. " <CR>")
-      local fn_start = short_fn:match(".*/")
+      local file_button_el = dashboard.button(sc, ico_txt .. short_fn, '<cmd>e ' .. fn .. ' <CR>')
+      local fn_start = short_fn:match('.*/')
       if fn_start ~= nil then
-        table.insert(fb_hl, { "Comment", #ico_txt - 2, #fn_start + #ico_txt - 2 })
+        table.insert(fb_hl, { 'Comment', #ico_txt - 2, #fn_start + #ico_txt - 2 })
       end
       file_button_el.opts.hl = fb_hl
       return file_button_el
     end
 
-    local default_mru_ignore = { "gitcommit" }
+    local default_mru_ignore = { 'gitcommit' }
 
     local mru_opts = {
       ignore = function(path, ext)
-        return (string.find(path, "COMMIT_EDITMSG")) or (vim.tbl_contains(default_mru_ignore, ext))
+        return (string.find(path, 'COMMIT_EDITMSG')) or (vim.tbl_contains(default_mru_ignore, ext))
       end,
     }
 
@@ -133,16 +133,16 @@ local M = {
         end
       end
 
-      local special_shortcuts = { "a", "s", "d" }
+      local special_shortcuts = { 'a', 's', 'd' }
       local target_width = 35
 
       local tbl = {}
       for i, fn in ipairs(oldfiles) do
         local short_fn
         if cwd then
-          short_fn = vim.fn.fnamemodify(fn, ":.")
+          short_fn = vim.fn.fnamemodify(fn, ':.')
         else
-          short_fn = vim.fn.fnamemodify(fn, ":~")
+          short_fn = vim.fn.fnamemodify(fn, ':~')
         end
 
         if #short_fn > target_width then
@@ -152,18 +152,18 @@ local M = {
           end
         end
 
-        local shortcut = ""
+        local shortcut = ''
         if i <= #special_shortcuts then
           shortcut = special_shortcuts[i]
         else
           shortcut = tostring(i + start - 1 - #special_shortcuts)
         end
 
-        local file_button_el = file_button(fn, " " .. shortcut, short_fn)
+        local file_button_el = file_button(fn, ' ' .. shortcut, short_fn)
         tbl[i] = file_button_el
       end
       return {
-        type = "group",
+        type = 'group',
         val = tbl,
         opts = {},
       }
@@ -200,12 +200,12 @@ local M = {
     -- },
 
     -- Get the current theme's background color
-    local theme_bg = vim.api.nvim_get_hl_by_name("Normal", true).background
+    local theme_bg = vim.api.nvim_get_hl_by_name('Normal', true).background
     -- Define the custom highlighting group dynamically
-    vim.api.nvim_command(string.format("highlight CustomHeaderColor guifg=#98c379 guibg=%s", theme_bg))
+    vim.api.nvim_command(string.format('highlight CustomHeaderColor guifg=#98c379 guibg=%s', theme_bg))
 
     local header = {
-      type = "text",
+      type = 'text',
       -- this is: Slant Relief
       val = {
         [[_____________________________________________________        ]],
@@ -219,26 +219,26 @@ local M = {
         [[        _____________________________________________________]],
       },
       opts = {
-        position = "center",
-        hl = "CustomHeaderColor"
+        position = 'center',
+        hl = 'CustomHeaderColor'
       },
     }
 
     local section_mru = {
-      type = "group",
+      type = 'group',
       val = {
         {
-          type = "text",
-          val = "Recent files",
+          type = 'text',
+          val = 'Recent files',
           opts = {
-            hl = "SpecialComment",
+            hl = 'SpecialComment',
             shrink_margin = false,
-            position = "center",
+            position = 'center',
           },
         },
-        { type = "padding", val = 1 },
+        { type = 'padding', val = 1 },
         {
-          type = "group",
+          type = 'group',
           val = function()
             return { mru(1, cdir, 4) }
           end,
@@ -248,40 +248,40 @@ local M = {
     }
 
     local buttons = {
-      type = "group",
+      type = 'group',
       val = {
-        { type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
-        { type = "padding", val = 1 },
-        dashboard.button("f", "  Find file", "<cmd>Telescope find_files<CR>"),
-        dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button("c", "  Configuration", "<cmd>cd $MYVIMRC<CR>"),
-        dashboard.button("u", "  Update plugins", ":Lazy<CR>"),
-        dashboard.button("q", "󰗼  Quit", ":qa<CR>"),
+        { type = 'text', val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
+        { type = 'padding', val = 1 },
+        dashboard.button('f', '  Find file', '<cmd>Telescope find_files<CR>'),
+        dashboard.button('n', '  New file', ':ene <BAR> startinsert <CR>'),
+        dashboard.button('c', '  Configuration', '<cmd>cd $MYVIMRC<CR>'),
+        dashboard.button('u', '  Update plugins', ':Lazy<CR>'),
+        dashboard.button('q', '󰗼  Quit', ':qa<CR>'),
       },
-      position = "center",
+      position = 'center',
     }
 
     -- Foot must be a table so that its height is correctly measured
-    local stats = require("lazy").stats()
+    local stats = require('lazy').stats()
     local footer = {
-      type = "text",
-      val = { "⚡ Neovim loaded " .. stats.count .. " plugins " },
+      type = 'text',
+      val = { '⚡ Neovim loaded ' .. stats.count .. ' plugins ' },
       opts = {
-        position = "center",
-        hl = "Comment",
+        position = 'center',
+        hl = 'Comment',
       },
     }
 
     local opts = {
       layout = {
-        { type = "padding", val = 2 },
+        { type = 'padding', val = 2 },
         header,
-        { type = "padding", val = 3 },
+        { type = 'padding', val = 3 },
         greetHeading,
         footer,
-        { type = "padding", val = 2 },
+        { type = 'padding', val = 2 },
         section_mru,
-        { type = "padding", val = 2 },
+        { type = 'padding', val = 2 },
         buttons,
       },
       opts = {
@@ -289,7 +289,7 @@ local M = {
       },
     }
 
-    require("alpha").setup(opts)
+    require('alpha').setup(opts)
   end,
 }
 

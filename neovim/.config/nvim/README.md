@@ -29,14 +29,14 @@ space => <leader>
 QQ                      Close current buffer
 WW                      Save current buffer
 <leader>p               Paste most recent yank
-<leader>r               Redo last undo
+<leader>r               Redo
 <leader>ca              Select entire buffer, going into visual mode
 <C-d>                   Jump half page down (keep always keep cursor centered)
+<C-u>                   Jump half page up (keep always keep cursor centered)
 n                       Go to next search match (keeps the cursor centered)
 N                       Go to previous search match (keeps the cursor centered)
 J                       Append next line to current line (cursor doesn't move)
 gJ                      Append next line to current line without space (cursor in place)
-
 // Visual Mode
 >                       Increase indentation (remains in this mode i.e. repeatable)
 <                       Reduce indentation (remains in this mode i.e. repeatable)
@@ -51,8 +51,13 @@ gJ                      Append next line to current line without space (cursor i
   // Undotree
   <leader>u             Open Undotree, use ? to toggle the help view
   q                     Exit
-  // ToggleTerm (Terminal) // disabled 
-  <C-t>                 Toggle floating terminal //can only be modified in insert mode
+  // ToggleTerm (Terminal)
+  <leader>ot            Toggle terminal overlay
+  // Textwidth settings
+  <leader>th            Toggle colorcolumns on and off
+  <leader>tw0           Set textwidth to zero (disable)
+  <leader>tw1           Set textwidth to 80
+  <leader>tw2           Set textwidth to 120
 
 // Insert Mode
   // Autopairs // disabled
@@ -77,13 +82,15 @@ Use `:Mason` to manage the language servers
 // Normal Mode
 gd                      Go to definition
 gD                      Go to declaration
+gT                      Get type definition
+gr                      Get references
 K                       Lookup symbol (overrides the 'keywordprg' lookup with lsp lookup)
-<leader>df              Open diagnostic float (on lines with a diagnostic marker)
-<leader>dds             Search diagnostics list (requries Telescope)
-<leader>dda             View code actions
-<leader>ddw             View all symbols in the current workspace in the quickfix window
-<leader>ddr             View references in quickfix window
 <leader>dr              Rename all references to the symbol under the cursor
+<leader>da              Use a code action
+<leader>df              Open diagnostic float (on lines with a diagnostic marker)
+<leader>dw              Query workspace symbols
+<leader>ds              Search lsp diagnostics (using Telescope)
+<leader>di              View implementation (using Telescope)
 ```
 
 ## Fugitive (Git)
@@ -130,15 +137,12 @@ r<Space>                Populate command line with ":Git rebase "
 <C-l>                   Go to next file in swap list
 ```
 
-## CMP
+## Completion - cmp
 ```
-<Tab>                   Super Tab, use to step through the options
-<CR> or <C-i>           Accept the suggestion
-<Shift-Tab>             Step backwards through options
+<C-y>                   Accept the suggestion
 <C-n>                   Select next item in the list
 <C-p>                   Select previous item the list
 <C-e>                   Close the suggestions float
-<C-s>                   Complete the suggestions
 ```
 
 ## Move
@@ -156,30 +160,6 @@ r<Space>                Populate command line with ":Git rebase "
 <A-l>                   Move selection to the right
 ```
 
-## Comments
-```
-// Normal Mode
-`gcc`                   Toggle current line
-`gbc`                   Toggle current line in blockwise comment style
-`gc[count]{motion}`     (Op-pending) Toggles the region using linewise comment
-`gb[count]{motion}`     (Op-pending) Toggles the region using blockwise comment
-
-// Visual Mode
-`gc`                    Toggles the region using linewise comment
-`gb`                    Toggles the region using blockwise comment
-```
-This means all the default commands work in normal mode, i.e.
-```
-gco                     Insert comment to the next line and enters INSERT mode
-gcO                     Insert comment to the previous line and enters INSERT mode
-gcA                     Insert comment to end of the current line and enters INSERT mode
-gc$                     Toggle from the current cursor position to the end of line
-gc}                     Toggle until the next blank line
-gc8k                    Toggle 8 lines before the current cursor position
-gcip                    Toggle inside of paragraph
-gca}                    Toggle around curly brackets
-```
-
 
 ## Default Keybinds
 Selection of default vim keybinds
@@ -194,6 +174,8 @@ Selection of default vim keybinds
     R                   Replace characters until ESC is pressed
     ==                  Align indent of current line
     =ap                 Align indent of current paragraph (ap => a paragraph)
+    gcc                 Toggle comment for current line
+    gc[motion]          Toggles comment the region covered by the motion
     <C-a>               Increment first number on or to the right of cursor
     <C-x>               Decrement first number on or to the right of cursor
     c                   Delete based on motion and enter insert mode (ciw to change word)
@@ -205,6 +187,7 @@ Selection of default vim keybinds
     gu                  Make lower case based on motion (guu does whole line)
     .                   Repeat last command
     &                   Repeat last substitute (&& also keeps flags as well)
+    gww                 Format line to fit textwidth (or 80 if no textwidth set)
   // Cursor Movement
     $                   Goto end of current line
     0                   Goto beginning of current line
@@ -272,6 +255,7 @@ Selection of default vim keybinds
     <C-d>               De-indent line
     <C-o>               Issue one normal mode command
 // Visual Mode
+  gc                    Toggle comment of the region
   o                     Goto other end of marked area
   s                     Delete selection and go into insert mode
   [a,i]b                Mark block ()

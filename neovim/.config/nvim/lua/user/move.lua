@@ -1,8 +1,8 @@
 -- move lines and words
 local M = {
-  "fedepujol/move.nvim",
-  event = { "BufRead", "BufNewFile" },
-  dependencies = { "folke/which-key.nvim", },
+  'fedepujol/move.nvim',
+  event = { 'BufRead', 'BufNewFile' },
+  dependencies = { 'folke/which-key.nvim', },
 }
 
 function M.config()
@@ -35,35 +35,35 @@ function M.config()
     end
     vim.keymap.set(mode, keys, func, { desc = desc, noremap = true, silent = true })
   end
-  remap('n', '<A-j>', '<cmd>MoveLine(1)<CR>', "line down")
-  remap('n', '<A-k>', '<cmd>MoveLine(-1)<CR>', "line up")
-  remap('n', '<leader>wf', '<cmd>MoveWord(1)<CR>', "[W]ord [F]orward")
-  remap('n', '<leader>wb', '<cmd>MoveWord(-1)<CR>', "[W]ord [B]ackward")
+  remap('n', '<A-j>', '<cmd>MoveLine(1)<CR>', 'line down')
+  remap('n', '<A-k>', '<cmd>MoveLine(-1)<CR>', 'line up')
+  remap('n', '<leader>wf', '<cmd>MoveWord(1)<CR>', '[W]ord [F]orward')
+  remap('n', '<leader>wb', '<cmd>MoveWord(-1)<CR>', '[W]ord [B]ackward')
 
   -- using <cmd> instead of ':' does not work, visual block mode is unsual
-  remap('v', '<A-j>', ':MoveBlock(1)<CR>', "lines down")
-  remap('v', '<A-k>', ':MoveBlock(-1)<CR>', "lines up")
-  remap('v', '<A-h>', ':MoveHBlock(-1)<CR>', "block left")
-  remap('v', '<A-l>', ':MoveHBlock(1)<CR>', "block right")
+  remap('v', '<A-j>', ':MoveBlock(1)<CR>', 'lines down')
+  remap('v', '<A-k>', ':MoveBlock(-1)<CR>', 'lines up')
+  remap('v', '<A-h>', ':MoveHBlock(-1)<CR>', 'block left')
+  remap('v', '<A-l>', ':MoveHBlock(1)<CR>', 'block right')
 
-  -- local wk = require("which-key")
+  -- local wk = require('which-key')
   -- wk.register({
-  --   ["<A-j>"] = { "<cmd>MoveLine(1)<CR>", "line down" },
-  --   ["<A-k>"] = { "<cmd>MoveLine(-1)<CR>", "line up" },
-  --   ["<leader>"] = {
+  --   ['<A-j>'] = { '<cmd>MoveLine(1)<CR>', 'line down' },
+  --   ['<A-k>'] = { '<cmd>MoveLine(-1)<CR>', 'line up' },
+  --   ['<leader>'] = {
   --     w = {
-  --       f = { "<cmd>MoveWord(1)<CR>", "[W]ord [F]orward" },
-  --       b = { "<cmd>MoveWord(-1)<CR>", "[W]ord [B]ackward" },
+  --       f = { '<cmd>MoveWord(1)<CR>', '[W]ord [F]orward' },
+  --       b = { '<cmd>MoveWord(-1)<CR>', '[W]ord [B]ackward' },
   --     },
   --   },
-  -- }, { prefix = "Move:" })
+  -- }, { prefix = 'Move:' })
   -- wk.register({
   --   -- using <cmd> instead of ':' does not work, visual block mode is unsual
-  --   ["<A-j>"] = { ":MoveBlock(1)<CR>", "lines down" },
-  --   ["<A-k>"] = { ":MoveBlock(-1)<CR>", "lines up" },
-  --   ["<A-h>"] = { ":MoveHBlock(-1)<CR>", "block left" },
-  --   ["<A-l>"] = { ":MoveHBlock(1)<CR>", "block right"},
-  -- }, { prefix = "Move:", mode = "v" })
+  --   ['<A-j>'] = { ':MoveBlock(1)<CR>', 'lines down' },
+  --   ['<A-k>'] = { ':MoveBlock(-1)<CR>', 'lines up' },
+  --   ['<A-h>'] = { ':MoveHBlock(-1)<CR>', 'block left' },
+  --   ['<A-l>'] = { ':MoveHBlock(1)<CR>', 'block right'},
+  -- }, { prefix = 'Move:', mode = 'v' })
 end
 
 

@@ -1,6 +1,6 @@
 -- helper function
 local function window()
-  return " " .. vim.api.nvim_win_get_number(0)
+  return ' ' .. vim.api.nvim_win_get_number(0)
 end
 
 -- taken from the lualine.nvim wiki
@@ -24,7 +24,7 @@ end
 -- status line at the bottom of the buffers
 local M = {
   'nvim-lualine/lualine.nvim',
-  event = { "BufRead", "BufNewFile" },
+  event = { 'BufRead', 'BufNewFile' },
   -- lazy passes a table argument to the config function of the plugin
   opts = {
     options = {
@@ -48,23 +48,23 @@ local M = {
     sections = {
       lualine_a = { {'mode', padding = 1, } },
       lualine_b = {
-                    {'branch', fmt=trunc(0, 0, 100, true)},
-                    {'diff', fmt=trunc(0, 0, 100, true)},
-                    {'diagnostics', fmt=trunc(0, 0, 100, true)},
-                    {'selectioncount', fmt=trunc(0, 0, 100, true)},
-                    { window, fmt=trunc(0, 0, 60, true) },
+                    {'branch', fmt=trunc(0, 0, 90, true)},
+                    -- {'diff', fmt=trunc(0, 0, 100, true)},
+                    {'diagnostics' },
+                    {'selectioncount', fmt=trunc(0, 0, 120, true)},
+                    -- { window, fmt=trunc(0, 0, 60, true) },
                   },
       lualine_c = {
-                    {'filename', file_status = false, path = 1, unnamed = '[Unnamed]', shorting_target = 80 },
+                    {'filename', file_status = false, path = 3, unnamed = '[Unnamed]', shorting_target = 60 },
                   },
       lualine_x = {
-                    {'datetime', style = '%H:%M', fmt=trunc(0, 0, 80, true)},
-                    {'datetime', style = '%a, %d/%m/%Y', fmt=trunc(0, 0, 140, true)},
-                    {'fileformat', fmt=trunc(0, 0, 120, true)},
-                    {'encoding', fmt=trunc(0, 0, 110, true)},
+                    {'datetime', style = '%H:%M', },--fmt=trunc(0, 0, 80, true)},
+                    -- {'datetime', style = '%a, %d/%m/%Y', fmt=trunc(0, 0, 140, true)},
+                    -- {'fileformat', fmt=trunc(0, 0, 120, true)},
+                    -- {'encoding', fmt=trunc(0, 0, 110, true)},
                   },
       lualine_y = {
-                    {'filetype', fmt=trunc(0, 0, 90, true)},
+                    {'filetype', },--fmt=trunc(0, 0, 90, true)},
                     {'progress'},
                   },
       lualine_z = {'location'}
