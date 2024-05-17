@@ -32,7 +32,7 @@ add_plugin 'user.gitsigns' -- git line markings
 add_plugin 'user.lspconfig' -- lsp setup and config
 add_plugin 'user.autopairs' -- create closing braces/quotes/etc
 add_plugin 'user.toggleterm' -- floating terminal
--- add_plugin' user.dap' -- debugging -- no config file yet
+add_plugin 'user.dap' -- debugging
 -- add_plugin 'user.schemastore' -- no config file yet
 -- add_plugin' user.ufo' -- no config file yet
 -- add_plugin' user.neotab' -- no config file yet

@@ -7,12 +7,12 @@ local M = {
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     { 'j-hui/fidget.nvim', opts = {} },
-    'folke/which-key.nvim',
     'nvim-telescope/telescope.nvim',
     'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
     -- 'simrat39/rust-tools.nvim',
     -- Autoformatting
     -- 'stevearc/conform.nvim',
+    'folke/which-key.nvim',
   },
 }
 
@@ -88,8 +88,36 @@ function M.config()
     }
   })
   local ensure_installed = {
+    -- LSP's
     'stylua',
     'lua_ls',
+    -- 'asm-lsp',
+    -- 'cmake-language-server',
+    -- 'golangci-lint-langserver',
+    -- 'html-lsp',
+    -- 'htmx-lsp',
+    -- 'java-language-server',
+    -- 'jq-lsp',
+    -- 'json-lsp',
+    -- 'markdown-oxide',
+    -- 'marksman',
+    -- 'ocaml-lsp',
+    -- 'pyright',
+    -- 'python-lsp-server',
+    -- 'zls',
+
+    -- DAP's
+    'cpptools',
+    -- 'codelldb',
+    -- 'go-debug-adapter',
+    -- 'debugpy',
+    -- 'java-debug-adapter,
+    -- 'java-language-server,
+    -- 'ocamlearlybird,
+
+    -- Formatters
+
+    -- Linters
   }
 
   vim.list_extend(ensure_installed, servers_to_install)

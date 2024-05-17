@@ -11,7 +11,7 @@
 -- start screen
 local M = {
   'goolord/alpha-nvim',
-  event = 'VimEnter',
+  lazy = false,
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'nvim-lua/plenary.nvim',
