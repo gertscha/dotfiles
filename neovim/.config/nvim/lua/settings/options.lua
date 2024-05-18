@@ -8,13 +8,14 @@ opt.backup = false
 opt.writebackup = true
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.autowrite = false -- Enable auto write if the buffer changes
-opt.hidden = true -- Allow buffers to exist in the background, needed for Toggleterm
+opt.hidden = true -- Allow buffers to exist in the background, otherwise
+-- you need to save before switching buffers, also needed for Toggleterm
 
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.mouse = "a" -- Enable mouse mode
---opt.spelllang = { "en" }
+-- opt.spelllang = { "en" }
 -- opt.fileencoding = "utf-8" -- is the default value
--- opt.termguicolors = true -- True color support
+opt.termguicolors = true -- True color support
 
 vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
 opt.conceallevel = 0 -- show all markup in markdown files

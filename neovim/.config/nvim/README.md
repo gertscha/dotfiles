@@ -54,7 +54,8 @@ gJ                      Append next line to current line without space (cursor i
   // ToggleTerm (Terminal)
   <leader>ot            Toggle terminal overlay
   // Textwidth settings
-  <leader>th            Toggle colorcolumns on and off
+  <leader>th            Toggle colorcolumn highlight on and off
+  <leader>twl           Toggle text wrapping
   <leader>tw0           Set textwidth to zero (disable)
   <leader>tw1           Set textwidth to 80
   <leader>tw2           Set textwidth to 120
@@ -74,6 +75,7 @@ gJ                      Append next line to current line without space (cursor i
 <leader>sw              Search Word under cursor (ripgrep)
 <leader>sg              Search with Grep
 ```
+Once a Telescope window is open `<Esc>` will always close it.
 
 ## LSP
 Use `:LspInfo` to get a status on the language server\

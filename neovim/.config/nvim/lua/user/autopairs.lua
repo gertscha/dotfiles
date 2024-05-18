@@ -6,7 +6,7 @@ local M = {
 
 -- has many more advanced features
 -- most notably: fast_wrap
--- function M.setup()
+-- function M.config()
 --   local opts = {
 --     check_ts = false,
 --     disable_in_macro = true,

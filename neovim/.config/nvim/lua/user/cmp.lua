@@ -17,7 +17,7 @@ local M = {
   },
 }
 
-function M.setup()
+function M.config()
   require 'user.configuration.completion_settings'
 end
 

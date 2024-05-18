@@ -46,7 +46,9 @@ keymap('v', '<', '<gv', opts('Indent to the left'))
 keymap('v', '>', '>gv', opts('Indent to the right'))
 
 -- toggle line length indicator, cc ~= colorcolumn
-keymap('n', '<leader>th', "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>", opts('Toggle line lenght limit'))
+keymap('n', '<leader>th', "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>", opts('Toggle line lenght limit highlighting'))
+-- toggle line wrap
+keymap('n', '<leader>twl', "<cmd>set wrap!<enter>", opts('Toggle line wrap'))
 -- toggle textwidth
 keymap('n', '<leader>tw0', "<cmd>set textwidth=0<enter>", opts('Disable line lenght limit'))
 keymap('n', '<leader>tw1', "<cmd>set textwidth=80<enter>", opts('Set line lenght limit to 80'))
