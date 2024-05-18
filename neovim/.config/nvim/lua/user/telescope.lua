@@ -54,6 +54,9 @@ local M = {
             ['k'] = actions.move_selection_previous,
             ['q'] = actions.close,
           },
+          i = {
+            ['<esc>'] = actions.close,
+          }
         },
       },
       pickers = {

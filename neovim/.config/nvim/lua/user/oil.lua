@@ -1,6 +1,7 @@
 local M = {
   'stevearc/oil.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  tag = 'stable',
   cmd = 'Oil',
   keys = { '-', desc='Open Oil FS' },
 }
@@ -17,8 +18,8 @@ function M.config()
     delete_to_trash = false,
     show_hidden = false,
     float = {
-      max_height = 30,
-      max_width = 60,
+      padding = 5,
+      max_width = 80,
     },
     use_default_keymaps = false,
     keymaps = {
@@ -29,6 +30,7 @@ function M.config()
       -- ['<C-t>'] = 'actions.select_tab',
       -- ['<C-p>'] = 'actions.preview', -- does not work for float
       ['<C-c>'] = 'actions.close',
+      ['q'] = 'actions.close',
       ['<C-l>'] = 'actions.refresh',
       ['-'] = 'actions.parent',
       ['_'] = 'actions.open_cwd',
