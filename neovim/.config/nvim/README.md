@@ -74,6 +74,9 @@ gJ                      Append next line to current line without space (cursor i
 <leader>sh              Search Help
 <leader>sw              Search Word under cursor (ripgrep)
 <leader>sg              Search with Grep
+
+// In a Telescope Search Buffer
+<C-q>                   Add results to a quickfix list
 ```
 Once a Telescope window is open `<Esc>` will always close it.
 

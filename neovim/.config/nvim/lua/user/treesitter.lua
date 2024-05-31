@@ -1,9 +1,7 @@
 -- better syntactic highlighting
 local M = {
   'nvim-treesitter/nvim-treesitter',
-  build = function()
-    pcall(require('nvim-treesitter.install').update { with_sync = true })
-  end,
+  build = ":TSUpdate",
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
     'nvim-treesitter/nvim-treesitter-context',
@@ -15,35 +13,34 @@ local M = {
 
 function M.config()
   require('nvim-treesitter.configs').setup {
+    TSConfig = {},
     modules = {},
     -- A list of parser names, or 'all' (the listed parsers should always be installed)
     ensure_installed = { 'markdown', 'latex', 'bash', 'rust', 'c', 'lua', 'vim', 'vimdoc' },
     ignore_install = { 'phpdoc' }, -- List of parsers to ignore installing
-
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
-
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
     highlight = {
       enable = true,
       additional_vim_regex_highlighting = false,
     },
-    autopairs = { enable = true, },
+    -- Automatically install missing parsers when entering buffer
+    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+    auto_install = true,
+    -- autopairs = { enable = true, },
     indent = {
       enable = true,
-      --disable = { 'python', 'css' }
+      disable = { 'python', 'css' }
     },
-    -- incremental_selection = {
-      --   enable = true,
-      --   keymaps = {
-      --     init_selection = 'gnn', -- set to `false` to disable one of the mappings
-      --     node_incremental = 'grn',
-      --     scope_incremental = 'grc',
-      --     node_decremental = 'grm',
-      --   },
+    incremental_selection = {
+      enable = false,
+      -- keymaps = {
+      --   init_selection = 'gnn', -- set to `false` to disable one of the mappings
+      --   node_incremental = 'grn',
+      --   scope_incremental = 'grc',
+      --   node_decremental = 'grm',
       -- },
+    },
   }
 
   require('treesitter-context').setup {

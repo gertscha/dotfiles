@@ -44,7 +44,7 @@ opt.formatoptions = "croqnjl" -- tcj
 opt.shiftround = true -- Round indent
 --opt.iskeyword:append("-") -- hyphenated words recognized by a single word 
 opt.wildmode = "longest:full,full" -- Command-line completion mode
-opt.wrap = false -- Disable line wrap
+opt.foldenable = false -- Disable folding at startup.
 
 opt.smartcase = true -- Don't ignore case with capitals
 opt.ignorecase = true -- Ignore case in patterns
@@ -83,4 +83,8 @@ opt.updatetime = 200 -- Save swap file and trigger CursorHold
 -- vim.g.netrw_banner = 0 -- use 'I' to show it again
 -- vim.g.netrw_sort_sequence = [[[\/]$,*]] -- Show directories first (sorting)
 -- vim.g.netrw_liststyle = 0 -- long list, cycle with 'i'
+
+
+-- prevent small latex files from being recognized as 'plaintex'
+vim.g.tex_flavor = "latex"
 
