@@ -4,7 +4,7 @@ return {
 
   -- html = true,
   -- cssls = true,
-  -- pyright = true,
+  pyright = true,
   -- golangci_lint_ls = true,
   -- codelldb = true, -- gives error
   -- cpptools = true, -- might need manual install
