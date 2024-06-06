@@ -161,7 +161,7 @@ function M.config()
         --  See `:help K` for why this keymap
         ['K'] = { vim.lsp.buf.hover, 'LSP: Lookup Symbol' },
         ['g'] = {
-          r = { vim.lsp.buf.references, 'LSP: [r]eferences' },
+          r = { require('telescope.builtin').lsp_references, 'LSP: [r]eferences' },
           T = { vim.lsp.buf.type_definition, 'LSP: [g]et [t]ype definition' },
           D = { vim.lsp.buf.declaration, 'LSP: [g]o to [D]eclaration' },
           -- Jump to the definition of the word under your cursor.
