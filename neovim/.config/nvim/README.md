@@ -37,6 +37,7 @@ n                       Go to next search match (keeps the cursor centered)
 N                       Go to previous search match (keeps the cursor centered)
 J                       Append next line to current line (cursor doesn't move)
 gJ                      Append next line to current line without space (cursor in place)
+x                       Cut (goes into register 9 instead of 1)
 // Visual Mode
 >                       Increase indentation (remains in this mode i.e. repeatable)
 <                       Reduce indentation (remains in this mode i.e. repeatable)

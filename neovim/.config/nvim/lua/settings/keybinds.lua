@@ -34,6 +34,8 @@ vim.g.maplocalleader = ' '
 
 -- select all bind
 keymap('n', '<leader>ca', 'ggVG<cr>', opts('Select all'))
+-- make cut not overwrite the paste buffer
+keymap('n', 'x', '"9x', opts('Cut'))
 
 -- redo alternate bind
 keymap('n', '<leader>r', '<C-r>', opts('Redo'))
