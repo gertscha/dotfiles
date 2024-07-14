@@ -30,7 +30,7 @@ QQ                      Close current buffer
 WW                      Save current buffer
 <leader>p               Paste most recent yank
 <leader>r               Redo
-<leader>ca              Select entire buffer, going into visual mode
+<leader>ya              Select entire buffer, going into visual mode
 <C-d>                   Jump half page down (keep always keep cursor centered)
 <C-u>                   Jump half page up (keep always keep cursor centered)
 n                       Go to next search match (keeps the cursor centered)
@@ -139,6 +139,7 @@ r<Space>                Populate command line with ":Git rebase "
 <leader>n               Go to file 1
 <leader>m               Go to file 2
 <leader>b               Go to file 3
+<leader>v               Go to file 4
 <C-k>                   Go to previous file in swap list
 <C-l>                   Go to next file in swap list
 ```
