@@ -48,7 +48,8 @@ keymap('v', '<', '<gv', opts('Indent to the left'))
 keymap('v', '>', '>gv', opts('Indent to the right'))
 
 -- toggle line length indicator, cc ~= colorcolumn
-keymap('n', '<leader>th', "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>", opts('Toggle line lenght limit highlighting'))
+keymap('n', '<leader>th', "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
+       opts('Toggle line lenght limit highlighting'))
 -- toggle line wrap
 keymap('n', '<leader>twl', "<cmd>set wrap!<enter>", opts('Toggle line wrap'))
 -- toggle textwidth
@@ -97,5 +98,6 @@ keymap('n', '<C-f>', '<nop>', {silent=true}) -- page down, use <C-d> instead
 keymap('n', '<F1>', '<nop>', {silent=true}) -- would open help, accidental when pressing ESC
 
 -- search and replace macro
---keymap('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts('Search and Replace Macro'))
+--keymap('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+         -- opts('Search and Replace Macro'))
 

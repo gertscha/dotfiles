@@ -30,7 +30,8 @@ opt.numberwidth = 4 -- set number column width {default 4}
 opt.winminwidth = 5 -- Minimum window width
 opt.list = false -- Show some invisible characters (tabs...
 -- opt.listchars = '' -- Do not show invisible characters
-opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.signcolumn = "yes" -- Always show the signcolumn, prevent text shfiting around
+opt.colorcolumn = "80" -- indicate the 80th column visually
 
 opt.inccommand = "split" -- preview incremental substitute
 
