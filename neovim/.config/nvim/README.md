@@ -5,15 +5,17 @@ Use `:h $XDG_CONFIG_HOME` to verify the location.
 On Windows this should be `C:\Users\USERNAME\AppData\Local\nvim`.
 On Linux this should be `~/.config/nvim.
 
-The config uses the [lazy.nvim](https://github.com/folke/lazy.nvim) plugin manager by folke.
-Setup should be automatic on first startup but a restart is usually required.
+The config uses the [lazy.nvim](https://github.com/folke/lazy.nvim) plugin
+manager by folke. Setup should be automatic on first startup but a restart is
+usually required.
 
 If there are languages missing from the system there are likely going to be errors.
 Either install the language or remove it from the table in init.lua.
 
-To display some of the icons a nerd-font needs to be available and setup for the terminal.
-Install one and set it up. On windows use Windows Terminal (get from Windows Store if on Windows 10)
-and set the font there. Alternatively the icons can be replaced by adjusting `lua/settings/icons.lua`.
+To display some of the icons a nerd-font needs to be available and setup for the
+terminal. Install one and set it up. On windows use Windows Terminal (get from
+Windows Store if on Windows 10) and set the font there. Alternatively the icons
+can be replaced by adjusting `lua/settings/icons.lua`.
 
 Use `:checkhealth` to see if other components are missing from the system.
 
@@ -22,7 +24,8 @@ This is a reference to the keybinds (sample of the default bindings at the end).
 "Which-Key" plugin is also installed.
 
 ## Adjusted & Custom Global Keybinds
-Adjusted keybinds have a alteration remark in braces i.e. key - effect (deviation from default)
+Adjusted keybinds have a alteration remark in braces i.e. key - effect (deviation
+from default)
 ```
 space => <leader>
 // Normal Mode
@@ -62,8 +65,7 @@ x                       Cut (goes into register 9 instead of 1)
   <leader>tw2           Set textwidth to 120
 
 // Insert Mode
-  // Autopairs // disabled
-  <A-e>                 Enter fast wrap, instert mode (select where closing bracket should go)
+  <Tab>                 Go forward in LSP/cmp popup menu
 ```
 
 ## Telescope
@@ -113,16 +115,16 @@ U                       Unstage everything
 X                       Discard the change under the cursor.  This uses `checkout` or `clean`
                         under the hood. A command is echoed that shows how to undo the change
 =                       Toggle an inline diff of the file under the cursor
-o                       Open the file or |fugitive-object| under the cursor in a new split
-gO                      Open the file or |fugitive-object| under the cursor in a new vertical split
+o                       Open the file or |fugitive-obj| under cursor in a new split
+gO                      Open the file or |fugitive-obj| under cursor in a new vertical split
 [[                      Jump [count] sections backward
 ]]                      Jump [count] sections forward
 cc                      Create a commit. use `:x` to finish it after setting a message
 ca                      Amend the last commit and edit the message
 ce                      Amend the last commit without editing the message
 crc                     Revert the commit under the cursor
-crn                     Revert the commit under the cursor in the index and work tree, but do not
-                        actually commit the changes
+crn                     Revert the commit under the cursor in the index and work tree,
+                        but do not actually commit the changes
 coo                     Check out the commit under the cursor
 c<Space>                Populate command line with ":Git commit "
 cb<Space>               Populate command line with ":Git branch "
