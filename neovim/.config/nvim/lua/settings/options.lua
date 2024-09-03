@@ -63,9 +63,9 @@ opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
 
 opt.expandtab = true -- Use spaces instead of tabs
-opt.shiftwidth = 2 -- Size of an indent
-opt.tabstop = 2 -- Number of spaces tabs count for
-opt.softtabstop = 2
+opt.tabstop = 8 -- Number of spaces tabs count for
+opt.shiftwidth = 4 -- Size of an indent
+opt.softtabstop = 4
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true

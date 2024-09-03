@@ -8,7 +8,7 @@ local M = {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     { 'j-hui/fidget.nvim', opts = {} },
     'nvim-telescope/telescope.nvim',
-    'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+    -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
     -- 'simrat39/rust-tools.nvim',
     -- Autoformatting
     -- 'stevearc/conform.nvim',
