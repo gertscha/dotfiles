@@ -73,7 +73,7 @@ x                       Cut (goes into register 9 instead of 1)
 // Normal Mode
 <leader>sf              Search Files
 <leader>sb              Search open Buffers
-<leader>sr              Search Git Repository
+<leader>sr              Search Files in Git Repository
 <leader>sh              Search Help
 <leader>sw              Search Word under cursor (ripgrep)
 <leader>sg              Search with Grep

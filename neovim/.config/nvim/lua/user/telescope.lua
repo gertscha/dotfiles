@@ -17,6 +17,7 @@ local function filenameFirst(_, path)
   return string.format('%s\t\t%s', tail,parent)
 end
 
+
 -- fuzzy finder
 local M = {
   'nvim-telescope/telescope.nvim',
@@ -91,6 +92,7 @@ function M.config()
     nowait = false, -- use `nowait` when creating keymaps
     expr = false, -- use `expr` when creating keymaps
   }
+
   require('which-key').register({
     ['<leader>'] = {
       s = {

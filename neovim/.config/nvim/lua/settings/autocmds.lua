@@ -22,3 +22,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+-- Set filetype for some extensions manually
+vim.filetype.add({
+  extension = {
+    vert = 'glsl',
+    frag = 'glsl',
+  },
+})
+
