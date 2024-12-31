@@ -23,7 +23,7 @@ function M.config()
   -- Define the custom highlighting group dynamically
   vim.api.nvim_command(string.format('highlight CustomHeaderColor guifg=#98c379'))
 
-  require('alpha').setup(require('user.configuration.alpha_settings').config)
+  require('alpha').setup(require('plugins.configuration.alpha_settings').config)
 
 end
 

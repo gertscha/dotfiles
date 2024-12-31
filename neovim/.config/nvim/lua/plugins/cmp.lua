@@ -18,7 +18,7 @@ local M = {
 }
 
 function M.config()
-  require 'user.configuration.completion_settings'
+  require 'plugins.configuration.completion_settings'
 end
 
 return M

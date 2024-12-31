@@ -70,7 +70,7 @@ function M.config()
 
   -- Add other tools here that you want Mason to install to
   -- the file lsp_server_config.lua
-  local servers = require('user.configuration.lsp_server_settings')
+  local servers = require('plugins.configuration.lsp_server_settings')
 
 
   local servers_to_install = vim.tbl_filter(function(key)

@@ -7,8 +7,10 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 
 -- visual feedback for line yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+  desc = 'Highlight when yanking text',
+  group = vim.api.nvim_create_augroup('settings-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank { higroup = "Visual", timeout = 40 }
+    vim.highlight.on_yank { higroup = "Visual", timeout = 100 }
   end,
 })
 

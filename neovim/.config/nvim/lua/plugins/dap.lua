@@ -17,7 +17,7 @@ function M.config()
 
   require('nvim-dap-virtual-text').setup({})
 
-  require('user.configuration.dap_adapter_settings')
+  require('plugins.configuration.dap_adapter_settings')
 
   local kopts = {
     mode = 'n', -- NORMAL mode

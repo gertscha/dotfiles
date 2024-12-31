@@ -63,7 +63,7 @@ opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
 
 opt.expandtab = true -- Use spaces instead of tabs
-opt.tabstop = 8 -- Number of spaces tabs count for
+opt.tabstop = 4 -- Number of spaces tabs count for
 opt.shiftwidth = 4 -- Size of an indent
 opt.softtabstop = 4
 
