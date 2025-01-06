@@ -1,6 +1,7 @@
 -- Code completion
 local M = {
   'hrsh7th/nvim-cmp',
+  enabled = false,
   lazy = false,
   priority = 100,
   dependencies = {
@@ -22,4 +23,3 @@ function M.config()
 end
 
 return M
-

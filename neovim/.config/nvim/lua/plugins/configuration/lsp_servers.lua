@@ -2,12 +2,7 @@
 -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 return {
 
-  -- html = true,
-  -- cssls = true,
   pyright = true,
-  -- golangci_lint_ls = true,
-  -- codelldb = true, -- gives error
-  -- cpptools = true, -- might need manual install
   zls = true,
   glsl_analyzer = true,
 
@@ -46,9 +41,6 @@ return {
         format = {
           enable = false,
         },
-        diagnostics = {
-          globals = { "vim", },
-        },
         runtime = {
           version = "LuaJIT",
           special = {
@@ -64,19 +56,53 @@ return {
           enable = false,
           arrayIndex = "Disable", -- "Enable" | "Auto" | "Disable"
           await = true,
-          paramName = "Disable", -- "All" | "Literal" | "Disable"
+          paramName = "Disable",  -- "All" | "Literal" | "Disable"
           paramType = true,
-          semicolon = "All", -- "All" | "SameLine" | "Disable"
+          semicolon = "All",      -- "All" | "SameLine" | "Disable"
           setType = false,
         },
         telemetry = {
           enable = false,
         },
-        -- completion = {
-        --   callSnippet = "Replace"
-        -- },
+        completion = {
+          callSnippet = "Both"
+        },
       },
     },
   },
 
+
+  -- html = true,
+  -- cssls = true,
+  -- golangci_lint_ls = true,
+  -- codelldb = true, -- gives error
+  -- cpptools = true, -- might need manual install
+  -- 'stylua',
+  -- 'asm-lsp',
+  -- 'cmake-language-server',
+  -- 'golangci-lint-langserver',
+  -- 'html-lsp',
+  -- 'htmx-lsp',
+  -- 'java-language-server',
+  -- 'jq-lsp',
+  -- 'json-lsp',
+  -- 'markdown-oxide',
+  -- 'marksman',
+  -- 'ocaml-lsp',
+  -- 'pyright',
+  -- 'python-lsp-server',
+  -- 'zls',
+
+  -- DAP's
+  -- 'cpptools',
+  -- 'codelldb',
+  -- 'go-debug-adapter',
+  -- 'debugpy',
+  -- 'java-debug-adapter,
+  -- 'java-language-server,
+  -- 'ocamlearlybird,
+
+  -- Formatters
+
+  -- Linters
 }

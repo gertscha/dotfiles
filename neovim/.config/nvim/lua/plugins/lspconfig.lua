@@ -1,87 +1,45 @@
 -- configure lsp servers
 local M = {
-  'neovim/nvim-lspconfig', -- enable LSP
+  'neovim/nvim-lspconfig', -- contains LSP server info
   dependencies = {
-    'folke/neodev.nvim',
+    -- setup relevant
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    { 'j-hui/fidget.nvim', opts = {} },
-    'nvim-telescope/telescope.nvim',
-    -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+    'folke/lazydev.nvim', -- make sure it is loaded first
+    -- other integrations
+    'saghen/blink.cmp',   -- completion
+    'j-hui/fidget.nvim',  -- status info
+    'folke/which-key.nvim',
     -- 'simrat39/rust-tools.nvim',
     -- Autoformatting
     -- 'stevearc/conform.nvim',
-    'folke/which-key.nvim',
   },
+  event = { 'BufRead', 'BufNewFile' },
 }
 
 function M.config()
-  -- diagnostic style options
-  local icons = require('settings.icons')
-  local default_diagnostic_config = {
-    signs = {
-      active = true,
-      values = {
-        { name = 'DiagnosticSignError', text = icons.diagnostics.Error },
-        { name = 'DiagnosticSignWarn', text = icons.diagnostics.Warning },
-        { name = 'DiagnosticSignHint', text = icons.diagnostics.Hint },
-        { name = 'DiagnosticSignInfo', text = icons.diagnostics.Information },
-      },
-    },
-    virtual_text = false,
-    update_in_insert = false,
+  -- base diagnostics settings
+  vim.diagnostic.config({
     underline = true,
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
     severity_sort = true,
-    float = {
-      focusable = true,
-      style = 'minimal',
-      border = 'rounded',
-      source = 'always',
-      header = '',
-      prefix = '',
-    },
-  }
-  vim.diagnostic.config(default_diagnostic_config)
-
-  -- setup the icons properly
-  for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config(), 'signs', 'values') or {}) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
-  end
-
-  require('neodev').setup {
-    -- library = {
-    --   plugins = { 'nvim-dap-ui' },
-    --   types = true,
-    -- },
-  }
-
-  require("mason-lspconfig").setup({
-    automatic_installation = true,
   })
-
-  local capabilities = nil
-  if pcall(require, 'cmp_nvim_lsp') then
-    capabilities = require('cmp_nvim_lsp').default_capabilities()
+  -- customize the gutter signs from character to icons
+  -- see: https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
+  local icons = require('settings.icons')
+  local signs = {
+    Error = icons.diagnostics.Error,
+    Warn = icons.diagnostics.Warning,
+    Hint = icons.diagnostics.Hint,
+    Info = icons.diagnostics.Information,
+  }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
-
-  local lspconfig = require 'lspconfig'
-
-
-  -- Add other tools here that you want Mason to install to
-  -- the file lsp_server_config.lua
-  local servers = require('plugins.configuration.lsp_server_settings')
-
-
-  local servers_to_install = vim.tbl_filter(function(key)
-    local t = servers[key]
-    if type(t) == 'table' then
-      return not t.manual_install
-    else
-      return t
-    end
-  end, vim.tbl_keys(servers))
-
+  -- mason setup (installs lsp servers) and ui customization
   require('mason').setup({
     ui = {
       icons = {
@@ -91,123 +49,116 @@ function M.config()
       }
     }
   })
-  local ensure_installed = {
-    -- LSP's
-    'stylua',
-    'lua_ls',
-    -- 'asm-lsp',
-    -- 'cmake-language-server',
-    -- 'golangci-lint-langserver',
-    -- 'html-lsp',
-    -- 'htmx-lsp',
-    -- 'java-language-server',
-    -- 'jq-lsp',
-    -- 'json-lsp',
-    -- 'markdown-oxide',
-    -- 'marksman',
-    -- 'ocaml-lsp',
-    -- 'pyright',
-    -- 'python-lsp-server',
-    -- 'zls',
+  -- mason-lspconfig automates the lsp server setup for mason insalled servers
+  require("mason-lspconfig").setup({
+    automatic_installation = false,
+    ensure_installed = { 'lua_ls' },
+  })
+  -- this does the server setup automatically
+  -- read the help: mason-lspconfig.setup_handlers()
+  local capabilities = require('blink.cmp').get_lsp_capabilities()
+  require("mason-lspconfig").setup_handlers {
+    -- The first entry (without a key) will be the default handler
+    -- and will be called for each installed server that doesn't have
+    -- a dedicated handler. We will always use this one, and check for dedicated
+    -- configuration inside of it
+    -- Dedicated servers are configured in 'configuration/lsp_servers.lua'
+    function(server_name)
+      -- want to run stuff like this:
+      -- require('lspconfig').lua_ls.setup {}
+      -- but also supply the settings given in lsp_servers.lua
+      -- we also add the completion capabilites from the blink plugin
+      local my_servers = require('plugins.configuration.lsp_servers')
 
-    -- DAP's
-    'cpptools',
-    -- 'codelldb',
-    -- 'go-debug-adapter',
-    -- 'debugpy',
-    -- 'java-debug-adapter,
-    -- 'java-language-server,
-    -- 'ocamlearlybird,
-
-    -- Formatters
-
-    -- Linters
+      -- check if we have a config for the server
+      if my_servers.server_name ~= nil then
+        -- load the config
+        local config = my_servers[server_name]
+        if config == true then -- the server is just set as true
+          config = {}
+        end
+        table.insert(config, 'capabilites', capabilities)
+        require('lspconfig')[server_name].setup(config)
+      else
+        -- have no config, just give the empty one
+        require("lspconfig")[server_name].setup({ capabilites = capabilities })
+      end
+    end,
   }
-
-  vim.list_extend(ensure_installed, servers_to_install)
-  require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-  for name, config in pairs(servers) do
-    if config == true then
-      config = {}
-    end
-    config = vim.tbl_deep_extend('force', {}, {
-      capabilities = capabilities,
-    }, config)
-
-    lspconfig[name].setup(config)
-  end
-
 
   --  This function gets run when an LSP attaches to a particular buffer.
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
-      local bufnr = args.buf
-      local client = assert(vim.lsp.get_client_by_id(args.data.client_id), 'must have valid client')
+      local wk = require('which-key')
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if not client then return end
 
-      vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-      local kopts = {
-        mode = 'n', -- NORMAL mode
-        prefix = '', -- the prefix is prepended to every mapping part of `mappings`
-        buffer = bufnr, -- nil for Global mappings. Give buffer number for buffer local mappings
-        silent = true, -- use `silent` when creating keymaps
-        noremap = true, -- use `noremap` when creating keymaps
-        nowait = false, -- use `nowait` when creating keymaps
-        expr = false, -- use `expr` when creating keymaps
-      }
-      require('which-key').register({
-        -- Opens a popup that displays documentation about the word under your cursor
-        --  See `:help K` for why this keymap
-        ['K'] = { vim.lsp.buf.hover, 'LSP: Lookup Symbol' },
-        ['g'] = {
-          r = { require('telescope.builtin').lsp_references, 'LSP: [r]eferences' },
-          T = { vim.lsp.buf.type_definition, 'LSP: [g]et [t]ype definition' },
-          D = { vim.lsp.buf.declaration, 'LSP: [g]o to [D]eclaration' },
-          -- Jump to the definition of the word under your cursor.
-          --  To jump back, press <C-T>.
-          d = { vim.lsp.buf.definition, 'LSP: [g]o to [d]efinition' },
-        },
-        ['<leader>'] = {
-          d = {
-            name = 'diagnostics',
-            r = { vim.lsp.buf.rename, 'LSP: [r]ename symbol under the cursor' },
-            -- Execute a code action, usually your cursor needs to be on top of an error
-            a = { vim.lsp.buf.code_action, 'LSP: code [a]ctions' },
-            f = { vim.diagnostic.open_float, 'LSP: View [d]iagnostic [f]loat' },
-            w = { vim.lsp.buf.workspace_symbol, 'LSP: Query [w]orkspace symbols' },
-            i = { require('telescope.builtin').lsp_implementations, 'LSP: [i]mplementation' },
-            s = { '<cmd>Telescope diagnostics<cr>', 'LSP: [d]iagnostics [s]earch' },
-          },
-        },
-      }, kopts)
-
-      -- -- Diagnostic keymaps
-      -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-      -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-      -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-
-
+      -- formatting based settings
+      if client.supports_method('textDocument/formatting', nil) then
+        -- Format current buffer on save
+        vim.api.nvim_create_autocmd('BufWritePre', {
+          buffer = args.buf,
+          callback = function()
+            vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+          end,
+        })
+      end
+      if client.supports_method('textDocument/implementation') then
+        wk.add({
+          buffer = args.buf,
+          { 'gI', vim.lsp.buf.implementation, desc = 'LSP: [g]o to [I]implementation' },
+        })
+      end
+      if client.supports_method('textDocument/rename') then
+        wk.add({
+          buffer = args.buf,
+          { '<leader>dr', vim.lsp.buf.rename, desc = 'LSP: [r]ename symbol under the cursor' },
+        })
+      end
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
-      -- When you move your cursor, the highlights will be cleared (the second autocommand).
-      local clienthl = vim.lsp.get_client_by_id(args.data.client_id)
-      if clienthl and clienthl.server_capabilities.documentHighlightProvider then
+      if client.supports_method('documentHighlightProvider', nil) then
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           buffer = args.buf,
           callback = vim.lsp.buf.document_highlight,
         })
-
+        -- When the cursor is moved, clear the highlights
         vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
           buffer = args.buf,
           callback = vim.lsp.buf.clear_references,
         })
       end
+      -- if client.supports_method('textDocument/completion', nil) then
+      -- vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+      -- end
+
+      wk.add({
+        mode = 'n',        -- NORMAL mode
+        buffer = args.buf, -- nil for Global mappings. Give buffer number for buffer local mappings
+        silent = true,     -- use `silent` when creating keymaps
+        noremap = true,    -- use `noremap` when creating keymaps
+        nowait = false,    -- use `nowait` when creating keymaps
+        -- Opens a popup that displays documentation about the word under your cursor
+        --  See `:help K` for why this keymap
+        { 'K',          vim.lsp.buf.hover,                                desc = 'LSP: Lookup Symbol' },
+        { 'gr',         require('telescope.builtin').lsp_references,      desc = 'LSP: [r]eferences' },
+        { 'gT',         vim.lsp.buf.type_definition,                      desc = 'LSP: [g]et [t]ype definition' },
+        { 'gD',         vim.lsp.buf.declaration,                          desc = 'LSP: [g]o to [D]eclaration' },
+        -- Jump to the definition of the word under your cursor.
+        --  To jump back, press <C-T>.
+        { 'gd',         vim.lsp.buf.definition,                           desc = 'LSP: [g]o to [d]efinition' },
+        { '<leader>d',  group = 'diagnostics' },
+        { '<leader>dr', vim.lsp.buf.rename,                               desc = 'LSP: [r]ename symbol under the cursor' },
+        -- Execute a code action, usually your cursor needs to be on top of an error
+        { '<leader>da', vim.lsp.buf.code_action,                          desc = 'LSP: code [a]ctions' },
+        { '<leader>df', vim.diagnostic.open_float,                        desc = 'LSP: View [d]iagnostic [f]loat' },
+        { '<leader>dw', vim.lsp.buf.workspace_symbol,                     desc = 'LSP: Query [w]orkspace symbols' },
+        { '<leader>di', require('telescope.builtin').lsp_implementations, desc = 'LSP: [i]mplementation' },
+        { '<leader>ds', '<cmd>Telescope diagnostics<cr>',                 desc = 'LSP: [d]iagnostics [s]earch' },
+      })
     end,
   })
-
 end
 
 return M
-
