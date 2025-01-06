@@ -11,23 +11,11 @@ return {
     -- set the focus to the undotree buffer
     vim.g.undotree_SetFocusWhenToggle = 1
 
-    -- this is the default
-    local kopts = {
-      mode = 'n', -- NORMAL mode
-      prefix = '', -- the prefix is prepended to every mapping part of `mappings`
-      buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-      silent = true, -- use `silent` when creating keymaps
+    require('which-key').add({
+      mode = 'n',     -- NORMAL mode
+      silent = true,  -- use `silent` when creating keymaps
       noremap = true, -- use `noremap` when creating keymaps
-      nowait = false, -- use `nowait` when creating keymaps
-      expr = false, -- use `expr` when creating keymaps
-    }
-
-    require('which-key').register({
-      ['<leader>'] = {
-        u =  { vim.cmd.UndotreeToggle, 'Open Undotree' },
-      }
-    }, kopts)
-
+      { '<leader>u', vim.cmd.UndotreeToggle, desc = 'Open Undotree' },
+    })
   end,
 }
-

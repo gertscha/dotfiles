@@ -1,13 +1,18 @@
 local M = {
   'folke/which-key.nvim',
   event = 'VeryLazy',
-  tag = 'v2.1.0',
-  -- make sure timeoutlen may interfere, check doc if not working
+  tag = 'stable',
   opts = {
     -- your configuration comes here
     -- or leave it empty to use the default settings
-  }
+  },
+  keys = {
+    {
+      "<leader>?",
+      function() require("which-key").show({ global = false }) end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+  },
 }
 
 return M
-

@@ -49,7 +49,7 @@ keymap('v', '>', '>gv', opts('Indent to the right'))
 
 -- toggle line length indicator, cc ~= colorcolumn
 keymap('n', '<leader>th', "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
-       opts('Toggle line lenght limit highlighting'))
+  opts('Toggle line lenght limit highlighting'))
 -- toggle line wrap
 keymap('n', '<leader>twl', "<cmd>set wrap!<enter>", opts('Toggle line wrap'))
 -- toggle textwidth
@@ -80,24 +80,28 @@ keymap('n', 'N', 'Nzzzv', opts('Go to previous search hit'))
 -- Easily hit escape in terminal mode.
 keymap('t', '<esc><esc>', '<c-\\><c-n>', opts('Escape the terminal'))
 
+-- navigate entries of the current quickfix list
+keymap('n', '<M-n>', '<cmd>cnext<cr>', opts('Quickfix list next'))
+keymap('n', '<M-p>', '<cmd>cprev<cr>', opts('Quickfix list previous'))
+-- close quickfix list
+keymap('n', '<M-q>', '<cmd>cclose<cr>', opts('Close Quickfix list'))
+
 -- -- Open a terminal at the bottom of the screen with a fixed height.
 -- keymap('n', '<leader>ot', function()
 --   vim.cmd.new()
---   vim.cmd.wincmd 'J'
---   vim.api.nvim_win_set_height(0, 12)
---   vim.wo.winfixheight = true
 --   vim.cmd.term()
+--   vim.cmd.wincmd('J')
+--   vim.api.nvim_win_set_height(0, 12)
 --   vim.cmd.startinsert()
 -- end)
 
 -- Keymap for better default experience
-keymap({'n', 'v', 'i'}, '<C-z>', '<nop>', {silent=true})
-keymap('n', 'Q', '<nop>', {silent=true})
-keymap('n', '<C-j>', '<nop>', {silent=true}) -- move line down, causes conflicts
-keymap('n', '<C-f>', '<nop>', {silent=true}) -- page down, use <C-d> instead
-keymap('n', '<F1>', '<nop>', {silent=true}) -- would open help, accidental when pressing ESC
+keymap({ 'n', 'v', 'i' }, '<C-z>', '<nop>', { silent = true })
+keymap('n', 'Q', '<nop>', { silent = true })
+keymap('n', '<C-j>', '<nop>', { silent = true }) -- move line down, causes conflicts
+keymap('n', '<C-f>', '<nop>', { silent = true }) -- page down, use <C-d> instead
+keymap('n', '<F1>', '<nop>', { silent = true })  -- would open help, accidental when pressing ESC
 
 -- search and replace macro
 --keymap('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-         -- opts('Search and Replace Macro'))
-
+-- opts('Search and Replace Macro'))

@@ -3,14 +3,14 @@ local M = {
   'akinsho/toggleterm.nvim',
   cmd = 'Toggleterm',
   keys = {
-    { '<leader>ot', '<cmd>Toggleterm open<cr>', desc = 'Toggle Terminal' },
+    { '<leader>ot', '<cmd>Toggleterm open<cr>', desc = 'Toggle/[O]pen [T]erminal' },
   },
   opts = {
     size = 15,
     open_mapping = [[<leader>ot]],
     hide_numbers = true,
     start_in_insert = true,
-    insert_mappings = false, -- if true, the mapping will also take effect in insert model.
+    insert_mappings = false,  -- if true, the mapping will also take effect in insert model.
     terminal_mappings = true, -- if true, the mappings take effect in the opened terminal.
     persist_size = true,
     direction = 'float',
@@ -28,4 +28,3 @@ local M = {
 }
 
 return M
-

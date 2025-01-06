@@ -1,22 +1,35 @@
 local M = {
   'stevearc/oil.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {
+    { "echasnovski/mini.icons", opts = {} }
+  },
   tag = 'stable',
   cmd = 'Oil',
-  keys = { '-', desc='Open Oil FS' },
+  keys = { '-', desc = 'Open Oil FS' },
 }
 
 function M.config()
   require('oil').setup {
-    default_file_explorer = false,
+    default_file_explorer = true,
     columns = {
       'icon',
       -- 'size',
       -- 'permissions',
       -- 'mtime',
     },
-    delete_to_trash = false,
-    show_hidden = false,
+    delete_to_trash = true,
+    view_options = {
+      show_hidden = false, -- can be toggled with 'g.' keybind
+      -- This function defines what is considered a "hidden" file
+      is_hidden_file = function(name, bufnr)
+        if name ~= '.config' then
+          local m = name:match("^%.")
+          return m ~= nil
+        else
+          return false
+        end
+      end,
+    },
     float = {
       padding = 5,
       max_width = 80,
@@ -43,19 +56,13 @@ function M.config()
     },
   }
 
-  local kopts = {
-    mode = 'n', -- NORMAL mode
-    prefix = '', -- the prefix is prepended to every mapping part of `mappings`
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
+  require('which-key').add({
+    mode = 'n',     -- NORMAL mode
+    silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
-    expr = false, -- use `expr` when creating keymaps
-  }
-  require('which-key').register({
-    ['-'] = { '<cmd>Oil --float<CR>', 'Oil: parent dir' },
-  }, kopts)
-
+    { '-', '<cmd>Oil --float<CR>', desc = 'Oil: parent dir' },
+  })
 end
 
 return M

@@ -63,6 +63,10 @@ x                       Cut (goes into register 9 instead of 1)
   <leader>tw0           Set textwidth to zero (disable)
   <leader>tw1           Set textwidth to 80
   <leader>tw2           Set textwidth to 120
+  // Quickfix list
+  <M-n>                 Quickfix list next
+  <M-p>                 Quickfix list previous
+  <M-q>                 Close Quickfix list
 
 // Insert Mode
   <Tab>                 Go forward in LSP/cmp popup menu
@@ -138,8 +142,8 @@ r<Space>                Populate command line with ":Git rebase "
 ```
 <leader>a               Add current file to the swap list
 <leader>h               Toggle quick menu showing the complete list
-<leader>n               Go to file 1
-<leader>m               Go to file 2
+<leader>m               Go to file 1
+<leader>n               Go to file 2
 <leader>b               Go to file 3
 <leader>v               Go to file 4
 <C-k>                   Go to previous file in swap list
