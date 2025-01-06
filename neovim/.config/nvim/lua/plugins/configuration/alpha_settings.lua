@@ -1,16 +1,39 @@
--- based on the startify.lua base theme
+-- this is a combination with slight adjustments of the example themes
+-- included in the themes folder of the alpha plugin (dashboard and startify)
 
-local if_nil = vim.F.if_nil
-local fnamemodify = vim.fn.fnamemodify
-local filereadable = vim.fn.filereadable
+local displayName = 'Alexander'
+local target_width = 60
 
- -- string: replaces `leader` "leader" in the button keymaps.
- -- note: does not replace how it's displayed, so you'll want to
- -- redfine the `dashboard.section.buttons.val` table
-local leader = 'SPC' -- leader key is not used for anything
 
-local userName = 'Alexander'
+local utils = require('alpha.utils')
+local dashboard = require('alpha.themes.dashboard')
+local startify = require('alpha.themes.startify')
 
+
+-- Helper functions
+
+-- function taken from lualine, shortens path by turning apple/orange -> a/orange
+---@param path string
+---@param sep string path separator
+---@param max_len integer maximum length of the full filename string
+---@return string
+local function shorten_path(path, sep, max_len)
+  local len = #path
+  if len <= max_len then
+    return path
+  end
+  local segments = vim.split(path, sep)
+  for idx = 1, #segments - 1 do
+    if len <= max_len then
+      break
+    end
+    local segment = segments[idx]
+    local shortened = segment:sub(1, vim.startswith(segment, '.') and 2 or 1)
+    segments[idx] = shortened
+    len = len - (#segment - #shortened)
+  end
+  return table.concat(segments, sep)
+end
 
 local function getGreeting(name)
   local tableTime = os.date('*t')
@@ -37,6 +60,95 @@ local function getGreeting(name)
   return greetingsTable[greetingIndex] .. ', ' .. name
 end
 
+local function set_width(element)
+  element.opts.width = target_width
+  return element
+end
+
+-- adapted from the startify.file_button function
+local function file_button(fn, sc, short_fn, autocd)
+  short_fn = vim.F.if_nil(short_fn, fn)
+  local ico_txt
+  local fb_hl = {}
+  local file_icons = startify.file_icons
+  if file_icons.enabled then
+    local ico, hl = startify.icon(fn)
+    local hl_option_type = type(file_icons.highlight)
+    if hl_option_type == "boolean" then
+      if hl and file_icons.highlight then
+        table.insert(fb_hl, { hl, 0, #ico })
+      end
+    end
+    if hl_option_type == "string" then
+      table.insert(fb_hl, { file_icons.highlight, 0, #ico })
+    end
+    ico_txt = ico .. "  "
+  else
+    ico_txt = ""
+  end
+  local cd_cmd = (autocd and " | cd %:p:h" or '')
+  local file_button_el = dashboard.button(sc, ico_txt .. short_fn,
+    '<cmd>e ' .. vim.fn.fnameescape(fn) .. cd_cmd .. ' <CR>')
+  local fn_start = short_fn:match(".*[/\\]")
+  if fn_start ~= nil then
+    table.insert(fb_hl, { 'Comment', #ico_txt, #fn_start + #ico_txt })
+  end
+  file_button_el.opts.hl = fb_hl
+  return set_width(file_button_el)
+end
+
+-- adapted from the startify.mru function
+local function mru(start, cwd, items_number, opts)
+  opts = opts or startify.mru_opts
+  items_number = vim.F.if_nil(items_number, 10)
+  local oldfiles = {}
+  for _, v in pairs(vim.v.oldfiles) do
+    if #oldfiles == items_number then
+      break
+    end
+    local cwd_cond
+    if not cwd then
+      cwd_cond = true
+    else
+      cwd_cond = vim.startswith(v, cwd)
+    end
+    local ignore = (opts.ignore and opts.ignore(v, utils.get_extension(v))) or false
+    if (vim.fn.filereadable(v) == 1) and cwd_cond and not ignore then
+      oldfiles[#oldfiles + 1] = v
+    end
+  end
+  local tbl = {}
+  for i, fn in ipairs(oldfiles) do
+    local short_fn
+    if cwd then
+      short_fn = vim.fn.fnamemodify(fn, ":.")
+    else
+      short_fn = vim.fn.fnamemodify(fn, ":~")
+    end
+    if #short_fn > target_width - 7 then
+      short_fn = shorten_path(short_fn, '/', target_width - 7)
+    end
+    local shortcut = tostring(i + start - 1)
+    -- local shortcut = ''
+    -- local special_shortcuts = { 'a', 's', 'd', 'e' }
+    -- if i <= #special_shortcuts then
+    --   shortcut = special_shortcuts[i]
+    -- else
+    --   shortcut = tostring(i + start - 1 - #special_shortcuts)
+    -- end
+    local file_button_el = file_button(fn, shortcut, short_fn, opts.autocd)
+    tbl[i] = file_button_el
+  end
+  return {
+    type = "group",
+    val = tbl,
+    opts = {},
+  }
+end
+
+
+-- The components
+
 local header = {
   type = 'text',
   -- this is Slant Relief Ascii text
@@ -53,243 +165,85 @@ local header = {
   },
   opts = {
     position = 'center',
-    hl = 'CustomHeaderColor'
+    hl = 'String',
+    wrap = 'overflow',
   },
 }
 
---- @param sc string
---- @param txt string
---- @param keybind string? optional
---- @param keybind_opts table? optional
-local function button(sc, txt, keybind, keybind_opts)
-  local sc_ = sc:gsub("%s", ""):gsub(leader, "<leader>")
-  local opts = {
-    position = 'left',
-    shortcut = '  ' .. sc,
-    cursor = 1,
-    -- width = 50,
-    align_shortcut = 'right',
-    hl_shortcut = { { 'Operator', 0, 1 }, { 'Number', 1, #sc + 1 }, { 'Operator', #sc + 1, #sc + 2 } },
-    shrink_margin = false,
-  }
-  if keybind then
-    keybind_opts = if_nil(keybind_opts, { noremap = true, silent = true, nowait = true })
-    opts.keymap = { 'n', sc_, keybind, keybind_opts }
-  end
-
-  local function on_press()
-    local key = vim.api.nvim_replace_termcodes(keybind .. '<Ignore>', true, false, true)
-    vim.api.nvim_feedkeys(key, 't', false)
-  end
-
-  return {
-    type = 'button',
-    val = txt,
-    on_press = on_press,
-    opts = opts,
-  }
-end
-
-local nvim_web_devicons = {
-  enabled = true,
-  highlight = true,
+local greeting = {
+  type = 'text',
+  val = getGreeting(displayName),
+  opts = {
+    position = 'center',
+    hl = 'Statement',
+  },
 }
 
-local function get_extension(fn)
-  local match = fn:match("^.+(%..+)$")
-  local ext = ''
-  if match ~= nil then
-    ext = match:sub(2)
-  end
-  return ext
-end
-
-local function icon(fn)
-  local nwd = require('nvim-web-devicons')
-  local ext = get_extension(fn)
-  return nwd.get_icon(fn, ext, { default = true })
-end
-
-local function file_button(fn, sc, short_fn, autocd)
-  short_fn = if_nil(short_fn, fn)
-  local ico_txt
-  local fb_hl = {}
-  if nvim_web_devicons.enabled then
-    local ico, hl = icon(fn)
-    local hl_option_type = type(nvim_web_devicons.highlight)
-    if hl_option_type == 'boolean' then
-      if hl and nvim_web_devicons.highlight then
-        table.insert(fb_hl, { hl, 0, #ico })
-      end
-    end
-    if hl_option_type == 'string' then
-      table.insert(fb_hl, { nvim_web_devicons.highlight, 0, #ico })
-    end
-    ico_txt = ico .. '  '
-  else
-    ico_txt = ''
-  end
-  local dashboard = require('alpha.themes.dashboard')
-  local cd_cmd = (autocd and " | cd %:p:h" or '')
-  local file_button_el = dashboard.button(sc, ico_txt .. short_fn, '<cmd>e ' .. vim.fn.fnameescape(fn) .. cd_cmd ..' <CR>')
-  local fn_start = short_fn:match(".*[/\\]")
-  if fn_start ~= nil then
-    table.insert(fb_hl, { 'Comment', #ico_txt, #fn_start + #ico_txt })
-  end
-  file_button_el.opts.hl = fb_hl
-  return file_button_el
-end
-
-local default_mru_ignore = { 'gitcommit' }
-
-local mru_opts = {
-  ignore = function(path, ext)
-    return (string.find(path, "COMMIT_EDITMSG")) or (vim.tbl_contains(default_mru_ignore, ext))
-  end,
-  autocd = false
-}
-
---- @param start number
---- @param cwd string? optional
---- @param items_number number? optional number of items to generate, default = 10
-local function mru(start, cwd, items_number, opts)
-  opts = opts or mru_opts
-  items_number = if_nil(items_number, 8)
-  local oldfiles = {}
-  for _, v in pairs(vim.v.oldfiles) do
-    if #oldfiles == items_number then
-      break
-    end
-    local cwd_cond
-    if not cwd then
-      cwd_cond = true
-    else
-      cwd_cond = vim.startswith(v, cwd)
-    end
-    local ignore = (opts.ignore and opts.ignore(v, get_extension(v))) or false
-    if (filereadable(v) == 1) and cwd_cond and not ignore then
-      oldfiles[#oldfiles + 1] = v
-    end
-  end
-
-  local target_width = 45
-  local special_shortcuts = { 'a', 's', 'd', 'e' }
-  local path = require('plenary.path')
-  local tbl = {}
-  for i, fn in ipairs(oldfiles) do
-    local short_fn
-    if cwd then
-      short_fn = fnamemodify(fn, ":.")
-    else
-      short_fn = fnamemodify(fn, ":~")
-    end
-
-    if #short_fn > target_width then
-      short_fn = path.new(short_fn):shorten(1, { -2, -1 })
-      if #short_fn > target_width then
-        short_fn = path.new(short_fn):shorten(1, { -1 })
-      end
-    end
-
-    local shortcut = ''
-    if i <= #special_shortcuts then
-      shortcut = special_shortcuts[i]
-    else
-      shortcut = tostring(i + start - 1 - #special_shortcuts)
-    end
-
-    local file_button_el = file_button(fn, shortcut, short_fn,opts.autocd)
-    tbl[i] = file_button_el
-  end
-  return {
-    type = 'group',
-    val = tbl,
-    opts = {},
-  }
-end
-
-
-local greeting = getGreeting(userName)
-local dashboard = require('alpha.themes.dashboard')
 local stats = require('lazy').stats()
+local plugins = {
+  type = 'text',
+  val = { '⚡ Neovim loaded ' .. stats.count .. ' plugins ' },
+  opts = {
+    position = 'center',
+    hl = 'String',
+  },
+  { type = 'padding', val = 1 },
+  position = 'center',
+}
+
+local mru_cwd = {
+  type = "group",
+  val = {
+    { type = 'padding', val = 1 },
+    {
+      type = "text",
+      val = 'Most Recently Used',
+      opts = { hl = "SpecialComment", position = 'center' }
+    },
+    -- { -- does not work as expected if :cd is used
+    --   type = "text",
+    --   val = shorten_path(vim.fn.getcwd(), '/', target_width),
+    --   opts = { hl = "SpecialComment", position = 'center' }
+    -- },
+    { type = "padding", val = 1 },
+    {
+      type = "group",
+      -- mru args are: start val, cwd, elem count
+      val = function() return { mru(1, vim.fn.getcwd(), 9) } end,
+      opts = { shrink_margin = false },
+    },
+  },
+}
+
+local quick_actions = {
+  type = 'group',
+  val = {
+    { type = 'text',    val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
+    { type = 'padding', val = 1 },
+    set_width(dashboard.button('f', '  Find file', '<cmd>Telescope find_files<CR>')),
+    set_width(dashboard.button('n', '  New file', ':ene <BAR> startinsert <CR>')),
+    set_width(dashboard.button('c', '  Configuration', '<cmd>cd' .. vim.fn.stdpath('config') .. '<CR>')),
+    set_width(dashboard.button('u', '  Update plugins', ':Lazy<CR>')),
+    set_width(dashboard.button('q', '󰗼  Quit', ':qa<CR>')),
+  },
+  position = 'center',
+}
+
+local footer = {
+  type = 'group',
+  val = {},
+  position = 'center',
+}
 
 
 local section = {
   header = header,
-  greeting = {
-    type = 'text',
-    val = greeting,
-    opts = {
-      position = 'center',
-      hl = 'String',
-    },
-  },
-  lazy = {
-    type = 'text',
-    val = { '⚡ Neovim loaded ' .. stats.count .. ' plugins ' },
-    opts = {
-      position = 'center',
-      hl = 'Comment',
-    },
-    { type = 'padding', val = 1 },
-    position = 'center',
-  },
-  mru_cwd = {
-    type = 'group',
-    val = {
-      { type = 'padding', val = 1 },
-      {
-        type = 'text',
-        val = 'Most Recently Used',
-        opts = {
-          hl = 'SpecialComment',
-          shrink_margin = false,
-          position = 'center',
-        }
-      },
-      -- {
-      --     type = 'text',
-      --     val = '' .. vim.fn.getcwd(),
-      --     opts = {
-      --         hl = 'SpecialComment',
-      --         shrink_margin = false,
-      --         position = 'center',
-      --     }
-      -- },
-      { type = 'padding', val = 1 },
-      {
-        type = 'group',
-        val = function()
-          return { mru(1, vim.fn.getcwd()) }
-        end,
-        opts = {
-          shrink_margin = false,
-        },
-      },
-    },
-    position = 'center',
-  },
-  bottom_buttons = {
-    type = 'group',
-    val = {
-      { type = 'text', val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
-      { type = 'padding', val = 1 },
-      dashboard.button('f', '  Find file', '<cmd>Telescope find_files<CR>'),
-      dashboard.button('n', '  New file', ':ene <BAR> startinsert <CR>'),
-      dashboard.button('c', '  Configuration', function() vim.cmd.edit(vim.fn.stdpath('config') .. '/init.lua') end),
-      dashboard.button('u', '  Update plugins', ':Lazy<CR>'),
-      dashboard.button('q', '󰗼  Quit', ':qa<CR>'),
-    },
-    position = 'center',
-  },
-  footer ={
-    type = 'group',
-    val = {},
-    position = 'center',
-  },
+  greeting = greeting,
+  plugins = plugins,
+  top_buttons = mru_cwd,
+  bottom_buttons = quick_actions,
+  footer = footer,
 }
-
--- function() require('telescope.builtin').find_files({'cwd':configdir}) end
 
 local config = {
   layout = {
@@ -298,9 +252,9 @@ local config = {
     { type = 'padding', val = 2 },
     section.greeting,
     { type = 'padding', val = 1 },
-    section.lazy,
+    section.plugins,
     { type = 'padding', val = 1 },
-    section.mru_cwd,
+    section.top_buttons,
     { type = 'padding', val = 1 },
     section.bottom_buttons,
     { type = 'padding', val = 1 },
@@ -308,12 +262,12 @@ local config = {
   },
   opts = {
     margin = 3,
-    redraw_on_resize = false,
+    redraw_on_resize = true,
     setup = function()
       vim.api.nvim_create_autocmd('DirChanged', {
         pattern = '*',
         group = 'alpha_temp',
-        callback = function ()
+        callback = function()
           require('alpha').redraw()
           vim.cmd('AlphaRemap')
         end,
@@ -323,16 +277,8 @@ local config = {
 }
 
 return {
-  icon = icon,
-  button = button,
-  file_button = file_button,
-  mru = mru,
-  mru_opts = mru_opts,
+  file_icons = { provider = 'mini' },
   section = section,
   config = config,
-  -- theme config
-  nvim_web_devicons = nvim_web_devicons,
-  leader = leader,
-  -- deprecated
-  opts = config,
+  leader = dashboard.leader,
 }
