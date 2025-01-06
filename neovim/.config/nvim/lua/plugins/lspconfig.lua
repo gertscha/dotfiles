@@ -141,21 +141,19 @@ function M.config()
         nowait = false,    -- use `nowait` when creating keymaps
         -- Opens a popup that displays documentation about the word under your cursor
         --  See `:help K` for why this keymap
-        { 'K',          vim.lsp.buf.hover,                                desc = 'LSP: Lookup Symbol' },
-        { 'gr',         require('telescope.builtin').lsp_references,      desc = 'LSP: [r]eferences' },
-        { 'gT',         vim.lsp.buf.type_definition,                      desc = 'LSP: [g]et [t]ype definition' },
-        { 'gD',         vim.lsp.buf.declaration,                          desc = 'LSP: [g]o to [D]eclaration' },
+        { 'K',          vim.lsp.buf.hover,                           desc = 'LSP: Lookup Symbol' },
+        { 'gr',         require('telescope.builtin').lsp_references, desc = 'LSP: [r]eferences' },
+        { 'gT',         vim.lsp.buf.type_definition,                 desc = 'LSP: [g]et [t]ype definition' },
+        { 'gD',         vim.lsp.buf.declaration,                     desc = 'LSP: [g]o to [D]eclaration' },
         -- Jump to the definition of the word under your cursor.
         --  To jump back, press <C-T>.
-        { 'gd',         vim.lsp.buf.definition,                           desc = 'LSP: [g]o to [d]efinition' },
+        { 'gd',         vim.lsp.buf.definition,                      desc = 'LSP: [g]o to [d]efinition' },
         { '<leader>d',  group = 'diagnostics' },
-        { '<leader>dr', vim.lsp.buf.rename,                               desc = 'LSP: [r]ename symbol under the cursor' },
         -- Execute a code action, usually your cursor needs to be on top of an error
-        { '<leader>da', vim.lsp.buf.code_action,                          desc = 'LSP: code [a]ctions' },
-        { '<leader>df', vim.diagnostic.open_float,                        desc = 'LSP: View [d]iagnostic [f]loat' },
-        { '<leader>dw', vim.lsp.buf.workspace_symbol,                     desc = 'LSP: Query [w]orkspace symbols' },
-        { '<leader>di', require('telescope.builtin').lsp_implementations, desc = 'LSP: [i]mplementation' },
-        { '<leader>ds', '<cmd>Telescope diagnostics<cr>',                 desc = 'LSP: [d]iagnostics [s]earch' },
+        { '<leader>da', vim.lsp.buf.code_action,                     desc = 'LSP: code [a]ctions' },
+        { '<leader>df', vim.diagnostic.open_float,                   desc = 'LSP: View [d]iagnostic [f]loat' },
+        { '<leader>dw', vim.lsp.buf.workspace_symbol,                desc = 'LSP: Query [w]orkspace symbols' },
+        { '<leader>ds', '<cmd>Telescope diagnostics<cr>',            desc = 'LSP: [d]iagnostics [s]earch' },
       })
     end,
   })

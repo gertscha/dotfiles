@@ -94,6 +94,7 @@ Use `:Mason` to manage the language servers
 // Normal Mode
 gd                      Go to definition
 gD                      Go to declaration
+gI                      Go to implementation
 gT                      Get type definition
 gr                      Get references
 K                       Lookup symbol (overrides the 'keywordprg' lookup with lsp lookup)
@@ -101,8 +102,7 @@ K                       Lookup symbol (overrides the 'keywordprg' lookup with ls
 <leader>da              Use a code action
 <leader>df              Open diagnostic float (on lines with a diagnostic marker)
 <leader>dw              Query workspace symbols
-<leader>ds              Search lsp diagnostics (using Telescope)
-<leader>di              View implementation (using Telescope)
+<leader>ds              Search LSP diagnostics (using Telescope)
 ```
 
 ## Fugitive (Git)
@@ -150,12 +150,15 @@ r<Space>                Populate command line with ":Git rebase "
 <C-l>                   Go to next file in swap list
 ```
 
-## Completion - cmp
+## Completion - blink
 ```
-<C-y>                   Accept the suggestion
-<C-n>                   Select next item in the list
+<C-space>               Open the completion float
+<C-e>                   Close the completion float
+<enter>                 Accept the suggestion
+<C-n> or <Tab>          Select next item in the list
 <C-p>                   Select previous item the list
-<C-e>                   Close the suggestions float
+<C-Tab>                 Go forward in the snippet
+<S-Tab>                 Go backwards in the snippet
 ```
 
 ## Move
