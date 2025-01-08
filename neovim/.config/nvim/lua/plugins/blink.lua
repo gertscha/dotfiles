@@ -25,6 +25,14 @@ return {
       ['<C-Tab>'] = { 'snippet_forward', 'fallback' },
       ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
     },
+    signature = {
+      enabled = true,
+      window = {
+        min_width = 10,
+        max_width = 70,
+        max_height = 20,
+      },
+    },
     completion = {
       ghost_text = { enabled = true, },
       list = {
