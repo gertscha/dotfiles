@@ -10,8 +10,8 @@ sudo nala install wl-clipboard ripgrep curl unzip gettext stow
 cd ~
 mkdir -p build
 cd build
-git clone https://github.com/ohmyzsh/ohmyzsh.git
-mv ohmyzsh oh-my-zsh
+mkdir -p oh-my-zsh
+git clone https://github.com/ohmyzsh/ohmyzsh.git oh-my-zsh
 
 #tmux
 cd ~
