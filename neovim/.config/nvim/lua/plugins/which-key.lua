@@ -2,6 +2,9 @@ local M = {
   'folke/which-key.nvim',
   event = 'VeryLazy',
   tag = 'stable',
+  dependencies = {
+    'echasnovski/mini.icons',
+  },
   opts = {
     -- your configuration comes here
     -- or leave it empty to use the default settings

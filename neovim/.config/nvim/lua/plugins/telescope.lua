@@ -28,6 +28,7 @@ local M = {
   },
   cmd = 'Telescope',
   keys = { '<leader>s', desc = 'Telescope' },
+  event = 'BufReadPre', -- need this since LSP on attach functionality relies Telescope
 }
 
 function M.config()
