@@ -56,7 +56,6 @@ function M.config()
   })
   -- this does the server setup automatically
   -- read the help: mason-lspconfig.setup_handlers()
-  local capabilities = require('blink.cmp').get_lsp_capabilities()
   require("mason-lspconfig").setup_handlers {
     -- The first entry (without a key) will be the default handler
     -- and will be called for each installed server that doesn't have
@@ -69,6 +68,7 @@ function M.config()
       -- but also supply the settings given in lsp_servers.lua
       -- we also add the completion capabilites from the blink plugin
       local my_servers = require('plugins.configuration.lsp_servers')
+      local blink_getlspcap = require('blink.cmp').get_lsp_capabilities
 
       -- check if we have a config for the server
       if my_servers.server_name ~= nil then
@@ -77,10 +77,14 @@ function M.config()
         if config == true then -- the server is just set as true
           config = {}
         end
-        table.insert(config, 'capabilites', capabilities)
+        if config.capabilites == nil then
+          config.capabilites = {}
+        end
+        config.capabilites = blink_getlspcap(config.capabilites)
         require('lspconfig')[server_name].setup(config)
       else
         -- have no config, just give the empty one
+        local capabilities = blink_getlspcap()
         require("lspconfig")[server_name].setup({ capabilites = capabilities })
       end
     end,

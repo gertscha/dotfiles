@@ -4,18 +4,21 @@ return {
   dependencies = {
     'rafamadriz/friendly-snippets',
   },
-  version = '0.9.2',
+  -- branch = 'release',
+  tag = 'v0.10.0',
   opts = {
     sources = {
-      -- add lazydev to your completion providers
-      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer" },
+      per_filetype = {
+        -- add lazydev to your completion providers
+        lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      },
       -- add lazydev as source (for require statements and module annotations)
       providers = {
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
-          -- make lazydev completions top priority (see `:h blink.cmp`)
-          score_offset = 100,
+          score_offset = 60, -- boost priority
         },
       },
     },
@@ -26,6 +29,7 @@ return {
       ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
     },
     signature = {
+      -- currently experimental
       enabled = true,
       window = {
         min_width = 10,
@@ -34,21 +38,25 @@ return {
       },
     },
     completion = {
-      ghost_text = { enabled = true, },
+      ghost_text = { enabled = false, },
       list = {
-        selection = 'auto_insert',
+        max_items = 300,
+        selection = {
+          preselect = false,
+          auto_insert = true,
+        },
       },
-      -- documentation = {
-      --   auto_show = true,
-      --   auto_show_delay_ms = 500,
-      --   -- treesitter_highlighting = false, -- if there are performance issues
-      -- },
-    },
-    snippets = {
-      -- Function to use when expanding LSP provided snippets
-      expand = function(snippet) vim.snippet.expand(snippet) end,
-      -- Function to use when checking if a snippet is active
-      active = function(filter) return vim.snippet.active(filter) end,
+      accept = {
+        -- brackets currently handled by delimate
+        -- since this is currently experimental I am disabling it for now
+        auto_brackets = {
+          enabled = false,
+        }
+      },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 1000,
+      },
     },
   },
   opts_extend = { "sources.default" },
