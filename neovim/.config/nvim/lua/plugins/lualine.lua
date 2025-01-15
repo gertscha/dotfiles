@@ -1,9 +1,4 @@
--- helper function
-local function window()
-  return ' ' .. vim.api.nvim_win_get_number(0)
-end
-
--- taken from the lualine.nvim wiki
+-- helper function, taken from the lualine.nvim wiki
 --- @param trunc_width number trunctates component when screen width is less then trunc_width
 --- @param trunc_len number truncates component to trunc_len number of chars
 --- @param hide_width number hides component when window width is smaller then hide_width
@@ -30,7 +25,7 @@ local M = {
   opts = {
     options = {
       icons_enabled = true,
-      theme = 'material', -- used 'OceanicNext' with rose-pine theme
+      theme = 'material-stealth', -- needed due to lazy loading
       component_separators = { left = '', right = '' },
       -- section_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },
@@ -57,10 +52,16 @@ local M = {
         -- { window, fmt=trunc(0, 0, 60, true) },
       },
       lualine_c = {
-        { 'filename', file_status = false, path = 3, unnamed = '[Unnamed]', shorting_target = 60 },
+        {
+          'filename',
+          file_status = false,
+          path = 3,
+          unnamed = '[Unnamed]',
+          shorting_target = 65
+        },
       },
       lualine_x = {
-        { 'datetime', style = '%H:%M', }, --fmt=trunc(0, 0, 80, true)},
+        { 'datetime', style = '%H:%M', fmt = trunc(0, 0, 78, true) },
         -- {'datetime', style = '%a, %d/%m/%Y', fmt=trunc(0, 0, 140, true)},
         -- {'fileformat', fmt=trunc(0, 0, 120, true)},
         -- {'encoding', fmt=trunc(0, 0, 110, true)},

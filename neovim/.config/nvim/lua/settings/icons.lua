@@ -71,7 +71,8 @@ return {
     BookMark = "",
     BoxChecked = " ",
     Bug = " ",
-    Stacks = "",
+    CodeList = "",
+    Stacks = '',
     Scopes = "",
     Watches = "󰂥",
     DebugConsole = " ",
@@ -156,4 +157,3 @@ return {
     CircuitBoard = " ",
   },
 }
-
