@@ -43,6 +43,7 @@ function M.config()
       { '<leader>sf', '<cmd>Telescope find_files<cr>',     desc = '[S]earch [F]iles' },
       { '<leader>sr', '<cmd>Telescope git_files<cr>',      desc = '[S]earch Git [R]epository' },
       { '<leader>sh', '<cmd>Telescope help_tags<cr>',      desc = '[S]earch [H]elp' },
+      { '<leader>sb', '<cmd>Telescope buffers<cr>',        desc = '[S]earch [B]uffers' },
       { '<leader>sw', '<cmd>Telescope grep_string<cr>',    desc = '[S]earch current [W]ord' },
       { '<leader>sg', '<cmd>Telescope live_grep<cr>',      desc = '[S]earch by [G]rep' },
       { '<leader>sj', '<cmd>Telescope jumplist<cr>',       desc = '[S]earch [J]umplist' },

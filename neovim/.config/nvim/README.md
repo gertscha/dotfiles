@@ -81,6 +81,9 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>sh              Search Help
 <leader>sw              Search Word under cursor (ripgrep)
 <leader>sg              Search with Grep
+<leader>sj              Search jumplist
+<leader>ss              Search search history
+<leader>sm              Search marks
 
 // In a Telescope Search Buffer
 <C-q>                   Add results to a quickfix list
