@@ -186,6 +186,11 @@ r<Space>                Populate command line with ":Git rebase "
 <A-l>                   Move selection to the right
 ```
 
+## Markdown Preview
+```
+<leader>omp             Open Markdown in Browers
+```
+
 
 ## Default Keybinds
 Selection of default vim keybinds

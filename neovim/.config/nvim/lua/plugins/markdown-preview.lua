@@ -7,15 +7,11 @@ local M = {
   end,
   keys = {
     {
-      "<leader>cp",
-      ft = "markdown",
+      "<leader>omp",
       "<cmd>MarkdownPreviewToggle<cr>",
       desc = "Markdown Preview",
     },
   },
-  config = function()
-    vim.cmd([[do FileType]])
-  end,
 }
 
 return M
