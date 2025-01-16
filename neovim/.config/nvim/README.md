@@ -86,7 +86,14 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>sm              Search marks
 
 // In a Telescope Search Buffer
-<C-q>                   Add results to a quickfix list
+g?                      Show which-key (all modes)
+<C-q>                   Add results to a quickfix list (all modes)
+<C-h>                   Open in horizontal split (all modes)
+<C-v>                   Open in vertical split (all modes)
+<esc>                   Close Telescope (all modes)
+q                       Close Telescope (in normal mode)
+<C-c>                   Close Telescope (in normal mode)
+<C-c>                   Leave insert mode (in insert mode)
 ```
 Once a Telescope window is open `<Esc>` will always close it.
 

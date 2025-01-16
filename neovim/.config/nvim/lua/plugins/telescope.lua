@@ -69,7 +69,6 @@ function M.config()
   })
 
   local icons = require('settings.icons')
-  local actions = require('telescope.actions')
   require('telescope').setup {
     defaults = {
       prompt_prefix = icons.ui.Telescope,
@@ -79,11 +78,21 @@ function M.config()
       path_display = { 'smart' },
       color_devicons = true,
       mappings = {
+        i = {
+          ["<C-h>"] = 'select_horizontal', -- original bind is C-x
+          ["<C-t>"] = false,               -- disable 'select_tab'
+          ["g?"] = 'which_key',            -- alternate bind (swiss keyboard troubles)
+          -- swap Esc and C-c behavior
+          ['<esc>'] = 'close',
+          ["<C-c>"] = false, -- disable 'close'
+        },
         n = {
-          ['<esc>'] = actions.close,
-          ['j'] = actions.move_selection_next,
-          ['k'] = actions.move_selection_previous,
-          ['q'] = actions.close,
+          ["<C-h>"] = 'select_horizontal', -- original bind is C-x
+          ["<C-t>"] = false,               -- disable 'select_tab'
+          ['q'] = 'close',
+          ["g?"] = 'which_key',            -- additional bind (consistency)
+          -- add default binding back, removal in insert mode cascades for some reason
+          ["<C-c>"] = 'close',
         },
       },
     },
