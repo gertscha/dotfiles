@@ -1,27 +1,23 @@
 # Installation
-Add place the content of this repo in the nvim config folder.
-Use `:h $XDG_CONFIG_HOME` to verify the location.
-
-On Windows this should be `C:\Users\USERNAME\AppData\Local\nvim`.
-On Linux this should be `~/.config/nvim.
+Add the content of this repo in the `nvim` config folder.
+Use `:h $XDG_CONFIG_HOME` for more information or run `:echo stdpath('config')`
+to get the location.
 
 The config uses the [lazy.nvim](https://github.com/folke/lazy.nvim) plugin
-manager by folke. Setup should be automatic on first startup but a restart is
-usually required.
+manager by folke. Setup should be automatic on first startup but a restart may
+be required.
 
-If there are languages missing from the system there are likely going to be errors.
-Either install the language or remove it from the table in init.lua.
+Be sure to run `:checkhealth` and fix any errors shown.
 
 To display some of the icons a nerd-font needs to be available and setup for the
 terminal. Install one and set it up. On windows use Windows Terminal (get from
 Windows Store if on Windows 10) and set the font there. Alternatively the icons
 can be replaced by adjusting `lua/settings/icons.lua`.
 
-Use `:checkhealth` to see if other components are missing from the system.
-
 # Keybinds Reference
 This is a reference to the keybinds (sample of the default bindings at the end).
 "Which-Key" plugin is also installed.
+But this is just a reference, if you do not know the basics, learn those first.
 
 ## Adjusted & Custom Global Keybinds
 Adjusted keybinds have a alteration remark in braces i.e. key - effect (deviation
@@ -95,7 +91,6 @@ q                       Close Telescope (in normal mode)
 <C-c>                   Close Telescope (in normal mode)
 <C-c>                   Leave insert mode (in insert mode)
 ```
-Once a Telescope window is open `<Esc>` will always close it.
 
 ## LSP
 Use `:LspInfo` to get a status on the language server\
@@ -116,15 +111,16 @@ K                       Lookup symbol (overrides the 'keywordprg' lookup with ls
 ```
 
 ## Fugitive (Git)
-A bigger list can be found in the fugitive.lua file
 ```
 <leader>g               Open fugitive window
 
 // while inside the fugitive buffer
 g?                      Show the help with all the key binds
-gq                      Close the status buffer
-s                       Stage (add) the file or hunk under the cursor (push if on commit)
-u                       Unstage (reset) the file or hunk under the cursor
+gq                      Close the fugitive buffer
+s                       Stage (add) the file under the cursor
+s                       Stage the hunk selected in visual mode
+s                       Push the commit under the cursor
+u                       Unstage (reset) the object under the cursor (files or hunks)
 U                       Unstage everything
 X                       Discard the change under the cursor.  This uses `checkout` or `clean`
                         under the hood. A command is echoed that shows how to undo the change
