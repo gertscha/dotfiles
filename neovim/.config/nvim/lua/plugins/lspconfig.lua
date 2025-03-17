@@ -99,13 +99,23 @@ function M.config()
 
       -- formatting based settings
       if client.supports_method('textDocument/formatting', nil) then
-        -- Format current buffer on save
-        vim.api.nvim_create_autocmd('BufWritePre', {
-          buffer = args.buf,
-          callback = function()
-            vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-          end,
-        })
+        if client.name ~= "texlab" then
+          -- Format current buffer on save
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = args.buf,
+            callback = function()
+              vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+            end,
+          })
+          -- wk.add({
+          --   buffer = args.buf,
+          --   {
+          --     '<leader>dbf',
+          --     vim.lsp.buf.format({ bufnr = args.buf, id = client.id, async = true }),
+          --     desc = 'LSP: [B]uffer [F]ormat'
+          --   },
+          -- })
+        end
       end
       if client.supports_method('textDocument/implementation') then
         wk.add({
