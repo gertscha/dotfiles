@@ -17,6 +17,7 @@ By default this happens in the parent directory.
 ```
 stow [package] # create symlinks
 stow -D [package] # remove created symlinks
+stow -R [package] # restow, first remove all, then add back
 ```
 Cloning this repo into the home directory and then running
 the stow commands inside the dotfiles folder generates the
