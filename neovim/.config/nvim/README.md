@@ -19,6 +19,9 @@ This is a reference to the keybinds (sample of the default bindings at the end).
 "Which-Key" plugin is also installed.
 But this is just a reference, if you do not know the basics, learn those first.
 
+Also keep in mind that you can use commands directly for most plugins. And
+manage plugins with `:Lazy`.
+
 ## Adjusted & Custom Global Keybinds
 Adjusted keybinds have a alteration remark in braces i.e. key - effect (deviation
 from default)
@@ -115,7 +118,7 @@ K                       Lookup symbol (overrides the 'keywordprg' lookup with ls
 <leader>g               Open fugitive window
 
 // while inside the fugitive buffer
-g?                      Show the help with all the key binds
+g?                      Show the help with all the keybinds
 gq                      Close the fugitive buffer
 s                       Stage (add) the file under the cursor
 s                       Stage the hunk selected in visual mode
@@ -258,6 +261,7 @@ Selection of default vim keybinds
     zz                  Center the cursor on screen, keeping it in place
     <C-e>               Move screen up one line
     <C-y>               Move screen down one line
+    gO                  Get table of contents in quickfix list (mainly for :help)
   // Folds
     zi                  Toggle Fold functionality
     zc                  Close Fold
@@ -266,6 +270,11 @@ Selection of default vim keybinds
     zR                  Reveal (open all Folds), r to only do one level
     zf[motion]          Create fold up to motion
     zd                  Delete fold, does not delete content
+  // Utility
+    gx                  Open file path under the cursor with system default handler
+    zg                  Add word under cursor to spellfile (see :h spell)
+    zw                  Mark the word under cursor as a wrong (bad) word
+    z=                  Suggset corrections for word under cursor
 // Insert Mode
   // Entering Insert Mode
     i                   before cursor
@@ -354,6 +363,13 @@ y`a                     Yank text to position of mark A
 g,                      Go to newer position in change list
 g;                      Go to older position in change list
 ```
+
+# Useful commands
+`:only` or append `| only` to a command to maximize the current buffer.
+
+`:vsplit` and `:split` for vertical/horizontal splits (instead of the `C-w` keybinds)
+
+`:ve` to get the current version of Neovim.
 
 # Format Strings for Time and Date
 ```
