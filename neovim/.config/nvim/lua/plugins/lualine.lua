@@ -37,9 +37,9 @@ local M = {
       always_divide_middle = false,
       globalstatus = false,
       refresh = {
-        statusline = 500,
-        tabline = 1000,
-        winbar = 1000,
+        statusline = 300,
+        tabline = 800,
+        winbar = 800,
       }
     },
     sections = {

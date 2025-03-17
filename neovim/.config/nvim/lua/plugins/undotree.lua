@@ -10,6 +10,7 @@ return {
     vim.g.undotree_SplitWidth = 50
     -- set the focus to the undotree buffer
     vim.g.undotree_SetFocusWhenToggle = 1
+    vim.g.undotree_ShortIndicators = 1
 
     require('which-key').add({
       mode = 'n',     -- NORMAL mode
