@@ -5,7 +5,7 @@ return {
     'rafamadriz/friendly-snippets',
   },
   -- branch = 'release',
-  tag = 'v0.10.0',
+  tag = 'v0.13.1',
   opts = {
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
