@@ -5,10 +5,17 @@ local M = {
   dependencies = {
     'nvim-treesitter/nvim-treesitter-context',
   },
+  enabled = false,
   lazy = true,
   event = { 'BufRead', 'BufNewFile' },
   tag = 'v0.9.3',
 }
+
+local function prequire(m)
+  local ok, err = pcall(require, m)
+  if not ok then return nil, err end
+  return err
+end
 
 function M.config()
   require('nvim-treesitter.configs').setup {
@@ -50,20 +57,23 @@ function M.config()
     },
   }
 
-  require('treesitter-context').setup {
-    enable = true,           -- Enable this plugin (Can be enabled/disabled later via commands)
-    max_lines = 6,           -- How many lines the window should span. Values <= 0 mean no limit.
-    min_window_height = 50,  -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-    line_numbers = true,
-    multiline_threshold = 3, -- Maximum number of lines to show for a single context
-    trim_scope = 'outer',    -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-    mode = 'cursor',         -- Line used to calculate context. Choices: 'cursor', 'topline'
-    -- Separator between context and content. Should be a single character string, like '-'.
-    -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-    separator = nil,
-    zindex = 20,     -- The Z-index of the context window
-    on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-  }
+  local mod = prequire('treesitter-context')
+  if mod then
+    mod.setup {
+      enable = true,           -- Enable this plugin (Can be enabled/disabled later via commands)
+      max_lines = 6,           -- How many lines the window should span. Values <= 0 mean no limit.
+      min_window_height = 50,  -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+      line_numbers = true,
+      multiline_threshold = 3, -- Maximum number of lines to show for a single context
+      trim_scope = 'outer',    -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+      mode = 'cursor',         -- Line used to calculate context. Choices: 'cursor', 'topline'
+      -- Separator between context and content. Should be a single character string, like '-'.
+      -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+      separator = nil,
+      zindex = 20,     -- The Z-index of the context window
+      on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+    }
+  end
 end
 
 return M

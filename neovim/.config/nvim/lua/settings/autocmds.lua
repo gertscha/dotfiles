@@ -31,4 +31,3 @@ vim.filetype.add({
     frag = 'glsl',
   },
 })
-
