@@ -9,8 +9,11 @@ alias ls='ls -a --color=auto'
 alias ll='ls -lah --color=auto'
 alias grep='grep --color=auto'
 alias cl='clear'
-alias vim='nvim'
+alias vi='nvim'
 
 alias zshec="$EDITOR $ZDOTDIR/.zshrc" # edit .zshrc
 alias zshsc="source $ZDOTDIR/.zshrc"  # reload zsh configuration
+
+path+=("$HOME/.local/bin")
+export PATH
 
