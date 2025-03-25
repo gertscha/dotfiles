@@ -4,8 +4,8 @@ return {
   dependencies = {
     'rafamadriz/friendly-snippets',
   },
-  -- branch = 'release',
-  tag = 'v0.13.1',
+  -- tag = 'v1.0.0',
+  version = '1.*',
   opts = {
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
@@ -27,6 +27,8 @@ return {
       ['<Tab>'] = { 'select_next', 'fallback' },
       ['<C-Tab>'] = { 'snippet_forward', 'fallback' },
       ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      ['<Up>'] = {}, -- only allow C-p and C-n for navigation
+      ['<Down>'] = {},
     },
     signature = {
       -- currently experimental
@@ -38,6 +40,10 @@ return {
       },
     },
     completion = {
+      keyword = { range = 'full' },
+      trigger = {
+        show_on_keyword = false,
+      },
       ghost_text = { enabled = false, },
       list = {
         max_items = 300,
@@ -47,8 +53,8 @@ return {
         },
       },
       accept = {
-        -- brackets currently handled by delimate
-        -- since this is currently experimental I am disabling it for now
+        -- currently experimental, currently disabled (did not work when I tried)
+        -- also covered by the delimitMate plugin
         auto_brackets = {
           enabled = false,
         }
