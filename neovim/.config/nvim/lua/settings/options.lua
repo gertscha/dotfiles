@@ -57,7 +57,7 @@ opt.smartindent = true -- Insert indents automatically
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 
 opt.sidescrolloff = 8 -- Columns of context
-opt.scrolloff = 14 -- Lines of context
+opt.scrolloff = 5 -- Lines of context
 
 opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
