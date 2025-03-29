@@ -28,8 +28,6 @@ from default)
 ```
 space => <leader>
 // Normal Mode
-QQ                      Close current buffer
-WW                      Save current buffer
 <leader>p               Paste most recent yank
 <leader>r               Redo
 <leader>ya              Select entire buffer, going into visual mode
@@ -212,7 +210,8 @@ Selection of default vim keybinds
     C or c$             Delete from cursor to end of line, enter insert mode
     cc                  Delete line and enter insert mode
     x                   Cut a character
-    g~                  Swap case based on motion text (g~~ does whole line)
+    ~                   Swap character case
+    g~[motion]          Swap charcter case based on motion (g~~ does whole line)
     gU                  Make upper case based on motion (gUU does whole line)
     gu                  Make lower case based on motion (guu does whole line)
     .                   Repeat last command
@@ -226,12 +225,14 @@ Selection of default vim keybinds
     b                   Jump to previous word
     e                   Jump to end of current word
     ge                  Jump back to end of previous word
+    gv                  Reselect previous visual selection
     viw                 Select the word that the cursor is on in visual mode
     viW                 Select contigous text in both directions
-    va( or va{          Select next brace block with braces included
-    vi( or vi{          Select next brace block without braces
+    va( or va{ or vab   Select next brace block with braces included
+    vi( or vi{ or vib   Select next brace block without braces
     gg                  Goto top of buffer
     [number]G           Goto line [number] or bottom if no number
+    :[number]           Goto line [number] or bottom if no number
     { and }             Jump paragraphs
     /                   Search forward
     gn                  Goto next match of previous search and enter visual mode
@@ -262,6 +263,8 @@ Selection of default vim keybinds
     <C-e>               Move screen up one line
     <C-y>               Move screen down one line
     gO                  Get table of contents in quickfix list (mainly for :help)
+    ZZ                  Save and quit Vim
+    ZQ                  Quit Vim without saving
   // Folds
     zi                  Toggle Fold functionality
     zc                  Close Fold
@@ -271,7 +274,8 @@ Selection of default vim keybinds
     zf[motion]          Create fold up to motion
     zd                  Delete fold, does not delete content
   // Utility
-    gx                  Open file path under the cursor with system default handler
+    gx                  Open URl under the cursor with system default handler
+    gf                  Open the file(path) under the cursor (searches path)
     zg                  Add word under cursor to spellfile (see :h spell)
     zw                  Mark the word under cursor as a wrong (bad) word
     z=                  Suggset corrections for word under cursor
@@ -292,7 +296,9 @@ Selection of default vim keybinds
     <C-o>               Issue one normal mode command
 // Visual Mode
   gc                    Toggle comment of the region
-  o                     Goto other end of marked area
+  g<C-a>                Increment first number in selection based on line offset
+  J                     Collapse selection into single line (with spaces)
+  o                     Swap selection direction
   s                     Delete selection and go into insert mode
   [a,i]b                Mark block ()
   [a,i]B                Mark block {}
@@ -385,5 +391,12 @@ Format String           Example output
 %Y-%m-%d                2016-11-23
 %F                      2016-11-23 (works on some systems)
 %d/%m/%y %H:%M:%S       27/09/07 07:36:32
+```
+
+# Sessions
+```
+:mksession [name]       Save current session, optionally give file [name]
+                        if no file name given the default is Session.vim is used
+:source <name>          Load the session stored in <name>
 ```
 
