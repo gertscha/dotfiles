@@ -3,7 +3,7 @@ local keymap = vim.keymap.set
 
 -- little function to set the options
 local function opts(desc)
-  return { desc = ' ' .. desc, noremap = true, silent = true }
+  return { desc = desc, noremap = true, silent = true }
 end
 
 -- set leader key
@@ -53,13 +53,13 @@ keymap('n', '<leader>th', "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
 -- toggle line wrap
 keymap('n', '<leader>twl', "<cmd>set wrap!<enter>", opts('Toggle line wrap'))
 -- toggle textwidth
-keymap('n', '<leader>tw0', "<cmd>set textwidth=0<enter>", opts('Disable line lenght limit'))
-keymap('n', '<leader>tw1', "<cmd>set textwidth=80<enter>", opts('Set line lenght limit to 80'))
-keymap('n', '<leader>tw2', "<cmd>set textwidth=120<enter>", opts('Set line lenght limit to 120'))
+keymap('n', '<leader>tw0', "<cmd>set textwidth=0<enter>", opts('Disable line length limit'))
+keymap('n', '<leader>tw1', "<cmd>set textwidth=80<enter>", opts('Set line length limit to 80'))
+keymap('n', '<leader>tw2', "<cmd>set textwidth=120<enter>", opts('Set line length limit to 120'))
 
--- make saving and quitting more convenient
-keymap('n', 'QQ', '<cmd>q<enter>', opts('Close current buffer'))
-keymap('n', 'WW', '<cmd>w<enter>', opts('Save current buffer'))
+-- make saving and quitting more convenient (mainly for Laptop keyboard)
+-- keymap('n', 'QQ', '<cmd>q<enter>', opts('Close current buffer'))
+-- keymap('n', 'WW', '<cmd>w<enter>', opts('Save current buffer'))
 
 -- make paste use the most recent yank
 keymap('n', '<leader>p', '"0p', opts('Paste most recent yank'))
@@ -85,6 +85,17 @@ keymap('n', '<M-n>', '<cmd>cnext<cr>', opts('Quickfix list next'))
 keymap('n', '<M-p>', '<cmd>cprev<cr>', opts('Quickfix list previous'))
 -- close quickfix list
 keymap('n', '<M-q>', '<cmd>cclose<cr>', opts('Close Quickfix list'))
+
+-- session management
+local base_session = 'Session.nvim'
+local session1 = 'Session1.nvim'
+local session2 = 'Session2.nvim'
+keymap('n', '<leader>lg', '<cmd>source ' .. base_session .. '<cr>', opts('Load Session'))
+keymap('n', '<leader>llg1', '<cmd>source ' .. session1 .. '<cr>', opts('Load Session 1'))
+keymap('n', '<leader>llg2', '<cmd>source ' .. session2 .. '<cr>', opts('Load Session 2'))
+keymap('n', '<leader>ls', '<cmd>mksession! ' .. base_session .. '<cr>', opts('Save Session'))
+keymap('n', '<leader>lls1', '<cmd>mksession! ' .. session1 .. '<cr>', opts('Store Session1'))
+keymap('n', '<leader>lls2', '<cmd>mksession! ' .. session2 .. '<cr>', opts('Store Session2'))
 
 -- -- Open a terminal at the bottom of the screen with a fixed height.
 -- keymap('n', '<leader>ot', function()

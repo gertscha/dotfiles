@@ -4,6 +4,7 @@
 local displayName = 'Alexander'
 local target_width = 60
 
+local icons = require('settings.icons')
 
 local utils = require('alpha.utils')
 local dashboard = require('alpha.themes.dashboard')
@@ -215,16 +216,18 @@ local mru_cwd = {
   },
 }
 
+local set_path_config = '<cmd>cd' .. vim.fn.stdpath('config') .. '<CR>'
 local quick_actions = {
   type = 'group',
   val = {
     { type = 'text',    val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
     { type = 'padding', val = 1 },
-    set_width(dashboard.button('f', '  Find file', '<cmd>Telescope find_files<CR>')),
-    set_width(dashboard.button('n', '  New file', ':ene <BAR> startinsert <CR>')),
-    set_width(dashboard.button('c', '  Configuration', '<cmd>cd' .. vim.fn.stdpath('config') .. '<CR>')),
-    set_width(dashboard.button('u', '  Update plugins', ':Lazy<CR>')),
-    set_width(dashboard.button('q', '󰗼  Quit', ':qa<CR>')),
+    set_width(dashboard.button('f', icons.ui.FileFilled .. '  Find file', '<cmd>Telescope find_files<CR>')),
+    set_width(dashboard.button('n', icons.ui.NewFile .. '  New file', ':ene <BAR> startinsert <CR>')),
+    set_width(dashboard.button('c', icons.ui.GearFilled .. '  Configuration', set_path_config)),
+    set_width(dashboard.button('u', icons.ui.HatCircleUp .. '  Update plugins', ':Lazy<CR>')),
+    set_width(dashboard.button('s', icons.ui.BookMark .. '  Load Session', ':source Session.nvim<CR>')),
+    set_width(dashboard.button('q', icons.ui.Exit .. '  Quit', ':qa<CR>')),
   },
   position = 'center',
 }

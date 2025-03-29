@@ -11,12 +11,6 @@ local M = {
   tag = 'v0.9.3',
 }
 
-local function prequire(m)
-  local ok, err = pcall(require, m)
-  if not ok then return nil, err end
-  return err
-end
-
 function M.config()
   require('nvim-treesitter.configs').setup {
     TSConfig = {},
@@ -57,7 +51,7 @@ function M.config()
     },
   }
 
-  local mod = prequire('treesitter-context')
+  local mod = P_require('treesitter-context')
   if mod then
     mod.setup {
       enable = true,           -- Enable this plugin (Can be enabled/disabled later via commands)
