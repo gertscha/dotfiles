@@ -399,4 +399,16 @@ Format String           Example output
                         if no file name given the default is Session.vim is used
 :source <name>          Load the session stored in <name>
 ```
+Or use the following keybinds:
+```
+<leader>ls              Save current state
+<leader>lg              Load the previously saved state
+```
+A couple of extra states can be saved/loaded with:
+```
+<leaader>lls1
+<leaader>lls2
+<leader>llg1
+<leader>llg2
+```
 
