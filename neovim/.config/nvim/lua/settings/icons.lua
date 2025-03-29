@@ -116,7 +116,7 @@ return {
     LineMiddle = "│",
     List = " ",
     Lock = " ",
-    NewFile = " ",
+    NewFile = "",
     Note = " ",
     Package = " ",
     Pencil = "󰏫 ",
