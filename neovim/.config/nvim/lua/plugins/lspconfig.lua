@@ -18,27 +18,37 @@ local M = {
 }
 
 function M.config()
-  -- base diagnostics settings
+  local icons = require('settings.icons')
+  -- diagnostics settings
   vim.diagnostic.config({
     underline = true,
-    virtual_text = true,
-    signs = true,
+    virtual_lines = { current_line = true },
     update_in_insert = true,
     severity_sort = true,
+    Float = {
+      source = true,
+    },
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+        [vim.diagnostic.severity.WARN] = icons.diagnostics.Warning,
+        [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+        [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+      },
+      -- Highlight the line number
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+        [vim.diagnostic.severity.WARN] = 'WarningMsg',
+        [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+        [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+      },
+      -- Highlight entire line
+      -- linehl = {
+      --   [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+      -- },
+    },
   })
-  -- customize the gutter signs from character to icons
-  -- see: https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
-  local icons = require('settings.icons')
-  local signs = {
-    Error = icons.diagnostics.Error,
-    Warn = icons.diagnostics.Warning,
-    Hint = icons.diagnostics.Hint,
-    Info = icons.diagnostics.Information,
-  }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
+
   -- mason setup (installs lsp servers) and ui customization
   require('mason').setup({
     ui = {
@@ -98,7 +108,7 @@ function M.config()
       if not client then return end
 
       -- formatting based settings
-      if client.supports_method('textDocument/formatting', nil) then
+      if client:supports_method('textDocument/formatting') then
         if client.name ~= "texlab" then
           -- Format current buffer on save
           vim.api.nvim_create_autocmd('BufWritePre', {
@@ -117,13 +127,16 @@ function M.config()
           -- })
         end
       end
-      if client.supports_method('textDocument/implementation') then
+      if client:supports_method('textDocument/completion') then
+        vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+      end
+      if client:supports_method('textDocument/implementation') then
         wk.add({
           buffer = args.buf,
           { 'gI', vim.lsp.buf.implementation, desc = 'LSP: [g]o to [I]implementation' },
         })
       end
-      if client.supports_method('textDocument/rename') then
+      if client:supports_method('textDocument/rename') then
         wk.add({
           buffer = args.buf,
           { '<leader>dr', vim.lsp.buf.rename, desc = 'LSP: [r]ename symbol under the cursor' },
@@ -132,7 +145,7 @@ function M.config()
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
-      if client.supports_method('documentHighlightProvider', nil) then
+      if client:supports_method('documentHighlightProvider') then
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           buffer = args.buf,
           callback = vim.lsp.buf.document_highlight,
@@ -143,9 +156,6 @@ function M.config()
           callback = vim.lsp.buf.clear_references,
         })
       end
-      -- if client.supports_method('textDocument/completion', nil) then
-      -- vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-      -- end
 
       wk.add({
         mode = 'n',        -- NORMAL mode

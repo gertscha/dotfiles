@@ -60,4 +60,3 @@ ls.config.set_config {
   history = false,
   updateevents = 'TextChanged,TextChangedI',
 }
-

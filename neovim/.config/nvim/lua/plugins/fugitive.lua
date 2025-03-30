@@ -113,3 +113,4 @@ return M
 -- gq                      Close the status buffer.
 -- .                       Start a |:| command line with the file under the cursor prepopulated.
 -- g?                      Show help for |fugitive-maps|.
+--

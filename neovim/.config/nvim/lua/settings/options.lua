@@ -38,6 +38,7 @@ opt.inccommand = "split" -- preview incremental substitute
 opt.number = true -- Print line number
 opt.relativenumber = true -- set relative numbered lines
 
+opt.winborder = "rounded" -- sets the default border for all floating windows
 opt.formatoptions = "croqnjl" -- tcj
 --opt.grepformat = "%f:%l:%c:%m"
 --opt.grepprg = "rg --vimgrep"

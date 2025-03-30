@@ -66,6 +66,4 @@ function M.config()
   -- }, { prefix = 'Move:', mode = 'v' })
 end
 
-
 return M
-
