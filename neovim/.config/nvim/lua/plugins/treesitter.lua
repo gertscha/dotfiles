@@ -5,7 +5,6 @@ local M = {
   dependencies = {
     'nvim-treesitter/nvim-treesitter-context',
   },
-  enabled = false,
   lazy = true,
   event = { 'BufRead', 'BufNewFile' },
   tag = 'v0.9.3',
