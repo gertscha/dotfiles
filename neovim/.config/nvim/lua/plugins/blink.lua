@@ -34,6 +34,7 @@ return {
       -- currently experimental
       enabled = true,
       window = {
+        border = 'single',
         min_width = 10,
         max_width = 70,
         max_height = 20,
@@ -59,7 +60,9 @@ return {
           enabled = false,
         }
       },
+      menu = { border = 'none' },
       documentation = {
+        window = { border = 'single' },
         auto_show = true,
         auto_show_delay_ms = 1000,
       },
