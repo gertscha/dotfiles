@@ -64,9 +64,6 @@ x                       Cut (goes into register 9 instead of 1)
   <M-n>                 Quickfix list next
   <M-p>                 Quickfix list previous
   <M-q>                 Close Quickfix list
-
-// Insert Mode
-  <Tab>                 Go forward in LSP/cmp popup menu
 ```
 
 ## Telescope
@@ -159,13 +156,16 @@ r<Space>                Populate command line with ":Git rebase "
 
 ## Completion - blink
 ```
-<C-space>               Open the completion float
-<C-e>                   Close the completion float
-<enter>                 Accept the suggestion
-<C-n> or <Tab>          Select next item in the list
-<C-p>                   Select previous item the list
+<C-space>               Show completion menu
+<C-e>                   Close completion menu
+<Enter>                 Accept selected completion
+<C-n> or <Tab>          Select next item in the completion list
+<C-p>                   Select previous item the completion list
+<C-k>                   Show signature popup
 <C-Tab>                 Go forward in the snippet
 <S-Tab>                 Go backwards in the snippet
+<C-b>                   Scroll documentation up
+<C-f>                   Scroll documentation down
 ```
 
 ## Move

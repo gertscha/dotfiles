@@ -31,7 +31,6 @@ function M.config()
       'which-key',
       -- 'dap',
       -- 'trouble',
-      -- 'nvim-cmp',
       -- 'nvim-navic',
       -- 'nvim-tree',
       -- 'nvim-web-devicons',
