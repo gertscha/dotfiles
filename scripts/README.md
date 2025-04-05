@@ -30,3 +30,13 @@ sudo usermod -a -G libvirt $(whoami)
 sudo usermod -a -G kvm $(whoami)
 ```
 
+# Neovim
+The scrip `neovim.sh` performs a build from source and loads the configuration
+with `stow`.
+
+A helper update script `update-nvim.sh` is also available. First update the
+local neovim repository to the commit/tag/branch you want and then run the
+script to uninstall the current version and build Neovim again.
+
+For more information about building Neovim see
+[upstream](https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-source).
