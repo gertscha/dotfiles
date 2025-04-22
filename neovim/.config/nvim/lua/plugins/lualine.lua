@@ -25,7 +25,7 @@ local M = {
   opts = {
     options = {
       icons_enabled = true,
-      theme = 'material-stealth', -- needed due to lazy loading
+      theme = 'iceberg_dark',
       component_separators = { left = '', right = '' },
       -- section_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },

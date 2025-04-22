@@ -1,63 +1,80 @@
 local M = {
-  'marko-cerovac/material.nvim',
+  "vague2k/vague.nvim",
   lazy = false,
-  priority = 1000,
 }
 
 function M.config()
-  require('material').setup({
-    contrast = {
-      terminal = false,            -- Enable contrast for the built-in terminal
-      sidebars = false,            -- Enable contrast for sidebar-like windows
-      floating_windows = false,    -- Enable contrast for floating windows
-      cursor_line = false,         -- Enable darker background for the cursor line
-      non_current_windows = false, -- Enable contrasted background for non-current windows
-      filetypes = {},              -- Specify which filetypes get the contrasted (darker) background
-    },
-    styles = {                     -- Give comments style such as bold, italic, underline etc.
-      comments = { italic = true },
-      strings = { --[[ bold = true ]] },
-      keywords = { --[[ underline = true ]] },
-      functions = { --[[ bold = true, undercurl = true ]] },
-      variables = {},
-      operators = {},
-      types = {},
-    },
-    plugins = { -- Uncomment the plugins that you use to highlight them
-      'gitsigns',
-      'harpoon',
-      'mini',
-      'telescope',
-      'which-key',
-      -- 'dap',
-      -- 'trouble',
-      -- 'nvim-navic',
-      -- 'nvim-tree',
-      -- 'nvim-web-devicons',
-    },
-    disable = {
-      colored_cursor = true, -- Disable the colored cursor
-      borders = true,        -- Disable borders between verticaly split windows
-      background = true,     -- Prevent the theme from setting the background
-      term_colors = false,   -- Prevent the theme from setting terminal colors
-      eob_lines = false      -- Hide the end-of-buffer lines
-    },
-    high_visibility = {
-      lighter = false, -- Enable higher contrast text for lighter style
-      darker = false   -- Enable higher contrast text for darker style
-    },
+  -- only make transparent if Foot terminal is used
+  local term = os.getenv("TERM")
+  local transparent = false
+  if term == 'foot' then
+    transparent = true
+  end
 
-    lualine_style = 'stealth', -- Lualine style ( can be 'stealth' or 'default' )
-    async_loading = true,      -- Load parts of the theme asyncronously
+  require("vague").setup({
+    transparent = transparent, -- i.e. don't set background color
+    style = {
+      -- "none" is the same as default
+      -- general
+      headings = "bold",
+      error = "bold",
+      comments = "italic",
+      boolean = "none",
+      number = "none",
+      float = "none",
+      conditionals = "none",
+      functions = "none",
+      operators = "none",
+      strings = "none",
+      variables = "none",
+      -- keywords
+      keywords = "none",
+      keyword_return = "none",
+      keywords_loop = "none",
+      keywords_label = "none",
+      keywords_exception = "none",
+      -- builtin
+      builtin_constants = "none",
+      builtin_functions = "none",
+      builtin_types = "none",
+      builtin_variables = "none",
+    },
+    -- plugin styles where applicable
+    plugins = {
+      telescope = {
+        match = "bold",
+      },
+    },
+    -- Override colors
+    colors = {
+      bg = "#141415",
+      fg = "#cdcdcd",
+      floatBorder = "#878787",
+      line = "#252530",
+      comment = "#606079",
+      builtin = "#b4d4cf",
+      func = "#c48282",
+      string = "#e8b589",
+      number = "#e0a363",
+      property = "#c3c3d5",
+      constant = "#aeaed1",
+      parameter = "#bb9dbd",
+      visual = "#333738",
+      error = "#df6882",
+      warning = "#f3be7c",
+      hint = "#7e98e8",
+      operator = "#90a0b5",
+      keyword = "#6e94b2",
+      type = "#9bb4bc",
+      search = "#405065",
+      plus = "#8cb66d",
+      delta = "#f3be7c",
+    },
   })
+  vim.cmd 'colorscheme vague'
 
-  -- There are 5 different styles available:
-  -- 'darker', 'lighter', 'oceanic', 'palenight', 'deep ocean'
-  vim.g.material_style = 'darker'
-  vim.cmd 'colorscheme material'
-
-  -- command toggle style selection ui
-  -- :lua require('material.functions').find_style()
+  -- adjust some other highlights (due to transparency)
+  vim.api.nvim_set_hl(0, 'Conceal', { fg = '#c48282' })
 end
 
 return M

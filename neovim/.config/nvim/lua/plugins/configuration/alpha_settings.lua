@@ -166,7 +166,7 @@ local header = {
   },
   opts = {
     position = 'center',
-    hl = 'String',
+    hl = 'DiffAdd',
     wrap = 'overflow',
   },
 }
