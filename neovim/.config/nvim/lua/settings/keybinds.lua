@@ -73,7 +73,7 @@ keymap('n', 'gJ', 'mzgJ`z', opts('Append line below to current line'))
 keymap('n', '<C-d>', '<C-d>zz', opts('Half page jump down'))
 keymap('n', '<C-u>', '<C-u>zz', opts('Half page jump up'))
 
--- keep cursor centered when jumping while searching
+-- keep cursor centered when jumping while searching (and open folds)
 keymap('n', 'n', 'nzzzv', opts('Go to next search hit'))
 keymap('n', 'N', 'Nzzzv', opts('Go to previous search hit'))
 

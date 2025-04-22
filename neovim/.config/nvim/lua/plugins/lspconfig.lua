@@ -18,6 +18,8 @@ local M = {
 }
 
 function M.config()
+  vim.lsp.set_log_level("off")
+
   local icons = require('settings.icons')
   -- diagnostics settings
   vim.diagnostic.config({

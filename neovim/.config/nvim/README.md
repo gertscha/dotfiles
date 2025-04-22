@@ -217,6 +217,8 @@ Selection of default vim keybinds
     .                   Repeat last command
     &                   Repeat last substitute (&& also keeps flags as well)
     gww                 Format line to fit textwidth (or 80 if no textwidth set)
+    [<space>            Insert empty line above
+    ]<space>            Insert empty line below
   // Cursor Movement
     $                   Goto end of current line
     0                   Goto beginning of current line
@@ -287,6 +289,8 @@ Selection of default vim keybinds
     A                   at end of line
     o                   after current line
     O                   before current line
+    <C-v>               Escape sequence to enter special keys like <esc>
+                        useful for example to edit macros
   // Actions in Insert Mode
     <C-h>               Delete character befor cursor
     <C-j>               Create line break at cursor position
@@ -343,14 +347,14 @@ _ - black hole register
 ```
 q[0-9a-z]               Start recording into the register, use [A-Z] to append actions
 q                       Stop recording if a recording is ongoing (from normal mode)
-@[0-9a-z]               Run macro in the register                 
+@[0-9a-z]               Run macro in the register (can also prefix a count)
 @@                      Rerun last played macro
 ```
 
 # Marks
 A local mark is specific to a file and uses a lowercase letter\
 Global marks are universal across all files and use uppercase letters.\
-To jump to a mark either use a backtick (`) or an apostrophe (').\
+To jump to a mark either use a backtick (\`) or an apostrophe (\').\
 Using an apostrophe jumps to the first character on the line holding the mark.
 ```
 :marks                  View list of marks

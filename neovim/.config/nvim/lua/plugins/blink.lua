@@ -4,6 +4,7 @@ return {
   dependencies = {
     'rafamadriz/friendly-snippets',
   },
+  event = 'VeryLazy',
   -- tag = 'v1.0.0',
   version = '1.*',
   opts = {
