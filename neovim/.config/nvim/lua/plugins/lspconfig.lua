@@ -109,29 +109,20 @@ function M.config()
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       if not client then return end
 
-      -- formatting based settings
+      -- lsp based format keybind
       if client:supports_method('textDocument/formatting') then
-        if client.name ~= "texlab" then
-          -- Format current buffer on save
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = args.buf,
-            callback = function()
-              vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-            end,
-          })
-          -- wk.add({
-          --   buffer = args.buf,
-          --   {
-          --     '<leader>dbf',
-          --     vim.lsp.buf.format({ bufnr = args.buf, id = client.id, async = true }),
-          --     desc = 'LSP: [B]uffer [F]ormat'
-          --   },
-          -- })
-        end
+        wk.add({
+          buffer = args.buf,
+          {
+            '<leader>df',
+            function() vim.lsp.buf.format({ bufnr = args.buf, id = client.id }) end,
+            desc = 'LSP: [F]ormat Buffer'
+          },
+        })
       end
-      if client:supports_method('textDocument/completion') then
-        vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-      end
+      -- if client:supports_method('textDocument/completion') then
+      --   vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+      -- end
       if client:supports_method('textDocument/implementation') then
         wk.add({
           buffer = args.buf,
@@ -177,7 +168,7 @@ function M.config()
         { '<leader>d',  group = 'diagnostics' },
         -- Execute a code action, usually your cursor needs to be on top of an error
         { '<leader>da', vim.lsp.buf.code_action,                     desc = 'LSP: code [a]ctions' },
-        { '<leader>df', vim.diagnostic.open_float,                   desc = 'LSP: View [d]iagnostic [f]loat' },
+        -- { '<leader>dk', vim.diagnostic.open_float,                   desc = 'LSP: View [d]iagnostic float' },
         { '<leader>dw', vim.lsp.buf.workspace_symbol,                desc = 'LSP: Query [w]orkspace symbols' },
         { '<leader>ds', '<cmd>Telescope diagnostics<cr>',            desc = 'LSP: [d]iagnostics [s]earch' },
       })
