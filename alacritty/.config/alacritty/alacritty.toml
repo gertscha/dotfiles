@@ -19,7 +19,7 @@ shell = 'fish'
 hide_when_typing = true
 
 [bell]
-color = "#df6882"
+color = "#ebb484"
 animation = "EaseOut"
 duration = 2
 
