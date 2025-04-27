@@ -90,6 +90,11 @@ opt.updatetime = 200 -- Save swap file and trigger CursorHold
 -- vim.g.netrw_sort_sequence = [[[\/]$,*]] -- Show directories first (sorting)
 -- vim.g.netrw_liststyle = 0 -- long list, cycle with 'i'
 
+-- disable some providers (i don't use any plugins that need them)
+vim.api.nvim_set_var('loaded_perl_provider', 0)
+vim.api.nvim_set_var('loaded_python3_provider', 0)
+vim.api.nvim_set_var('loaded_node_provider', 0)
+vim.api.nvim_set_var('loaded_ruby_provider', 0)
 
 -- prevent small latex files from being recognized as 'plaintex'
 vim.g.tex_flavor = "latex"
