@@ -78,7 +78,7 @@ keymap('n', 'n', 'nzzzv', opts('Go to next search hit'))
 keymap('n', 'N', 'Nzzzv', opts('Go to previous search hit'))
 
 -- Easily hit escape in terminal mode.
-keymap('t', '<esc><esc>', '<c-\\><c-n>', opts('Escape the terminal'))
+keymap('t', '<esc>', '<c-\\><c-n>', opts('Escape the terminal'))
 
 -- navigate entries of the current quickfix list
 keymap('n', '<M-n>', '<cmd>cnext<cr>', opts('Quickfix list next'))
