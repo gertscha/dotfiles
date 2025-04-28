@@ -77,6 +77,14 @@ keymap('n', '<C-u>', '<C-u>zz', opts('Half page jump up'))
 keymap('n', 'n', 'nzzzv', opts('Go to next search hit'))
 keymap('n', 'N', 'Nzzzv', opts('Go to previous search hit'))
 
+-- move lines around
+keymap('n', '<A-j>', '<cmd>m .+1<CR>==', opts('Move current line down'))
+keymap('n', '<A-k>', '<cmd>m .-2<CR>==', opts('Move current line up'))
+keymap('i', '<A-j>', '<esc><cmd>m .+1<CR>==gi', opts('Move current line down'))
+keymap('i', '<A-k>', '<esc><cmd>m .-2<CR>==gi', opts('Move current line up'))
+keymap('v', '<A-j>', ":m '>+1<CR>gv=gv", opts('Move current line down'))
+keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", opts('Move current line down'))
+
 -- Easily hit escape in terminal mode.
 keymap('t', '<esc>', '<c-\\><c-n>', opts('Escape the terminal'))
 

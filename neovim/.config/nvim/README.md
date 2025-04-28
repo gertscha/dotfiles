@@ -64,6 +64,9 @@ x                       Cut (goes into register 9 instead of 1)
   <M-n>                 Quickfix list next
   <M-p>                 Quickfix list previous
   <M-q>                 Close Quickfix list
+// All Modes (except visual block)
+  <A-j>                 Move line under cursor down
+  <A-k>                 Move line under cursor up
 ```
 
 ## Telescope
@@ -166,21 +169,6 @@ r<Space>                Populate command line with ":Git rebase "
 <S-Tab>                 Go backwards in the snippet
 <C-b>                   Scroll documentation up
 <C-f>                   Scroll documentation down
-```
-
-## Move
-```
-// Normal Mode
-<A-j>                   Move line under cursor down
-<A-k>                   Move line under cursor up
-<leader>wf              Move [W]ord [F]orward
-<leader>wb              Move [W]ord [B]ackward
-
-// Visual Mode
-<A-h>                   Move selection to the left
-<A-j>                   Move selection down
-<A-k>                   Move selection up
-<A-l>                   Move selection to the right
 ```
 
 ## Markdown Preview
