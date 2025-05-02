@@ -2,6 +2,7 @@ return {
   -- blink completion
   "saghen/blink.cmp",
   dependencies = {
+    'echasnovski/mini.icons',
     {
       'L3MON4D3/LuaSnip',
       version = 'v2.*',
@@ -63,21 +64,27 @@ return {
     },
     keymap = {
       preset = 'enter',
-      ['<Tab>'] = { 'select_next', 'fallback' },
-      ['<C-Tab>'] = { 'snippet_forward', 'fallback' },
-      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      -- preset keys:
+      -- ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      -- ['<C-e>'] = { 'hide', 'fallback' },
+      -- ['<CR>'] = { 'accept', 'fallback' },
+      -- ['<Tab>'] = { 'snippet_forward', 'fallback' },
+      -- ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      -- ['<Up>'] = { 'select_prev', 'fallback' },
+      -- ['<Down>'] = { 'select_next', 'fallback' },
+      -- ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+      -- ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+      -- ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+      -- ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+      -- ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+      -- my changes/additions
+      ['<C-y>'] = { 'select_and_accept', 'fallback' },
       ['<Up>'] = {}, -- only allow C-p and C-n for navigation
       ['<Down>'] = {},
     },
     signature = {
       -- currently experimental
-      enabled = true,
-      window = {
-        border = 'single',
-        min_width = 10,
-        max_width = 70,
-        max_height = 20,
-      },
+      enabled = false,
     },
     completion = {
       keyword = { range = 'full' },
@@ -100,13 +107,42 @@ return {
           enabled = false,
         }
       },
-      menu = { border = 'none' },
-      documentation = {
-        window = { border = 'single' },
-        auto_show = true,
-        auto_show_delay_ms = 1000,
-      },
-    },
-  },
+      menu = {
+        border = 'none',
+        draw = {
+          columns = {
+            { "kind_icon" }, { "label", "source_name", gap = 2 },
+          },
+          components = {
+            -- use icons and highlights from mini.icons
+            kind_icon = {
+              text = function(ctx)
+                local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                return kind_icon
+              end,
+              highlight = function(ctx)
+                local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                return hl
+              end,
+            },
+            source_name = {
+              text = function(ctx)
+                local lbl = ctx.source_name
+                if lbl == 'Snippets' then
+                  return 'Snip'
+                elseif lbl == 'LazyDev' then
+                  return 'LDev'
+                elseif lbl == 'Buffer' then
+                  return 'Buf'
+                else
+                  return ctx.source_name
+                end
+              end,
+            },
+          } -- components
+        }   -- draw
+      },    -- menu
+    },      -- completion
+  }, -- opts
   opts_extend = { "sources.default" },
 }
