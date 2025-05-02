@@ -1,7 +1,9 @@
 -- Shorten function name
 local keymap = vim.keymap.set
 
--- little function to set the options
+-- little function to set the options for keymap
+---@param desc string
+---@return table
 local function opts(desc)
   return { desc = desc, noremap = true, silent = true }
 end

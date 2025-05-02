@@ -4,11 +4,13 @@
 -- some filetype specific settings get auto run see the files in
 -- 'after/ftplugin' and :help ftplugin for more info
 
--- protected require
-function P_require(m)
-  local ok, err = pcall(require, m)
-  if not ok then return nil, err end
-  return err
+---protected require
+---@param module string
+---@return table?
+function P_require(module)
+  local ok, m = pcall(require, module)
+  if not ok then print('P_rquire error: ' .. m) return nil end
+  return m
 end
 
 require 'settings.options'  -- base nvim settings
@@ -17,7 +19,7 @@ require 'settings.autocmds' -- event based actions
 require 'settings.lazy'     -- the plugin manager (also loads the plugins)
 
 
--- make some nicer labels
+-- make some nicer labels for which-key
 local mod = P_require('which-key')
 if mod then
   mod.add({
@@ -30,7 +32,6 @@ if mod then
     { '<space>om',  group = 'Markdown' },
     { '<space>t',   group = 'Toggle' },
     { '<space>tw',  group = 'Line width settings' },
-    { '<space>w',   group = 'Move words' },
     { '<space>y',   group = 'Yank' },
   })
 end

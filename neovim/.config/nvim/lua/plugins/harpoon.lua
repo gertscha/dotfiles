@@ -1,4 +1,6 @@
--- helper
+---description helper
+---@param desc string
+---@return string
 local function prefix(desc)
   return 'Harpoon: ' .. desc
 end
