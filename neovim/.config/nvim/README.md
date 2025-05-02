@@ -153,8 +153,8 @@ r<Space>                Populate command line with ":Git rebase "
 <leader>n               Go to file 2
 <leader>b               Go to file 3
 <leader>v               Go to file 4
-<C-k>                   Go to previous file in swap list
-<C-l>                   Go to next file in swap list
+<A-h>                   Go to previous file in swap list
+<A-l>                   Go to next file in swap list
 ```
 
 ## Completion - blink
@@ -286,6 +286,8 @@ Selection of default vim keybinds
     <C-t>               Indent line
     <C-d>               De-indent line
     <C-o>               Issue one normal mode command
+    <C-K>               Enter a digraph (see :dig and :h diagraph)
+                        For example '-M' creates an Em Dash (—)
 // Visual Mode
   gc                    Toggle comment of the region
   g<C-a>                Increment first number in selection based on line offset

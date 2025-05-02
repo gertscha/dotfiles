@@ -17,8 +17,8 @@ local M = {
     { '<leader>n', desc = prefix('Init & switch to 2') },
     { '<leader>b', desc = prefix('Init & switch to 3') },
     { '<leader>v', desc = prefix('Init & switch to 4') },
-    { '<C-k>',     desc = prefix('Init & switch to previous') },
-    { '<C-l>',     desc = prefix('Init & switch to next') },
+    { '<A-h>',     desc = prefix('Init & switch to previous') },
+    { '<A-l>',     desc = prefix('Init & switch to next') },
   },
 }
 
@@ -41,8 +41,8 @@ function M.config()
     { '<leader>n', function() harpoon:list():select(2) end,                     desc = prefix('switch to 2') },
     { '<leader>b', function() harpoon:list():select(3) end,                     desc = prefix('switch to 3') },
     { '<leader>v', function() harpoon:list():select(4) end,                     desc = prefix('switch to 4') },
-    { '<C-k>',     function() harpoon:list():prev() end,                        desc = prefix('switch previous') },
-    { '<C-l>',     function() harpoon:list():next() end,                        desc = prefix('switch to next') },
+    { '<A-h>',     function() harpoon:list():prev() end,                        desc = prefix('switch previous') },
+    { '<A-l>',     function() harpoon:list():next() end,                        desc = prefix('switch to next') },
   })
 end
 
