@@ -6,6 +6,7 @@ local M = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'folke/lazydev.nvim', -- make sure it is loaded first
+    -- snippets, handled by blink.cmp
     -- other integrations
     'saghen/blink.cmp',   -- completion
     'j-hui/fidget.nvim',  -- status info
