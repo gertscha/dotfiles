@@ -1,6 +1,7 @@
 return {
   "j-hui/fidget.nvim",
-  tag = "v1.5.0",
+  tag = "v1.6.1",
+  lazy = true,
   opts = {
     notification = {
       history_size = 256,
@@ -10,10 +11,10 @@ return {
       },
     },
     progress = {
+      ignore_done_already = true,
       display = {
-        done_ttl = 15,
+        done_ttl = 10,
       },
     },
   },
-  lazy = true,
 }
