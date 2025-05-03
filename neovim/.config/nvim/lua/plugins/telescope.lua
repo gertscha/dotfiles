@@ -25,6 +25,7 @@ local M = {
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    "j-hui/fidget.nvim",
   },
   cmd = 'Telescope',
   keys = { '<leader>s', desc = 'Telescope' },
