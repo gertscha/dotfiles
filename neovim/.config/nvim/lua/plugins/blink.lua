@@ -3,24 +3,7 @@ return {
   "saghen/blink.cmp",
   dependencies = {
     'echasnovski/mini.icons',
-    {
-      'L3MON4D3/LuaSnip',
-      version = 'v2.*',
-      run = 'make install_jsregexp',
-      config = function()
-        local ls = require('luasnip')
-        local paths = {}
-        table.insert(paths, vim.fn.stdpath('config') .. '/lua/snippets')
-        -- require("luasnip.loaders.from_vscode").lazy_load()
-        require("luasnip.loaders.from_lua").lazy_load({ paths = paths })
-        ls.config.setup({
-          enable_autosnippets = true,
-          update_events = { "TextChanged", "TextChangedI" },
-          region_check_events = 'InsertEnter',
-          delete_check_events = 'InsertLeave'
-        })
-      end
-    },
+    'L3MON4D3/LuaSnip',
   },
   event = 'InsertEnter',
   -- tag = 'v1.0.0',
@@ -143,6 +126,6 @@ return {
         }   -- draw
       },    -- menu
     },      -- completion
-  }, -- opts
+  },        -- opts
   opts_extend = { "sources.default" },
 }

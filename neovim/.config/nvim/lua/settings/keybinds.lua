@@ -25,12 +25,6 @@ vim.g.maplocalleader = ' '
 -- keymap('n', '<leader>ea', function() vim.cmd.Lex("%:p:h") end, opts('Open netrw (current file)'))
 -- keymap('n', '<leader>e', vim.cmd.Lex, opts('Open netrw (working directory)'))
 
--- move lines, now using a plugin for this
--- keymap('v', '<A-j>', ":m .+1<CR>==", opts('Move Lines Down'))
--- keymap('v', '<A-k>', ":m .-2<CR>==", opts('Move Lines Up'))
--- keymap('x', '<A-j>', ":m '>+1<CR>gv=gv", opts('Move Lines Down'))
--- keymap('x', '<A-k>', ":m '<-2<CR>gv=gv", opts('Move Lines Up'))
-
 -- alternate command bind
 -- keymap('n', '<leader><leader>', ':', opts('Open Commandline'))
 
