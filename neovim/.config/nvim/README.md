@@ -41,6 +41,9 @@ x                       Cut (goes into register 9 instead of 1)
 // Visual Mode
 >                       Increase indentation (remains in this mode i.e. repeatable)
 <                       Reduce indentation (remains in this mode i.e. repeatable)
+// Insert Mode
+<C-s>                   Expand or step forward in snippet, if snippet available
+                        otherwise do the default vim.lsp.buf.signature_help()
 ```
 
 ## Misc
@@ -281,11 +284,17 @@ Selection of default vim keybinds
                         useful for example to edit macros
   // Actions in Insert Mode
     <C-h>               Delete character befor cursor
-    <C-j>               Create line break at cursor position
+    <C-j>               Same as Newline
+    <C-e>               Copy character from line below
+    <C-y>               Copy character from line above
     <C-w>               Delete word before the cursor
-    <C-t>               Indent line
-    <C-d>               De-indent line
+    <C-u>               Undo last insertion, or complete line if no insertion
+    <C-t>               Indent current line one shiftwidth
+    <C-d>               De-indent current line one shiftwidth
+    0<C-d>              De-indent current line fully
+    ^<C-d>              De-indent line fully (restores indent for next line)
     <C-o>               Issue one normal mode command
+    <C-r>{register}     Paste the contents of {register}
     <C-K>               Enter a digraph (see :dig and :h diagraph)
                         For example '-M' creates an Em Dash (—)
 // Visual Mode
