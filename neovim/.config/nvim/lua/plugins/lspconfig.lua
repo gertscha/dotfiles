@@ -3,13 +3,14 @@ local M = {
   'neovim/nvim-lspconfig', -- contains LSP server info
   dependencies = {
     -- setup relevant
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-    'folke/lazydev.nvim', -- make sure it is loaded first
+    -- mason loaded on startup, see mason.lua
+    'mason-org/mason.nvim', -- (dependencies for safety)
+    'mason-org/mason-lspconfig.nvim', -- (dependencies for safety)
+    'folke/lazydev.nvim',   -- make sure it is loaded first
     -- snippets, handled by blink.cmp
     -- other integrations
-    'saghen/blink.cmp',   -- completion
-    'j-hui/fidget.nvim',  -- status info
+    'saghen/blink.cmp',  -- completion
+    'j-hui/fidget.nvim', -- status info
     'folke/which-key.nvim',
     -- 'simrat39/rust-tools.nvim',
     -- Autoformatting
@@ -51,57 +52,6 @@ function M.config()
       -- },
     },
   })
-
-  -- mason setup (installs lsp servers) and ui customization
-  require('mason').setup({
-    ui = {
-      icons = {
-        package_installed = icons.ui.Check,
-        package_pending = icons.ui.CloudDownload,
-        package_uninstalled = icons.ui.Close,
-      }
-    }
-  })
-  -- mason-lspconfig automates the lsp server setup for mason insalled servers
-  require("mason-lspconfig").setup({
-    automatic_installation = false,
-    ensure_installed = { 'lua_ls' },
-  })
-  -- this does the server setup automatically
-  -- read the help: mason-lspconfig.setup_handlers()
-  require("mason-lspconfig").setup_handlers {
-    -- The first entry (without a key) will be the default handler
-    -- and will be called for each installed server that doesn't have
-    -- a dedicated handler. We will always use this one, and check for dedicated
-    -- configuration inside of it
-    -- Dedicated servers are configured in 'configuration/lsp_servers.lua'
-    function(server_name)
-      -- want to run stuff like this:
-      -- require('lspconfig').lua_ls.setup {}
-      -- but also supply the settings given in lsp_servers.lua
-      -- we also add the completion capabilites from the blink plugin
-      local my_servers = require('plugins.configuration.lsp_servers')
-      local blink_getlspcap = require('blink.cmp').get_lsp_capabilities
-
-      -- check if we have a config for the server
-      if my_servers.server_name ~= nil then
-        -- load the config
-        local config = my_servers[server_name]
-        if config == true then -- the server is just set as true
-          config = {}
-        end
-        if config.capabilites == nil then
-          config.capabilites = {}
-        end
-        config.capabilites = blink_getlspcap(config.capabilites)
-        require('lspconfig')[server_name].setup(config)
-      else
-        -- have no config, just give the empty one
-        local capabilities = blink_getlspcap()
-        require("lspconfig")[server_name].setup({ capabilites = capabilities })
-      end
-    end,
-  }
 
   --  This function gets run when an LSP attaches to a particular buffer.
   vim.api.nvim_create_autocmd('LspAttach', {
