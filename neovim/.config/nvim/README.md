@@ -176,7 +176,12 @@ r<Space>                Populate command line with ":Git rebase "
 
 ## Markdown Preview
 ```
-<leader>omp             Open Markdown in Browers
+// inside Neovim
+<leader>omb             Toggle Markdown preview in nvim (uses basic highlighting)
+// external browser window
+<leader>oms             Open Markdown in browser
+<leader>omp             Pick Markdown file to open in browser
+<leader>omc             Close Markdown preview in browser
 ```
 
 

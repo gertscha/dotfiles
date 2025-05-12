@@ -15,7 +15,7 @@ function M.config()
     TSConfig = {},
     modules = {},
     -- A list of parser names, or 'all' (the listed parsers should always be installed)
-    ensure_installed = { 'lua', 'markdown', 'latex', 'bash', 'rust', 'c', 'lua', 'vim', 'vimdoc' },
+    ensure_installed = { 'lua', 'markdown', 'latex', 'bash', 'rust', 'c', 'lua', 'vim', 'vimdoc', 'html', 'latex' },
     ignore_install = { 'phpdoc' }, -- List of parsers to ignore installing
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
