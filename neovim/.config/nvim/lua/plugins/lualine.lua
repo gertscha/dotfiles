@@ -30,7 +30,7 @@ local M = {
       -- section_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },
       disabled_filetypes = {
-        statusline = { 'alpha', 'fugitive', 'undotree', },
+        statusline = { 'alpha', 'fugitive', 'undotree', 'oil' },
         winbar = {},
       },
       ignore_focus = {},
