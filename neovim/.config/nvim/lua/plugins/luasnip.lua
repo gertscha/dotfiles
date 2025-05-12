@@ -25,6 +25,42 @@ function M.config()
     update_events = { "TextChanged", "TextChangedI" },
   })
 
+  -- add marker to choice nodes, seemingly there is no nice way to do it
+  -- (ext_opts can do it, see commented section in the setup, the issue is
+  -- that leaving insert mode does not remove the mark properly), solved with:
+  -- https://github.com/L3MON4D3/LuaSnip/issues/937#issuecomment-2140050046
+  local group = vim.api.nvim_create_augroup("UserLuasnip", { clear = true })
+  local ns = vim.api.nvim_create_namespace("UserLuasnipNS")
+  local function delete_extmarks()
+    local extmarks = vim.api.nvim_buf_get_extmarks(0, ns, 0, -1, {})
+    for _, extmark in ipairs(extmarks) do
+      vim.api.nvim_buf_del_extmark(0, ns, extmark[1])
+    end
+  end
+  vim.api.nvim_create_autocmd("User", {
+    group = group,
+    pattern = "LuasnipChoiceNodeEnter",
+    callback = function()
+      local node = require("luasnip").session.event_node
+      local line = node:get_buf_position()[1]
+      vim.api.nvim_buf_set_extmark(0, ns, line, -1, {
+        end_line = line,
+        end_right_gravity = true,
+        right_gravity = false,
+        virt_text = { { '◀ Choice Node', "Comment" } },
+      })
+    end,
+  })
+  vim.api.nvim_create_autocmd("User", {
+    group = group,
+    pattern = "LuasnipChoiceNodeLeave",
+    callback = delete_extmarks,
+  })
+  vim.api.nvim_create_autocmd("InsertLeave", {
+    group = group,
+    callback = delete_extmarks,
+  })
+
   -- add keybinds
   local mod = P_require('which-key')
   if mod then
