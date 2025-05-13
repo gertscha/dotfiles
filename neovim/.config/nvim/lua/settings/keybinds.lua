@@ -8,6 +8,15 @@ local function opts(desc)
   return { desc = desc, noremap = true, silent = true }
 end
 
+local function cmdheighttoggle()
+  local val = vim.api.nvim_get_option_value('cmdheight', {})
+  if val == 0 then
+    vim.o.cmdheight = 1
+  else
+    vim.o.cmdheight = 0
+  end
+end
+
 -- set leader key
 keymap('', '<Space>', '<Nop>', opts(''))
 vim.g.mapleader = ' '
@@ -48,6 +57,8 @@ keymap('n', '<leader>th', "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
   opts('Toggle line lenght limit highlighting'))
 -- toggle line wrap
 keymap('n', '<leader>twl', "<cmd>set wrap!<enter>", opts('Toggle line wrap'))
+-- toggle command line height
+keymap('n', '<leader>tsc', cmdheighttoggle, opts('Toggle command line visibility'))
 -- toggle textwidth
 keymap('n', '<leader>tw0', "<cmd>set textwidth=0<enter>", opts('Disable line length limit'))
 keymap('n', '<leader>tw1', "<cmd>set textwidth=80<enter>", opts('Set line length limit to 80'))

@@ -32,6 +32,7 @@ if mod then
     { '<space>om',  group = 'Markdown' },
     { '<space>t',   group = 'Toggle' },
     { '<space>tw',  group = 'Line width settings' },
+    { '<space>ts',  group = 'Command line visibility toggle' },
     { '<space>y',   group = 'Yank' },
   })
 end
