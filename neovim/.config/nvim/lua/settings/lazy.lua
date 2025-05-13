@@ -27,7 +27,8 @@ require("lazy").setup({
   },
   install = {
     missing = true, -- install missing plugins on startup
-    -- colorscheme = { "habamax" }, -- colorscheme that will be used when installing plugins
+    colorscheme = { "vague" }, -- colorscheme that will be used when installing plugins
+  -- colorscheme that will be used when installing plugins.
   },
   ui = {
     -- a number < 1 is a percentage., > 1 is a fixed size
