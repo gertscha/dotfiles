@@ -63,6 +63,7 @@ x                       Cut (goes into register 9 instead of 1)
   <leader>tw0           Set textwidth to zero (disable)
   <leader>tw1           Set textwidth to 80
   <leader>tw2           Set textwidth to 120
+  <leader>tsc           Toggle command line visibility
   // Quickfix list
   <M-n>                 Quickfix list next
   <M-p>                 Quickfix list previous
