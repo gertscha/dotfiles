@@ -220,10 +220,10 @@ Selection of default vim keybinds
     $                   Goto end of current line
     0                   Goto beginning of current line
     ^                   Goto first character on current line
-    w                   Jump to next word
-    b                   Jump to previous word
-    e                   Jump to end of current word
-    ge                  Jump back to end of previous word
+    w                   Jump to next word (and W for whitespace based)
+    b                   Jump to previous word (and B for whitespace based)
+    e                   Jump to end of current word (and E for whitespace based)
+    ge                  Jump back to end of previous word (also gE)
     gv                  Reselect previous visual selection
     viw                 Select the word that the cursor is on in visual mode
     viW                 Select contigous text in both directions
