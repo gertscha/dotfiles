@@ -2,10 +2,8 @@
 local M = {
   'neovim/nvim-lspconfig', -- contains LSP server info
   dependencies = {
-    -- setup relevant
-    -- mason loaded on startup, see mason.lua
-    'mason-org/mason.nvim', -- (dependencies for safety)
-    'mason-org/mason-lspconfig.nvim', -- (dependencies for safety)
+    -- mason & mason lspconfig to install and configure lsp servers
+    'mason-org/mason-lspconfig.nvim',
     'folke/lazydev.nvim',   -- make sure it is loaded first
     -- snippets, handled by blink.cmp
     -- other integrations

@@ -1,9 +1,9 @@
 local M = {
-  'mason-org/mason.nvim',
+  'mason-org/mason-lspconfig.nvim',
   dependencies = {
-    'mason-org/mason-lspconfig.nvim',
+    'mason-org/mason.nvim',
   },
-  event = 'VeryLazy',
+  cmd = 'Mason',
 }
 
 function M.config()
