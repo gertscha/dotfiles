@@ -11,11 +11,14 @@ local M = {
 }
 
 function M.config()
-  require('nvim-treesitter.configs').setup {
+  require('nvim-treesitter.configs').setup({
     TSConfig = {},
     modules = {},
     -- A list of parser names, or 'all' (the listed parsers should always be installed)
-    ensure_installed = { 'lua', 'markdown', 'latex', 'bash', 'rust', 'c', 'lua', 'vim', 'vimdoc', 'html', 'latex' },
+    ensure_installed = {
+      'lua', 'markdown', 'latex', 'bash', 'rust', 'vim', 'vimdoc', 'go',
+      'html', 'bibtex', 'make', 'cmake', 'c', 'cpp', 'fish',
+    },
     ignore_install = { 'phpdoc' }, -- List of parsers to ignore installing
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -23,7 +26,7 @@ function M.config()
       enable = true,
       disable = function(lang, buf)
         local max_filesize = 1000 * 1024
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
           print('Disabled treesitter due to large file size!')
           return true
@@ -34,21 +37,19 @@ function M.config()
     -- Automatically install missing parsers when entering buffer
     -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
     auto_install = true,
-    -- autopairs = { enable = true, },
     indent = {
       enable = true,
-      disable = { 'python', 'css' }
     },
     incremental_selection = {
-      enable = false,
-      -- keymaps = {
-      --   init_selection = 'gnn', -- set to `false` to disable one of the mappings
-      --   node_incremental = 'grn',
-      --   scope_incremental = 'grc',
-      --   node_decremental = 'grm',
-      -- },
+      enable = true,
+      keymaps = {
+        init_selection = '<Enter>',
+        node_incremental = '<Enter>',
+        scope_incremental = false,
+        node_decremental = 'Backspace',
+      },
     },
-  }
+  })
 
   local mod = P_require('treesitter-context')
   if mod then
@@ -57,7 +58,7 @@ function M.config()
       max_lines = 6,           -- How many lines the window should span. Values <= 0 mean no limit.
       min_window_height = 50,  -- Minimum editor window height to enable context. Values <= 0 mean no limit.
       line_numbers = true,
-      multiline_threshold = 3, -- Maximum number of lines to show for a single context
+      multiline_threshold = 4, -- Maximum number of lines to show for a single context
       trim_scope = 'outer',    -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
       mode = 'cursor',         -- Line used to calculate context. Choices: 'cursor', 'topline'
       -- Separator between context and content. Should be a single character string, like '-'.
