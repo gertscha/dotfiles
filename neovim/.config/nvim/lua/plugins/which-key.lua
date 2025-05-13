@@ -18,4 +18,24 @@ local M = {
   },
 }
 
+function M.config()
+  -- make some nicer labels for which-key
+  local mod = P_require('which-key')
+  if mod then
+    mod.add({
+      mode = 'n', -- NORMAL mode
+      { '<space>l',   group = 'Session Managment' },
+      { '<space>ll',  group = 'Special Sessions' },
+      { '<space>llg', group = 'Load/Get Special Sessions' },
+      { '<space>lls', group = 'Save Special Sessions' },
+      { '<space>o',   group = 'Open Screens' },
+      { '<space>om',  group = 'Markdown' },
+      { '<space>t',   group = 'Toggle' },
+      { '<space>tw',  group = 'Line width settings' },
+      { '<space>ts',  group = 'Command line visibility toggle' },
+      { '<space>y',   group = 'Yank' },
+    })
+  end
+end
+
 return M

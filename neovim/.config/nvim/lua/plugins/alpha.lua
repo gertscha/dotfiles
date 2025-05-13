@@ -13,7 +13,7 @@ local M = {
   'goolord/alpha-nvim',
   dependencies = {
     'echasnovski/mini.icons',
-    'folke/which-key.nvim',
+    -- 'folke/which-key.nvim',
   },
   lazy = false,
 }
