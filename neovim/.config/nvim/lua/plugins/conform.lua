@@ -12,10 +12,11 @@ local M = {
       lua = { 'stylua' },
       -- Conform will run multiple formatters sequentially, if not stopped
       python = { 'isort', 'yapf' },
-      rust = { 'rustfmt', stop_after_first = true, lsp_format = 'fallback' },
+      rust = { 'rustfmt', stop_after_first = true },
     },
     -- Set this to change the default values when calling conform.format()
     default_format_opts = {
+      lsp_format = 'fallback',
       indent = 'space', -- TODO check if this does anything (don't think its valid)
     },
   },
@@ -24,6 +25,28 @@ local M = {
 function M.config()
   -- TODO integrate the opts and this table to have a single config location
   local packages = { 'yapf', 'isort' }
+
+  -- TODO see if and how one can extend the opt table
+  local formatters_ft = {
+    lua = { 'stylua' },
+    python = { 'isort', 'yapf' },
+    rust = { 'rustfmt', stop_after_first = true, lsp_format = 'fallback' },
+  }
+
+  -- how I could iterate over the formatters only, instead of using the packages list
+  -- for k, v in pairs(formatters_ft) do
+  --   print(k)
+  --   for kk, vv in pairs(v) do
+  --     if type(kk) == "number" then
+  --       print(vv)
+  --     else
+  --       print('other value:')
+  --       print(kk)
+  --       print(vv)
+  --     end
+  --   end
+  -- end
+
 
   -- ensure all the packages are installed
   local registry = P_require('mason-registry')
