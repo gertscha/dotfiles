@@ -7,12 +7,16 @@ The config uses the [lazy.nvim](https://github.com/folke/lazy.nvim) plugin
 manager by folke. Setup should be automatic on first startup but a restart may
 be required.
 
-Be sure to run `:checkhealth` and fix any errors shown.
+Be sure to run `:checkhealth` and fix any errors shown. The notifications are
+handled by [Fidget.nvim](https://github.com/j-hui/fidget.nvim), shown in the
+top right, to view them again use `:Mes` or `:Messages` instead of the default
+`:mes`/`:messages`.
 
 To display some of the icons a nerd-font needs to be available and setup for the
 terminal. Install one and set it up. On windows use Windows Terminal (get from
-Windows Store if on Windows 10) and set the font there. Alternatively the icons
-can be replaced by adjusting `lua/settings/icons.lua`.
+Windows Store if on Windows 10) and set the font there. Some of the icons
+can be replaced by adjusting `lua/settings/icons.lua`, but many plugins
+require a nerd-font.
 
 # Keybinds Reference
 This is a reference to the keybinds (sample of the default bindings at the end).

@@ -1,13 +1,16 @@
 return {
   "j-hui/fidget.nvim",
   tag = "v1.6.1",
-  lazy = true,
   opts = {
     notification = {
       history_size = 256,
-      override_vim_notify = false,
+      override_vim_notify = true,
       window = {
-        winblend = 0, -- allow transparency
+        winblend = 100, -- 0 full transparency, 100 no transparency
+        border = 'single',
+        align = 'top',
+        x_padding = 3,
+        y_padding = 2,
       },
     },
     progress = {
@@ -16,5 +19,15 @@ return {
         done_ttl = 10,
       },
     },
+    logger = {
+      level = vim.log.levels.INFO, -- Minimum logging level
+      max_size = 10000,
+      float_precision = 0.01,      -- Limit the number of decimals displayed for floats
+      path = string.format("%s/fidget.nvim.log", vim.fn.stdpath("log")),
+    },
   },
+  init = function()
+    vim.api.nvim_create_user_command('Mes', 'Fidget history', {})
+    vim.api.nvim_create_user_command('Messages', 'Fidget history', {})
+  end,
 }
