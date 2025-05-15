@@ -2,23 +2,25 @@
 local M = {
   'neovim/nvim-lspconfig', -- contains LSP server info
   dependencies = {
-    -- mason & mason lspconfig to install and configure lsp servers
+    -- make Lua aware of neovim api
+    'folke/lazydev.nvim', -- make sure it is loaded first
+    -- installing and configure LSP servers
     'mason-org/mason-lspconfig.nvim',
-    'folke/lazydev.nvim',   -- make sure it is loaded first
-    -- snippets, handled by blink.cmp
+    -- auto complete and snippets
+    'saghen/blink.cmp',
+    'L3MON4D3/LuaSnip',
+    -- Autoformatting
+    'stevearc/conform.nvim',
     -- other integrations
-    'saghen/blink.cmp',  -- completion
     'j-hui/fidget.nvim', -- status info
     'folke/which-key.nvim',
     -- 'simrat39/rust-tools.nvim',
-    -- Autoformatting
-    -- 'stevearc/conform.nvim',
   },
   event = { 'BufRead', 'BufNewFile' },
 }
 
 function M.config()
-  vim.lsp.set_log_level("off")
+  vim.lsp.set_log_level('off')
 
   local icons = require('settings.icons')
   -- diagnostics settings
@@ -56,19 +58,42 @@ function M.config()
     callback = function(args)
       local wk = require('which-key')
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if not client then return end
-
-      -- lsp based format keybind
-      if client:supports_method('textDocument/formatting') then
-        wk.add({
-          buffer = args.buf,
-          {
-            '<leader>df',
-            function() vim.lsp.buf.format({ bufnr = args.buf, id = client.id }) end,
-            desc = 'LSP: [F]ormat Buffer'
-          },
-        })
+      -- nil check, should not happen
+      if not client then
+          vim.notify("LSP client should not be nil", vim.log.ERROR)
+        return
       end
+
+      -- formatting
+      local conf_format = P_require('conform')
+      local format_fun = nil
+      local lsp_format = client:supports_method('textDocument/formatting')
+      if lsp_format and not conf_format then
+        format_fun =
+            function() vim.lsp.buf.format({ bufnr = args.buf, id = client.id }) end
+      elseif conf_format then
+        local fmtlspcnt = (lsp_format ~= false and 1 or 0)
+        local fmtconvcnt = #conf_format.list_formatters(args.buf)
+        if fmtconvcnt + fmtlspcnt > 0 then
+          format_fun = function()
+            conf_format.format({ bufnr = args.buf, lsp_format = 'fallback' })
+          end
+        else
+          format_fun = function()
+            vim.notify("No Formatter available for this buffer!", vim.log.INFO)
+          end
+        end
+      else
+        format_fun = function()
+          vim.notify("LSP does not support formatting!", vim.log.INFO)
+        end
+      end
+
+      wk.add({
+        buffer = args.buf,
+        { '<leader>df', format_fun, desc = '[D]iagnostics [F]ormat Buffer', },
+      })
+
       -- if client:supports_method('textDocument/completion') then
       --   vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
       -- end
@@ -99,6 +124,7 @@ function M.config()
         })
       end
 
+      local tb = require('telescope.builtin')
       wk.add({
         mode = 'n',        -- NORMAL mode
         buffer = args.buf, -- nil for Global mappings. Give buffer number for buffer local mappings
@@ -107,19 +133,19 @@ function M.config()
         nowait = false,    -- use `nowait` when creating keymaps
         -- Opens a popup that displays documentation about the word under your cursor
         --  See `:help K` for why this keymap
-        { 'K',          vim.lsp.buf.hover,                           desc = 'LSP: Lookup Symbol' },
-        { 'gr',         require('telescope.builtin').lsp_references, desc = 'LSP: [r]eferences' },
-        { 'gT',         vim.lsp.buf.type_definition,                 desc = 'LSP: [g]et [t]ype definition' },
-        { 'gD',         vim.lsp.buf.declaration,                     desc = 'LSP: [g]o to [D]eclaration' },
+        { 'K',          vim.lsp.buf.hover,            desc = 'LSP: Lookup Symbol', },
+        { 'gr',         tb.lsp_references,            desc = 'LSP: [r]eferences', },
+        { 'gT',         vim.lsp.buf.type_definition,  desc = 'LSP: [g]et [t]ype definition', },
+        { 'gD',         vim.lsp.buf.declaration,      desc = 'LSP: [g]o to [D]eclaration', },
         -- Jump to the definition of the word under your cursor.
         --  To jump back, press <C-T>.
-        { 'gd',         vim.lsp.buf.definition,                      desc = 'LSP: [g]o to [d]efinition' },
+        { 'gd',         vim.lsp.buf.definition,       desc = 'LSP: [g]o to [d]efinition', },
         { '<leader>d',  group = 'diagnostics' },
         -- Execute a code action, usually your cursor needs to be on top of an error
-        { '<leader>da', vim.lsp.buf.code_action,                     desc = 'LSP: code [a]ctions' },
-        -- { '<leader>dk', vim.diagnostic.open_float,                   desc = 'LSP: View [d]iagnostic float' },
-        { '<leader>dw', vim.lsp.buf.workspace_symbol,                desc = 'LSP: Query [w]orkspace symbols' },
-        { '<leader>ds', '<cmd>Telescope diagnostics<cr>',            desc = 'LSP: [d]iagnostics [s]earch' },
+        { '<leader>da', vim.lsp.buf.code_action,      desc = 'LSP: code [a]ctions', },
+        -- { '<leader>dk', vim.diagnostic.open_float,                desc = 'LSP: View [d]iagnostic float' },
+        { '<leader>dw', vim.lsp.buf.workspace_symbol, desc = 'LSP: Query [w]orkspace symbols', },
+        { '<leader>ds', tb.diagnostics,               desc = 'LSP: [d]iagnostics [s]earch', },
       })
     end,
   })
