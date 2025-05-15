@@ -9,7 +9,10 @@
 ---@return table?
 function P_require(module)
   local ok, m = pcall(require, module)
-  if not ok then print('P_rquire failed to load ' .. module) return nil end
+  if not ok then
+    vim.notify('P_rquire failed to load module "' .. module .. '"', vim.log.levels.WARN)
+    return nil
+  end
   return m
 end
 
@@ -17,5 +20,3 @@ require 'settings.options'  -- base nvim settings
 require 'settings.keybinds' -- keybind adjustments
 require 'settings.autocmds' -- event based actions
 require 'settings.lazy'     -- the plugin manager (also loads the plugins)
-
-
