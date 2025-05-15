@@ -17,7 +17,7 @@ function M.config()
   ):wait()["code"] == 0
 
   if not has_latex2text then
-    print('WARNING: render-markdown disabled for LaTex, install Python "pylatexenc" to enable')
+    vim.notify('render-markdown disabled for LaTex, install Python "pylatexenc" to enable', vim.log.WARN)
   end
 
   require('render-markdown').setup({

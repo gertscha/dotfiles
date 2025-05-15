@@ -39,7 +39,7 @@ function M.config()
           registry.get_package(p):install()
         end
       else
-        print(string.format('%s not found!', p))
+        vim.notify(string.format('Formatter "%s" not found!', p), vim.log.INFO)
       end
     end
   end

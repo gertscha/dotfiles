@@ -28,7 +28,7 @@ function M.config()
         local max_filesize = 1000 * 1024
         local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
-          print('Disabled treesitter due to large file size!')
+          vim.notify('Disabled treesitter due to large file size!', vim.log.INFO)
           return true
         end
       end,
