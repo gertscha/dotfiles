@@ -119,7 +119,10 @@ function M.config()
     },
   }
   -- fidget notification telescope picker
-  require("telescope").load_extension("fidget")
+  local fidget = P_require("fidget")
+  if fidget then
+    require("telescope").load_extension("fidget")
+  end
 
   -- To get fzf loaded and working with telescope, you need to call
   -- load_extension, somewhere after setup function:
