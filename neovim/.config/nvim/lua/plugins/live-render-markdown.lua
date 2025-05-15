@@ -22,7 +22,7 @@ function M.config()
 
   require('render-markdown').setup({
     completions = { blink = { enabled = true } },
-    render_modes = { 'n', 'c', 't' }, -- disable all previews in insert mode
+    render_modes = { 'n', }, -- disable all previews in insert mode
     latex = { enabled = has_latex2text },
   })
 
