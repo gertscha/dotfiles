@@ -8,7 +8,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
+      { out,                            "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
@@ -26,9 +26,9 @@ require("lazy").setup({
     { import = "plugins" },
   },
   install = {
-    missing = true, -- install missing plugins on startup
+    missing = true,            -- install missing plugins on startup
     colorscheme = { "vague" }, -- colorscheme that will be used when installing plugins
-  -- colorscheme that will be used when installing plugins.
+    -- colorscheme that will be used when installing plugins.
   },
   ui = {
     -- a number < 1 is a percentage., > 1 is a fixed size
@@ -39,7 +39,7 @@ require("lazy").setup({
     cache = { enabled = true, },
     reset_packpath = true, -- reset the package path to improve startup time
     rtp = {
-      reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory
+      reset = true,        -- reset the runtime path to $VIMRUNTIME and your config directory
       disabled_plugins = {
         -- 'gzip',
         -- 'tarPlugin',
@@ -47,8 +47,8 @@ require("lazy").setup({
     },
   },
   checker = {
-    enabled = true, -- automatically check for plugin updates
-    notify = true, -- get a notification when new updates are found
+    enabled = true,    -- automatically check for plugin updates
+    notify = true,     -- get a notification when new updates are found
     frequency = 36000, -- check for updates every 10 hours
   },
   change_detection = {

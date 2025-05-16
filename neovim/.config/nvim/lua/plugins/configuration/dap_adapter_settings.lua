@@ -1,4 +1,3 @@
-
 -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
 -- The executables that you want to debug need to be compiled with debug symbols.
 

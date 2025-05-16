@@ -11,8 +11,8 @@ local M = {
     start_in_insert = true,
     insert_mappings = false,  -- if true, the mapping will also take effect in insert mode
     terminal_mappings = true, -- if true, the mappings take effect in the opened terminal
-    persist_size = true, -- resizing can destroy previous output
-    persist_mode = false, -- reset to insert mode (since start_in_insert = true)
+    persist_size = true,      -- resizing can destroy previous output
+    persist_mode = false,     -- reset to insert mode (since start_in_insert = true)
     direction = 'float',
     close_on_exit = true,
     auto_scroll = true,

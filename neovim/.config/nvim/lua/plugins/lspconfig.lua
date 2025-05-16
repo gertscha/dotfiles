@@ -60,7 +60,7 @@ function M.config()
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       -- nil check, should not happen
       if not client then
-          vim.notify("LSP client should not be nil", vim.log.ERROR)
+        vim.notify("LSP client should not be nil", vim.log.ERROR)
         return
       end
 

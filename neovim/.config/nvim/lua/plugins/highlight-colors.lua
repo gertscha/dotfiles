@@ -36,7 +36,11 @@ function M.config()
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
-    { '<leader>tc', '<cmd>HighlightColors Toggle<cr>', desc = 'Toggle color visualization' },
+    {
+      '<leader>tc',
+      '<cmd>HighlightColors Toggle<cr>',
+      desc = 'Toggle color visualization'
+    },
   })
 end
 

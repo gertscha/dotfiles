@@ -15,7 +15,7 @@ opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.mouse = "a"               -- Enable mouse mode
 -- opt.spelllang = { "en" }
 -- opt.fileencoding = "utf-8" -- is the default value
-opt.termguicolors = true             -- True color support
+opt.termguicolors = true -- True color support
 vim.g.have_nerd_font = true
 
 vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
