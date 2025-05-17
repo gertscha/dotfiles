@@ -6,7 +6,7 @@ ipc_socket = false
 [window]
 title = "Alacritty"
 dynamic_title = false
-dimensions = { columns = 100, lines = 40 }
+dimensions = { columns = 110, lines = 45 }
 
 [font]
 normal = { family = "MartianMonoNerdFontMono", style = "Regular" }
