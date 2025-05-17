@@ -77,7 +77,7 @@ x                       Cut (goes into register 9 instead of 1)
   <A-k>                 Move line under cursor up
 ```
 
-## Telescope
+## Search (fzf-lua)
 ```
 // Normal Mode
 <leader>sf              Search Files
@@ -87,8 +87,10 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>sw              Search Word under cursor (ripgrep)
 <leader>sg              Search with Grep
 <leader>sj              Search jumplist
-<leader>ss              Search search history
+<leader>ss              Search builtin pickers
 <leader>sm              Search marks
+<leader><leader>        Resume previous search
+
 
 // In a Telescope Search Buffer
 g?                      Show which-key (all modes)

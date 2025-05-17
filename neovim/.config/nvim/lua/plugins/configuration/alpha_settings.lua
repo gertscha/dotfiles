@@ -222,7 +222,7 @@ local quick_actions = {
   val = {
     { type = 'text',    val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
     { type = 'padding', val = 1 },
-    set_width(dashboard.button('f', icons.ui.FileFilled .. '  Find file', '<cmd>Telescope find_files<CR>')),
+    set_width(dashboard.button('f', icons.ui.FileFilled .. '  Find file', '<cmd>FzfLua files<CR>')),
     set_width(dashboard.button('n', icons.ui.NewFile .. '  New file', ':ene <BAR> startinsert <CR>')),
     set_width(dashboard.button('c', icons.ui.GearFilled .. '  Configuration', set_path_config)),
     set_width(dashboard.button('u', icons.ui.HatCircleUp .. '  Update plugins', ':Lazy<CR>')),

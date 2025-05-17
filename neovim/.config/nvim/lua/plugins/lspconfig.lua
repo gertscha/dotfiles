@@ -133,29 +133,51 @@ function M.config()
         })
       end
 
-      local tb = require('telescope.builtin')
-      wk.add({
-        mode = 'n',        -- NORMAL mode
-        buffer = args.buf, -- nil for Global mappings. Give buffer number for buffer local mappings
-        silent = true,     -- use `silent` when creating keymaps
-        noremap = true,    -- use `noremap` when creating keymaps
-        nowait = false,    -- use `nowait` when creating keymaps
-        -- Opens a popup that displays documentation about the word under your cursor
-        --  See `:help K` for why this keymap
-        { 'K',          vim.lsp.buf.hover,            desc = 'LSP: Lookup Symbol', },
-        { 'gr',         tb.lsp_references,            desc = 'LSP: [r]eferences', },
-        { 'gT',         vim.lsp.buf.type_definition,  desc = 'LSP: [g]et [t]ype definition', },
-        { 'gD',         vim.lsp.buf.declaration,      desc = 'LSP: [g]o to [D]eclaration', },
-        -- Jump to the definition of the word under your cursor.
-        --  To jump back, press <C-T>.
-        { 'gd',         vim.lsp.buf.definition,       desc = 'LSP: [g]o to [d]efinition', },
-        { '<leader>d',  group = 'diagnostics' },
-        -- Execute a code action, usually your cursor needs to be on top of an error
-        { '<leader>da', vim.lsp.buf.code_action,      desc = 'LSP: code [a]ctions', },
-        -- { '<leader>dk', vim.diagnostic.open_float,                desc = 'LSP: View [d]iagnostic float' },
-        { '<leader>dw', vim.lsp.buf.workspace_symbol, desc = 'LSP: Query [w]orkspace symbols', },
-        { '<leader>ds', tb.diagnostics,               desc = 'LSP: [d]iagnostics [s]earch', },
-      })
+      local fzflua = P_require('fzf-lua')
+      if fzflua then
+        wk.add({
+          mode = 'n', -- NORMAL mode
+          buffer = args.buf, -- nil for Global mappings. Give buffer number for buffer local mappings
+          silent = true, -- use `silent` when creating keymaps
+          noremap = true, -- use `noremap` when creating keymaps
+          nowait = false, -- use `nowait` when creating keymaps
+          -- Opens a popup that displays documentation about the word under your cursor
+          --  See `:help K` for why this keymap
+          { 'K', vim.lsp.buf.hover, desc = 'LSP: Lookup Symbol' },
+          { 'gr', fzflua.lsp_references, desc = 'LSP: [r]eferences' },
+          { 'gT', fzflua.lsp_typedefs, desc = 'LSP: [g]et [t]ype definition' },
+          {
+            'gD',
+            vim.lsp.buf.declaration,
+            desc = 'LSP: [g]o to [D]eclaration',
+          },
+          -- Jump to the definition of the word under your cursor.
+          --  To jump back, press <C-T>.
+          { 'gd', vim.lsp.buf.definition, desc = 'LSP: [g]o to [d]efinition' },
+          { '<leader>d', group = 'diagnostics' },
+          -- Execute a code action, usually your cursor needs to be on top of an error
+          {
+            '<leader>da',
+            fzflua.lsp_code_actions,
+            desc = 'LSP: code [a]ctions',
+          },
+          {
+            '<leader>dw',
+            fzflua.lsp_workspace_symbols,
+            desc = 'LSP: Query [w]orkspace symbols',
+          },
+          {
+            '<leader>ds',
+            fzflua.diagnotics_document,
+            desc = 'LSP: [d]iagnostics [s]earch in current buffer',
+          },
+          {
+            '<leader>dS',
+            fzflua.diagnotics_workspace,
+            desc = 'LSP: [d]iagnostics [S]earch in workspace',
+          },
+        })
+      end
     end,
   })
 end
