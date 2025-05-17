@@ -13,8 +13,8 @@ return {
     vim.g.undotree_ShortIndicators = 1
 
     require('which-key').add({
-      mode = 'n',     -- NORMAL mode
-      silent = true,  -- use `silent` when creating keymaps
+      mode = 'n', -- NORMAL mode
+      silent = true, -- use `silent` when creating keymaps
       noremap = true, -- use `noremap` when creating keymaps
       { '<leader>u', vim.cmd.UndotreeToggle, desc = 'Open Undotree' },
     })

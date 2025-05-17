@@ -6,8 +6,8 @@ local M = {
 }
 
 function M.config()
-  local icons = require 'settings.icons'
-  require('gitsigns').setup {
+  local icons = require('settings.icons')
+  require('gitsigns').setup({
     signs = {
       add = { text = icons.ui.BoldLineMiddle },
       change = { text = icons.ui.BoldLineDashedMiddle },
@@ -17,8 +17,8 @@ function M.config()
       untracked = { text = icons.ui.BoldDividerLeft },
     },
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-    numhl = false,     -- Toggle with `:Gitsigns toggle_numhl`
-    linehl = false,    -- Toggle with `:Gitsigns toggle_linehl`
+    numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+    linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
     word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
     watch_gitdir = { interval = 4000, follow_files = true },
     auto_attach = true,
@@ -43,7 +43,7 @@ function M.config()
       row = 0,
       col = 1,
     },
-  }
+  })
 end
 
 return M

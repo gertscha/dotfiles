@@ -1,8 +1,8 @@
 return {
-  "nvzone/showkeys",
-  cmd = "ShowkeysToggle",
+  'nvzone/showkeys',
+  cmd = 'ShowkeysToggle',
   opts = {
     timeout = 0.5,
-    maxkeys = 5
-  }
+    maxkeys = 5,
+  },
 }

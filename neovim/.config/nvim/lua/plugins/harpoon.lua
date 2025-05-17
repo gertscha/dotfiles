@@ -10,7 +10,7 @@ local M = {
   'ThePrimeagen/harpoon',
   branch = 'harpoon2',
   dependencies = {
-    'nvim-lua/plenary.nvim'
+    'nvim-lua/plenary.nvim',
   },
   keys = {
     { '<leader>a', desc = prefix('Init & Add File') },
@@ -19,8 +19,8 @@ local M = {
     { '<leader>n', desc = prefix('Init & switch to 2') },
     { '<leader>b', desc = prefix('Init & switch to 3') },
     { '<leader>v', desc = prefix('Init & switch to 4') },
-    { '<A-h>',     desc = prefix('Init & switch to previous') },
-    { '<A-l>',     desc = prefix('Init & switch to next') },
+    { '<A-h>', desc = prefix('Init & switch to previous') },
+    { '<A-l>', desc = prefix('Init & switch to next') },
   },
 }
 
@@ -32,20 +32,68 @@ function M.config()
     },
   })
 
-  local func_open_list = function() harpoon.ui:toggle_quick_menu(harpoon:list()) end
+  local func_open_list = function()
+    harpoon.ui:toggle_quick_menu(harpoon:list())
+  end
   require('which-key').add({
-    mode = 'n',     -- NORMAL mode
-    silent = true,  -- use `silent` when creating keymaps
+    mode = 'n', -- NORMAL mode
+    silent = true, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
-    { '<leader>a', function() harpoon:list():add() end,     desc = prefix('Add file') },
-    { '<leader>h', func_open_list,                          desc = prefix('Open List') },
-    { '<leader>m', function() harpoon:list():select(1) end, desc = prefix('switch to 1') },
-    { '<leader>n', function() harpoon:list():select(2) end, desc = prefix('switch to 2') },
-    { '<leader>b', function() harpoon:list():select(3) end, desc = prefix('switch to 3') },
-    { '<leader>v', function() harpoon:list():select(4) end, desc = prefix('switch to 4') },
-    { '<A-h>',     function() harpoon:list():prev() end,    desc = prefix('switch previous') },
-    { '<A-l>',     function() harpoon:list():next() end,    desc = prefix('switch to next') },
+    {
+      '<leader>a',
+      function()
+        harpoon:list():add()
+      end,
+      desc = prefix('Add file'),
+    },
+    {
+      '<leader>h',
+      func_open_list,
+      desc = prefix('Open List'),
+    },
+    {
+      '<leader>m',
+      function()
+        harpoon:list():select(1)
+      end,
+      desc = prefix('switch to 1'),
+    },
+    {
+      '<leader>n',
+      function()
+        harpoon:list():select(2)
+      end,
+      desc = prefix('switch to 2'),
+    },
+    {
+      '<leader>b',
+      function()
+        harpoon:list():select(3)
+      end,
+      desc = prefix('switch to 3'),
+    },
+    {
+      '<leader>v',
+      function()
+        harpoon:list():select(4)
+      end,
+      desc = prefix('switch to 4'),
+    },
+    {
+      '<A-h>',
+      function()
+        harpoon:list():prev()
+      end,
+      desc = prefix('switch previous'),
+    },
+    {
+      '<A-l>',
+      function()
+        harpoon:list():next()
+      end,
+      desc = prefix('switch to next'),
+    },
   })
 end
 

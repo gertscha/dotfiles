@@ -53,16 +53,40 @@ keymap('v', '<', '<gv', opts('Indent to the left'))
 keymap('v', '>', '>gv', opts('Indent to the right'))
 
 -- toggle line length indicator, cc ~= colorcolumn
-keymap('n', '<leader>th', "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
-  opts('Toggle line lenght limit highlighting'))
+keymap(
+  'n',
+  '<leader>th',
+  "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
+  opts('Toggle line lenght limit highlighting')
+)
 -- toggle line wrap
-keymap('n', '<leader>twl', "<cmd>set wrap!<enter>", opts('Toggle line wrap'))
+keymap('n', '<leader>twl', '<cmd>set wrap!<enter>', opts('Toggle line wrap'))
 -- toggle command line height
-keymap('n', '<leader>tsc', cmdheighttoggle, opts('Toggle command line visibility'))
+keymap(
+  'n',
+  '<leader>tsc',
+  cmdheighttoggle,
+  opts('Toggle command line visibility')
+)
 -- toggle textwidth
-keymap('n', '<leader>tw0', "<cmd>set textwidth=0<enter>", opts('Disable line length limit'))
-keymap('n', '<leader>tw1', "<cmd>set textwidth=80<enter>", opts('Set line length limit to 80'))
-keymap('n', '<leader>tw2', "<cmd>set textwidth=120<enter>", opts('Set line length limit to 120'))
+keymap(
+  'n',
+  '<leader>tw0',
+  '<cmd>set textwidth=0<enter>',
+  opts('Disable line length limit')
+)
+keymap(
+  'n',
+  '<leader>tw1',
+  '<cmd>set textwidth=80<enter>',
+  opts('Set line length limit to 80')
+)
+keymap(
+  'n',
+  '<leader>tw2',
+  '<cmd>set textwidth=120<enter>',
+  opts('Set line length limit to 120')
+)
 
 -- make saving and quitting more convenient (mainly for Laptop keyboard)
 -- keymap('n', 'QQ', '<cmd>q<enter>', opts('Close current buffer'))
@@ -105,12 +129,42 @@ keymap('n', '<M-q>', '<cmd>cclose<cr>', opts('Close Quickfix list'))
 local base_session = 'Session.nvim'
 local session1 = 'Session1.nvim'
 local session2 = 'Session2.nvim'
-keymap('n', '<leader>lg', '<cmd>source ' .. base_session .. '<cr>', opts('Load Session'))
-keymap('n', '<leader>llg1', '<cmd>source ' .. session1 .. '<cr>', opts('Load Session 1'))
-keymap('n', '<leader>llg2', '<cmd>source ' .. session2 .. '<cr>', opts('Load Session 2'))
-keymap('n', '<leader>ls', '<cmd>mksession! ' .. base_session .. '<cr>', opts('Save Session'))
-keymap('n', '<leader>lls1', '<cmd>mksession! ' .. session1 .. '<cr>', opts('Store Session1'))
-keymap('n', '<leader>lls2', '<cmd>mksession! ' .. session2 .. '<cr>', opts('Store Session2'))
+keymap(
+  'n',
+  '<leader>lg',
+  '<cmd>source ' .. base_session .. '<cr>',
+  opts('Load Session')
+)
+keymap(
+  'n',
+  '<leader>llg1',
+  '<cmd>source ' .. session1 .. '<cr>',
+  opts('Load Session 1')
+)
+keymap(
+  'n',
+  '<leader>llg2',
+  '<cmd>source ' .. session2 .. '<cr>',
+  opts('Load Session 2')
+)
+keymap(
+  'n',
+  '<leader>ls',
+  '<cmd>mksession! ' .. base_session .. '<cr>',
+  opts('Save Session')
+)
+keymap(
+  'n',
+  '<leader>lls1',
+  '<cmd>mksession! ' .. session1 .. '<cr>',
+  opts('Store Session1')
+)
+keymap(
+  'n',
+  '<leader>lls2',
+  '<cmd>mksession! ' .. session2 .. '<cr>',
+  opts('Store Session2')
+)
 
 -- -- Open a terminal at the bottom of the screen with a fixed height.
 -- keymap('n', '<leader>ot', function()
@@ -126,7 +180,7 @@ keymap({ 'n', 'v', 'i' }, '<C-z>', '<nop>', { silent = true })
 keymap('n', 'Q', '<nop>', { silent = true })
 keymap('n', '<C-j>', '<nop>', { silent = true }) -- move line down, causes conflicts
 keymap('n', '<C-f>', '<nop>', { silent = true }) -- page down, use <C-d> instead
-keymap('n', '<F1>', '<nop>', { silent = true })  -- would open help, accidental when pressing ESC
+keymap('n', '<F1>', '<nop>', { silent = true }) -- would open help, accidental when pressing ESC
 
 -- search and replace macro
 --keymap('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],

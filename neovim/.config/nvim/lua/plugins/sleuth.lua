@@ -1,5 +1,6 @@
 return {
   -- No initialization needed (Vimscript plugin)
-  "tpope/vim-sleuth",
+  'tpope/vim-sleuth',
+  event = 'VeryLazy',
   -- init = {},
 }

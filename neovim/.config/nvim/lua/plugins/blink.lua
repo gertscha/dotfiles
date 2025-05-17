@@ -1,6 +1,6 @@
 return {
   -- blink completion
-  "saghen/blink.cmp",
+  'saghen/blink.cmp',
   dependencies = {
     'echasnovski/mini.icons',
     'L3MON4D3/LuaSnip',
@@ -10,16 +10,16 @@ return {
   version = '1.*',
   opts = {
     sources = {
-      default = { "lsp", "snippets", "path", "buffer" },
+      default = { 'lsp', 'snippets', 'path', 'buffer' },
       per_filetype = {
         -- add lazydev to your completion providers (for lua only)
-        lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
+        lua = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
       },
       -- add lazydev as source (for require statements and module annotations)
       providers = {
         lazydev = {
-          name = "LazyDev",
-          module = "lazydev.integrations.blink",
+          name = 'LazyDev',
+          module = 'lazydev.integrations.blink',
           score_offset = 100,
           max_items = 10,
           min_keyword_length = 2,
@@ -28,12 +28,14 @@ return {
           max_items = 20,
           min_keyword_length = 2,
         },
-        snippets = { max_items = 5, },
+        snippets = { max_items = 5 },
         path = {
           max_items = 3,
           min_keyword_length = 3,
           opts = {
-            get_cwd = function(_) return vim.fn.getcwd() end,
+            get_cwd = function(_)
+              return vim.fn.getcwd()
+            end,
           },
         },
         buffer = {
@@ -41,7 +43,7 @@ return {
           min_keyword_length = 3,
         },
       }, -- providers
-    },   -- sources
+    }, -- sources
     snippets = {
       preset = 'luasnip',
     },
@@ -75,7 +77,7 @@ return {
         show_on_keyword = true,
         show_on_trigger_character = true,
       },
-      ghost_text = { enabled = false, },
+      ghost_text = { enabled = false },
       list = {
         max_items = 100,
         selection = {
@@ -88,19 +90,21 @@ return {
         -- also covered by the delimitMate plugin
         auto_brackets = {
           enabled = false,
-        }
+        },
       },
       menu = {
         border = 'none',
         draw = {
           columns = {
-            { "kind_icon" }, { "label", "source_name", gap = 2 },
+            { 'kind_icon' },
+            { 'label', 'source_name', gap = 2 },
           },
           components = {
             -- use icons and highlights from mini.icons
             kind_icon = {
               text = function(ctx)
-                local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                local kind_icon, _, _ =
+                  require('mini.icons').get('lsp', ctx.kind)
                 return kind_icon
               end,
               highlight = function(ctx)
@@ -122,10 +126,10 @@ return {
                 end
               end,
             },
-          } -- components
-        }   -- draw
-      },    -- menu
-    },      -- completion
-  },        -- opts
-  opts_extend = { "sources.default" },
+          }, -- components
+        }, -- draw
+      }, -- menu
+    }, -- completion
+  }, -- opts
+  opts_extend = { 'sources.default' },
 }

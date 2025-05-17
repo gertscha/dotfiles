@@ -9,8 +9,8 @@ local M = {
   config = function()
     -- fugitive (the other keybindings are default, see list at the bottom)
     require('which-key').add({
-      mode = 'n',     -- NORMAL mode
-      silent = true,  -- use `silent` when creating keymaps
+      mode = 'n', -- NORMAL mode
+      silent = true, -- use `silent` when creating keymaps
       noremap = true, -- use `noremap` when creating keymaps
       nowait = false, -- use `nowait` when creating keymaps
       { '<leader>g', vim.cmd.Git, desc = 'Open Git' },

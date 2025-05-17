@@ -60,7 +60,7 @@ function M.config()
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       -- nil check, should not happen
       if not client then
-        vim.notify("LSP client should not be nil", vim.log.ERROR)
+        vim.notify('LSP client should not be nil', vim.log.ERROR)
         return
       end
 
@@ -69,8 +69,9 @@ function M.config()
       local format_fun = nil
       local lsp_format = client:supports_method('textDocument/formatting')
       if lsp_format and not conf_format then
-        format_fun =
-            function() vim.lsp.buf.format({ bufnr = args.buf, id = client.id }) end
+        format_fun = function()
+          vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+        end
       elseif conf_format then
         local fmtlspcnt = (lsp_format ~= false and 1 or 0)
         local fmtconvcnt = #conf_format.list_formatters(args.buf)
@@ -80,18 +81,18 @@ function M.config()
           end
         else
           format_fun = function()
-            vim.notify("No Formatter available for this buffer!", vim.log.INFO)
+            vim.notify('No Formatter available for this buffer!', vim.log.INFO)
           end
         end
       else
         format_fun = function()
-          vim.notify("LSP does not support formatting!", vim.log.INFO)
+          vim.notify('LSP does not support formatting!', vim.log.INFO)
         end
       end
 
       wk.add({
         buffer = args.buf,
-        { '<leader>df', format_fun, desc = '[D]iagnostics [F]ormat Buffer', },
+        { '<leader>df', format_fun, desc = '[D]iagnostics [F]ormat Buffer' },
       })
 
       -- if client:supports_method('textDocument/completion') then
@@ -100,13 +101,21 @@ function M.config()
       if client:supports_method('textDocument/implementation') then
         wk.add({
           buffer = args.buf,
-          { 'gI', vim.lsp.buf.implementation, desc = 'LSP: [g]o to [I]implementation' },
+          {
+            'gI',
+            vim.lsp.buf.implementation,
+            desc = 'LSP: [g]o to [I]implementation',
+          },
         })
       end
       if client:supports_method('textDocument/rename') then
         wk.add({
           buffer = args.buf,
-          { '<leader>dr', vim.lsp.buf.rename, desc = 'LSP: [r]ename symbol under the cursor' },
+          {
+            '<leader>dr',
+            vim.lsp.buf.rename,
+            desc = 'LSP: [r]ename symbol under the cursor',
+          },
         })
       end
       -- The following two autocommands are used to highlight references of the

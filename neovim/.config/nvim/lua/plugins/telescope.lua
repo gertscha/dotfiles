@@ -17,7 +17,6 @@ local function filenameFirst(_, path)
   return string.format('%s\t\t%s', tail, parent)
 end
 
-
 -- fuzzy finder
 local M = {
   'nvim-telescope/telescope.nvim',
@@ -25,7 +24,7 @@ local M = {
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    "j-hui/fidget.nvim",
+    'j-hui/fidget.nvim',
   },
   cmd = 'Telescope',
   keys = { '<leader>s', desc = 'Telescope' },
@@ -39,38 +38,76 @@ function M.config()
     { '<leader>s', group = 'Telescope' },
     {
       mode = 'n',
-      silent = true,  -- use `silent` when creating keymaps
+      silent = true, -- use `silent` when creating keymaps
       noremap = true, -- use `noremap` when creating keymaps
-      { '<leader>sf', '<cmd>Telescope find_files<cr>',     desc = '[S]earch [F]iles' },
-      { '<leader>sr', '<cmd>Telescope git_files<cr>',      desc = '[S]earch Git [R]epository' },
-      { '<leader>sh', '<cmd>Telescope help_tags<cr>',      desc = '[S]earch [H]elp' },
-      { '<leader>sb', '<cmd>Telescope buffers<cr>',        desc = '[S]earch [B]uffers' },
-      { '<leader>sw', '<cmd>Telescope grep_string<cr>',    desc = '[S]earch current [W]ord' },
-      { '<leader>sg', '<cmd>Telescope live_grep<cr>',      desc = '[S]earch by [G]rep' },
-      { '<leader>sj', '<cmd>Telescope jumplist<cr>',       desc = '[S]earch [J]umplist' },
-      { '<leader>ss', '<cmd>Telescope search_history<cr>', desc = '[S]earch [S]earch history' },
-      { '<leader>sm', '<cmd>Telescope marks<cr>',          desc = '[S]earch [M]arks' },
+      {
+        '<leader>sf',
+        '<cmd>Telescope find_files<cr>',
+        desc = '[S]earch [F]iles',
+      },
+      {
+        '<leader>sr',
+        '<cmd>Telescope git_files<cr>',
+        desc = '[S]earch Git [R]epository',
+      },
+      {
+        '<leader>sh',
+        '<cmd>Telescope help_tags<cr>',
+        desc = '[S]earch [H]elp',
+      },
+      {
+        '<leader>sb',
+        '<cmd>Telescope buffers<cr>',
+        desc = '[S]earch [B]uffers',
+      },
+      {
+        '<leader>sw',
+        '<cmd>Telescope grep_string<cr>',
+        desc = '[S]earch current [W]ord',
+      },
+      {
+        '<leader>sg',
+        '<cmd>Telescope live_grep<cr>',
+        desc = '[S]earch by [G]rep',
+      },
+      {
+        '<leader>sj',
+        '<cmd>Telescope jumplist<cr>',
+        desc = '[S]earch [J]umplist',
+      },
+      {
+        '<leader>ss',
+        '<cmd>Telescope search_history<cr>',
+        desc = '[S]earch [S]earch history',
+      },
+      {
+        '<leader>sm',
+        '<cmd>Telescope marks<cr>',
+        desc = '[S]earch [M]arks',
+      },
       {
         '<leader>sc',
         function()
-          require('telescope.builtin').find_files { cwd = vim.fn.stdpath('config') }
+          require('telescope.builtin').find_files({
+            cwd = vim.fn.stdpath('config'),
+          })
         end,
-        desc = '[S]earch [C]onfig files'
+        desc = '[S]earch [C]onfig files',
       },
       {
         '<leader>sp',
         function()
-          require('telescope.builtin').find_files {
-            cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy')
-          }
+          require('telescope.builtin').find_files({
+            cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy'),
+          })
         end,
-        desc = '[S]earch [P]lugin implementations'
+        desc = '[S]earch [P]lugin implementations',
       },
     },
   })
 
   local icons = require('settings.icons')
-  require('telescope').setup {
+  require('telescope').setup({
     defaults = {
       prompt_prefix = icons.ui.Telescope,
       selection_caret = icons.ui.Forward,
@@ -80,20 +117,20 @@ function M.config()
       color_devicons = true,
       mappings = {
         i = {
-          ["<C-h>"] = 'select_horizontal', -- original bind is C-x
-          ["<C-t>"] = false,               -- disable 'select_tab'
-          ["g?"] = 'which_key',            -- alternate bind (swiss keyboard troubles)
+          ['<C-h>'] = 'select_horizontal', -- original bind is C-x
+          ['<C-t>'] = false, -- disable 'select_tab'
+          ['g?'] = 'which_key', -- alternate bind (swiss keyboard troubles)
           -- swap Esc and C-c behavior
           ['<esc>'] = 'close',
-          ["<C-c>"] = false, -- disable 'close'
+          ['<C-c>'] = false, -- disable 'close'
         },
         n = {
-          ["<C-h>"] = 'select_horizontal', -- original bind is C-x
-          ["<C-t>"] = false,               -- disable 'select_tab'
+          ['<C-h>'] = 'select_horizontal', -- original bind is C-x
+          ['<C-t>'] = false, -- disable 'select_tab'
           ['q'] = 'close',
-          ["g?"] = 'which_key',            -- additional bind (consistency)
+          ['g?'] = 'which_key', -- additional bind (consistency)
           -- add default binding back, removal in insert mode cascades for some reason
-          ["<C-c>"] = 'close',
+          ['<C-c>'] = 'close',
         },
       },
     },
@@ -117,12 +154,10 @@ function M.config()
         path_display = filenameFirst,
       },
     },
-  }
+  })
   -- fidget notification telescope picker
-  local fidget = P_require("fidget")
-  if fidget then
-    require("telescope").load_extension("fidget")
-  end
+  local fidget = P_require('fidget')
+  if fidget then require('telescope').load_extension('fidget') end
 
   -- To get fzf loaded and working with telescope, you need to call
   -- load_extension, somewhere after setup function:

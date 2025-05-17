@@ -18,7 +18,6 @@ local M = {
   lazy = false,
 }
 
-
 function M.config()
   local alphatheme = require('plugins.configuration.alpha_settings')
   require('alpha').setup(alphatheme.config)
@@ -26,7 +25,12 @@ function M.config()
   -- require('which-key').add({
   --   { '<leader>os', '<cmd>Alpha<cr>', desc = '[O]pen [S]plash Screen' },
   -- })
-  vim.keymap.set('n', '<leader>os', '<cmd>Alpha<cr>', { desc = '[O]pen [S]plash Screen' })
+  vim.keymap.set(
+    'n',
+    '<leader>os',
+    '<cmd>Alpha<cr>',
+    { desc = '[O]pen [S]plash Screen' }
+  )
 end
 
 return M

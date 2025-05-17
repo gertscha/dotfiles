@@ -9,13 +9,17 @@ local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
     local win_width = vim.fn.winwidth(0)
     if hide_width and win_width < hide_width then
       return ''
-    elseif trunc_width and trunc_len and win_width < trunc_width and #str > trunc_len then
+    elseif
+      trunc_width
+      and trunc_len
+      and win_width < trunc_width
+      and #str > trunc_len
+    then
       return str:sub(1, trunc_len) .. (no_ellipsis and '' or '...')
     end
     return str
   end
 end
-
 
 -- status line at the bottom of the buffers
 local M = {
@@ -40,12 +44,12 @@ local M = {
         statusline = 300,
         tabline = 800,
         winbar = 800,
-      }
+      },
     },
     sections = {
-      lualine_a = { { 'mode', padding = 1, } },
+      lualine_a = { { 'mode', padding = 1 } },
       lualine_b = {
-        { 'branch',         fmt = trunc(0, 0, 90, true) },
+        { 'branch', fmt = trunc(0, 0, 90, true) },
         -- {'diff', fmt=trunc(0, 0, 100, true)},
         { 'diagnostics' },
         { 'selectioncount', fmt = trunc(0, 0, 120, true) },
@@ -57,7 +61,7 @@ local M = {
           file_status = false,
           path = 3,
           unnamed = '[Unnamed]',
-          shorting_target = 65
+          shorting_target = 65,
         },
       },
       lualine_x = {
@@ -67,10 +71,10 @@ local M = {
         -- {'encoding', fmt=trunc(0, 0, 110, true)},
       },
       lualine_y = {
-        { 'filetype', }, --fmt=trunc(0, 0, 90, true)},
+        { 'filetype' }, --fmt=trunc(0, 0, 90, true)},
         { 'progress' },
       },
-      lualine_z = { 'location' }
+      lualine_z = { 'location' },
     },
     inactive_sections = {
       lualine_a = {},
@@ -78,13 +82,13 @@ local M = {
       lualine_c = { 'filename' },
       lualine_x = { 'location' },
       lualine_y = {},
-      lualine_z = {}
+      lualine_z = {},
     },
     tabline = {},
     winbar = {},
     inactive_winbar = {},
-    extensions = {}
-  }
+    extensions = {},
+  },
 }
 
 return M

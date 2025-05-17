@@ -1,7 +1,7 @@
 local M = {
   'stevearc/oil.nvim',
   dependencies = {
-    { "echasnovski/mini.icons", opts = {} }
+    { 'echasnovski/mini.icons', opts = {} },
   },
   tag = 'stable',
   cmd = 'Oil',
@@ -9,7 +9,7 @@ local M = {
 }
 
 function M.config()
-  require('oil').setup {
+  require('oil').setup({
     default_file_explorer = true,
     columns = {
       'icon',
@@ -23,7 +23,7 @@ function M.config()
       -- This function defines what is considered a "hidden" file
       is_hidden_file = function(name, bufnr)
         if name ~= '.config' then
-          local m = name:match("^%.")
+          local m = name:match('^%.')
           return m ~= nil
         else
           return false
@@ -54,11 +54,11 @@ function M.config()
       ['g.'] = 'actions.toggle_hidden',
       -- ['g\\'] = 'actions.toggle_trash',
     },
-  }
+  })
 
   require('which-key').add({
-    mode = 'n',     -- NORMAL mode
-    silent = true,  -- use `silent` when creating keymaps
+    mode = 'n', -- NORMAL mode
+    silent = true, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
     { '-', '<cmd>Oil --float<CR>', desc = 'Oil: parent dir' },

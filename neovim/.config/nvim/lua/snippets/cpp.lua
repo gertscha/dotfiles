@@ -1,2 +1,2 @@
-local ls = require("luasnip")
-ls.filetype_extend("cpp", { "c" })
+local ls = require('luasnip')
+ls.filetype_extend('cpp', { 'c' })
