@@ -4,8 +4,9 @@ local M = {
     { 'echasnovski/mini.icons', opts = {} },
   },
   tag = 'stable',
-  cmd = 'Oil',
-  keys = { '-', desc = 'Open Oil FS' },
+  -- cmd = 'Oil',
+  -- keys = { '-', desc = 'Open Oil FS' },
+  event = 'VeryLazy',
 }
 
 function M.config()
