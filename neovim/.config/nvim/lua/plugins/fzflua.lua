@@ -5,15 +5,29 @@ local M = {
     'echasnovski/mini.icons',
     'folke/which-key.nvim',
   },
-  opts = {
-    -- <esc> does not terminat the proccess, allowing
-    -- resume to fully recover the previous state
-    'hide',
-  },
 }
 
 function M.config()
   local fzflua = require('fzf-lua')
+
+  fzflua.setup({
+    -- <esc> does not terminat the proccess, allowing
+    -- resume to fully recover the previous state
+    'hide',
+    fzf_colors = true, -- auto-generate from colorscheme
+    fzf_opts = {
+      ['--wrap'] = true,
+      ['--cycle'] = true,
+    },
+    -- keymap = {},
+    actions = {
+      files = {
+        true, -- keep all the default action keybinds
+        -- but disable <C-t> (open in new tab)
+        ['ctrl-t'] = false,
+      },
+    },
+  })
 
   -- which-key setup
   require('which-key').add({
