@@ -8,7 +8,7 @@ manager by folke. Setup should be automatic on first startup but a restart may
 be required.
 
 Be sure to run `:checkhealth` and fix any errors shown. The notifications are
-handled by [Fidget.nvim](https://github.com/j-hui/fidget.nvim), shown in the
+handled by [snacks.nvim](https://github.com/folke/snacks.nvim), shown in the
 top right, to view them again use `:Mes` or `:Messages` instead of the default
 `:mes`/`:messages`.
 
@@ -72,6 +72,8 @@ x                       Cut (goes into register 9 instead of 1)
   <M-n>                 Quickfix list next
   <M-p>                 Quickfix list previous
   <M-q>                 Close Quickfix list
+  // Treesitter
+  <cr>                  Visual select next incremental outer scope
 // All Modes (except visual block)
   <A-j>                 Move line under cursor down
   <A-k>                 Move line under cursor up
@@ -84,41 +86,55 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>sb              Search open Buffers
 <leader>sr              Search Files in Git Repository
 <leader>sh              Search Help
-<leader>sw              Search Word under cursor (ripgrep)
+<leader>sw              Search Word under cursor
 <leader>sg              Search with Grep
 <leader>sj              Search jumplist
 <leader>ss              Search builtin pickers
-<leader>sm              Search marks
+<leader>sm              Search manpages
+<leader>sc              Search Files in Neovim config
+<leader>sp              Search Files in Neovim plugins implementations
+<leader>sM              Search marks
+<leader>sl              Search LSP (everything releated to symbol under cursor)
+<leader>sd              Search diagnostics messages in current document
+<leader>sD              Search diagnostics messages in workspace
 <leader><leader>        Resume previous search
 
 
-// In a Telescope Search Buffer
-g?                      Show which-key (all modes)
-<C-q>                   Add results to a quickfix list (all modes)
-<C-h>                   Open in horizontal split (all modes)
-<C-v>                   Open in vertical split (all modes)
-<esc>                   Close Telescope (all modes)
-q                       Close Telescope (in normal mode)
-<C-c>                   Close Telescope (in normal mode)
-<C-c>                   Leave insert mode (in insert mode)
+// In a fzf lua search buffer
+<F1>                    Show help
+<A-m>                   Hide search (and resume with <leader><leader>)
+<esc>                   Close search window
+<C-s>                   Open file in split
+<C-v>                   Open file in vertical split
+<A-q>                   Add file to quickfix list
+<F3>                    Toggle preview text wrap
+<F4>                    Toggle preview
+<A-i>                   Toggle ignored files
+<A-h>                   Toggle hidden files
+<A-f>                   Toggle follow (of symbolic links)
 ```
 
 ## LSP
 Use `:LspInfo` to get a status on the language server\
-Use `:Mason` to manage the language servers
+Use `:Mason` to manage the language servers\
+Most of these keybindings work on the symbol under the cursor and are only
+available if the LSP server supports the functionality
 ```
 // Normal Mode
 gd                      Go to definition
 gD                      Go to declaration
 gI                      Go to implementation
-gT                      Get type definition
-gr                      Get references
-K                       Lookup symbol (overrides the 'keywordprg' lookup with lsp lookup)
+gT                      Go to type definition
+gr                      Search references
+K                       LSP Hover
+<leader>df              Format Buffer
 <leader>dr              Rename all references to the symbol under the cursor
 <leader>da              Use a code action
-<leader>df              Open diagnostic float (on lines with a diagnostic marker)
 <leader>dw              Query workspace symbols
-<leader>ds              Search LSP diagnostics (using Telescope)
+<leader>ds              Search document symbols
+<leader>dS              Search workspace symbols
+<leader>dco             Search outcoming calls
+<leader>dci             Search incoming calls
 ```
 
 ## Fugitive (Git)
