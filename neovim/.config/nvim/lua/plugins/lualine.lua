@@ -6,7 +6,7 @@
 --- return function that can format the component accordingly
 local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
   return function(str)
-    local win_width = vim.fn.winwidth(0)
+    local win_width = vim.o.columns
     if hide_width and win_width < hide_width then
       return ''
     elseif
@@ -19,6 +19,23 @@ local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
     end
     return str
   end
+end
+
+-- Used for shortening Mode in smaller terminals
+local mode_map = {
+  ['NORMAL'] = 'N',
+  ['INSERT'] = 'I',
+  ['VISUAL'] = 'V',
+  ['V-LINE'] = 'VL',
+  ['V-BLOCK'] = 'VB',
+  ['COMMAND'] = 'C',
+  ['TERMINAL'] = 'T',
+  ['REPLACE'] = 'R',
+}
+
+local function formatMode(str)
+  if vim.o.columns < 87 then return mode_map[str] or str end
+  return str
 end
 
 -- status line at the bottom of the buffers
@@ -34,7 +51,12 @@ local M = {
       -- section_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },
       disabled_filetypes = {
-        statusline = { 'alpha', 'fugitive', 'undotree', 'oil' },
+        statusline = {
+          'alpha',
+          'fugitive',
+          'undotree',
+          'oil',
+        },
         winbar = {},
       },
       ignore_focus = {},
@@ -47,10 +69,10 @@ local M = {
       },
     },
     sections = {
-      lualine_a = { { 'mode', padding = 1 } },
+      lualine_a = { { 'mode', fmt = formatMode, padding = 1 } },
       lualine_b = {
-        { 'branch', fmt = trunc(0, 0, 90, true) },
-        -- {'diff', fmt=trunc(0, 0, 100, true)},
+        { 'branch', fmt = trunc(0, 0, 60, true) },
+        { 'diff', fmt = trunc(0, 0, 110, true) },
         { 'diagnostics' },
         { 'selectioncount', fmt = trunc(0, 0, 120, true) },
         -- { window, fmt=trunc(0, 0, 60, true) },
@@ -60,21 +82,31 @@ local M = {
           'filename',
           file_status = false,
           path = 3,
-          unnamed = '[Unnamed]',
-          shorting_target = 65,
+          symbols = {
+            unnamed = '[Unnamed]',
+            newfile = '[New]',
+          },
+          shorting_target = 55,
         },
       },
       lualine_x = {
-        { 'datetime', style = '%H:%M', fmt = trunc(0, 0, 78, true) },
+        { 'datetime', style = '%H:%M', fmt = trunc(0, 0, 120, true) },
         -- {'datetime', style = '%a, %d/%m/%Y', fmt=trunc(0, 0, 140, true)},
-        -- {'fileformat', fmt=trunc(0, 0, 120, true)},
-        -- {'encoding', fmt=trunc(0, 0, 110, true)},
+        -- {'fileformat', fmt=trunc(0, 0, 140, true)},
+        { 'encoding', fmt = trunc(0, 0, 140, true) },
       },
       lualine_y = {
-        { 'filetype' }, --fmt=trunc(0, 0, 90, true)},
-        { 'progress' },
+        { 'filetype', fmt = trunc(0, 0, 45, true) },
+        { 'progress', fmt = trunc(0, 0, 55, true) },
       },
-      lualine_z = { 'location' },
+      lualine_z = {
+        {
+          'location',
+          -- default color is 'lualine_a_normal' (a highlight group)
+          -- this is the same but not bold (for theme 'iceberg_dark')
+          color = { gui = 'nocombine', guifg = '#17171b', guibg = '#818596' },
+        },
+      },
     },
     inactive_sections = {
       lualine_a = {},
