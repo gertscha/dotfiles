@@ -51,6 +51,7 @@ local M = {
     },
     {
       section = 'recent_files',
+      cwd = true,
       indent = 1,
       limit = 6,
       padding = 1,
