@@ -24,6 +24,16 @@ local M = {
   event = { 'BufRead', 'BufNewFile', 'InsertEnter' },
 }
 
+local function lspKeybind(buf, key, fun, desc)
+  local wk = require('which-key')
+  wk.add({
+    mode = 'n',
+    buffer = buf,
+    silent = true,
+    { key, fun, desc = desc },
+  })
+end
+
 function M.config()
   vim.lsp.set_log_level('off')
 
@@ -71,7 +81,6 @@ function M.config()
   --  This function gets run when an LSP attaches to a particular buffer.
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
-      local wk = require('which-key')
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       -- nil check, should not happen
       if not client then
@@ -104,35 +113,55 @@ function M.config()
           vim.notify('LSP does not support formatting!', vim.log.INFO)
         end
       end
+      -- do the format mapping
+      lspKeybind(args.buf, '<leader>df', format_fun, '[D]iagnostics [F]ormat Buffer')
 
-      wk.add({
-        buffer = args.buf,
-        { '<leader>df', format_fun, desc = '[D]iagnostics [F]ormat Buffer' },
-      })
+      --
+      -- LSP methods/capabilites, only add keybind if the server can do it
+      --
 
+      -- blink.cmp takes care of this
       -- if client:supports_method('textDocument/completion') then
       --   vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
       -- end
       if client:supports_method('textDocument/implementation') then
-        wk.add({
-          buffer = args.buf,
-          {
-            'gI',
-            vim.lsp.buf.implementation,
-            desc = 'LSP: [g]o to [I]implementation',
-          },
-        })
+        lspKeybind(
+          args.buf,
+          'gI',
+          vim.lsp.buf.implementation,
+          'LSP: [g]o to [I]implementation'
+        )
       end
       if client:supports_method('textDocument/rename') then
-        wk.add({
-          buffer = args.buf,
-          {
-            '<leader>dr',
-            vim.lsp.buf.rename,
-            desc = 'LSP: [r]ename symbol under the cursor',
-          },
-        })
+        lspKeybind(
+          args.buf,
+          '<leader>dr',
+          vim.lsp.buf.rename,
+          'LSP: [r]ename symbol'
+        )
       end
+      if client:supports_method('textDocument/hover') then
+        lspKeybind(args.buf, 'K', vim.lsp.buf.hover, 'LSP: Lookup Symbol')
+      end
+      if client:supports_method('textDocument/declaration') then
+        lspKeybind(
+          args.buf,
+          'gD',
+          vim.lsp.buf.declaration,
+          'LSP: [g]o to [D]eclaration'
+        )
+      end
+      if client:supports_method('textDocument/definition') then
+        -- Jump to the definition of the word under your cursor.
+        --  To jump back, press <C-T>.
+        lspKeybind(
+          args.buf,
+          'gd',
+          vim.lsp.buf.definition,
+          'LSP: [g]o to [d]efinition'
+        )
+      end
+
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
@@ -150,48 +179,76 @@ function M.config()
 
       local fzflua = P_require('fzf-lua')
       if fzflua then
-        wk.add({
-          mode = 'n', -- NORMAL mode
-          buffer = args.buf, -- nil for Global mappings. Give buffer number for buffer local mappings
-          silent = true, -- use `silent` when creating keymaps
-          noremap = true, -- use `noremap` when creating keymaps
-          nowait = false, -- use `nowait` when creating keymaps
-          -- Opens a popup that displays documentation about the word under your cursor
-          --  See `:help K` for why this keymap
-          { 'K', vim.lsp.buf.hover, desc = 'LSP: Lookup Symbol' },
-          { 'gr', fzflua.lsp_references, desc = 'LSP: [r]eferences' },
-          { 'gT', fzflua.lsp_typedefs, desc = 'LSP: [g]et [t]ype definition' },
-          {
-            'gD',
-            vim.lsp.buf.declaration,
-            desc = 'LSP: [g]o to [D]eclaration',
-          },
-          -- Jump to the definition of the word under your cursor.
-          --  To jump back, press <C-T>.
-          { 'gd', vim.lsp.buf.definition, desc = 'LSP: [g]o to [d]efinition' },
-          { '<leader>d', group = 'diagnostics' },
-          -- Execute a code action, usually your cursor needs to be on top of an error
-          {
+        if client:supports_method('textDocument/references') then
+          lspKeybind(
+            args.buf,
+            'gr',
+            fzflua.lsp_references,
+            'LSP: [g]et [r]eferences'
+          )
+        end
+        if client:supports_method('textDocument/typeDefinition') then
+          lspKeybind(
+            args.buf,
+            'gT',
+            fzflua.lsp_typedefs,
+            'LSP: [g]et [t]ype definition'
+          )
+        end
+        if client:supports_method('textDocument/codeAction') then
+          lspKeybind(
+            args.buf,
             '<leader>da',
             fzflua.lsp_code_actions,
-            desc = 'LSP: code [a]ctions',
-          },
-          {
-            '<leader>dw',
-            fzflua.lsp_workspace_symbols,
-            desc = 'LSP: Query [w]orkspace symbols',
-          },
-          {
+            'LSP: code [a]ctions'
+          )
+        end
+        if client:supports_method('textDocument/documentSymbol') then
+          lspKeybind(
+            args.buf,
             '<leader>ds',
-            fzflua.diagnotics_document,
-            desc = 'LSP: [d]iagnostics [s]earch in current buffer',
-          },
-          {
+            fzflua.lsp_document_symbols,
+            'LSP: [S]ymbols in document'
+          )
+        end
+        if client:supports_method('workspace/symbol') then
+          lspKeybind(
+            args.buf,
             '<leader>dS',
-            fzflua.diagnotics_workspace,
-            desc = 'LSP: [d]iagnostics [S]earch in workspace',
-          },
-        })
+            fzflua.lsp_workspace_symbols,
+            'LSP: Query [S]ymbols in workspace'
+          )
+        end
+        lspKeybind(
+          args.buf,
+          '<leader>sl',
+          fzflua.lsp_finder,
+          '[S] LSP for symbol under cursor'
+        )
+        lspKeybind(
+          args.buf,
+          '<leader>dci',
+          fzflua.lsp_incoming_calls,
+          'LSP: [i]ncoming calls'
+        )
+        lspKeybind(
+          args.buf,
+          '<leader>dco',
+          fzflua.lsp_outgoing_calls,
+          'LSP: [o]utgoing calls'
+        )
+        lspKeybind(
+          args.buf,
+          '<leader>sd',
+          fzflua.diagnostics_document,
+          '[S]earch [d]iagnostics in current buffer'
+        )
+        lspKeybind(
+          args.buf,
+          '<leader>sD',
+          fzflua.diagnostics_workspace,
+          '[S]earch [D]iagnostics in workspace'
+        )
       end
     end,
   })

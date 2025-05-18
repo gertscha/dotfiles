@@ -89,6 +89,13 @@ function M.config()
       {
         '<leader>sm',
         function()
+          fzflua.manpages()
+        end,
+        desc = '[S]earch [M]anpages',
+      },
+      {
+        '<leader>sM',
+        function()
           fzflua.marks()
         end,
         desc = '[S]earch [M]arks',

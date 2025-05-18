@@ -36,6 +36,8 @@ function M.config()
       { '<space>tw', group = 'Line width settings' },
       { '<space>ts', group = 'Command line visibility toggle' },
       { '<space>y', group = 'Yank' },
+      { '<leader>d', group = 'diagnostics' },
+      { '<leader>dc', group = 'call hierarchy' },
     })
   end
 end
