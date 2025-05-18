@@ -392,6 +392,8 @@ g;                      Go to older position in change list
 
 `:ve` to get the current version of Neovim.
 
+`:echo &filetype` to get the type of the current buffer (to add a ftplugin)
+
 # Format Strings for Time and Date
 ```
 Format String           Example output

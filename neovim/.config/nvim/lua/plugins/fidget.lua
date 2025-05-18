@@ -1,4 +1,5 @@
 return {
+  enabled = false,
   'j-hui/fidget.nvim',
   priority = 1000,
   tag = 'v1.6.1',

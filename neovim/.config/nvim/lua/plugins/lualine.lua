@@ -52,7 +52,7 @@ local M = {
       section_separators = { left = '', right = '' },
       disabled_filetypes = {
         statusline = {
-          'alpha',
+          'snacks_dashboard',
           'fugitive',
           'undotree',
           'oil',

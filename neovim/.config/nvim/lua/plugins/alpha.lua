@@ -10,6 +10,7 @@
 
 -- start screen
 local M = {
+  enabled = false,
   'goolord/alpha-nvim',
   dependencies = {
     'echasnovski/mini.icons',
