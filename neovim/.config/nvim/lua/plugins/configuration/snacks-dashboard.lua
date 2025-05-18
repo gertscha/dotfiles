@@ -148,7 +148,7 @@ _____________________________________________________
         icon = '',
         key = 's',
         desc = 'Load Session',
-        action = ':source Session.nvim<CR>',
+        action = function() vim.cmd('source Session.nvim') end,
       },
       { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
     },
