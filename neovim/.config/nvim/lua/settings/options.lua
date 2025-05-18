@@ -38,11 +38,7 @@ opt.colorcolumn = '80' -- indicate the 80th column visually
 opt.inccommand = 'split' -- preview incremental substitute
 opt.number = true -- Print line number
 opt.relativenumber = true -- set relative numbered lines
-
--- I would like to have "rounded", but some plugins are not playing nicely with
--- it yet (since nvim 0.11 is new), for example telescope, seems to be a
--- plenary issue (https://github.com/nvim-telescope/telescope.nvim/issues/3436)
-opt.winborder = 'single' -- sets the default border for all floating windows
+opt.winborder = 'rounded' -- sets the default border for all floating windows
 
 opt.formatoptions = 'croqnjl' -- tcj
 --opt.grepformat = "%f:%l:%c:%m"

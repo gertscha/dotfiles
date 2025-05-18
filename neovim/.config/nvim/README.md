@@ -137,6 +137,8 @@ K                       LSP Hover
 <leader>dci             Search incoming calls
 ```
 
+Templates for the formatter config files can be created with `:FormatterSetup[...]`.
+
 ## Fugitive (Git)
 ```
 <leader>g               Open fugitive window
@@ -407,6 +409,8 @@ g;                      Go to older position in change list
 `:vsplit` and `:split` for vertical/horizontal splits (instead of the `C-w` keybinds)
 
 `:ve` to get the current version of Neovim.
+
+`:r[ead]` paste contents of a file below the cursor
 
 `:echo &filetype` to get the type of the current buffer (to add a ftplugin)
 
