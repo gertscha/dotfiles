@@ -3,9 +3,8 @@ return {
   'saghen/blink.cmp',
   dependencies = {
     'echasnovski/mini.icons',
-    'L3MON4D3/LuaSnip',
   },
-  event = 'InsertEnter',
+  event = { 'InsertEnter', 'CmdlineEnter' },
   -- tag = 'v1.0.0',
   version = '1.*',
   opts = {

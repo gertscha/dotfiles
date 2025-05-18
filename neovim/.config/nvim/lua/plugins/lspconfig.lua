@@ -5,17 +5,23 @@ local M = {
     -- make Lua aware of neovim api
     'folke/lazydev.nvim', -- make sure it is loaded first
     -- installing and configure LSP servers
-    'mason-org/mason-lspconfig.nvim',
+    {
+      'mason-org/mason-lspconfig.nvim',
+      dependencies = {
+        'mason-org/mason.nvim',
+      },
+    },
     -- auto complete and snippets
     'saghen/blink.cmp',
-    'L3MON4D3/LuaSnip',
+    -- 'L3MON4D3/LuaSnip', -- loaded on 'InsertEnter'
     -- Autoformatting
     'stevearc/conform.nvim',
     -- other integrations
     'folke/which-key.nvim',
     -- 'simrat39/rust-tools.nvim',
   },
-  event = { 'BufRead', 'BufNewFile' },
+  cmd = 'LspInfo',
+  event = { 'BufRead', 'BufNewFile', 'InsertEnter' },
 }
 
 function M.config()
@@ -51,6 +57,16 @@ function M.config()
       -- },
     },
   })
+
+  -- mason-lspconfig automates the lsp server setup for mason insalled servers
+  -- servers not installed with Mason need to be enabled manually
+  require('mason-lspconfig').setup({
+    ensure_installed = { 'lua_ls' },
+    automatic_enable = true,
+  })
+
+  -- manually enable a server
+  -- vim.lsp.enable('lua_ls')
 
   --  This function gets run when an LSP attaches to a particular buffer.
   vim.api.nvim_create_autocmd('LspAttach', {
