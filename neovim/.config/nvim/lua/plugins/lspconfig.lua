@@ -12,7 +12,6 @@ local M = {
     -- Autoformatting
     'stevearc/conform.nvim',
     -- other integrations
-    'j-hui/fidget.nvim', -- status info
     'folke/which-key.nvim',
     -- 'simrat39/rust-tools.nvim',
   },
