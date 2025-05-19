@@ -1,4 +1,5 @@
 local M = {
+  enabled = not Telescope_fallback,
   'ibhagwan/fzf-lua',
   event = 'VeryLazy',
   dependencies = {

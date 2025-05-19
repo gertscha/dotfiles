@@ -19,6 +19,13 @@ function P_require(module)
   return m
 end
 
+-- fallback indicator for Telescope
+---@type boolean
+Telescope_fallback = false
+if vim.fn.executable('fzf') == 0 then
+  Telescope_fallback = true
+end
+
 require('settings.options') -- base nvim settings
 require('settings.keybinds') -- keybind adjustments
 require('settings.autocmds') -- event based actions
