@@ -8,26 +8,48 @@ local M = {
 }
 
 function M.config()
-  local fzflua = require('fzf-lua')
+  local minimal = false
+  if vim.fn.executable('fzf') == 1 then
+    local version = vim.fn.system('fzf --version')
+    local viter = string.gmatch(version, '%d+')
+    local ind = 1
+    for e in viter do
+      -- currently fzf version >= 0.53.0 is recommended
+      if ind == 2 and tonumber(e, 10) < 53 then
+        minimal = true
+        break
+      end
+      ind = ind + 1
+    end
+  else
+    vim.notify('fzf installation not found, please install it', vim.log.ERROR)
+  end
 
-  fzflua.setup({
-    -- <esc> does not terminat the proccess, allowing
-    -- resume to fully recover the previous state
-    'hide',
-    fzf_colors = true, -- auto-generate from colorscheme
-    fzf_opts = {
-      ['--wrap'] = true,
-      ['--cycle'] = true,
-    },
-    -- keymap = {},
-    actions = {
-      files = {
-        true, -- keep all the default action keybinds
-        -- but disable <C-t> (open in new tab)
-        ['ctrl-t'] = false,
+  local fzflua = require('fzf-lua')
+  if minimal then
+    fzflua.setup({
+      fzf_colors = true, -- auto-generate from colorscheme
+    })
+  else
+    fzflua.setup({
+      -- <esc> does not terminat the proccess, allowing
+      -- resume to fully recover the previous state
+      -- 'hide',
+      fzf_colors = true, -- auto-generate from colorscheme
+      fzf_opts = {
+        ['--wrap'] = true,
+        ['--cycle'] = true,
       },
-    },
-  })
+      -- keymap = {},
+      actions = {
+        files = {
+          true, -- keep all the default action keybinds
+          -- but disable <C-t> (open in new tab)
+          ['ctrl-t'] = false,
+        },
+      },
+    })
+  end
 
   -- which-key setup
   require('which-key').add({
