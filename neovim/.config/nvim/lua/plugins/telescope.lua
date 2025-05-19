@@ -6,10 +6,12 @@ else
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'folke/which-key.nvim',
     },
     cmd = 'Telescope',
     keys = { '<leader>s', desc = 'Telescope' },
     config = function()
+      vim.notify('fzf installation not found, please install it', vim.log.levels.ERROR)
       -- which-key setup (make sure it matches the load keys)
       require('which-key').add({
         -- make sure this matches the keys entry for the plugin loading

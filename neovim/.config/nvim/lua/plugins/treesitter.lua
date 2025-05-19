@@ -43,7 +43,7 @@ function M.config()
         if ok and stats and stats.size > max_filesize then
           vim.notify(
             'Disabled treesitter due to large file size!',
-            vim.log.INFO
+            vim.log.levels.INFO
           )
           return true
         end

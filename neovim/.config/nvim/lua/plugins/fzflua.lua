@@ -22,8 +22,6 @@ function M.config()
       end
       ind = ind + 1
     end
-  else
-    vim.notify('fzf installation not found, please install it', vim.log.ERROR)
   end
 
   local fzflua = require('fzf-lua')

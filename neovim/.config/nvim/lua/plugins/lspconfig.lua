@@ -84,7 +84,7 @@ function M.config()
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       -- nil check, should not happen
       if not client then
-        vim.notify('LSP client should not be nil', vim.log.ERROR)
+        vim.notify('LSP client should not be nil', vim.log.levels.ERROR)
         return
       end
 
@@ -105,12 +105,12 @@ function M.config()
           end
         else
           format_fun = function()
-            vim.notify('No Formatter available for this buffer!', vim.log.INFO)
+            vim.notify('No Formatter available for this buffer!', vim.log.levels.INFO)
           end
         end
       else
         format_fun = function()
-          vim.notify('LSP does not support formatting!', vim.log.INFO)
+          vim.notify('LSP does not support formatting!', vim.log.levels.INFO)
         end
       end
       -- do the format mapping

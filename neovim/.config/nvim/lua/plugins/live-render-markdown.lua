@@ -23,7 +23,7 @@ function M.config()
   if not has_latex2text then
     vim.notify(
       'render-markdown disabled for LaTex, install Python "pylatexenc" to enable',
-      vim.log.WARN
+      vim.log.levels.WARN
     )
   end
 

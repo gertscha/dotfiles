@@ -35,13 +35,13 @@ function M.config()
               local installed = registry.is_installed(pkg)
               if not installed then
                 local msg = string.format('Installing "%s" with Mason', pkg)
-                vim.notify(msg, vim.log.INFO)
+                vim.notify(msg, vim.log.levels.INFO)
                 registry.get_package(pkg):install()
               end
             else
               vim.notify(
                 string.format('Formatter "%s" not found!', pkg),
-                vim.log.WARN
+                vim.log.levels.WARN
               )
             end
           end
@@ -49,7 +49,7 @@ function M.config()
       end
     end
   else
-    vim.notify('Mason not available to install formatters', vim.log.WARN)
+    vim.notify('Mason not available to install formatters', vim.log.levels.WARN)
   end
 
   conform.setup({
