@@ -18,6 +18,12 @@ Windows Store if on Windows 10) and set the font there. Some of the icons
 can be replaced by adjusting `lua/settings/icons.lua`, but many plugins
 require a nerd-font.
 
+## Try a configuration
+Neovim looks for the environment variable `NVIM_APPNAME`, which can be used
+to adjust the location of the configuration files. So you can use
+`export NVIM_APPNAME=my-cool-config nvim` to set Neovim load the configuration
+from `~/.config/my-cool-config/`. See `:h $NVIM_APPNAME`.
+
 # Keybinds Reference
 This is a reference to the keybinds (sample of the default bindings at the end).
 "Which-Key" plugin is also installed.
@@ -67,6 +73,10 @@ x                       Cut (goes into register 9 instead of 1)
   <leader>tw0           Set textwidth to zero (disable)
   <leader>tw1           Set textwidth to 80
   <leader>tw2           Set textwidth to 120
+  // Visual toggles
+  <leader>os            Open Splash Screen
+  <leader>tc            Toggle color visualization
+  <leader>ti            Toggle scope markers (indent lines)
   <leader>tsc           Toggle command line visibility
   // Quickfix list
   <M-n>                 Quickfix list next
@@ -268,6 +278,7 @@ Selection of default vim keybinds
     ;                   Repeat previous f,F,t,T movement
     ,                   Repeat previous f,F,t,T movement backwards
     H,L,M               Move the cursor to Top,Bottom,Middle of the screen
+    {count}<C-e>        Scroll count lines down, keep cursor in place
   // Indentation
     >>                  Indent line
     <<                  de-indent line
@@ -302,6 +313,8 @@ Selection of default vim keybinds
     zg                  Add word under cursor to spellfile (see :h spell)
     zw                  Mark the word under cursor as a wrong (bad) word
     z=                  Suggset corrections for word under cursor
+    {count}<C-g>        Show file info, no count just shows name & info, setting
+                        count gives full path, count > 1 also gives buffer number
 // Insert Mode
   // Entering Insert Mode
     i                   before cursor
@@ -354,6 +367,7 @@ Contents from "1 onward get pushed higher with new edits (1 to 2, 2 to 3, etc).
 "xp                     paste contents of register x
 "+y                     yank into the system clipboard register
 "+p                     paste from the system clipboard register
+<C-r>x                  paste contents of redgister x while in insert mode
 ```
 Special registers:
 ```
