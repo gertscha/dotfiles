@@ -11,17 +11,22 @@ local M = {
       enabled = true,
     },
     indent = {
-      enabled = false, -- vague theme currently does not highlight properly
-      only_scope = false,
-      only_current = true,
+      enabled = true,
+      hl = 'SnacksIndentBlank', -- vague.nvim does not highlight properly
+      -- to get only current scope markers:
+      -- https://github.com/folke/snacks.nvim/discussions/332
+      indent = { enabled = false },
+      animate = { enabled = false },
     },
-    dashboard = dashboard_settings,
     notifier = {
       enabled = true,
       timeout = 2000,
       height = { min = 1, max = 0.4 },
+      width = { min = 1, max = 0.6 },
       margin = { top = 2, right = 3, bottom = 0 },
     },
+    -- dashboard configured in separate file
+    dashboard = dashboard_settings,
     -- disable all the others explicitly (not technically needed)
     bigfile = { enabled = false },
     explorer = { enabled = false },
@@ -35,12 +40,23 @@ local M = {
 }
 
 function M.init()
+  -- dashboard settings
   vim.keymap.set(
     'n',
     '<leader>os',
     '<cmd>lua Snacks.dashboard()<cr>',
     { desc = '[O]pen [S]plash Screen' }
   )
+  -- indent settings
+  vim.keymap.set('n', '<leader>ti', function()
+    local snacks_indent = require('snacks.indent')
+    if snacks_indent.enabled then
+      snacks_indent.disable()
+    else
+      snacks_indent.enable()
+    end
+  end, { desc = 'Toggle Scope Markers' })
+  -- notifier settings
   vim.api.nvim_create_user_command(
     'Mes',
     'lua Snacks.notifier.show_history()<cr>',
