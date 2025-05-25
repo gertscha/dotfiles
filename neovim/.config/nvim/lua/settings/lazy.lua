@@ -39,7 +39,7 @@ require('lazy').setup({
   ui = {
     -- a number < 1 is a percentage., > 1 is a fixed size
     border = 'rounded',
-    size = { width = 0.8, height = 0.8 },
+    size = { width = 0.8, height = 0.9 },
   },
   performance = {
     cache = { enabled = true },
