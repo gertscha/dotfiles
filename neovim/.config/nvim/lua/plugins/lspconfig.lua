@@ -24,10 +24,10 @@ local M = {
   event = { 'BufRead', 'BufNewFile', 'InsertEnter' },
 }
 
-local function lspKeybind(buf, key, fun, desc)
+local function lspKeybind(buf, key, fun, mode, desc)
   local wk = require('which-key')
   wk.add({
-    mode = 'n',
+    mode = mode,
     buffer = buf,
     silent = true,
     { key, fun, desc = desc },
@@ -105,7 +105,10 @@ function M.config()
           end
         else
           format_fun = function()
-            vim.notify('No Formatter available for this buffer!', vim.log.levels.INFO)
+            vim.notify(
+              'No Formatter available for this buffer!',
+              vim.log.levels.INFO
+            )
           end
         end
       else
@@ -114,7 +117,13 @@ function M.config()
         end
       end
       -- do the format mapping
-      lspKeybind(args.buf, '<leader>df', format_fun, '[D]iagnostics [F]ormat Buffer')
+      lspKeybind(
+        args.buf,
+        '<leader>df',
+        format_fun,
+        { 'n', 'v' },
+        '[D]iagnostics [F]ormat Buffer'
+      )
 
       --
       -- LSP methods/capabilites, only add keybind if the server can do it
@@ -129,6 +138,7 @@ function M.config()
           args.buf,
           'gI',
           vim.lsp.buf.implementation,
+          'n',
           'LSP: [g]o to [I]implementation'
         )
       end
@@ -137,17 +147,19 @@ function M.config()
           args.buf,
           '<leader>dr',
           vim.lsp.buf.rename,
+          'n',
           'LSP: [r]ename symbol'
         )
       end
       if client:supports_method('textDocument/hover') then
-        lspKeybind(args.buf, 'K', vim.lsp.buf.hover, 'LSP: Lookup Symbol')
+        lspKeybind(args.buf, 'K', vim.lsp.buf.hover, 'n', 'LSP: Lookup Symbol')
       end
       if client:supports_method('textDocument/declaration') then
         lspKeybind(
           args.buf,
           'gD',
           vim.lsp.buf.declaration,
+          'n',
           'LSP: [g]o to [D]eclaration'
         )
       end
@@ -158,6 +170,7 @@ function M.config()
           args.buf,
           'gd',
           vim.lsp.buf.definition,
+          'n',
           'LSP: [g]o to [d]efinition'
         )
       end
@@ -184,6 +197,7 @@ function M.config()
             args.buf,
             'gr',
             fzflua.lsp_references,
+            'n',
             'LSP: [g]et [r]eferences'
           )
         end
@@ -192,6 +206,7 @@ function M.config()
             args.buf,
             'gT',
             fzflua.lsp_typedefs,
+            'n',
             'LSP: [g]et [t]ype definition'
           )
         end
@@ -200,6 +215,7 @@ function M.config()
             args.buf,
             '<leader>da',
             fzflua.lsp_code_actions,
+            'n',
             'LSP: code [a]ctions'
           )
         end
@@ -208,6 +224,7 @@ function M.config()
             args.buf,
             '<leader>ds',
             fzflua.lsp_document_symbols,
+            'n',
             'LSP: [S]ymbols in document'
           )
         end
@@ -216,6 +233,7 @@ function M.config()
             args.buf,
             '<leader>dS',
             fzflua.lsp_workspace_symbols,
+            'n',
             'LSP: Query [S]ymbols in workspace'
           )
         end
@@ -223,30 +241,35 @@ function M.config()
           args.buf,
           '<leader>sl',
           fzflua.lsp_finder,
+          'n',
           '[S] LSP for symbol under cursor'
         )
         lspKeybind(
           args.buf,
           '<leader>dci',
           fzflua.lsp_incoming_calls,
+          'n',
           'LSP: [i]ncoming calls'
         )
         lspKeybind(
           args.buf,
           '<leader>dco',
           fzflua.lsp_outgoing_calls,
+          'n',
           'LSP: [o]utgoing calls'
         )
         lspKeybind(
           args.buf,
           '<leader>sd',
           fzflua.diagnostics_document,
+          'n',
           '[S]earch [d]iagnostics in current buffer'
         )
         lspKeybind(
           args.buf,
           '<leader>sD',
           fzflua.diagnostics_workspace,
+          'n',
           '[S]earch [D]iagnostics in workspace'
         )
       end
