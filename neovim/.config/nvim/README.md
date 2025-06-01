@@ -84,6 +84,8 @@ x                       Cut (goes into register 9 instead of 1)
   <M-q>                 Close Quickfix list
   // Treesitter
   <cr>                  Visual select next incremental outer scope
+// Insert Mode
+  <A-e>                 Enter FastWrap mode (Autopairs)
 // All Modes (except visual block)
   <A-j>                 Move line under cursor down
   <A-k>                 Move line under cursor up
@@ -122,6 +124,7 @@ x                       Cut (goes into register 9 instead of 1)
 <A-i>                   Toggle ignored files
 <A-h>                   Toggle hidden files
 <A-f>                   Toggle follow (of symbolic links)
+<C-\><C-n>              Enter normal mode
 ```
 
 ## LSP

@@ -1,6 +1,7 @@
 local M = {
   'Raimondi/delimitMate',
   event = 'InsertEnter',
+  enabled = false,
 }
 
 function M.config()
