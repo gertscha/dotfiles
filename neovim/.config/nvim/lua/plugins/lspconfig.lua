@@ -21,7 +21,7 @@ local M = {
     -- 'simrat39/rust-tools.nvim',
   },
   cmd = 'LspInfo',
-  event = { 'BufRead', 'BufNewFile', 'InsertEnter' },
+  event = { 'BufReadPre', 'BufRead', 'BufNewFile', 'InsertEnter' },
 }
 
 local function lspKeybind(buf, key, fun, mode, desc)
