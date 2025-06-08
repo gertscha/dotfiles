@@ -47,14 +47,20 @@ ZSH_CUSTOM=$HOME/.config/zsh/custom-zsh
 
 # Set name of the theme to load
 # ZSH_THEME="robbyrussell"
-export ZSH_THEME="arrow"
+# export ZSH_THEME="arrow"
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '[%F{blue}%b%f]'
+setopt PROMPT_SUBST
+PROMPT='${vcs_info_msg_0_}[%F{green}%32<...<%~%<<%f]%F{yellow} ➤%f '
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export ZRCDIR=$ZDOTDIR/rc

@@ -4,5 +4,5 @@
 export ZDOTDIR=$HOME/.config/zsh
 
 # oh-my-zsh installation
-export ZSH="$HOME/build/oh-my-zsh"
+# export ZSH="$HOME/build/oh-my-zsh"
 

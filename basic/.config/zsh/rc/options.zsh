@@ -18,3 +18,8 @@ else
   export EDITOR='nvim'
 fi
 
+
+# extend path
+path+=("$HOME/go/bin")
+
+export PATH
