@@ -7,11 +7,11 @@ sudo nala install git build-essential ninja-build curl cmake zsh tmux
 sudo nala install wl-clipboard ripgrep curl unzip gettext stow
 
 # oh-my-zsh install, .zshrc is setup accordingly
-cd ~
-mkdir -p build
-cd build
-mkdir -p oh-my-zsh
-git clone https://github.com/ohmyzsh/ohmyzsh.git oh-my-zsh
+# cd ~
+# mkdir -p build
+# cd build
+# mkdir -p oh-my-zsh
+# git clone https://github.com/ohmyzsh/ohmyzsh.git oh-my-zsh
 
 #tmux
 cd ~
