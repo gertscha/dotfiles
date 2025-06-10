@@ -11,6 +11,10 @@ function M.config()
 
   require('vague').setup({
     transparent = transparent, -- i.e. don't set background color
+
+    -- bold/italic global setting in `style`s, i.e. on/off
+    bold = true,
+    italic = true,
     style = {
       -- "none" is the same as default
       -- general
@@ -54,14 +58,14 @@ function M.config()
       constant = '#aeaed1',
       parameter = '#bb9dbd',
       visual = '#333738',
-      error = '#df6882',
+      error = '#d8647e',
       warning = '#f3be7c',
       hint = '#7e98e8',
       operator = '#90a0b5',
       keyword = '#6e94b2',
       type = '#9bb4bc',
       search = '#405065',
-      plus = '#8cb66d',
+      plus = '#7fa563',
       delta = '#f3be7c',
     },
   })
