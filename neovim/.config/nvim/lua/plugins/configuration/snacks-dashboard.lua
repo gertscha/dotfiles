@@ -146,8 +146,8 @@ _____________________________________________________
       },
       {
         icon = '',
-        key = 's',
-        desc = 'Load Session',
+        key = 'r',
+        desc = 'Restore Session',
         action = function() vim.cmd('source Session.nvim') end,
       },
       { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
