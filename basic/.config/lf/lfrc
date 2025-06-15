@@ -3,9 +3,39 @@ set shell sh
 # These options are used to have safer shell commands. Option '-e' is used to
 # exit on error and option '-u' is used to give error for unset variables.
 set shellopts '-eu'
-
+# show hidden files by default, toggle with 'zh'
 set hidden true
+# ignores case during search
+set ignorecase true
+# show file size by default, change with 'zt', 'za'
+set info size
+set preview true
 set icons true
+set drawbox true
+
+#
+# custom functions
+#
+cmd mkdir ${{
+    printf "Directory Name: "
+    read -r ans
+    mkdir $ans
+}}
+cmd createfile ${{
+    printf "File Name: "
+    read -r ans
+    touch $ans
+}}
+
+map md mkdir
+map mf createfile
+map D %trash-put $fx
 
 # use enter for shell commands
 map <enter> shell
+
+# unmap some defaults
+# marks
+map m
+map "'"
+map '"'
