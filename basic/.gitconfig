@@ -1,5 +1,6 @@
 [core]
 	editor = nvim
+	whitespace = space-before-tab,trailing-space
 [init]
 	defaultBranch = main
 [color]
@@ -9,3 +10,33 @@
 	diff = auto
 [diff]
 	tool = nvimdiff
+[pull]
+	rebase = false
+[merge]
+	conflictstyle = diff3
+[status]
+	showStash = true
+[stash]
+	showIncludeUntracked = true
+[rerere]
+	enabled = true
+[gc]
+	auto = 3000
+[color.decorate]
+	HEAD = 183 bold
+	branch = 70
+	remoteBranch = 220
+	tag = 208
+	stash = 127
+[grep]
+	lineNumber = true
+	patternType = perl
+[alias]
+	lol = log --oneline --decorate
+	graph = log --oneline --graph --decorate
+	history = reflog --date=iso --pretty
+	wdiff = diff --word-diff
+	smartblame = blame -C -C -C
+	hh = rev-parse HEAD
+	hash = rev-parse --verify
+
