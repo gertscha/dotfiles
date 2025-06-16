@@ -32,7 +32,7 @@ opt.numberwidth = 4 -- set number column width {default 4}
 opt.winminwidth = 5 -- Minimum window width
 opt.list = true -- Show characters based on 'listchars' option
 -- show trailing white spaces and tabs (tabs should be converted to spaces automaticlly)
-opt.listchars = 'trail:·,tab: ⇥' -- alternative for trailing spaces: (␣)
+opt.listchars = 'trail:·,tab: ' -- alternative for trailing spaces: (␣)
 opt.signcolumn = 'yes' -- Always show the signcolumn, prevent text shfiting around
 opt.colorcolumn = '80' -- indicate the 80th column visually
 opt.inccommand = 'split' -- preview incremental substitute
