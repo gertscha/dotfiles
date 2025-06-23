@@ -3,13 +3,13 @@ local M = {
 ---
 BasedOnStyle: Google
 ---
-Language:        Cpp
+Language: Cpp
 IndentWidth: 2
 ColumnLimit: 85
 BreakBeforeBraces: Stroustrup
 AlignTrailingComments:
-Kind:            Never
-OverEmptyLines:  0]],
+  Kind:            Never
+  OverEmptyLines:  0]],
   lua = [[
 syntax = "All"
 column_width = 85
