@@ -16,6 +16,11 @@ PATH=$PATH:~/go/bin
 
 export PATH
 
+# exports
+export EDITOR=nvim
+export SYSTEMD_EDITOR=vim
+
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
@@ -44,3 +49,4 @@ PROMPT_COMMAND='
 
 alias vi='nvim'
 alias gs='git status'
+alias ..='cd ..'

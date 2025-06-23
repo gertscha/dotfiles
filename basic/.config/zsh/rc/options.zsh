@@ -10,6 +10,7 @@
 
 # set editor
 export EDITOR=nvim
+export SYSTEMD_EDITOR=nvim
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -20,6 +21,7 @@ fi
 
 
 # extend path
+path+=("$HOME/.local/bin")
 path+=("$HOME/go/bin")
 
 export PATH
