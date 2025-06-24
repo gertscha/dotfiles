@@ -32,6 +32,19 @@ vim.filetype.add({
   },
 })
 
+-- trigger something on BufEnter once
+-- local has_run = false
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   callback = function()
+--     local bufname = vim.api.nvim_buf_get_name(0)
+--     if not has_run and bufname ~= "" and bufname ~= "snacks_dashboard" then
+--       local snacks_indent = require('snacks.indent')
+--       snacks_indent.enable()
+--       has_run = true
+--     end
+--   end,
+-- })
+
 -- snacks notifier lsp progress
 -- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md
 ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>

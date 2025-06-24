@@ -88,6 +88,12 @@ function M.config()
         return
       end
 
+      -- enable snacks.indent, otherwise an error popup if entering file with
+      -- harpoon that does not have clear scopes, so we require a LSP for first
+      -- enable, or do it manually with the key bind (a bug, on dfe44a6, v0.11.2)
+      local snacks_indent = require('snacks.indent')
+      snacks_indent.enable()
+
       -- formatting
       local conf_format = P_require('conform')
       local format_fun = nil

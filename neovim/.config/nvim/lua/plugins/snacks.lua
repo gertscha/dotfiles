@@ -11,7 +11,7 @@ local M = {
       enabled = true,
     },
     indent = {
-      enabled = true,
+      enabled = false,
       hl = 'SnacksIndentBlank', -- vague.nvim does not highlight properly
       -- to get only current scope markers:
       -- https://github.com/folke/snacks.nvim/discussions/332
