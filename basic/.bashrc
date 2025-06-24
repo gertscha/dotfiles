@@ -13,8 +13,17 @@ fi
 # path
 
 PATH=$PATH:~/go/bin
+PATH=$PATH:~/build_sys/install/bin
 
 export PATH
+
+
+# man path
+
+MANPATH=$MANPATH:~/build_sys/install/man
+
+export MANPATH
+
 
 # exports
 export EDITOR=nvim

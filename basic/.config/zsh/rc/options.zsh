@@ -23,5 +23,9 @@ fi
 # extend path
 path+=("$HOME/.local/bin")
 path+=("$HOME/go/bin")
+path+=("$HOME/build_sys/install/bin")
+
+# extend man path
+export MANPATH=$MANPATH:~/build_sys/install/man
 
 export PATH
