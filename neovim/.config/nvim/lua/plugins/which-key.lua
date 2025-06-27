@@ -38,6 +38,8 @@ function M.config()
       { '<space>y', group = 'Yank' },
       { '<leader>d', group = 'diagnostics' },
       { '<leader>dc', group = 'call hierarchy' },
+      { '<leader>dg', group = 'default lsp gr binds' },
+      { '<leader>dgr', group = 'default lsp gr binds' },
     })
   end
 end

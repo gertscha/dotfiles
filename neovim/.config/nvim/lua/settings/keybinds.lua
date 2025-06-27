@@ -62,12 +62,7 @@ keymap(
 -- toggle line wrap
 keymap('n', '<leader>twl', '<cmd>set wrap!<enter>', opts('Toggle line wrap'))
 -- toggle command line height
-keymap(
-  'n',
-  '<leader>tsc',
-  cmdheighttoggle,
-  opts('Toggle command line visibility')
-)
+keymap('n', '<leader>tsc', cmdheighttoggle, opts('Toggle command line visibility'))
 -- toggle textwidth
 keymap(
   'n',
@@ -185,3 +180,16 @@ keymap('n', '<F1>', '<nop>', { silent = true }) -- would open help, accidental w
 -- search and replace macro
 --keymap('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 -- opts('Search and Replace Macro'))
+
+-- change default bindings for LSP, all of these have better alternatives using fzf
+-- but to keep them as fallback they are rebound
+local remapopts = { noremap = true, silent = true, buffer = 0 }
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grn')
+vim.keymap.set('n', '<leader>dgri', 'vim.lsp.buf.implementation()', remapopts)
+vim.keymap.set('n', '<leader>dgra', 'vim.lsp.buf.code_actions()', remapopts)
+vim.keymap.set('n', '<leader>dgrr', 'vim.lsp.buf.references()', remapopts)
+vim.keymap.set('n', '<leader>dgrn', 'vim.lsp.buf.rename()', remapopts)
+
