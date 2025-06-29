@@ -98,6 +98,17 @@ The symlinks should be restored with Stow.
 Some files specify image paths, adjust them to images of your liking.
 Files: `niri/config.kdl`, `swaylock/config` (also grep for ~/Pictures).
 
+#### X11
+Niri does not include X11, the recommended way to run xwayland is using
+`xwayland-satellite`. The config launches: `xwayland-satellite" ":3`, and
+sets `DISPLAY=:3` (to make it more predictable).
+
+Launching applications with this explicitly requires changing the .desktop file
+(when using fuzzel):
+```
+Exec=env DISPLAY=:12 /some/binary`
+```
+Default locations: `/usr/share/applications/` and `~/.local/share/applications/`
 
 ## Sway
 I set this up for my Debian 12 Laptop. The base/fallback DE is Gnome.

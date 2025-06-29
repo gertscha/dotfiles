@@ -335,6 +335,7 @@ window-rule {
     match app-id="Vivaldi-flatpak"
     match app-id="org.kde.discover"
     match app-id="gimp"
+    match app-id=r#"^steam_app_"#
     default-column-width { proportion 1.0; }
 }
 
@@ -345,7 +346,14 @@ window-rule {
     match app-id=r#"firefox$"#
     match app-id="zen"
     match app-id="Chromium-browser"
+    match app-id="steam" title="Steam"
     default-column-width { proportion 0.66; }
+}
+
+// 0.33 width apps
+window-rule {
+    match app-id="steam" title="Challenge"
+    default-column-width { proportion 0.33; }
 }
 
 // block out apps from screen recordings
@@ -393,7 +401,7 @@ layer-rule {
 
 // set environment variables
 environment {
-    DISPLAY ":11"
+    DISPLAY ":3"
     QT_QPA_PLATFORM "wayland"
     QT_QPA_PLATFORMTHEME "qt6ct"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -420,7 +428,6 @@ prefer-no-csd
 // don't show the shortcut overlay at startup
 hotkey-overlay {
     skip-at-startup
-
 }
 
 // You can change the path where screenshots are saved.
@@ -442,7 +449,7 @@ spawn-at-startup "sh" "-c" "swaybg -m fill -i $(find ~/Pictures/backgrounds/ -ty
 spawn-at-startup "swaync" // notificaton center
 // gamma shift blue light at night, start at 20:00, takes 30 minutes, ends 05:00
 spawn-at-startup "wlsunset" "-T" "6500" "-t" "3000" "-S" "05:00" "-s" "20:00" "-d" "1800"
-spawn-at-startup "sh" "-c" "sleep 5 && xwayland-satellite :11"
+spawn-at-startup "xwayland-satellite" ":3"
 
 // Idle configuration, done with a systemd service, but equivalent to this:
 // spawn-at-startup "swayidle" "-w" \
