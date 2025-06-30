@@ -257,14 +257,26 @@ layout {
 }
 
 // Animation settings.
-// The wiki explains how to configure individual animations:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
 animations {
     // Uncomment to turn off all animations.
     // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
+    slowdown 0.8
+
+    window-open {
+        duration-ms 100
+        curve "ease-out-expo"
+    }
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=1600 epsilon=0.0001
+    }
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=2400 epsilon=0.0001
+    }
+}
+
 
 //
 // Named workspaces
@@ -402,6 +414,9 @@ window-rule {
 }
 
 
+//
+// Layer Rules
+//
 // layer rules match layer-shells instead of windows and have different proerties
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layer-Rules
 layer-rule {
@@ -496,6 +511,9 @@ spawn-at-startup "xwayland-satellite" ":3"
 // It will also lock your screen before your computer goes to sleep.
 
 
+// If the device is a Laptop, look at 'switch-events'
+/-switch-events { }
+
 
 //
 // Keybindings
@@ -525,6 +543,7 @@ binds {
 
     Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "alacritty"; }
     Mod+E hotkey-overlay-title="Open File Explorer" { spawn "dolphin"; }
+    Mod+Shift+E { spawn "nautilus"; }
     Mod+G hotkey-overlay-title="Open Calculator" { spawn "gnome-calculator" "-m" "advanced"; }
     Mod+D hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
 
@@ -642,16 +661,17 @@ binds {
     Mod+Shift+Page_Down { move-column-to-workspace-down; }
 
     // move window between workspaces
-    Mod+Shift+Alt+U hotkey-overlay-title="Move Window Workspace Down" { move-window-to-workspace-down; }
-    Mod+Shift+Alt+I         { move-window-to-workspace-up; }
-    Mod+Shift+Alt+Page_Down { move-window-to-workspace-down; }
-    Mod+Shift+Alt+Page_Up   { move-window-to-workspace-up; }
+    // Mod+Shift+Alt+U hotkey-overlay-title="Move Window Workspace Down" \
+    //     { move-window-to-workspace-down; }
+    // Mod+Shift+Alt+I         { move-window-to-workspace-up; }
+    // Mod+Shift+Alt+Page_Down { move-window-to-workspace-down; }
+    // Mod+Shift+Alt+Page_Up   { move-window-to-workspace-up; }
 
     // move workspaces
-    // Mod+Ctrl+Shift+Page_Down { move-workspace-down; }
-    // Mod+Ctrl+Shift+Page_Up   { move-workspace-up; }
-    // Mod+Ctrl+Shift+U         { move-workspace-down; }
-    // Mod+Ctrl+Shift+I         { move-workspace-up; }
+    Mod+Shift+Alt+Page_Down { move-workspace-down; }
+    Mod+Shift+Alt+Page_Up   { move-workspace-up; }
+    Mod+Shift+Alt+U hotkey-overlay-title="Move Workspace Down" { move-workspace-down; }
+    Mod+Shift+Alt+I         { move-workspace-up; }
 
     // These binds will change direction based on the natural-scroll setting.
     // To avoid scrolling through workspaces really fast, you can use
