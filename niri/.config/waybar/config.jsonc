@@ -55,6 +55,7 @@
             "net\\.[^\\.]+\\.(.*)": "$1",
             "com\\.[^\\.]+\\.(.*)": "$1",
             "^[^\\.]+\\.github\\.[^\\.]+\\.(.*)": "$1",
+            "^[^\\.]+\\.[^\\.]+\\.desktopclient\\.(.*)": "$1",
             "pobfrontend": "Path of Building",
             "org.mozilla.firefox": "Firefox",
             "Chromium-browser": "Chromium",
@@ -64,8 +65,12 @@
     },
 
     "niri/workspaces": {
-        "format": "{index}",
+        "format": "{icon}",
         "format-icons": {
+            // half-space unicode: ' '
+            "browser": "󰁥 ",
+            "work": " ",
+            "code": " ",
             // "default": "d",
             // "focused": "f",
             // "active": "a",

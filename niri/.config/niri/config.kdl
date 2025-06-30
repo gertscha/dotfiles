@@ -265,6 +265,37 @@ animations {
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
     // slowdown 3.0
+
+//
+// Named workspaces
+//
+workspace "browser" {
+    open-on-output "DP-1"
+}
+
+workspace "work" {
+    open-on-output "DP-1"
+}
+
+workspace "code" {
+    open-on-output "DP-1"
+}
+
+// set the windows to the named workspaces
+window-rule {
+    match at-startup=true app-id=r#"thunderbird"#
+    match app-id="Vivaldi-flatpak"
+    match app-id=r#"firefox$"#
+    open-on-workspace "browser"
+}
+window-rule {
+    match app-id="Chromium-browser"
+    match app-id="zen"
+    match app-id="obsidian"
+    open-on-workspace "work"
+}
+/-window-rule {
+    open-on-workspace "code"
 }
 
 
@@ -333,7 +364,6 @@ window-rule {
 window-rule {
     match app-id="obsidian"
     match app-id="Vivaldi-flatpak"
-    match app-id="org.kde.discover"
     match app-id="gimp"
     match app-id=r#"^steam_app_"#
     default-column-width { proportion 1.0; }
@@ -341,6 +371,7 @@ window-rule {
 
 // 0.66 width apps
 window-rule {
+    match app-id="org.kde.discover"
     match app-id=r#"thunderbird"#
     match app-id=r#"Discord$"#
     match app-id=r#"firefox$"#
@@ -352,6 +383,7 @@ window-rule {
 
 // 0.33 width apps
 window-rule {
+    match app-id="steam" title="Settings"
     match app-id="steam" title="Challenge"
     default-column-width { proportion 0.33; }
 }
