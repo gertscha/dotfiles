@@ -1,7 +1,7 @@
 // relaunch waybar with: killall -SIGUSR2 waybar
 {
     "layer": "top",
-    "height": 30,
+    "height": 32,
     "position": "bottom",
     "reload_style_on_change": true,
 
@@ -12,24 +12,24 @@
     ],
     "modules-center": [
         "custom/swaync",
-        "custom/separator#dot-line",
+        "custom/separator-dot-line",
         "group/clock-group",
-        "custom/separator#dot-line",
+        "custom/separator-dot-line",
         "group/util-toggle-group"
     ],
     "modules-right": [
         "group/mpris-group",
-        "custom/separator#dot-line",
+        "custom/separator-dot-line",
         "tray",
-        "custom/separator#dot-line",
+        "custom/separator-dot-line",
         "group/audio",
         "bluetooth",
         "group/network-group",
-        "custom/separator#dot-line",
+        "custom/separator-dot-line",
         "custom/powermenu"
     ],
 
-    "custom/separator#dot-line": {
+    "custom/separator-dot-line": {
         "format": "",
         "interval": "once",
         "tooltip": false,
@@ -39,7 +39,7 @@
         "interval": "once",
         "tooltip": false,
     },
-    "custom/separator#line": {
+    "custom/separator-line": {
         "format": "|",
         "interval": "once",
         "tooltip": false,
@@ -69,7 +69,7 @@
         "format-icons": {
             // half-space unicode: ' '
             "browser": "󰁥 ",
-            "work": " ",
+            "work": "󰕮 ", // "󰨝" "󰕮" ""
             "code": " ",
             // "default": "d",
             // "focused": "f",
