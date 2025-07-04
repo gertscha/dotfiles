@@ -811,10 +811,9 @@ binds {
     // which ensures niri always processes them, even when an inhibitor is active.
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
+    // a script to close all the windows
     Mod+Shift+Ctrl+Q hotkey-overlay-title="Close All Windows" \
-        { spawn "bash" "-c" "python3 ~/.config/niri/niri-close-windows.py"; }
-    // Mod+Shift+Ctrl+Q hotkey-overlay-title="Close All Windows" \
-    //     { spawn "bash" "-c" "~/.config/niri/niri-scripts.sh"; }
+        { spawn "bash" "-c" "~/.config/niri/niri-scripts.sh"; }
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+Ctrl+E hotkey-overlay-title="Exit Niri" { quit; }
     Ctrl+Alt+Delete { quit; }
