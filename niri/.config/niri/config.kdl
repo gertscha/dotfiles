@@ -487,25 +487,22 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
-// See the binds section below for more spawn examples.
-// spawn-at-startup "kded6"
 spawn-at-startup "/usr/libexec/kf6/polkit-kde-authentication-agent-1"
-spawn-at-startup "sh" "-c" "swaybg -m fill -i $(find ~/Pictures/backgrounds/ -type f | shuf -n1) &"
-// restart waybar: killall -SIGUSR2 waybar
-// spawn-at-startup "waybar" // handled with systemd, won't work in non-session mode
 spawn-at-startup "swaync" // notificaton center
-// gamma shift blue light at night, start at 20:00, takes 30 minutes, ends 05:00
-spawn-at-startup "wlsunset" "-T" "6500" "-t" "3000" "-S" "05:00" "-s" "20:00" "-d" "1800"
-spawn-at-startup "xwayland-satellite" ":3"
 
-// Idle configuration, done with a systemd service, but equivalent to this:
+// these would be needed, but are handled with systemd instead:
+// spawn-at-startup "sh" "-c" "swaybg -m fill -i $(find ~/Pictures/backgrounds/ -type f | shuf -n1) &"
+// spawn-at-startup "waybar"
+// spawn-at-startup "wlsunset" "-T" "6500" "-t" "3000" "-S" "05:00" "-s" "20:00" "-d" "1800"
+// 󱞩 gamma shift blue light at night, start at 20:00, takes 30 minutes, ends 05:00
+// spawn-at-startup "xwayland-satellite" ":3"
 // spawn-at-startup "swayidle" "-w" \
 //     "timeout" "900" "'niri msg action power-off-monitors'" \
 //     "timeout" "1800" "'swaylock -f'" \
 //     "timeout" "5400" "'systemctl suspend'" \
 //     "resume" "'niri msg action power-on-monitors'" \
 //     "before-sleep" "'swaylock -f'"
-// This will power off the screens after 15 minutes of inactivity, lock the
+// 󱞩 This will power off the screens after 15 minutes of inactivity, lock the
 // screen after 30 minutes. After 90 minutes the system will go to sleep.
 // I don't know if turning the screens back on is neccesary
 // It will also lock your screen before your computer goes to sleep.
@@ -546,6 +543,7 @@ binds {
     Mod+Shift+E { spawn "nautilus"; }
     Mod+G hotkey-overlay-title="Open Calculator" { spawn "gnome-calculator" "-m" "advanced"; }
     Mod+D hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
+    Mod+B hotkey-overlay-title="Open Browser" { spawn "flatpak" "run" "app.zen_browser.zen"; }
 
     // wlogout menu
     Mod+Shift+P allow-inhibiting=false hotkey-overlay-title="Lock the Screen" \
@@ -813,6 +811,10 @@ binds {
     // which ensures niri always processes them, even when an inhibitor is active.
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
+    Mod+Shift+Ctrl+Q hotkey-overlay-title="Close All Windows" \
+        { spawn "bash" "-c" "python3 ~/.config/niri/niri-close-windows.py"; }
+    // Mod+Shift+Ctrl+Q hotkey-overlay-title="Close All Windows" \
+    //     { spawn "bash" "-c" "~/.config/niri/niri-scripts.sh"; }
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+Ctrl+E hotkey-overlay-title="Exit Niri" { quit; }
     Ctrl+Alt+Delete { quit; }

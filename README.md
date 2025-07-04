@@ -92,7 +92,16 @@ You can either launch services with `spawn-at-startup` in the Niri config, or
 use systemd. Systemd has better recovery on crashes and some other benefits.
 Setup is easy if .service is already provided but also easy to write yourself,
 see [example setup](https://github.com/YaLTeR/niri/wiki/Example-systemd-Setup).
-The symlinks should be restored with Stow.
+The symlinks should be restored with Stow (otherwise add them with
+`systemctl --user add-wants niri.service <service file>`).
+
+Currently `swayidle`, `swaybg`, `wlsunset`, `waybar` and `xwayland-satellite`
+are launched with systemd.
+You can manage them with `systemctl --user <command> <name>`.
+
+Brief experiments showed me that launching from tty with `niri -session` does
+not launch the systemd services properly (I am using `sddm` to start the
+session).
 
 #### Paths
 Some files specify image paths, adjust them to images of your liking.

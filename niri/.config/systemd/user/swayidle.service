@@ -4,5 +4,5 @@ After=graphical-session.target
 Requisite=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/swayidle -w timeout 900 'niri msg action power-off-monitors' timeout 1800 'swaylock -f' timeout 5400 'systemctl suspend' resume 'niri msg action power-on-monitors' before-sleep 'swaylock -f'
+ExecStart=/usr/bin/swayidle -w timeout 900 'niri msg action power-off-monitors' timeout 1800 'swaylock -f' timeout 5400 'systemctl suspend' resume 'niri msg action power-on-monitors' before-sleep 'swaylock -f' lock 'systemctl --user stop waybar.service' unlock 'systemctl --user start waybar.service'
 Restart=on-failure
