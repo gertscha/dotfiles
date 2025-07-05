@@ -360,6 +360,12 @@ window-rule {
     open-floating true
 }
 
+// thunderbird 
+window-rule {
+    match app-id=r#"thunderbird"#
+    default-column-width { proportion 0.75; }
+}
+
 // Steam notifications do not use a custom notification backend
 // this makes the placement better
 window-rule {
@@ -384,7 +390,6 @@ window-rule {
 // 0.66 width apps
 window-rule {
     match app-id="org.kde.discover"
-    match app-id=r#"thunderbird"#
     match app-id=r#"Discord$"#
     match app-id=r#"firefox$"#
     match app-id="zen"
