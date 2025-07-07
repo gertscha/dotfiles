@@ -143,11 +143,18 @@ function M.config()
         desc = '[S]earch [C]onfig files',
       },
       {
-        '<leader>sp',
+        '<leader>sP',
         function()
           fzflua.files({ cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy') })
         end,
         desc = '[S]earch [P]lugin implementations',
+      },
+      {
+        '<leader>sp',
+        function()
+          fzflua.spellcheck()
+        end,
+        desc = '[S]earch S[p]ellcheck',
       },
     },
   })

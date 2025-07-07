@@ -87,7 +87,7 @@ local M = {
   formats = {
     header = {
       '%s',
-      hl = 'DiffAdd',
+      hl = 'DiagnosticOk',
     },
     title = {
       '%s',
