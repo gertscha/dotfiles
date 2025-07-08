@@ -12,30 +12,27 @@
 @define-color green #7fa563;
 
 * {
-    font-size:15px;
-    font-family: "FiraCode Nerd Font"; /* Do not use a Mono Font */
+    font-size:14px;
+    font-family: "Noto Sans", "FiraCode Nerd Font Propo";
 }
 
 window#waybar{
     all:unset;
 }
 .modules-left {
-    padding:2px;
-    margin:0px 2px 1px 400px;
+    margin:0px 0px 0px 400px;
     border-radius:10px;
     background: alpha(@background,.8);
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
 }
 .modules-center {
-    padding:4px;
-    margin:0px 10px 1px 10px;
+    margin:0px 10px 0px 10px;
     border-radius:10px;
     background: alpha(@background,.6);
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
 }
 .modules-right {
-    padding:4px;
-    margin: 0px 400px 1px 2px;
+    margin: 0px 400px 0px 0px;
     border-radius:10px;
     background: alpha(@background,.6);
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
@@ -58,16 +55,15 @@ tooltip {
     color: @red;
 }
 
-#custom-separator-dot-line-hide,
-#custom-separator-dot-line,
-#custom-separator-line {
+#custom-separator-dot-line {
     font-size:14px;
+    margin: 0px 2px;
     color: alpha(@white,.7);
 }
 
 #workspaces button {
     all:unset;
-    padding: 0px 3px;
+    margin: 0px 3px;
     color: alpha(@foreground,.85);
     transition: all .2s ease;
 }
@@ -92,20 +88,20 @@ tooltip {
 }
 #window {
     border-radius:10px;
-    padding: 0px 5px;
     color: @foreground;
+    padding: 0px 2px 0px 0px;
+    margin: 0px 4px;
     /* background:@marker; */
 }
 window#waybar.empty #window {
     min-width: 0px;
-    padding: 0px;
+    margin: 0px;
 }
 window#waybar.empty #custom-separator-dot-line-hide {
     min-width: 0px;
-    padding: 0px;
     margin: 0px;
     font-size: 0px;
-    /* visibility: hidden; */
+    padding: 0px;
 }
 #custom-separator-dot-line-hide {
     color: @foreground;
@@ -115,46 +111,45 @@ window#waybar.empty #custom-separator-dot-line-hide {
 #custom-swaync{
     color: @foreground;
     font-size:15px;
-    margin:2px -2px 0px 2px;
+    margin:0px 2px 0px 0px;
+    padding: 0px 0px 0px 4px;
 }
 #clock{
-    padding: 0px 5px;
     color:@foreground;
+    margin: 0px 2px;
     /* background:@marker; */
     transition: all .3s ease;
 }
 #idle_inhibitor {
-    padding: 1px 8px 0px 2px;
+    margin: 0px 1px;
+    padding: 0px 4px 0px 0px;
     color:@foreground;
 }
 
-
+#pulseaudio.microphone {
+    margin: 0px 2px;
+}
+#pulseaudio {
+    margin: 0px 2px;
+}
 #mpris-group {
     color: @foreground;
+    margin: 0px 2px;
 }
 #mpris.title {
     color: @foreground;
     font-size: 14px;
+    margin: 0px 2px;
 }
 #tray{
-    padding: 0px 2px;
-    margin: 2px 0px;
+    margin: 3px 2px;
     transition: all .3s ease; 
     background: alpha(@lightshadow,.7);
-    border-radius:8px;
-}
-#tray menu * {
-    padding: 0px 5px;
-    transition: all .3s ease; 
-}
-
-#tray menu separator {
-    padding: 0px 5px;
-    transition: all .3s ease; 
+    border-radius:10px;
 }
 
 #bluetooth{
-    padding: 0px 4px;
+    margin: 0px 3px;
     font-size:14px;
     transition: all .3s ease;
     color:@foreground;
@@ -162,7 +157,7 @@ window#waybar.empty #custom-separator-dot-line-hide {
 }
 #network{
     font-size:14px;
-    padding: 2px 4px 0px 4px;
+    margin: 0px 3px;
     transition: all .3s ease;
     color:@foreground;
 }
@@ -177,12 +172,13 @@ window#waybar.empty #custom-separator-dot-line-hide {
 #custom-powermenu{
     color: @foreground;
     font-size:13px;
-    margin:0px 6px 0px 4px;
+    margin: 0px 2px;
+    padding: 0px 4px 0px 0px;
 }
 
 
 #battery{
-    padding: 0px 5px;
+    margin: 0px 2px;
     transition: all .3s ease;
     color: @foreground;
 }
@@ -204,7 +200,7 @@ window#waybar.empty #custom-separator-dot-line-hide {
 }
 
 #cpu,#memory,#temperature{
-    padding: 0px 5px;
+    margin: 0px 5px;
     transition: all .3s ease; 
     color:@foreground;
 

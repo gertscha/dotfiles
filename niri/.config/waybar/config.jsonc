@@ -1,7 +1,7 @@
 // relaunch waybar with: killall -SIGUSR2 waybar
 {
     "layer": "top",
-    "height": 31,
+    "height": 25,
     "position": "bottom",
     "reload_style_on_change": true,
 
@@ -20,11 +20,11 @@
     "modules-right": [
         "group/mpris-group",
         "custom/separator-dot-line",
-        "tray",
-        "custom/separator-dot-line",
         "group/audio",
         "bluetooth",
         "group/network-group",
+        "custom/separator-dot-line",
+        "tray",
         "custom/separator-dot-line",
         "custom/powermenu"
     ],
@@ -39,16 +39,12 @@
         "interval": "once",
         "tooltip": false,
     },
-    "custom/separator-line": {
-        "format": "|",
-        "interval": "once",
-        "tooltip": false,
-    },
 
     "niri/window": {
         "format": "{app_id}",
         "max-length": 30,
         "tooltip": false,
+        "swap-icon-label": false,
         "rewrite": {
             "org\\.[^\\.]+\\.(.*)": "$1",
             "app\\.[^\\.]+\\.(.*)": "$1",
@@ -56,9 +52,11 @@
             "com\\.[^\\.]+\\.(.*)": "$1",
             "^[^\\.]+\\.github\\.[^\\.]+\\.(.*)": "$1",
             "^[^\\.]+\\.[^\\.]+\\.desktopclient\\.(.*)": "$1",
+            "^.*\\.ungoogled_software\\..*": "Ungoogled Chromium",
             "pobfrontend": "Path of Building",
             "org.mozilla.firefox": "Firefox",
             "Chromium-browser": "Chromium",
+            "one.ablaze.floorp": "Floorp",
             "Vivaldi-flatpak": "Vivaldi",
             "zen": "Zen",
         }
@@ -67,10 +65,9 @@
     "niri/workspaces": {
         "format": "{icon}",
         "format-icons": {
-            // half-space unicode: ' '
-            "browser": "󰁥 ",
-            "work": "󰕮 ", // "󰨝" "󰕮" ""
-            "code": " ",
+            "browser": "󰁥",
+            "work": "󰕮", // "󰨝" "󰕮" ""
+            "code": "󰊢", // "" ""
             // "default": "d",
             // "focused": "f",
             // "active": "a",
@@ -95,7 +92,7 @@
     "custom/swaync": {
         "tooltip": true,
         "tooltip-format": "Left Click: Open Notifications\nRight Click: Toggle Do Not Disturb",
-        "format": "{} {icon} ",
+        "format": "{} {icon}",
         "format-icons": {
             "notification": "<span foreground='red'><sup></sup></span>",
             "none": "",
@@ -161,39 +158,44 @@
             "deactivated": "",
         },
     },
-    "backlight#icon": {
-        "format": "{icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""],
-        "tooltip": true,
-        "tooltip-format": "{percent}%",
-        "on-scroll-up": "swayosd-client --brightness +5",
-        "on-scroll-down": "swayosd-client --brightness -5",
-    },
-    "backlight#text": {
-        "format": "{percent}%",
-        "tooltip": true,
-        "tooltip-format": "{percent}%",
-        "on-scroll-up": "swayosd-client --brightness +5",
-        "on-scroll-down": "swayosd-client --brightness -5",
-    },
+    //"battery": {
+    //    "format": "{capacity}% {icon}",
+    //    "format-icons": ["", "", "", "", ""]
+    //},
+    // "backlight#icon": {
+    //     "format": "{icon}",
+    //     "format-icons": ["", "", "", "", "", "", "", "", ""],
+    //     "tooltip": true,
+    //     "tooltip-format": "{percent}%",
+    //     "on-scroll-up": "swayosd-client --brightness +5",
+    //     "on-scroll-down": "swayosd-client --brightness -5",
+    // },
+    // "backlight#text": {
+    //     "format": "{percent}%",
+    //     "tooltip": true,
+    //     "tooltip-format": "{percent}%",
+    //     "on-scroll-up": "swayosd-client --brightness +5",
+    //     "on-scroll-down": "swayosd-client --brightness -5",
+    // },
     "group/util-toggle-group": {
         "orientation": "inherit",
         "drawer": {
             "transition-duration": 400,
             "transition-left-to-right": true,
         },
-        "modules": ["idle_inhibitor", "backlight#icon", "backlight#text"],
+        // "modules": ["idle_inhibitor", "backlight#icon", "backlight#text"],
+        "modules": ["idle_inhibitor"],
     },
 
     "mpris#title": {
         // "format": "{artist} - {player} ",
-        "format": "{artist} ",
-        "format-paused": " {player} ",
+        "format": "{artist}",
+        "format-paused": "{player}",
         "artist-len": 20,
     },
     "mpris": {
-        "format": "{status_icon} ",
-        "format-paused": "{status_icon} ",
+        "format": "{status_icon}",
+        "format-paused": "{status_icon}",
         "status-icons": {
             "paused": "",
             "playing": "",
@@ -207,7 +209,9 @@
             "transition-duration": 700,
             "transition-left-to-right": false,
         },
-        "modules": ["mpris", "mpris#title", "pulseaudio#microphone", "pulseaudio"],
+        "modules": ["mpris", "mpris#title", "custom/separator-dot-line",
+            "pulseaudio#microphone", "custom/separator-dot-line", "pulseaudio",
+            "custom/separator-dot-line"],
     },
 
     "tray": {
@@ -216,8 +220,8 @@
     },
 
     "pulseaudio": {
-        "format": "|{icon} {volume}%| ",
-        "format-muted": "|  󰓄  | ",
+        "format": "{icon} {volume}%",
+        "format-muted": "󰓄",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -238,7 +242,7 @@
         // "tooltip-format": "{volume}%",
     },
     "pulseaudio#microphone": {
-        "format": "|{format_source} {source_volume}%",
+        "format": "{format_source} {source_volume}%",
         "format-source": "󰍬",
         "format-source-muted": "󰍭",
         "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_pulseaudio",
@@ -305,10 +309,4 @@
         "on-click": "wlogout --protocol layer-shell",
         "on-click-right": "swaylock",
     },
-
-
-    //"battery": {
-    //    "format": "{capacity}% {icon}",
-    //    "format-icons": ["", "", "", "", ""]
-    //},
 }
