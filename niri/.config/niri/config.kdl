@@ -96,8 +96,9 @@ input {
     // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
     // If the refresh rate is omitted, niri will pick the highest refresh rate
     // for the resolution.
-    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
-    // Run `niri msg outputs` in a niri instance to list all outputs and their modes.
+    // If the mode is omitted altogether or is invalid, niri will pick one
+    // automatically. Run `niri msg outputs` in a niri instance to list all
+    // outputs and their modes.
     mode "1920x1080@120.030"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
@@ -189,10 +190,10 @@ layout {
 
     // By default focus ring and border are rendered as a solid background rectangle
     // behind windows. That is, they will show up through semitransparent windows.
-    // This is because windows using client-side decorations can have an arbitrary shape.
-    // If you don't like that, set `prefer-no-csd` (see below).
-    // Niri will draw focus ring and border *around* windows that agree to omit their
-    // client-side decorations.
+    // This is because windows using client-side decorations can have an arbitrary
+    // shape. If you don't like that, set `prefer-no-csd` (see below).
+    // Niri will draw focus ring and border *around* windows that agree to omit
+    // their client-side decorations.
     // Alternatively, you can override it with a window rule called
     // `draw-border-with-background`.
 
@@ -297,16 +298,18 @@ workspace "code" {
 window-rule {
     match at-startup=true app-id=r#"thunderbird"#
     match app-id="Vivaldi-flatpak"
-    match app-id=r#"firefox$"#
+    match app-id=r#"^.*\.ungoogled_chromium$"#
+    match app-id="org.mozilla.firefox"
     open-on-workspace "browser"
 }
 window-rule {
-    match app-id="Chromium-browser"
+    match app-id="one.ablaze.floorp"
     match app-id="zen"
     match app-id="obsidian"
     open-on-workspace "work"
 }
-/-window-rule {
+window-rule {
+    match app-id="foot"
     open-on-workspace "code"
 }
 
@@ -360,7 +363,7 @@ window-rule {
     open-floating true
 }
 
-// thunderbird 
+// thunderbird
 window-rule {
     match app-id=r#"thunderbird"#
     default-column-width { proportion 0.75; }
@@ -382,6 +385,7 @@ window-rule {
 window-rule {
     match app-id="obsidian"
     match app-id="Vivaldi-flatpak"
+    match app-id=r#"^.*\.ungoogled_chromium$"#
     match app-id="gimp"
     match app-id=r#"^steam_app_"#
     default-column-width { proportion 1.0; }
@@ -391,9 +395,9 @@ window-rule {
 window-rule {
     match app-id="org.kde.discover"
     match app-id=r#"Discord$"#
-    match app-id=r#"firefox$"#
+    match app-id="org.mozilla.firefox"
+    match app-id="one.ablaze.floorp"
     match app-id="zen"
-    match app-id="Chromium-browser"
     match app-id="steam" title="Steam"
     default-column-width { proportion 0.66; }
 }
@@ -472,9 +476,10 @@ environment {
 
 // Ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
-// Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
-// This option will also fix border/focus ring drawing behind some semitransparent windows.
-// After enabling or disabling this, you need to restart the apps for this to take effect.
+// Additionally, clients will be informed that they are tiled, removing some
+// client-side rounded corners. This option will also fix border/focus ring
+// drawing behind some semitransparent windows. After enabling or disabling
+// this, you need to restart the apps for this to take effect.
 prefer-no-csd
 
 // don't show the shortcut overlay at startup
@@ -544,11 +549,17 @@ binds {
     Mod+Shift+apostrophe cooldown-ms=400 { show-hotkey-overlay; } // Mod + ?
 
     Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "alacritty"; }
+    Mod+Shift+Return { spawn "foot"; }
     Mod+E hotkey-overlay-title="Open File Explorer" { spawn "dolphin"; }
     Mod+Shift+E { spawn "nautilus"; }
-    Mod+G hotkey-overlay-title="Open Calculator" { spawn "gnome-calculator" "-m" "advanced"; }
-    Mod+D hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
-    Mod+B hotkey-overlay-title="Open Browser" { spawn "flatpak" "run" "app.zen_browser.zen"; }
+    Mod+G hotkey-overlay-title="Open Calculator" { spawn "gnome-calculator" "-m" \
+        "advanced"; }
+    Mod+D hotkey-overlay-title="Run an Application" { spawn "wofi" "--show=drun"; }
+    Mod+N { spawn "swaync-client" "-op"; }
+    Mod+B hotkey-overlay-title="Open Browser" { spawn "flatpak" "run" "one.ablaze.floorp"; }
+    Mod+Shift+B  { spawn "firefox"; }
+    Mod+Ctrl+B { spawn "flatpak" "run" "io.github.ungoogled_software.ungoogled_chromium"; }
+    Mod+Alt+B { spawn "flatpak" "run" "app.zen_browser.zen"; }
 
     // wlogout menu
     Mod+Shift+P allow-inhibiting=false hotkey-overlay-title="Lock the Screen" \
@@ -559,11 +570,16 @@ binds {
         { power-off-monitors; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    // The allow-when-locked=true property makes them work even when the
+    // session is locked.
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" \
+        "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" \
+        "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" \
+        "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" \
+        "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
     XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
@@ -775,19 +791,23 @@ binds {
     // * adjust width as a percentage of screen width: "-10%" or "+10%"
     // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
     // set-column-width "100" will make the column occupy 200 physical screen pixels.
-    Mod+KP_Subtract hotkey-overlay-title="Decrease Window Width" { set-column-width "-8.3%"; }
+    Mod+KP_Subtract hotkey-overlay-title="Decrease Window Width" \
+        { set-column-width "-8.3%"; }
     Mod+minus { set-column-width "-8.3%"; }
-    // Mod+Shift+1 { set-column-width "+10%"; } // Mod+'+', but already used for window movement
+    // Mod+Shift+1 { set-column-width "+10%"; } // Mod+'+', but already used for
+    // window movement
     Mod+KP_Add  { set-column-width "+8.3%"; }
 
     // Finer height adjustments when in column with other windows.
     Mod+Shift+minus { set-window-height "-10%"; }
     Mod+Shift+KP_Subtract { set-window-height "-10%"; }
-    Mod+Shift+KP_Add hotkey-overlay-title="Increase Window Height" { set-window-height "+10%"; }
+    Mod+Shift+KP_Add hotkey-overlay-title="Increase Window Height" \
+        { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       hotkey-overlay-title="Toggle Floating"       { toggle-window-floating; }
-    Mod+Shift+V hotkey-overlay-title="Focus Floating Toggle" { switch-focus-between-floating-and-tiling; }
+    Mod+V       hotkey-overlay-title="Toggle Floating" { toggle-window-floating; }
+    Mod+Shift+V hotkey-overlay-title="Focus Floating Toggle" \
+        { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
@@ -802,8 +822,9 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print       hotkey-overlay-title="Screenshot Box"     { screenshot show-pointer=false; }
-    Ctrl+Print  hotkey-overlay-title="Screenshot Screen"  { screenshot-screen show-pointer=false; }
+    Print hotkey-overlay-title="Screenshot Box" { screenshot show-pointer=false; }
+    Ctrl+Print  hotkey-overlay-title="Screenshot Screen"  \
+        { screenshot-screen show-pointer=false; }
     Shift+Print hotkey-overlay-title="Screeenshot Window" { screenshot-window; }
 
     // Applications such as remote-desktop clients and software KVM switches may

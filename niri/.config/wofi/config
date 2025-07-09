@@ -1,0 +1,11 @@
+allow_images=true
+allow_markup=true
+image_size=22
+prompt=search
+matching=fuzzy
+insensitive=true
+columns=1
+halign=fill
+content_halign=start
+width=25%
+height=40%

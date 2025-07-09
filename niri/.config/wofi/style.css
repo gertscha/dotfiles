@@ -1,0 +1,104 @@
+/* vague theme colors */
+@define-color background #141415;
+@define-color foreground #cdcdcd;
+@define-color border #878787;
+@define-color marker #252530;
+@define-color shadow #606079;
+@define-color lightshadow #90a0b5;
+@define-color red #c48282;
+@define-color blue #6e94b2;
+@define-color orange #f3be7c;
+@define-color aqua #b4d4cf;
+@define-color green #7fa563;
+
+/* general window style */
+* {
+  font-size:16px;
+  font-family: "Noto Sans", "FiraCode Nerd Font Propo";
+}
+#window {
+  color: @foreground;
+  background-color: alpha(@background,0.99); /* must have alpha < 1 */
+  border-radius: 12px;
+}
+#outer-box {
+  border: 2px solid @border;
+  border-radius: 12px;
+  padding: 4px 2px 0px 2px;
+}
+#inner-box {
+  border-top: 2px solid @marker;
+  margin-top: 2px;
+}
+
+/* search box */
+#input {
+  color: @foreground;
+  background-color: @background;
+  font-size: 17px;
+  margin: 2px;
+  border: 1px solid @background;
+  border-radius: 4px;
+}
+#input:focus {
+  border: 1px solid @border;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+/* list elements */
+#text {
+  color: @foreground;
+}
+#text:selected {
+  color: white;
+}
+#entry {
+  outline: none;
+  padding: 4px;
+}
+#entry:selected {
+  background-color: alpha(@marker,.7);
+  border-radius: 0px 0px 4px 4px;
+}
+#entry.activatable {
+  border-radius: 0px 0px 4px 4px;
+}
+#entry image {
+  margin-left: 0.3em;
+  margin-right: 0.5em;
+}
+
+/* list element action submenu */
+#entry arrow {
+  color: @aqua;
+  margin-left: 0.3em;
+}
+#entry arrow:hover {
+  color: white;
+}
+#expander-box {
+  /* background-color is hard to set correctly, but cascades nicely */
+  all: unset;
+}
+#entry.activatable #text {
+  font-style: italic;
+}
+#entry.activatable:selected {
+  border: 1px dashed @border;
+}
+
+/* scrollbars */
+#scroll scrollbar {
+  background-color: @marker;
+  border: none;
+}
+#scroll scrollbar slider {
+  background-color: @background;
+  border: 2px solid @border;
+}
+#scroll scrollbar slider:hover {
+  background-color: @foreground;
+  border: none;
+}
+
