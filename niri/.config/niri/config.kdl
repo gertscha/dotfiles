@@ -348,9 +348,10 @@ window-rule {
     open-floating true
 }
 
-// make calculator a small popup
+// small popup
 window-rule {
     match app-id="org.gnome.Calculator"
+    match app-id=r#"pomodoro"#
     default-column-width { proportion 0.28; }
     default-window-height { proportion 0.5; }
     open-floating true
