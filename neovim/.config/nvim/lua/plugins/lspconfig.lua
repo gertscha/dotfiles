@@ -16,6 +16,8 @@ local M = {
     -- 'L3MON4D3/LuaSnip', -- loaded on 'InsertEnter'
     -- Autoformatting
     'stevearc/conform.nvim',
+    -- Linting
+    'mfussenegger/nvim-lint',
     -- other integrations
     'folke/which-key.nvim',
     -- 'simrat39/rust-tools.nvim',
@@ -58,8 +60,8 @@ function M.config()
       numhl = {
         [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
         [vim.diagnostic.severity.WARN] = 'WarningMsg',
-        [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
-        [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+        [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+        [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
       },
       -- Highlight entire line
       -- linehl = {
@@ -130,6 +132,11 @@ function M.config()
         { 'n', 'v' },
         '[D]iagnostics [F]ormat Buffer'
       )
+
+      -- add a binding to restart the server
+      lspKeybind(nil, '<leader>dRs', function()
+        vim.cmd('LspRestart')
+      end, { 'n' }, 'LSP: Restart LSP server(s)')
 
       --
       -- LSP methods/capabilites, only add keybind if the server can do it

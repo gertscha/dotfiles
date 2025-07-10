@@ -14,6 +14,15 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   end,
 })
 
+-- restore cursor pos on file open
+-- vim.api.nvim_create_autocmd('BufReadPost', {
+--   pattern = '*',
+--   callback = function()
+--     local line = vim.fn.line('\'"')
+--     if line > 1 and line <= vim.fn.line('$') then vim.cmd('normal! g\'"') end
+--   end,
+-- })
+
 -- Set local settings for terminal buffers
 vim.api.nvim_create_autocmd('TermOpen', {
   group = vim.api.nvim_create_augroup('custom-term-open', {}),
@@ -31,6 +40,20 @@ vim.filetype.add({
     frag = 'glsl',
   },
 })
+
+-- trigger linting
+-- vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+--   callback = function()
+--     local mod = P_require('lint')
+--     if mod then
+--       -- try_lint without arguments runs the linters defined in `linters_by_ft`
+--       mod.try_lint()
+--       -- Call `try_lint` with a linter name or a list of names to always
+--       -- run specific linters, independent of the `linters_by_ft` configuration
+--       -- mod.try_lint('cspell')
+--     end
+--   end,
+-- })
 
 -- trigger something on BufEnter once
 -- local has_run = false
@@ -93,21 +116,20 @@ vim.api.nvim_create_autocmd('LspProgress', {
 -- generate the formatter settings files with commands
 local format_defs = require('plugins.configuration.formatters-init')
 
-vim.api.nvim_create_user_command('FormatterSetupLua', function(tbl)
+vim.api.nvim_create_user_command('FormatterSetupLua', function(_)
   vim.cmd('edit stylua.toml')
   vim.api.nvim_paste(format_defs['lua'], false, -1)
   vim.cmd('write')
 end, {})
 
-vim.api.nvim_create_user_command('FormatterSetupCpp', function(tbl)
+vim.api.nvim_create_user_command('FormatterSetupCpp', function(_)
   vim.cmd('edit .clang-format')
   vim.api.nvim_paste(format_defs['cpp'], false, -1)
   vim.cmd('write')
 end, {})
 
-vim.api.nvim_create_user_command('FormatterSetupPython', function(tbl)
+vim.api.nvim_create_user_command('FormatterSetupPython', function(_)
   vim.cmd('edit .style.yapf')
   vim.api.nvim_paste(format_defs['python'], false, -1)
   vim.cmd('write')
 end, {})
-

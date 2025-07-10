@@ -26,7 +26,7 @@ function M.config()
   if mod then
     mod.add({
       mode = 'n', -- NORMAL mode
-      { '<space>l', group = 'Session Managment' },
+      { '<space>l', group = 'Session Management' },
       { '<space>ll', group = 'Special Sessions' },
       { '<space>llg', group = 'Load/Get Special Sessions' },
       { '<space>lls', group = 'Save Special Sessions' },
@@ -40,6 +40,7 @@ function M.config()
       { '<leader>dc', group = 'call hierarchy' },
       { '<leader>dg', group = 'default lsp gr binds' },
       { '<leader>dgr', group = 'default lsp gr binds' },
+      { '<leader>dR', group = 'Restart/Reset LSP functionality' },
     })
   end
 end
