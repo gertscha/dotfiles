@@ -3,7 +3,7 @@ local M = {
   version = 'v2.*',
   run = 'make install_jsregexp',
   event = 'InsertEnter',
-  depedencies = {
+  dependencies = {
     'folke/which-key.nvim',
     'echasnovski/mini.icons', -- for the colors
   },
@@ -38,6 +38,8 @@ function M.config()
       },
     },
   })
+
+  ls.filetype_extend('cpp', { 'c' })
 
   -- add keybinds
   local mod = P_require('which-key')

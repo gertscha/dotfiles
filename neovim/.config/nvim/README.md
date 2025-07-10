@@ -106,7 +106,7 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>sc              Search Files in Neovim config
 <leader>sp              Search Files in Neovim plugins implementations
 <leader>sM              Search marks
-<leader>sl              Search LSP (everything releated to symbol under cursor)
+<leader>sl              Search LSP (everything related to symbol under cursor)
 <leader>sd              Search diagnostics messages in current document
 <leader>sD              Search diagnostics messages in workspace
 <leader><leader>        Resume previous search
@@ -146,7 +146,7 @@ K                       LSP Hover
 <leader>dw              Query workspace symbols
 <leader>ds              Search document symbols
 <leader>dS              Search workspace symbols
-<leader>dco             Search outcoming calls
+<leader>dco             Search outgoing calls
 <leader>dci             Search incoming calls
 ```
 
@@ -245,7 +245,7 @@ Selection of default vim keybinds
     cc                  Delete line and enter insert mode
     x                   Cut a character
     ~                   Swap character case
-    g~[motion]          Swap charcter case based on motion (g~~ does whole line)
+    g~[motion]          Swap character case based on motion (g~~ does whole line)
     gU                  Make upper case based on motion (gUU does whole line)
     gu                  Make lower case based on motion (guu does whole line)
     .                   Repeat last command
@@ -263,7 +263,7 @@ Selection of default vim keybinds
     ge                  Jump back to end of previous word (also gE)
     gv                  Reselect previous visual selection
     viw                 Select the word that the cursor is on in visual mode
-    viW                 Select contigous text in both directions
+    viW                 Select contiguous text in both directions
     va( or va{ or vab   Select next brace block with braces included
     vi( or vi{ or vib   Select next brace block without braces
     gg                  Goto top of buffer
@@ -274,9 +274,9 @@ Selection of default vim keybinds
     gn                  Goto next match of previous search and enter visual mode
     gN                  Goto previous match of previous search and enter visual mode
     %                   Goto matching matching brace, on same line goto brace face cursor
-    f[x]                Find next occurence of character [x] on the current line
+    f[x]                Find next occurrence of character [x] on the current line
     t[x]                Same as 'f[x]' but cursor moved before the character instead
-    F[x]                Find previous occurence of character [x] on the current line
+    F[x]                Find previous occurrence of character [x] on the current line
     T[x]                Same as 'F[x]' but cursor moved before the character instead
     ;                   Repeat previous f,F,t,T movement
     ,                   Repeat previous f,F,t,T movement backwards
@@ -329,7 +329,7 @@ Selection of default vim keybinds
     <C-v>               Escape sequence to enter special keys like <esc>
                         useful for example to edit macros
   // Actions in Insert Mode
-    <C-h>               Delete character befor cursor
+    <C-h>               Delete character before cursor
     <C-j>               Same as Newline
     <C-e>               Copy character from line below
     <C-y>               Copy character from line above
@@ -370,7 +370,7 @@ Contents from "1 onward get pushed higher with new edits (1 to 2, 2 to 3, etc).
 "xp                     paste contents of register x
 "+y                     yank into the system clipboard register
 "+p                     paste from the system clipboard register
-<C-r>x                  paste contents of redgister x while in insert mode
+<C-r>x                  paste contents of register x while in insert mode
 ```
 Special registers:
 ```
@@ -460,8 +460,8 @@ Or use the following keybinds:
 ```
 A couple of extra states can be saved/loaded with:
 ```
-<leaader>lls1
-<leaader>lls2
+<leader>lls1
+<leader>lls2
 <leader>llg1
 <leader>llg2
 ```

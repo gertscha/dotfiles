@@ -45,7 +45,7 @@ keymap('n', 'x', '"9x', opts('Cut'))
 -- redo alternate bind
 keymap('n', '<leader>r', '<C-r>', opts('Redo'))
 
--- Press jj to leave insert mode, convienent but janky
+-- Press jj to leave insert mode, convenient but janky
 --keymap('i', 'jj', '<ESC>', opts('Go to Normal Mode'))
 
 -- Stay in indent mode when moving lines left or right
@@ -57,7 +57,7 @@ keymap(
   'n',
   '<leader>th',
   "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
-  opts('Toggle line lenght limit highlighting')
+  opts('Toggle line length limit highlighting')
 )
 -- toggle line wrap
 keymap('n', '<leader>twl', '<cmd>set wrap!<enter>', opts('Toggle line wrap'))

@@ -70,7 +70,7 @@ function M.config()
     },
   })
 
-  -- mason-lspconfig automates the lsp server setup for mason insalled servers
+  -- mason-lspconfig automates the lsp server setup for mason installed servers
   -- servers not installed with Mason need to be enabled manually
   require('mason-lspconfig').setup({
     ensure_installed = { 'lua_ls' },
@@ -139,7 +139,7 @@ function M.config()
       end, { 'n' }, 'LSP: Restart LSP server(s)')
 
       --
-      -- LSP methods/capabilites, only add keybind if the server can do it
+      -- LSP methods/capabilities, only add keybind if the server can do it
       --
 
       -- blink.cmp takes care of this

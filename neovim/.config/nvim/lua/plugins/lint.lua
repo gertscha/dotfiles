@@ -1,7 +1,7 @@
 local M = {
   'mfussenegger/nvim-lint',
   lazy = true, -- currently loaded from LSP
-  depedencies = {
+  dependencies = {
     'mason-org/mason.nvim',
   },
   -- cmd = '?',
@@ -23,7 +23,7 @@ function M.config()
   -- for example on the InsertLeave or TextChanged events.
   -- To get the filetype of a buffer you can run := vim.bo.filetype.
 
-  -- customizaton
+  -- customization
   local cppcheck = lint.linters.cppcheck
   cppcheck.args = {
     '--check-level=exhaustive',

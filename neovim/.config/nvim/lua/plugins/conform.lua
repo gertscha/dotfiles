@@ -1,7 +1,7 @@
 local M = {
   'stevearc/conform.nvim',
   lazy = true, -- currently loaded from LSP
-  depedencies = {
+  dependencies = {
     'mason-org/mason.nvim',
   },
   cmd = 'ConformInfo',
@@ -31,7 +31,7 @@ function M.config()
             seen[pkg] = true
             local exists = registry.has_package(pkg)
             if exists then
-              -- guaard against repeated installs
+              -- guard against repeated installs
               local installed = registry.is_installed(pkg)
               if not installed then
                 local msg = string.format('Installing "%s" with Mason', pkg)

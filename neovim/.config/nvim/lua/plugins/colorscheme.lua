@@ -1,9 +1,12 @@
 local M = {
-  'vague2k/vague.nvim',
-  lazy = false,
+  -- main theme
+  { 'vague2k/vague.nvim', lazy = false, },
+  -- fallbacks
+  { 'catppuccin/nvim', name = 'catppuccin', event = 'VeryLazy' },
+  { 'ellisonleao/gruvbox.nvim', event = 'VeryLazy' },
 }
 
-function M.config()
+M[1].config = function()
   -- only make transparent if Foot terminal is used
   local term = os.getenv('TERM')
   local transparent = false

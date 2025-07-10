@@ -31,9 +31,9 @@ opt.showmode = false -- Dont show mode since we have a statusline
 opt.numberwidth = 4 -- set number column width {default 4}
 opt.winminwidth = 5 -- Minimum window width
 opt.list = true -- Show characters based on 'listchars' option
--- show trailing white spaces and tabs (tabs should be converted to spaces automaticlly)
+-- show trailing white spaces and tabs (tabs should be converted to spaces automatically)
 opt.listchars = 'trail:·,tab: ' -- alternative for trailing spaces: (␣)
-opt.signcolumn = 'yes' -- Always show the signcolumn, prevent text shfiting around
+opt.signcolumn = 'yes' -- Always show the signcolumn, prevent text shifting around
 opt.colorcolumn = '80' -- indicate the 80th column visually
 opt.inccommand = 'split' -- preview incremental substitute
 opt.number = true -- Print line number

@@ -31,7 +31,7 @@ function M.config()
     })
   else
     fzflua.setup({
-      -- <esc> does not terminat the proccess, allowing
+      -- <esc> does not terminate the process, allowing
       -- resume to fully recover the previous state
       -- 'hide',
       fzf_colors = true, -- auto-generate from colorscheme
