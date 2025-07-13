@@ -1,6 +1,6 @@
 local M = {
   -- main theme
-  { 'vague2k/vague.nvim', lazy = false, },
+  { 'vague2k/vague.nvim', lazy = false },
   -- fallbacks
   { 'catppuccin/nvim', name = 'catppuccin', event = 'VeryLazy' },
   { 'ellisonleao/gruvbox.nvim', event = 'VeryLazy' },
@@ -10,7 +10,7 @@ M[1].config = function()
   -- only make transparent if Foot terminal is used
   local term = os.getenv('TERM')
   local transparent = false
-  if term == 'foot' then transparent = true end
+  if term == 'foot' or term == 'tmux-256color' then transparent = true end
 
   require('vague').setup({
     transparent = transparent, -- i.e. don't set background color
