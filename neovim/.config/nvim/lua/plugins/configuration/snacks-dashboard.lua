@@ -148,7 +148,13 @@ _____________________________________________________
         icon = '',
         key = 'r',
         desc = 'Restore Session',
-        action = function() vim.cmd('source Session.nvim') end,
+        action = function()
+          if vim.fn.filereadable('Session.vim') == 1 then
+            vim.cmd('source Session.vim')
+          else
+            vim.notify('No Session file found', vim.log.levels.INFO)
+          end
+        end,
       },
       { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
     },

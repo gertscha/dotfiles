@@ -121,44 +121,30 @@ keymap('n', '<M-p>', '<cmd>cprev<cr>', opts('Quickfix list previous'))
 keymap('n', '<M-q>', '<cmd>cclose<cr>', opts('Close Quickfix list'))
 
 -- session management
-local base_session = 'Session.nvim'
-local session1 = 'Session1.nvim'
-local session2 = 'Session2.nvim'
+keymap(
+  'n',
+  '<leader>lt',
+  function() vim.cmd('Obsession') end,
+  opts('Toggle Auto-recording of Session')
+)
+keymap(
+  'n',
+  '<leader>ldd',
+  function() vim.cmd('Obsession!') end,
+  opts('Stop Auto-recording of Session and delete session file')
+)
+local my_session = 'Session-manual.vim'
 keymap(
   'n',
   '<leader>lg',
-  '<cmd>source ' .. base_session .. '<cr>',
-  opts('Load Session')
-)
-keymap(
-  'n',
-  '<leader>llg1',
-  '<cmd>source ' .. session1 .. '<cr>',
-  opts('Load Session 1')
-)
-keymap(
-  'n',
-  '<leader>llg2',
-  '<cmd>source ' .. session2 .. '<cr>',
-  opts('Load Session 2')
+  '<cmd>source ' .. my_session .. '<cr>',
+  opts('Load manual Session')
 )
 keymap(
   'n',
   '<leader>ls',
-  '<cmd>mksession! ' .. base_session .. '<cr>',
-  opts('Save Session')
-)
-keymap(
-  'n',
-  '<leader>lls1',
-  '<cmd>mksession! ' .. session1 .. '<cr>',
-  opts('Store Session1')
-)
-keymap(
-  'n',
-  '<leader>lls2',
-  '<cmd>mksession! ' .. session2 .. '<cr>',
-  opts('Store Session2')
+  '<cmd>mksession! ' .. my_session .. '<cr>',
+  opts('Save manual Session')
 )
 
 -- -- Open a terminal at the bottom of the screen with a fixed height.

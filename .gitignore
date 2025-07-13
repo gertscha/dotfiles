@@ -1,0 +1,3 @@
+# My global gitignore file
+**/Session.vim
+**/Session-manual.vim

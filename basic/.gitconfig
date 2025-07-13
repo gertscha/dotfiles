@@ -1,6 +1,7 @@
 [core]
 	editor = nvim
 	whitespace = space-before-tab,trailing-space
+	excludesfile = ~/dotfiles/.gitignore
 [init]
 	defaultBranch = main
 [color]

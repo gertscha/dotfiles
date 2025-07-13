@@ -38,6 +38,24 @@ local function formatMode(str)
   return str
 end
 
+local function status_info()
+  -- Obsession.vim: [$] -> on and [S] -> off
+  local ses_st = vim.fn.ObsessionStatus()
+  -- LSP, returns a list of attached servers for the current buffer, take length
+  local lsp_st = #(vim.lsp.get_clients({ bufnr = 0 }))
+  if ses_st == '[$]' and lsp_st > 0 then
+    return '   '
+  elseif ses_st == '[$]' and lsp_st == 0 then
+    return '   󰅖'
+  elseif (ses_st == '[S]' or ses_st == '') and lsp_st > 0 then
+    return ' 󰅖  '
+  elseif (ses_st == '[S]' or ses_st == '') and lsp_st == 0 then
+    return ' 󰅖  󰅖'
+  else
+    return 'ERR'
+  end
+end
+
 -- status line at the bottom of the buffers
 local M = {
   'nvim-lualine/lualine.nvim',
@@ -63,9 +81,9 @@ local M = {
       always_divide_middle = false,
       globalstatus = false,
       refresh = {
-        statusline = 300,
-        tabline = 800,
-        winbar = 800,
+        statusline = 2000,
+        tabline = 2000,
+        winbar = 2000,
       },
     },
     sections = {
@@ -90,13 +108,14 @@ local M = {
         },
       },
       lualine_x = {
-        { 'datetime', style = '%H:%M', fmt = trunc(0, 0, 120, true) },
-        -- {'datetime', style = '%a, %d/%m/%Y', fmt=trunc(0, 0, 140, true)},
-        -- {'fileformat', fmt=trunc(0, 0, 140, true)},
-        { 'encoding', fmt = trunc(0, 0, 140, true) },
+        -- { 'datetime', style = '%H:%M', fmt = trunc(0, 0, 120, true) },
+        -- { 'datetime', style = '%a, %d/%m/%Y', fmt = trunc(0, 0, 140, true) },
+        -- { 'fileformat', fmt = trunc(0, 0, 140, true) },
+        -- { 'encoding', fmt = trunc(0, 0, 140, true) },
+        { 'filetype', fmt = trunc(0, 0, 45, true) },
+        { status_info },
       },
       lualine_y = {
-        { 'filetype', fmt = trunc(0, 0, 45, true) },
         { 'progress', fmt = trunc(0, 0, 55, true) },
       },
       lualine_z = {
