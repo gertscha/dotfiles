@@ -13,12 +13,9 @@
 
 \.git
 \.gitignore
-
-# .+~          # emacs backup files
-# \#.*\#       # emacs autosave files
+\Session.vim
+\Session-manual.vim
 
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
-
-scripts
