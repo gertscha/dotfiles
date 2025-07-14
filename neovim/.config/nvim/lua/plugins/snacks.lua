@@ -1,5 +1,3 @@
-local dashboard_settings = require('plugins.configuration.snacks-dashboard')
-
 local M = {
   'folke/snacks.nvim',
   priority = 1000,
@@ -26,7 +24,7 @@ local M = {
       margin = { top = 2, right = 3, bottom = 0 },
     },
     -- dashboard configured in separate file
-    dashboard = dashboard_settings,
+    dashboard = require('plugins.configuration.snacks-dashboard'),
     -- disable all the others explicitly (not technically needed)
     bigfile = { enabled = false },
     explorer = { enabled = false },

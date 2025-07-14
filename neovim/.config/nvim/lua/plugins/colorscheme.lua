@@ -2,8 +2,11 @@ local M = {
   -- main theme
   { 'vague2k/vague.nvim', lazy = false },
   -- fallbacks
-  { 'catppuccin/nvim', name = 'catppuccin', event = 'VeryLazy' },
-  { 'ellisonleao/gruvbox.nvim', event = 'VeryLazy' },
+  -- { 'catppuccin/nvim', name = 'catppuccin.nvim', lazy = true },
+  -- { 'everviolet/nvim', name = 'evergarden.nvim', lazy = true },
+  -- { 'ellisonleao/gruvbox.nvim', lazy = true },
+  -- { 'folke/tokyonight.nvim', lazy = true },
+  { 'rebelot/kanagawa.nvim', lazy = true },
 }
 
 M[1].config = function()
