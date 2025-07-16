@@ -36,8 +36,21 @@ which can go to other volumes.
 Overview for the various "packages" I have.
 
 ## Basic
-This covers the basics, meaning shells (bash, zsh and fish), tmux, lf, gitconfig
-and the foot terminal.
+This covers the basics, meaning shells (bash, zsh and fish), `tmux`, `lf`,
+`gitconfig` and the foot terminal.
+
+`lf` is built from source (very simple since it uses `go`). The `go` binary
+output path (`~/go/bin`) is already added to path in my shells.
+
+I use [miniforge](https://github.com/conda-forge/miniforge), with this setup:
+```
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+bash Miniforge3-$(uname)-$(uname -m).sh``
+cd ~/.conda
+ln -s <path to install>/miniforge3/bin/conda .
+```
+where I specify a custom install directory (usually `~/build`, or `~/build_sys`),
+and symlink it in `.conda` to keep my shell aliases simple.
 
 ## Alacritty
 My Alacritty setup, not in basic since I want to use it on Windows.
