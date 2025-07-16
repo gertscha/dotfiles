@@ -111,7 +111,7 @@ _____________________________________________________
         icon = '',
         key = 'f',
         desc = 'Find File',
-        action = ":lua Snacks.dashboard.pick('files')",
+        action = ':FzfLua files',
       },
       {
         icon = '',
@@ -123,19 +123,19 @@ _____________________________________________________
       --   icon = ' ',
       --   key = 'g',
       --   desc = 'Find Text',
-      --   action = ":lua Snacks.dashboard.pick('live_grep')",
+      --   action = ':FzfLua live_grep',
       -- },
       -- {
       --   icon = ' ',
       --   key = 'r',
       --   desc = 'Recent Files',
-      --   action = ":lua Snacks.dashboard.pick('oldfiles')",
+      --   action = ':FzfLua oldfiles',
       -- },
       {
         icon = '',
         key = 'c',
         desc = 'Configuration',
-        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+        action = ':FzfLua files cwd=' .. vim.fn.stdpath('config'),
       },
       {
         icon = '',

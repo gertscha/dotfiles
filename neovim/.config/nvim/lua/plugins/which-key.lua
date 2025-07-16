@@ -1,6 +1,6 @@
 local M = {
   'folke/which-key.nvim',
-  event = 'VeryLazy',
+  lazy = false,
   tag = 'stable',
   dependencies = {
     'echasnovski/mini.icons',
@@ -26,21 +26,18 @@ function M.config()
   if mod then
     mod.add({
       mode = 'n', -- NORMAL mode
+      { '<space>s', group = 'Search' },
       { '<space>l', group = 'Session Management' },
-      { '<space>ll', group = 'Special Sessions' },
-      { '<space>llg', group = 'Load/Get Special Sessions' },
-      { '<space>lls', group = 'Save Special Sessions' },
       { '<space>o', group = 'Open Screens' },
       { '<space>om', group = 'Markdown' },
       { '<space>t', group = 'Toggle' },
       { '<space>tw', group = 'Line width settings' },
       { '<space>ts', group = 'Command line visibility toggle' },
-      { '<space>y', group = 'Yank' },
       { '<leader>d', group = 'diagnostics' },
       { '<leader>dc', group = 'call hierarchy' },
+      { '<leader>dR', group = 'Restart/Reset LSP functionality' },
       { '<leader>dg', group = 'default lsp gr binds' },
       { '<leader>dgr', group = 'default lsp gr binds' },
-      { '<leader>dR', group = 'Restart/Reset LSP functionality' },
     })
   end
 end

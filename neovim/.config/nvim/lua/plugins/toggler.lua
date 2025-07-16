@@ -1,7 +1,7 @@
 local M = {
   'nvim-toggler', -- fork of: 'nguyenvukhang/nvim-toggler'
   dir = vim.fn.stdpath('config') .. '/custom/nvim-toggler',
-  event = { 'BufRead', 'BufNewFile' },
+  event = 'User my.lazy.trigger',
   opts = {
     inverses = {
       ['true'] = 'false',

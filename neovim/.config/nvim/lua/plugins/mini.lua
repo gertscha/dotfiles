@@ -2,13 +2,14 @@ return {
   {
     'echasnovski/mini.icons',
     version = '*',
+    lazy = false,
     config = true,
   },
   {
     -- Extend and create a/i textobjects
     'echasnovski/mini.ai',
     version = '*',
-    event = { 'BufRead', 'BufNewFile' },
+    event = 'VeryLazy',
     opts = {
       mappings = {
         around = 'a',
@@ -29,7 +30,7 @@ return {
     -- modify surrounding objects like quotes
     'echasnovski/mini.surround',
     version = '*',
-    event = { 'BufRead', 'BufNewFile' },
+    event = 'VeryLazy',
     opts = {
       mappings = {
         add = 'sa', -- Add surrounding in Normal and Visual modes

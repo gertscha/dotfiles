@@ -68,6 +68,34 @@ vim.filetype.add({
 --   end,
 -- })
 
+-- Custom event, used to trigger loading of plugins when opening a Buffer
+-- we exclude some buf types to speed up their responsivness
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
+  group = vim.api.nvim_create_augroup('my.lazy.trigger', { clear = false }),
+  pattern = '*',
+  callback = function()
+    local excluded_filetypes = {
+      'oil',
+      'fugitive',
+    }
+    local current_filetype = vim.bo.filetype
+    local is_excluded = false
+    for _, ft in ipairs(excluded_filetypes) do
+      if current_filetype == ft then
+        is_excluded = true
+        break
+      end
+    end
+
+    if not is_excluded then
+      vim.api.nvim_exec_autocmds('User', {
+        pattern = 'my.lazy.trigger',
+        modeline = false,
+      })
+    end
+  end,
+})
+
 -- snacks notifier lsp progress
 -- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md
 ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>

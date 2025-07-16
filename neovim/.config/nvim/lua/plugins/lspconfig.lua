@@ -23,7 +23,7 @@ local M = {
     -- 'simrat39/rust-tools.nvim',
   },
   cmd = 'LspInfo',
-  event = { 'BufReadPre', 'BufRead', 'BufNewFile', 'InsertEnter' },
+  event = { 'User my.lazy.trigger', 'InsertEnter' },
 }
 
 local function lspKeybind(buf, key, fun, mode, desc)
@@ -73,7 +73,7 @@ function M.config()
   -- mason-lspconfig automates the lsp server setup for mason installed servers
   -- servers not installed with Mason need to be enabled manually
   require('mason-lspconfig').setup({
-    ensure_installed = { 'lua_ls' },
+    ensure_installed = { 'lua_ls', 'texlab', 'clangd', 'pyright' },
     automatic_enable = true,
   })
 

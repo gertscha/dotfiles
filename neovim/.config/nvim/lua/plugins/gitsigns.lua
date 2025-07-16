@@ -1,7 +1,7 @@
 local M = {
   'lewis6991/gitsigns.nvim',
   tag = 'release',
-  event = { 'BufRead', 'BufNewFile' },
+  event = 'User my.lazy.trigger',
   cmd = 'Gitsigns',
 }
 

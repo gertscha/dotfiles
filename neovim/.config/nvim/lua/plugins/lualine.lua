@@ -59,7 +59,7 @@ end
 -- status line at the bottom of the buffers
 local M = {
   'nvim-lualine/lualine.nvim',
-  event = { 'BufRead', 'BufNewFile' },
+  event = 'User my.lazy.trigger',
   -- lazy passes a table argument to the config function of the plugin
   opts = {
     options = {

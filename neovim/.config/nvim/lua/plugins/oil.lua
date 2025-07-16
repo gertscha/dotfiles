@@ -1,12 +1,12 @@
 local M = {
   'stevearc/oil.nvim',
   dependencies = {
-    { 'echasnovski/mini.icons', opts = {} },
+    'echasnovski/mini.icons',
+    'folke/which-key.nvim',
   },
   tag = 'stable',
-  -- cmd = 'Oil',
-  -- keys = { '-', desc = 'Open Oil FS' },
-  event = 'VeryLazy',
+  cmd = 'Oil',
+  keys = { '-', desc = 'Open Oil FS' },
 }
 
 function M.config()

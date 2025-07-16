@@ -1,6 +1,7 @@
 local M = {
   enabled = not Telescope_fallback,
   'ibhagwan/fzf-lua',
+  cmd = 'FzfLua',
   event = 'VeryLazy',
   dependencies = {
     'echasnovski/mini.icons',
@@ -52,8 +53,6 @@ function M.config()
 
   -- which-key setup
   require('which-key').add({
-    -- make sure this matches the keys entry for the plugin loading
-    { '<leader>s', group = 'Search' },
     {
       '<leader><leader>',
       function()

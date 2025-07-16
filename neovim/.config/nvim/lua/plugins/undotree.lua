@@ -1,7 +1,7 @@
 -- expose vims undo tree for easier access
 return {
   'mbbill/undotree',
-  cmd = 'UndoTreeToggle',
+  cmd = 'UndotreeToggle',
   keys = {
     { '<leader>u', desc = 'Open Undotree' },
   },

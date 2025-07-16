@@ -3,15 +3,14 @@ return {
   {
     -- No initialization needed (Vimscript plugin)
     'tpope/vim-sleuth',
-    event = 'VeryLazy',
-    -- event = { 'BufRead', 'BufNewFile' },
+    event = 'User my.lazy.trigger',
     -- init = {},
   },
   -- session management
   {
     'tpope/vim-obsession',
     cmd = 'Obsession',
-    event = { 'BufNewFile', 'BufRead' },
+    event = 'User my.lazy.trigger',
   },
   -- git integration
   {

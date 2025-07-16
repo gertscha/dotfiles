@@ -6,7 +6,7 @@ local M = {
     'nvim-treesitter/nvim-treesitter-context',
   },
   lazy = true,
-  event = { 'BufRead', 'BufNewFile' },
+  event = 'User my.lazy.trigger',
   tag = 'v0.9.3',
 }
 
