@@ -20,6 +20,4 @@ alias coi='eval "$(~/.conda/conda shell.zsh hook)" && conda deactivate'
 alias coa='conda activate'
 alias cod='conda deactivate'
 
-alias zshec="$EDITOR $ZDOTDIR/.zshrc" # edit .zshrc
-alias zshsc="source $ZDOTDIR/.zshrc"  # reload zsh configuration
 
