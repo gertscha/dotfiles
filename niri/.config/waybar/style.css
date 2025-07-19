@@ -1,6 +1,7 @@
 /* Vague color scheme */
 @define-color background #141415;
 @define-color foreground #cdcdcd;
+@define-color hoverfg #ffffff;
 @define-color border #878787;
 @define-color marker #252530;
 @define-color shadow #606079;
@@ -11,198 +12,193 @@
 @define-color aqua #b4d4cf;
 @define-color green #7fa563;
 
+
+/* Global */
+
 * {
     font-size:14px;
+    min-height: 0;
+    border-radius: 12px;
     font-family: "Noto Sans", "FiraCode Nerd Font Propo";
 }
-
-window#waybar{
-    all:unset;
+#waybar{
+    background: transparent;
 }
-.modules-left {
-    margin:0px 0px 0px 400px;
-    border-radius:10px;
-    background: alpha(@background,.8);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+#custom-separator-dot-line {
+    padding: 0px 4px 0px 2px;
+    color: alpha(@white,.7);
 }
-.modules-center {
-    margin:0px 10px 0px 10px;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-}
-.modules-right {
-    margin: 0px 400px 0px 0px;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-}
-
 tooltip {
     background: @background;
     color: @foreground;
 }
+
+
+/* Hover */
+
 #clock:hover,#battery:hover,#cpu:hover,#memory:hover,#temperature:hover,
 #network:hover,#custom-swaync:hover,#idle_inhibitor:hover,#mpris.title:hover,
-#pulseaudio.microphone:hover,#pulseaudio:hover,#mpris:hover,#tray:hover,
-#bluetooth:hover,#network:hover {
-    transition: all .2s ease;
-    color: white;
+#wireplumber:hover,#mpris:hover,#bluetooth:hover,#network:hover,#window:hover {
+    color: @hoverfg;
 }
-
 #custom-powermenu:hover{
-    transition: all .2s ease;
     color: @red;
 }
-
-#custom-separator-dot-line {
-    font-size:14px;
-    margin: 0px 2px;
-    color: alpha(@white,.7);
-}
-
-#workspaces button {
-    all:unset;
-    margin: 0px 3px;
-    color: alpha(@foreground,.85);
-    transition: all .2s ease;
+#tray > widget:hover {
+    background-color: @border;
 }
 #workspaces button:hover,
 #workspaces button.active:hover,
 #workspaces button.empty:hover {
-    color: white;
-    /* background: alpha(@shadow,.2); */
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-    transition: all 1s ease;
+    color: @hoverfg;
+    text-shadow: 0px 0px 2px alpha(black,.8);
+}
+
+
+/* Left Modules */
+
+
+.modules-left {
+    margin: 0px 0px 0px 50px;
+}
+#workspaces {
+    background: @background;
+    margin: 0px 1px;
+    padding: 0px 6px;
+}
+#workspaces button {
+    all:unset;
+    margin: 0px 3px;
+    color: alpha(@foreground,.85);
 }
 #workspaces button.active,
 #workspaces button.empty.active {
     color: @blue;
     border-radius:4px;
-    /* background: alpha(@marker,.8); */
+    text-shadow: 0px 0px 2px alpha(black,.8);
     font-weight: bold;
 }
 #workspaces button.empty {
     color: alpha(@foreground,.6);
-    text-shadow: 0px 0px 2px rgba(0,0,0,.6);
+    text-shadow: 0px 0px 2px alpha(black,.8);
 }
+
 #window {
-    border-radius:10px;
     color: @foreground;
-    padding: 0px 2px 0px 0px;
-    margin: 0px 4px;
-    /* background:@marker; */
+    background: @background;
+    margin: 0px 1px;
+    padding: 0px 8px;
 }
 window#waybar.empty #window {
     min-width: 0px;
     margin: 0px;
-}
-window#waybar.empty #custom-separator-dot-line-hide {
-    min-width: 0px;
-    margin: 0px;
-    font-size: 0px;
-    padding: 0px;
-}
-#custom-separator-dot-line-hide {
-    color: @foreground;
+    background: transparent;
 }
 
 
+/* Center Modules */
+
+.modules-center {
+    margin:0px 10px 0px 10px;
+}
 #custom-swaync{
     color: @foreground;
-    font-size:15px;
-    margin:0px 2px 0px 0px;
-    padding: 0px 0px 0px 4px;
+    background: @background;
+    margin:0px 4px;
+    padding: 0px 8px;
+}
+
+#clock-group {
+    color: @foreground;
+    background: @background;
 }
 #clock{
     color:@foreground;
-    margin: 0px 2px;
-    /* background:@marker; */
-    transition: all .3s ease;
-}
-#idle_inhibitor {
-    margin: 0px 1px;
-    padding: 0px 4px 0px 0px;
-    color:@foreground;
+    background: @background;
+    margin:0px 0px;
+    padding: 0px 8px;
 }
 
-#pulseaudio.microphone {
-    margin: 0px 2px;
+#idle_inhibitor {
+    color:@foreground;
+    background: @background;
+    margin:0px 4px;
+    padding: 0px 8px;
 }
-#pulseaudio {
-    margin: 0px 2px;
+
+
+/* Right Modules */
+
+.modules-right {
+    margin: 0px 50px 0px 0px;
 }
-#mpris-group {
+#wireplumber {
+    margin: 0px 2px;
+    background: @background;
+}
+#audio-group {
     color: @foreground;
-    margin: 0px 2px;
+    background: @background;
+    margin:0px 1px;
+    padding: 0px 8px;
 }
 #mpris.title {
     color: @foreground;
-    font-size: 14px;
     margin: 0px 2px;
-}
-#tray{
-    margin: 3px 0px;
-    padding: 0px 4px;
-    transition: all .3s ease; 
-    background: alpha(@lightshadow,.7);
-    border-radius:10px;
 }
 
 #bluetooth{
-    margin: 0px 3px;
-    font-size:14px;
-    transition: all .3s ease;
     color:@foreground;
-
+    background: @background;
+    margin:0px 0px 0px 1px;
+    padding: 0px 4px 0px 8px;
+    border-radius: 12px 0px 0px 12px;
 }
-#network{
-    font-size:14px;
-    margin: 0px 3px;
-    transition: all .3s ease;
+#network-group,
+#tray,
+#backlight,
+#battery{
     color:@foreground;
-}
-#network.disconnected,
-#network.disabled {
-    color:@red;
+    background: @background;
+    margin: 0px;
+    padding: 0px 4px;
+    border-radius: 0px;
 }
 /* #network.stats { */
 /*     min-width: 12em; */
 /* } */
-
-#custom-powermenu{
-    color: @foreground;
-    font-size:13px;
-    margin: 0px 2px;
-    padding: 0px 4px 0px 0px;
+#network.disconnected,
+#network.disabled {
+    color:@red;
 }
-
-
-#battery{
-    margin: 0px 2px;
-    transition: all .3s ease;
-    color: @foreground;
+#tray menu,
+#tray menu menuitem {
+  background-color: @background;
+  color: @foreground;
+}
+#tray menu menuitem:hover {
+  background-color: @marker;
+  color: @hoverfg;
 }
 #battery.charging {
     color: @green;
 }
-
 #battery.warning:not(.charging) {
     color: @orange;
 }
-
 #battery.critical:not(.charging) {
     color: @red;
     animation-name: blink;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
 
-#cpu,#memory,#temperature{
-    margin: 0px 5px;
-    transition: all .3s ease; 
-    color:@foreground;
-
+#custom-powermenu{
+    color: @foreground;
+    background: @background;
+    margin: 0px 1px 0px 0px;
+    padding: 0px 8px 0px 4px;
+    border-radius: 0px 12px 12px 0px;
 }

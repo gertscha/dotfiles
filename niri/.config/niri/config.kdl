@@ -278,6 +278,14 @@ animations {
     }
 }
 
+// Gestures
+gestures {
+    // open overview if mouse goes to top-left corner
+    hot-corners {
+        off
+    }
+}
+
 
 //
 // Named workspaces
@@ -570,22 +578,32 @@ binds {
     Mod+Ctrl+P allow-inhibiting=false hotkey-overlay-title="Power Off Monitors" \
         { power-off-monitors; }
 
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the
-    // session is locked.
+    // Audio
+    XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" \
-        "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+        "@DEFAULT_AUDIO_SINK@" "0.01+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" \
-        "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+        "@DEFAULT_AUDIO_SINK@" "0.01-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" \
         "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" \
+    // Microphone
+    Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" \
+        "@DEFAULT_AUDIO_SOURCE@" "0.01+"; }
+    Shift+XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" \
+        "@DEFAULT_AUDIO_SOURCE@" "0.01-"; }
+    XF86AudioMicMute           allow-when-locked=true { spawn "wpctl" "set-mute" \
         "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-    XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    // Brightness
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" \
+        "-q" "-c" "backlight" "set" "1%-"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" \
+        "-q" "-c" "backlight" "set" "+1%"; }
+    Shift+XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" \
+        "-q" "-c" "backlight" "set" "10%-"; }
+    Shift+XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" \
+        "-q" "-c" "backlight" "set" "+10%"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
-    // You can also move the mouse into the top-left hot corner,
-    // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=false { toggle-overview; }
 
     Mod+Q { close-window; }

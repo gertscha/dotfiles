@@ -1,32 +1,28 @@
 // relaunch waybar with: killall -SIGUSR2 waybar
+// or: systemctl --user restart waybar
 {
     "layer": "top",
-    "height": 25,
+    "height": 26,
     "position": "bottom",
     "reload_style_on_change": true,
 
     "modules-left": [
         "niri/workspaces",
-        "custom/separator-dot-line-hide",
         "niri/window",
     ],
     "modules-center": [
         "custom/swaync",
-        "custom/separator-dot-line",
         "group/clock-group",
-        "custom/separator-dot-line",
-        "group/util-toggle-group"
+        "idle_inhibitor",
     ],
     "modules-right": [
-        "group/mpris-group",
-        "custom/separator-dot-line",
-        "group/audio",
+        "group/audio-group",
         "bluetooth",
         "group/network-group",
-        "custom/separator-dot-line",
         "tray",
-        "custom/separator-dot-line",
-        "custom/powermenu"
+        "backlight",
+        "battery",
+        "custom/powermenu",
     ],
 
     "custom/separator-dot-line": {
@@ -34,12 +30,26 @@
         "interval": "once",
         "tooltip": false,
     },
-    "custom/separator-dot-line-hide": {
-        "format": "",
-        "interval": "once",
-        "tooltip": false,
-    },
 
+
+
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "browser": "󰁥",
+            "work": "󰕮", // ""
+            "code": "󰊢", // ""
+            // "default": "d",
+            // "focused": "f",
+            // "active": "a",
+            // "1": "󰺕",
+        },
+        "all-outputs": false,
+        "disable-click": false,
+        "active-only": false,
+        "on-scroll-up": "niri msg action focus-workspace-up",
+        "on-scroll-down": "niri msg action focus-workspace-down",
+    },
     "niri/window": {
         "format": "{app_id}",
         "max-length": 30,
@@ -59,35 +69,14 @@
             "one.ablaze.floorp": "Floorp",
             "Vivaldi-flatpak": "Vivaldi",
             "zen": "Zen",
-        }
+        },
+        "on-scroll-up": "niri msg action focus-window-up-or-column-left",
+        "on-scroll-down": "niri msg action focus-window-down-or-column-right",
+        "on-click": "niri msg action swap-window-left",
+        "on-click-right": "niri msg action swap-window-right",
     },
 
-    "niri/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "browser": "󰁥",
-            "work": "󰕮", // "󰨝" "󰕮" ""
-            "code": "󰊢", // "" ""
-            // "default": "d",
-            // "focused": "f",
-            // "active": "a",
-            // "1": "󰺕 ",
-            // "2": "󰄛 ",
-            // "3": " ",
-            // "4": " ",
-            // "5": " ",
-            // "6": "󰉋 ",
-            // "7": " ",
-            // "8": "󰓇 ",
-            // "9": "󰙯 ",
-            // "10": " ",
-        },
-        "all-outputs": false,
-        "disable-click": false,
-        "active-only": false,
-        // "display-condition": "only-populated",
-        "min-length": 10,
-    },
+
 
     "custom/swaync": {
         "tooltip": true,
@@ -158,111 +147,58 @@
             "deactivated": "",
         },
     },
-    //"battery": {
-    //    "format": "{capacity}% {icon}",
-    //    "format-icons": ["", "", "", "", ""]
-    //},
-    // "backlight#icon": {
-    //     "format": "{icon}",
-    //     "format-icons": ["", "", "", "", "", "", "", "", ""],
-    //     "tooltip": true,
-    //     "tooltip-format": "{percent}%",
-    //     "on-scroll-up": "swayosd-client --brightness +5",
-    //     "on-scroll-down": "swayosd-client --brightness -5",
-    // },
-    // "backlight#text": {
-    //     "format": "{percent}%",
-    //     "tooltip": true,
-    //     "tooltip-format": "{percent}%",
-    //     "on-scroll-up": "swayosd-client --brightness +5",
-    //     "on-scroll-down": "swayosd-client --brightness -5",
-    // },
-    "group/util-toggle-group": {
-        "orientation": "inherit",
-        "drawer": {
-            "transition-duration": 400,
-            "transition-left-to-right": true,
-        },
-        // "modules": ["idle_inhibitor", "backlight#icon", "backlight#text"],
-        "modules": ["idle_inhibitor"],
-    },
+
+
 
     "mpris#title": {
-        // "format": "{artist} - {player} ",
-        "format": "{artist}",
-        "format-paused": "{player}",
+        "format": "{player} | {artist} | {title}",
+        "format-paused": "{player} | {title}",
         "artist-len": 20,
+        "title-len": 20,
+        "on-scroll-up": "playerctld shift",
+        "on-scroll-down": "playerctld unshift",
     },
     "mpris": {
         "format": "{status_icon}",
-        "format-paused": "{status_icon}",
         "status-icons": {
             "paused": "",
             "playing": "",
-            "stopped": "",
+            "stopped": "", // does not work, stopped does not occur
         },
+        "on-scroll-up": "playerctld shift",
+        "on-scroll-down": "playerctld unshift",
         // "ignored-players": ["firefox"]
     },
-    "group/mpris-group": {
+    "wireplumber#source": {
+        "node-type": "Audio/Source",
+        "format": "󰍬 {volume}%",
+        "format-muted": "󰍭",
+        "tooltip-format": "{node_name}",
+        "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_pulseaudio",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "scroll-step": 5,
+    },
+    "wireplumber#sink": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰓄",
+        "format-icons": {
+            "default": ["", "", ""],
+        },
+        "tooltip-format": "{node_name}",
+        "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_pulseaudio",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "scroll-step": 1,
+    },
+    "group/audio-group": {
         "orientation": "inherit",
         "drawer": {
             "transition-duration": 700,
             "transition-left-to-right": false,
         },
         "modules": ["mpris", "mpris#title", "custom/separator-dot-line",
-            "pulseaudio#microphone", "custom/separator-dot-line", "pulseaudio",
+            "wireplumber#source", "custom/separator-dot-line", "wireplumber#sink",
             "custom/separator-dot-line"],
     },
-
-    "tray": {
-        "icon-size": 14,
-        "spacing": 4
-    },
-
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰓄",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "default": ["", ""]
-        },
-        "format-icons": {
-            "default": ["", "", "󰕾"],
-        },
-        "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_pulseaudio",
-        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        // "on-click": "swayosd-client --output-volume mute-toggle",
-        // "on-scroll-up": "swayosd-client --output-volume +1",
-        // "on-scroll-down": "swayosd-client --output-volume -1",
-        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
-        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
-        "tooltip-format": "{source_desc}",
-        // "tooltip-format": "{volume}%",
-    },
-    "pulseaudio#microphone": {
-        "format": "{format_source} {source_volume}%",
-        "format-source": "󰍬",
-        "format-source-muted": "󰍭",
-        "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_pulseaudio",
-        // "on-click-middle": "swayosd-client --input-volume mute-toggle",
-        "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
-        "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
-        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
-        // "on-scroll-up": "swayosd-client --input-volume +1",
-        // "on-scroll-down": "swayosd-client --input-volume -1",
-        "tooltip-format": "{source_desc}",
-    },
-    // see mpris group instead
-    // "group/audio": {
-    //     "orientation": "inherit",
-    //     "drawer": {
-    //         "transition-duration": 400,
-    //         "transition-left-to-right": true,
-    //     },
-    //     "modules": ["pulseaudio", "pulseaudio#microphone"],
-    // },
 
     "bluetooth": {
         "format-on": "󰂯",
@@ -277,29 +213,51 @@
     },
 
     "network#status": {
-        "format-wifi": "󰖩 {signalStrength}%",
+        "format-wifi": "󰤥 {signalStrength}%",
         "format-ethernet": "󰈀",
-        "format-disconnected": "",
+        "format-disconnected": "󰤭",
         "tooltip-format": "{ifname}",
-        "tooltip-format-wifi": " {ifname}:{essid}",
+        "tooltip-format-wifi": "󰤥 {ifname}:{essid}",
         "tooltip-format-ethernet": " {ifname}",
         "tooltip-format-disconnected": "Disconnected",
         "interval": 30,
         "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_networkmanagement",
         "on-click-right": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_networkmanagement",
     },
-    // "network#stats": {
-    //     "format": " {bandwidthUpBytes} /  {bandwidthDownBytes}",
-    //     "interval": 10
-    // },
+    "network#stats": {
+        "format": " {bandwidthUpBytes} /  {bandwidthDownBytes}",
+        "interval": 10,
+    },
     "group/network-group": {
         "orientation": "inherit",
         "drawer": {
-            // "click-to-reveal": true, # can't have this and a right-click action (bug?)
             "transition-duration": 300,
         },
         // "modules": ["network#status", "network#stats"],
         "modules": ["network#status"]
+    },
+
+    "tray": {
+        "icon-size": 14,
+        "spacing": 4,
+        "show-passive": true,
+    },
+
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-up": "brightnessctl -q -c backlight set +1%",
+        "on-scroll-down": "brightnessctl -q -c backlight set 1%-",
+    },
+
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""],
+        "states": {
+            "full": 90,
+            "warning": 30,
+            "critical": 10,
+        },
     },
 
     "custom/powermenu": {
