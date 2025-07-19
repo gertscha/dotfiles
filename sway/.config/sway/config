@@ -259,16 +259,18 @@ bar {
 exec swayidle -w \
     before-sleep 'swaylock -f'
 
+exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+
 #
 # Autostart apps
 #
 exec thunderbird
 workspace 1
 exec foot
-exec swaymsg {
-  exec owncloud
-  focus owncloud
-  kill
-}
+# exec swaymsg {
+#   exec nextcloud
+#   focus nextcloud
+#   kill
+# }
 
 include /etc/sway/config.d/*
