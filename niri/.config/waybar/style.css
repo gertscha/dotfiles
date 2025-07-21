@@ -25,6 +25,7 @@
     background: transparent;
 }
 #custom-separator-dot-line {
+    margin: 0px 4px;
     padding: 0px 4px 0px 2px;
     color: alpha(@white,.7);
 }

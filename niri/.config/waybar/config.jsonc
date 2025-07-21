@@ -133,7 +133,7 @@
             "transition-duration": 400,
             "transition-left-to-right": true,
         },
-        "modules": ["clock#time", "custom/separator-dot-line", "clock#date"],
+        "modules": ["clock#time", "clock#date"],
 
     },
 
@@ -157,6 +157,14 @@
         "title-len": 20,
         "on-scroll-up": "playerctld shift",
         "on-scroll-down": "playerctld unshift",
+    },
+    "mpris#control-fw": {
+        "format": "󰒭",
+        "on-click": "playerctl next",
+    },
+    "mpris#control-bw": {
+        "format": "󰒮 ",
+        "on-click": "playerctl previous",
     },
     "mpris": {
         "format": "{status_icon}",
@@ -197,6 +205,7 @@
         },
         "modules": ["mpris", "mpris#title", "custom/separator-dot-line",
             "wireplumber#source", "custom/separator-dot-line", "wireplumber#sink",
+            "custom/separator-dot-line", "mpris#control-bw", "mpris#control-fw",
             "custom/separator-dot-line"],
     },
 
