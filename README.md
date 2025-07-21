@@ -52,6 +52,17 @@ ln -s <path to install>/miniforge3/bin/conda .
 where I specify a custom install directory (usually `~/build`, or `~/build_sys`),
 and symlink it in `.conda` to keep my shell aliases simple.
 
+## Music
+I use `mpd` with the `rmpc` front-end (with `cava`). All the mpd data is in
+`~/Music`. I typically install `mpd` and `mpc` and I build `rmpc` from source
+(easy `cargo build`, don't forget to add it to the path, I add all such binaries
+to my `~/build_sys/install/bin/` folder).
+
+Setup `mpd`:
+```
+systemctl --user enable --now mpd
+```
+
 ## Alacritty
 My Alacritty setup, not in basic since I want to use it on Windows.
 
@@ -82,6 +93,10 @@ sudo dnf install niri waybar swaybg swayidle wlogout wlsunset sway-notification-
 The other core dependencies should be covered by this. But you can check that
 these are installed: `xdg-desktop-portal-gtk`, `xdg-desktop-portal-gnome`,
 `polkit-kde` and `xwayland-satellite`.
+
+To get `mpd` integration in waybar I use
+[mpdris2-rs](https://github.com/szclsya/mpdris2-rs). I build it from source.
+the systemd service is setup to expect the `mpdris2-rs` binary in path (bash).
 
 Because Niri uses the Gnome portal, the file picker dialogue requires Nautilus.
 So it needs to be installed, `sudo dnf install nautilus`.

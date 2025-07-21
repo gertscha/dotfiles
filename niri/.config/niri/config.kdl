@@ -22,7 +22,7 @@ input {
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
         track-layout "global"
-        repeat-rate 40
+        repeat-rate 80
 
         // Enable numlock on startup, omitting this setting disables it.
         numlock
@@ -521,6 +521,7 @@ spawn-at-startup "systemctl" "--user" "start" "swaybg"
 spawn-at-startup "systemctl" "--user" "start" "swayidle"
 spawn-at-startup "systemctl" "--user" "start" "waybar"
 spawn-at-startup "systemctl" "--user" "start" "wlsunset"
+spawn-at-startup "systemctl" "--user" "start" "mpdris"
 spawn-at-startup "systemctl" "--user" "start" "xwayland-satellite"
 
 // these would be needed, but are handled with systemd instead:

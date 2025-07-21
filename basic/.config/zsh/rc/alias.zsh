@@ -20,4 +20,4 @@ alias coi='eval "$(~/.conda/conda shell.zsh hook)" && conda deactivate'
 alias coa='conda activate'
 alias cod='conda deactivate'
 
-
+alias mm='rmpc'
