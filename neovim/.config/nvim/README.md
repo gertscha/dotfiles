@@ -1,5 +1,6 @@
 # Installation
-Add the content of this repo in the `nvim` config folder.
+[Install Neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md).
+Then add the content of this repo in the `nvim` config folder.
 Use `:h $XDG_CONFIG_HOME` for more information or run `:echo stdpath('config')`
 to get the location.
 
@@ -23,6 +24,25 @@ Neovim looks for the environment variable `NVIM_APPNAME`, which can be used
 to adjust the location of the configuration files. So you can use
 `export NVIM_APPNAME=my-cool-config nvim` to set Neovim load the configuration
 from `~/.config/my-cool-config/`. See `:h $NVIM_APPNAME`.
+
+## Install Neovim From Source (Linux)
+Check that you have the
+[prerequisites](https://github.com/neovim/neovim/blob/master/BUILD.md#build-prerequisites).
+
+Then clone the neovim repo, checkout the release tag of the version you want
+and run:
+```
+make CMAKE_BUILD_TYPE=Release
+sudo make install
+```
+
+When updating the installation to a new release, first uninstall (only do this
+if you used sudo make install):
+```
+sudo cmake --build build/ --target uninstall
+```
+then checkout the new release tag with `git` and run the install make commands
+again.
 
 # Keybinds Reference
 This is a reference to the keybinds (sample of the default bindings at the end).
@@ -78,6 +98,8 @@ x                       Cut (goes into register 9 instead of 1)
   <leader>tc            Toggle color visualization
   <leader>ti            Toggle scope markers (indent lines)
   <leader>tsc           Toggle command line visibility
+  // Invert
+  <leader>i             Invert text (on/off, true/false, etc)
   // Quickfix list
   <M-n>                 Quickfix list next
   <M-p>                 Quickfix list previous
@@ -141,6 +163,8 @@ gT                      Go to type definition
 gr                      Search references
 K                       LSP Hover
 <leader>df              Format Buffer
+<leader>dl              Lint Buffer
+<leader>dL              Spellcheck Lint Buffer (remove with <leader>dRl)
 <leader>dr              Rename all references to the symbol under the cursor
 <leader>da              Use a code action
 <leader>dw              Query workspace symbols
@@ -222,6 +246,14 @@ r<Space>                Populate command line with ":Git rebase "
 <leader>omc             Close Markdown preview in browser
 ```
 
+## Other Plugins
+Some of the plugins have been omitted here.
+Mainly `mini.surround`, `mini.ai`, both of which extend the text objects
+(see `lua/plugins/mini.lua`).
+
+ShowKeys can only be enabled with the command (`ShowkeysToggle`).
+`sleuth` is mostly automatic (`:retab` may be useful).
+`obsession.vim` is covered [under this header](#Sessions).
 
 ## Default Keybinds
 Selection of default vim keybinds
@@ -458,11 +490,11 @@ Or use the following keybinds:
 <leader>ls              Save current state
 <leader>lg              Load the previously saved state
 ```
-A couple of extra states can be saved/loaded with:
+Or use automatic management, from `obsession.vim` (nice with `tmux` session restore):
 ```
-<leader>lls1
-<leader>lls2
-<leader>llg1
-<leader>llg2
+<leader>lt              Start automatic saving of state
+<leader>ldd             Stop automatic saving and delete existing state
+r                       On the splash screen, this loads the saved session
+                        equivalent to ':source Session.vim'
 ```
 

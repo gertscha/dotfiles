@@ -86,7 +86,7 @@ return {
       },
       accept = {
         -- currently experimental, currently disabled (did not work when I tried)
-        -- also covered by the delimitMate plugin
+        -- also covered by the autopairs plugin
         auto_brackets = {
           enabled = false,
         },

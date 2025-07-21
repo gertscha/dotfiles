@@ -1,5 +1,6 @@
 local M = {
   'brianhuster/live-preview.nvim',
+  tag = 'v0.9.5',
   dependencies = {
     -- 'nvim-telescope/telescope.nvim',
     'ibhagwan/fzf-lua',
