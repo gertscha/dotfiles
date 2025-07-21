@@ -12,7 +12,7 @@ fi
 
 # path
 
-PATH=$PATH:~/go/bin
+PATH=$PATH:~/.local/share/go/bin
 PATH=$PATH:~/build_sys/install/bin
 
 export PATH

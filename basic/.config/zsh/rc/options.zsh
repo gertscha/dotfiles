@@ -22,7 +22,7 @@ fi
 
 # extend path
 path+=("$HOME/.local/bin")
-path+=("$HOME/go/bin")
+path+=("$HOME/.local/share/go/bin")
 path+=("$HOME/build_sys/install/bin")
 
 # extend man path

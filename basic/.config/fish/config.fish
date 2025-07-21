@@ -8,5 +8,5 @@ set -gx GREP_COLORS "sl=49;39:cx=49;39:mt=49;31;1:fn=49;32:ln=49;33:bn=49;33:se=
 
 set -gx MANPATH "$MANPATH:~/build_sys/install/man"
 
-fish_add_path ~/go/bin
+fish_add_path ~/.local/share/go/bin
 fish_add_path ~/build_sys/install/bin

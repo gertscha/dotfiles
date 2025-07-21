@@ -79,26 +79,19 @@ DE on the system). So here is how I did it for my system:
 ```
 sudo dnf install niri waybar swaybg swayidle wlogout wlsunset sway-notification-center
 ```
-The other dependencies should be covered by this. But you can check that these
-are installed: `xdg-desktop-portal-gtk`, `xdg-desktop-portal-gnome`,
+The other core dependencies should be covered by this. But you can check that
+these are installed: `xdg-desktop-portal-gtk`, `xdg-desktop-portal-gnome`,
 `polkit-kde` and `xwayland-satellite`.
 
 Because Niri uses the Gnome portal, the file picker dialogue requires Nautilus.
 So it needs to be installed, `sudo dnf install nautilus`.
 
-I am considering adding:
-- `mpv-mpris`
-- `swww`
-
-> [!NOTE]
-> manual build of `swww`, it requires `lz4-devel` (and `wayland-protocols-devel`,
-> not verified by me). Also see build
-> [intructions](https://github.com/LGFae/swww?tab=readme-ov-file#build)
-> for swww. (some early experiments give bad overhead results, need more
-> testing)
-
 Mako notifier is also configured, but the systemd link is not done and it
 should not be installed if you have sway-notification-center.
+
+I disabled `sddm` and use `niri-session` to launch Niri. Currently
+`gnome-keyring-daemon` handles my secrets. I mostly disabled `kwalletd`
+(causing a pop up to unlock the keyring in KDE).
 
 #### Systemd
 You can either launch services with `spawn-at-startup` in the Niri config, or
@@ -108,13 +101,11 @@ see [example setup](https://github.com/YaLTeR/niri/wiki/Example-systemd-Setup).
 The symlinks should be restored with Stow (otherwise add them with
 `systemctl --user add-wants niri.service <service file>`).
 
-Currently `swayidle`, `swaybg`, `wlsunset`, `waybar` and `xwayland-satellite`
-are launched with systemd.
+Currently `swayidle`, `swaybg`, `wlsunset`, `waybar`, `mpd-mpris` and
+`xwayland-satellite` are launched with systemd.
 You can manage them with `systemctl --user <command> <name>`.
 
-Brief experiments showed me that launching from tty with `niri -session` does
-not launch the systemd services properly (I am using `sddm` to start the
-session).
+This should also work if Niri is launched with `niri-session` from the tty.
 
 #### Paths
 Some files specify image paths, adjust them to images of your liking.
@@ -131,6 +122,16 @@ Launching applications with this explicitly requires changing the .desktop file
 Exec=env DISPLAY=:12 /some/binary`
 ```
 Default locations: `/usr/share/applications/` and `~/.local/share/applications/`
+
+I am considering adding (to my Niri setup):
+- `swww`
+
+> [!NOTE]
+> manual build of `swww`, it requires `lz4-devel` (and `wayland-protocols-devel`,
+> not verified by me). Also see build
+> [intructions](https://github.com/LGFae/swww?tab=readme-ov-file#build)
+> for swww. (some early experiments give bad overhead results, need more
+> testing)
 
 ## Sway
 I set this up for my Debian 12 Laptop. The base/fallback DE is Gnome.

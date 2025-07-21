@@ -6,7 +6,6 @@
   "control-center-layer": "top",
   "layer-shell": true,
   "cssPriority": "application",
-  "control-center-positionX": "bottom",
   "control-center-positionY": "center",
   "control-center-margin-top": 0,
   "control-center-margin-bottom": 0,

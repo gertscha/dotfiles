@@ -79,6 +79,12 @@ input {
     // mod-key-nested "Super"
 }
 
+// cursor files in $XDG_DATA_HOME/icons/<theme-name>
+cursor {
+    xcursor-theme "breeze_black_cursors"
+    xcursor-size 24
+}
+
 
 //
 // Outputs
@@ -264,7 +270,7 @@ animations {
     // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    slowdown 0.8
+    slowdown 0.6
 
     window-open {
         duration-ms 100
@@ -316,8 +322,8 @@ window-rule {
     match app-id="obsidian"
     open-on-workspace "work"
 }
-window-rule {
-    match app-id="foot"
+/-window-rule {
+    // match app-id="foot"
     open-on-workspace "code"
 }
 
@@ -506,8 +512,16 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
-spawn-at-startup "/usr/libexec/kf6/polkit-kde-authentication-agent-1"
+// spawn-at-startup "/usr/libexec/kf6/polkit-kde-authentication-agent-1"
 spawn-at-startup "swaync" // notificaton center
+
+// systemd (fix startup issues (for now), because suddenly the dependency I
+// have configured for them with niri.service.wants does not work anymore
+spawn-at-startup "systemctl" "--user" "start" "swaybg"
+spawn-at-startup "systemctl" "--user" "start" "swayidle"
+spawn-at-startup "systemctl" "--user" "start" "waybar"
+spawn-at-startup "systemctl" "--user" "start" "wlsunset"
+spawn-at-startup "systemctl" "--user" "start" "xwayland-satellite"
 
 // these would be needed, but are handled with systemd instead:
 // spawn-at-startup "sh" "-c" "swaybg -m fill -i $(find ~/Pictures/backgrounds/ -type f | shuf -n1) &"
