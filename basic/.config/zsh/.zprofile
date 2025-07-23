@@ -1,30 +1,17 @@
-# .bash_profile
-
-if [ "$(tty)" = "/dev/tty1" ] ; then
-    export QT_QPA_PLATFORM=wayland-egl
-    export QT_QPA_PLATFORMTHEME=qt6ct
-    export ELECTRON_OZONE_PLATFORM_HINT=auto
-    export XDG_SESSION_TYPE=wayland
-    export XDG_CURRENT_DESKTOP=Niri
-    export DISPLAY=":3"
-    export GTK_IM_MODULE=ibus
-    export QT_IM_MODULE=ibus
-    export XMODIFIERS=@im=ibus
-    export INPUT_METHOD=ibus
-fi
-
-if command -v nvim &> /dev/null; then
-    export EDITOR=nvim
-fi
+#!/bin/sh
+# env vars to set on login, zsh settings in ~/config/zsh/.zshrc
 
 # follow XDG base dir specification
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_STATE_HOME="$HOME/.local/state"
 
-# zsh
+# bootstrap .zshrc to ~/.config/zsh/.zshrc, any other zsh config files can also reside here
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+if command -v nvim &> /dev/null; then
+    export EDITOR=nvim
+fi
 
 # history files
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
@@ -42,18 +29,4 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" # gtk 3 & 4 are XDG compliant
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
-
-
-if command -v keychain &> /dev/null; then
-    mkdir -p "$XDG_DATA_HOME/keychain"
-    eval `keychain -q --eval --absolute --dir "$XDG_DATA_HOME/keychain"`
-
-    # make sure we follow the custom path
-    alias keychain="keychain --absolute --dir \"$XDG_DATA_HOME/keychain\""
-fi
-
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
 

@@ -3,7 +3,7 @@
 # history config
 HISTSTAMPS="dd.mm.yyyy"
 HISTSIZE=10000
-SAVEHIST=1000
+SAVEHIST=5000
 HISTFILE=$HOME/.zsh_history
 
 setopt EXTENDED_HISTORY

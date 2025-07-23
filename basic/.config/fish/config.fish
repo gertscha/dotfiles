@@ -28,6 +28,6 @@ set -gx MANPATH "$MANPATH:~/build_sys/install/man"
 
 fish_add_path ~/.local/share/go/bin
 fish_add_path ~/build_sys/install/bin
-
+fish_add_path ~/.local/share/cargo/bin
 
 

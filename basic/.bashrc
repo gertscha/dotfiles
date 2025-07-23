@@ -14,6 +14,7 @@ fi
 # path
 
 PATH=$PATH:~/.local/share/go/bin
+PATH=$PATH:~/.local/share/cargo/bin
 PATH=$PATH:~/build_sys/install/bin
 
 export PATH

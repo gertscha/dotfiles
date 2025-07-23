@@ -47,10 +47,11 @@
 	lineNumber = true
 	patternType = perl
 [alias]
-	lol = log --oneline --decorate
+	lol = log --oneline --decorate --pretty=format:'%C(auto)%h %C(blue)%as %C(auto)%s%C(green)%d'
 	graph = log --oneline --graph --decorate
 	history = reflog --date=iso --pretty
 	wdiff = diff --word-diff
+	mdiff = diff -w -U0 --minimal --output-indicator-new=' ' --output-indicator-old=' '
 	smartblame = blame -C -C -C
 	hh = rev-parse HEAD
 	hash = rev-parse --verify
