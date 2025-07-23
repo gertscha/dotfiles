@@ -1,4 +1,4 @@
-local M = {
+return {
   cpp = [[
 ---
 BasedOnStyle: Google
@@ -10,6 +10,39 @@ BreakBeforeBraces: Stroustrup
 AlignTrailingComments:
   Kind:            Never
   OverEmptyLines:  0]],
+
+  cppalt = [[
+---
+BasedOnStyle: Google
+---
+Language: Cpp
+IndentWidth: 4
+ColumnLimit: 85
+AlignTrailingComments:
+  Kind:            Never
+  OverEmptyLines:  0
+AlwaysBreakAfterDefinitionReturnType: All
+MaxEmptyLinesToKeep: 2
+SpacesBeforeTrailingComments: 2
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterControlStatement: MultiLine
+  AfterFunction: true
+  BeforeCatch: true
+  BeforeElse: true
+  AfterClass: false
+  AfterEnum: false
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterObjCDeclaration: false
+  BeforeLambdaBody: false
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false]],
+
   lua = [[
 syntax = "All"
 column_width = 85
@@ -23,7 +56,8 @@ space_after_function_names = "Never"
 
 [sort_requires]
 enabled = false]],
- python = [[
+
+  python = [[
 [style]
 based_on_style = google
 spaces_before_comment = 1
@@ -34,5 +68,3 @@ split_before_dot = true
 join_multiple_lines = true
 column_limit = 85]],
 }
-
-return M

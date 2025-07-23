@@ -29,4 +29,5 @@ end
 require('settings.options') -- base nvim settings
 require('settings.keybinds') -- keybind adjustments
 require('settings.autocmds') -- event based actions
+require('template.commands') -- commands to generate template files
 require('settings.lazy') -- the plugin manager (also loads the plugins)

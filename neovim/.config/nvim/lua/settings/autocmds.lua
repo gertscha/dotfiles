@@ -141,23 +141,3 @@ vim.api.nvim_create_autocmd('LspProgress', {
   end,
 })
 
--- generate the formatter settings files with commands
-local format_defs = require('plugins.configuration.formatters-init')
-
-vim.api.nvim_create_user_command('FormatterSetupLua', function(_)
-  vim.cmd('edit stylua.toml')
-  vim.api.nvim_paste(format_defs['lua'], false, -1)
-  vim.cmd('write')
-end, {})
-
-vim.api.nvim_create_user_command('FormatterSetupCpp', function(_)
-  vim.cmd('edit .clang-format')
-  vim.api.nvim_paste(format_defs['cpp'], false, -1)
-  vim.cmd('write')
-end, {})
-
-vim.api.nvim_create_user_command('FormatterSetupPython', function(_)
-  vim.cmd('edit .style.yapf')
-  vim.api.nvim_paste(format_defs['python'], false, -1)
-  vim.cmd('write')
-end, {})
