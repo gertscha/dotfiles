@@ -21,7 +21,7 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
-
+export XDG_STATE_HOME="$HOME/.local/state"
 
 # history files
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
@@ -37,6 +37,15 @@ export FFMPEG_DATADIR="$XDG_CONFIG_HOME/ffmpeg"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm"
+
+
+if command -v keychain &> /dev/null; then
+    mkdir -p "$XDG_DATA_HOME/keychain"
+    eval `keychain -q --eval --absolute --dir "$XDG_DATA_HOME/keychain"`
+
+    # make sure we follow the custom path
+    alias keychain="keychain --absolute --dir \"$XDG_DATA_HOME/keychain\""
+fi
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
