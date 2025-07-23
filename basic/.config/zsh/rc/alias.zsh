@@ -5,8 +5,8 @@
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes.
 # For a full list of active aliases, run `alias`.
-alias ls='ls -a --color=auto'
-alias ll='ls -lah --color=auto'
+alias ls='ls -A --color=auto'
+alias ll='ls -lAh --color=auto'
 alias grep='grep --color=auto'
 alias cl='clear'
 alias vi='nvim'

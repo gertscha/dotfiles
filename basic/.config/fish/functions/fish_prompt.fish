@@ -1,7 +1,11 @@
 function fish_prompt
-    set -l rootuser
-    if fish_is_root_user
-        set rootuser "#"
+
+    set -l last_status $status
+    set -l stat
+    if test $last_status -ne 0
+        set stat (set_color red)"[$last_status] "(set_color normal)
     end
-    string join '' -- (set_color green) (prompt_pwd -D 1 -d 3) ' ' (set_color yellow) $rootuser '➤ ' (set_color normal)
+
+    string join '' -- $stat (set_color green) (prompt_pwd -D 2 -d 5) (set_color normal) \
+        (fish_git_prompt) \n (set_color yellow) '❯ ' (set_color normal)
 end

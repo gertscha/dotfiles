@@ -1,8 +1,8 @@
 abbr --add cl clear
 
-abbr --add ls ls -a
-abbr --add ll ls -lah
-abbr --add llg "ls -lah | grep"
+abbr --add ls ls -A
+abbr --add ll ls -lAh
+abbr --add llg "ls -lAh | grep"
 
 abbr --add .. cd ..
 

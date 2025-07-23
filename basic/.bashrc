@@ -10,6 +10,7 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
+
 # path
 
 PATH=$PATH:~/.local/share/go/bin
@@ -28,7 +29,10 @@ export MANPATH
 # exports
 export EDITOR=nvim
 export SYSTEMD_EDITOR=vim
-
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -42,6 +46,7 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
 
 # prompt
 
@@ -58,6 +63,13 @@ PROMPT_COMMAND='
   PS1="${PS1_CONDA}${PS1_GIT_BRANCH}[\[\e[38;5;70m\]\w\[\033[0m\]] \$ "
 '
 
+# ssh
+# keychain is used to manage the agent, but keys are handled with KeePassXC
+if command -v keychain &> /dev/null; then
+    eval `keychain -q --absolute --dir "$XDG_DATA_HOME/keychain" --eval`
+fi
+
+
 # alias
 
 alias vi='nvim'
@@ -66,3 +78,4 @@ alias ..='cd ..'
 alias coi='eval "$(~/.conda/conda shell.bash hook)" && conda deactivate'
 alias coa='conda activate'
 alias cod='conda deactivate'
+

@@ -36,5 +36,11 @@ source "$ZRCDIR/alias.zsh"
 #--------------------------------------------------------------#
 #           SSH Key Setup                                      #
 #--------------------------------------------------------------#
-source "$ZRCDIR/ssh.zsh"
+# keychain is used to manage the agent, but keys are handled with KeePassXC
+if command -v keychain &> /dev/null; then
+    eval `keychain -q --absolute --dir "$XDG_DATA_HOME/keychain" --eval`
+    # source "$XDG_DATA_HOME/keychain/${HOSTNAME}-sh"
 
+    # make sure we follow the custom path
+    alias keychain="keychain --absolute --dir \"$XDG_DATA_HOME/keychain\""
+fi
