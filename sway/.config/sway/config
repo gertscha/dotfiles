@@ -264,13 +264,8 @@ exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ss
 #
 # Autostart apps
 #
-exec thunderbird
-workspace 1
-exec foot
-# exec swaymsg {
-#   exec nextcloud
-#   focus nextcloud
-#   kill
-# }
+# exec thunderbird
+# exec bash -c "source $XDG_DATA_HOME/keychain/$hostname-sh && keepassxc"
+# exec nextcloud --background
 
 include /etc/sway/config.d/*
