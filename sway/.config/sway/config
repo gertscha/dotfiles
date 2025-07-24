@@ -259,13 +259,5 @@ bar {
 exec swayidle -w \
     before-sleep 'swaylock -f'
 
-exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
-
-#
-# Autostart apps
-#
-# exec thunderbird
-# exec bash -c "source $XDG_DATA_HOME/keychain/$hostname-sh && keepassxc"
-# exec nextcloud --background
 
 include /etc/sway/config.d/*

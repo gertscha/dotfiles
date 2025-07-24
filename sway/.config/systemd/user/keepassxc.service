@@ -1,0 +1,11 @@
+[Unit]
+Description=Launch KeePassXC with keychain environment
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.config/sway/launch-keepassxc.sh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

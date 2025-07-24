@@ -73,6 +73,10 @@ fi
 
 # alias
 
+if [ -f "$XDG_CONFIG_HOME/wm-source.sh" ]; then
+    alias startwm='bash "$XDG_CONFIG_HOME/wm-source.sh"'
+fi
+
 alias vi='nvim'
 alias gs='git status'
 alias ..='cd ..'
