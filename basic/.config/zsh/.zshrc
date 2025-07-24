@@ -12,11 +12,18 @@ setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 
 # prompt config
+precmd_conda_info() {
+    CONDA_ENV=""
+    if [[ -n $CONDA_DEFAULT_ENV ]]; then
+        CONDA_ENV="($CONDA_DEFAULT_ENV) "
+    fi
+}
 autoload -Uz vcs_info
-precmd() { vcs_info }
+precmd_functions+=( vcs_info )
+precmd_functions+=( precmd_conda_info )
 zstyle ':vcs_info:git:*' formats '[%F{blue}%b%f]'
 setopt PROMPT_SUBST
-PROMPT='${vcs_info_msg_0_}[%F{green}%32<...<%~%<<%f]%F{yellow} ➤%f '
+PROMPT='${CONDA_ENV}${vcs_info_msg_0_}[%F{green}%32<...<%~%<<%f]%F{yellow} ➤%f '
 
 # User configuration
 export ZRCDIR=$ZDOTDIR/rc

@@ -57,11 +57,15 @@ PROMPT_COMMAND='
   if [ ! -z "${CONDA_DEFAULT_ENV}" ]; then
       PS1_CONDA="($CONDA_DEFAULT_ENV) "
   fi
+  PS1_VENV=""
+  if [ ! -z "${VIRTUAL_ENV}" ]; then
+      PS1_VENV="($(basename $VIRTUAL_ENV)) "
+  fi
   PS1_GIT_BRANCH=""
   if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     PS1_GIT_BRANCH="[\[\e[38;5;39m\]$(git branch --show-current 2>/dev/null)\[\033[0m\]]"
   fi
-  PS1="${PS1_CONDA}${PS1_GIT_BRANCH}[\[\e[38;5;70m\]\w\[\033[0m\]] \$ "
+  PS1="${PS1_CONDA}${PS1_VENV}${PS1_GIT_BRANCH}[\[\e[38;5;70m\]\w\[\033[0m\]] \$ "
 '
 
 # ssh
