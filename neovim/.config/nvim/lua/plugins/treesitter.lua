@@ -6,8 +6,10 @@ local M = {
     'nvim-treesitter/nvim-treesitter-context',
   },
   lazy = true,
+  -- branch = 'main', -- currently there is a rewrite in progress
+  branch = 'master',
   event = 'User my.lazy.trigger',
-  tag = 'v0.9.3',
+  tag = 'v0.10.0',
 }
 
 function M.config()
