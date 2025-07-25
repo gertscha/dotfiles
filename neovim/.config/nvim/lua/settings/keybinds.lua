@@ -121,18 +121,12 @@ keymap('n', '<M-p>', '<cmd>cprev<cr>', opts('Quickfix list previous'))
 keymap('n', '<M-q>', '<cmd>cclose<cr>', opts('Close Quickfix list'))
 
 -- session management
-keymap(
-  'n',
-  '<leader>lt',
-  function() vim.cmd('Obsession') end,
-  opts('Toggle Auto-recording of Session')
-)
-keymap(
-  'n',
-  '<leader>ldd',
-  function() vim.cmd('Obsession!') end,
-  opts('Stop Auto-recording of Session and delete session file')
-)
+keymap('n', '<leader>lt', function()
+  vim.cmd('Obsession')
+end, opts('Toggle Auto-recording of Session'))
+keymap('n', '<leader>ldd', function()
+  vim.cmd('Obsession!')
+end, opts('Stop Auto-recording of Session and delete session file'))
 local my_session = 'Session-manual.vim'
 keymap(
   'n',
@@ -146,6 +140,26 @@ keymap(
   '<cmd>mksession! ' .. my_session .. '<cr>',
   opts('Save manual Session')
 )
+
+-- copy diagnostics from the current line
+keymap('n', 'yd', function()
+  local pos = vim.api.nvim_win_get_cursor(0)
+  local line_num = pos[1] - 1 -- 0-indexed
+  local diagnostics = vim.diagnostic.get(0, { lnum = line_num })
+  if #diagnostics == 0 then
+    vim.notify('No diagnostic found on this line', vim.log.levels.WARN)
+    return
+  end
+  local message_lines = {}
+  for _, d in ipairs(diagnostics) do
+    for msg_line in d.message:gmatch('[^\n]+') do
+      table.insert(message_lines, msg_line)
+    end
+  end
+  local formatted = {}
+  table.insert(formatted, table.concat(message_lines, '\n'))
+  vim.fn.setreg('+', table.concat(formatted, '\n\n'))
+end, { desc = 'Yank diagnostic on current line' })
 
 -- -- Open a terminal at the bottom of the screen with a fixed height.
 -- keymap('n', '<leader>ot', function()
@@ -163,19 +177,15 @@ keymap('n', '<C-j>', '<nop>', { silent = true }) -- move line down, causes confl
 keymap('n', '<C-f>', '<nop>', { silent = true }) -- page down, use <C-d> instead
 keymap('n', '<F1>', '<nop>', { silent = true }) -- would open help, accidental when pressing ESC
 
--- search and replace macro
---keymap('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
--- opts('Search and Replace Macro'))
-
 -- change default bindings for LSP, all of these have better alternatives using fzf
 -- but to keep them as fallback they are rebound
-local remapopts = { noremap = true, silent = true, buffer = 0 }
+local remapopts = { noremap = true, silent = true }
 vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'gO')
+vim.keymap.set('n', '<leader>dgO', 'vim.lsp.buf.document_symbol()', remapopts)
 vim.keymap.set('n', '<leader>dgri', 'vim.lsp.buf.implementation()', remapopts)
 vim.keymap.set('n', '<leader>dgra', 'vim.lsp.buf.code_actions()', remapopts)
 vim.keymap.set('n', '<leader>dgrr', 'vim.lsp.buf.references()', remapopts)
-vim.keymap.set('n', '<leader>dgrn', 'vim.lsp.buf.rename()', remapopts)
-

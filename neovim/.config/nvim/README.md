@@ -117,20 +117,19 @@ x                       Cut (goes into register 9 instead of 1)
 ```
 // Normal Mode
 <leader>sf              Search Files
-<leader>sb              Search open Buffers
+<leader>sh              Search Neovim Help
+<leader>sb              Search Open Buffers
 <leader>sr              Search Files in Git Repository
-<leader>sh              Search Help
-<leader>sw              Search Word under cursor
+<leader>sd              Search LSP (everything related to symbol under cursor)
+<leader>sp              Search Spellcheck
 <leader>sg              Search with Grep
-<leader>sj              Search jumplist
-<leader>ss              Search builtin pickers
-<leader>sm              Search manpages
+<leader>sw              Search Word under cursor
+<leader>ss              Search builtin fzf pickers
 <leader>sc              Search Files in Neovim config
-<leader>sp              Search Files in Neovim plugins implementations
+<leader>sP              Search Files in Neovim plugins implementations
+<leader>sm              Search manpages (unix)
 <leader>sM              Search marks
-<leader>sl              Search LSP (everything related to symbol under cursor)
-<leader>sd              Search diagnostics messages in current document
-<leader>sD              Search diagnostics messages in workspace
+<leader>sj              Search jumplist
 <leader><leader>        Resume previous search
 
 
@@ -140,7 +139,8 @@ x                       Cut (goes into register 9 instead of 1)
 <esc>                   Close search window
 <C-s>                   Open file in split
 <C-v>                   Open file in vertical split
-<A-q>                   Add file to quickfix list
+<A-q>                   Add selected results to quickfix list
+<C-q>                   Add all results to quickfix list
 <F3>                    Toggle preview text wrap
 <F4>                    Toggle preview
 <A-i>                   Toggle ignored files
@@ -159,19 +159,20 @@ available if the LSP server supports the functionality
 gd                      Go to definition
 gD                      Go to declaration
 gI                      Go to implementation
-gT                      Go to type definition
-gr                      Search references
+grn                     Rename all references to the symbol under the cursor
+grr                     Search references
+grt                     Go to type definition
+gda                     Get available code actions
+gds                     Get document symbols
+gdS                     Get workspace symbols
 K                       LSP Hover
 <leader>df              Format Buffer
 <leader>dl              Lint Buffer
-<leader>dL              Spellcheck Lint Buffer (remove with <leader>dRl)
-<leader>dr              Rename all references to the symbol under the cursor
-<leader>da              Use a code action
-<leader>dw              Query workspace symbols
-<leader>ds              Search document symbols
-<leader>dS              Search workspace symbols
+<leader>dL              Spellcheck Lint Buffer (remove with <leader>drl)
 <leader>dco             Search outgoing calls
 <leader>dci             Search incoming calls
+<leader>drs             Restart LSP server
+<leader>dr              rebind of the default gr keybinds (without fzf-lua)
 ```
 
 Templates for the formatter config files can be created with `:FormatterSetup[...]`.

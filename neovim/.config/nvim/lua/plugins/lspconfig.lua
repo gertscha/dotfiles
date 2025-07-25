@@ -134,7 +134,7 @@ function M.config()
       )
 
       -- add a binding to restart the server
-      lspKeybind(nil, '<leader>dRs', function()
+      lspKeybind(nil, '<leader>drs', function()
         vim.cmd('LspRestart')
       end, { 'n' }, 'LSP: Restart LSP server(s)')
 
@@ -158,10 +158,10 @@ function M.config()
       if client:supports_method('textDocument/rename') then
         lspKeybind(
           args.buf,
-          '<leader>dr',
+          'grn',
           vim.lsp.buf.rename,
           'n',
-          'LSP: [r]ename symbol'
+          'LSP: re[n]ame symbol'
         )
       end
       if client:supports_method('textDocument/hover') then
@@ -208,25 +208,25 @@ function M.config()
         if client:supports_method('textDocument/references') then
           lspKeybind(
             args.buf,
-            'gr',
+            'grr',
             fzflua.lsp_references,
             'n',
-            'LSP: [g]et [r]eferences'
+            'LSP: get [r]eferences'
           )
         end
         if client:supports_method('textDocument/typeDefinition') then
           lspKeybind(
             args.buf,
-            'gT',
+            'grt',
             fzflua.lsp_typedefs,
             'n',
-            'LSP: [g]et [t]ype definition'
+            'LSP: get [t]ype definition'
           )
         end
         if client:supports_method('textDocument/codeAction') then
           lspKeybind(
             args.buf,
-            '<leader>da',
+            'gra',
             fzflua.lsp_code_actions,
             'n',
             'LSP: code [a]ctions'
@@ -235,27 +235,27 @@ function M.config()
         if client:supports_method('textDocument/documentSymbol') then
           lspKeybind(
             args.buf,
-            '<leader>ds',
+            'grs',
             fzflua.lsp_document_symbols,
             'n',
-            'LSP: [S]ymbols in document'
+            'LSP: get [s]ymbols in document'
           )
         end
         if client:supports_method('workspace/symbol') then
           lspKeybind(
             args.buf,
-            '<leader>dS',
+            'grS',
             fzflua.lsp_workspace_symbols,
             'n',
-            'LSP: Query [S]ymbols in workspace'
+            'LSP: get [S]ymbols in workspace'
           )
         end
         lspKeybind(
           args.buf,
-          '<leader>sl',
+          '<leader>sd',
           fzflua.lsp_finder,
           'n',
-          '[S] LSP for symbol under cursor'
+          '[S]earch [d]iagnostics for symbol under cursor'
         )
         lspKeybind(
           args.buf,
@@ -273,17 +273,17 @@ function M.config()
         )
         lspKeybind(
           args.buf,
-          '<leader>sd',
+          'grm',
           fzflua.diagnostics_document,
           'n',
-          '[S]earch [d]iagnostics in current buffer'
+          'LSP: diagnostics [m]essages in buffer'
         )
         lspKeybind(
           args.buf,
-          '<leader>sD',
+          'grM',
           fzflua.diagnostics_workspace,
           'n',
-          '[S]earch [D]iagnostics in workspace'
+          'LSP: diagnostics [M]essages in workspace'
         )
       end
     end,

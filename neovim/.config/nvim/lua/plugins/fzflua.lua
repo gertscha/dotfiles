@@ -40,14 +40,19 @@ function M.config()
         ['--wrap'] = true,
         ['--cycle'] = true,
       },
-      -- keymap = {},
+      keymap = {
+        fzf = { ['ctrl-q'] = 'select-all+accept' }, -- add all to QF list
+      },
       actions = {
         files = {
           true, -- keep all the default action keybinds
           -- but disable <C-t> (open in new tab)
           ['ctrl-t'] = false,
+          ['ctrl-q'] = false,
+          ['alt-Q'] = false,
         },
       },
+      winopts = { fullscreen = true },
     })
   end
 
@@ -104,7 +109,7 @@ function M.config()
         function()
           fzflua.live_grep()
         end,
-        desc = '[S]earch by [G]rep',
+        desc = '[S]earch [G]rep',
       },
       {
         '<leader>sj',

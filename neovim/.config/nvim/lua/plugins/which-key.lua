@@ -26,6 +26,7 @@ function M.config()
   if mod then
     mod.add({
       mode = 'n', -- NORMAL mode
+      { 'gr', group = 'diagnostics' },
       { '<space>s', group = 'Search' },
       { '<space>l', group = 'Session Management' },
       { '<space>o', group = 'Open Screens' },
@@ -34,10 +35,10 @@ function M.config()
       { '<space>tw', group = 'Line width settings' },
       { '<space>ts', group = 'Command line visibility toggle' },
       { '<leader>d', group = 'diagnostics' },
-      { '<leader>dc', group = 'call hierarchy' },
-      { '<leader>dR', group = 'Restart/Reset LSP functionality' },
-      { '<leader>dg', group = 'default lsp gr binds' },
-      { '<leader>dgr', group = 'default lsp gr binds' },
+      { '<leader>dc', group = '[c]all hierarchy' },
+      { '<leader>dr', group = 'Restart/Reset LSP functionality' },
+      { '<leader>dg', group = 'default LSP g binds' },
+      { '<leader>dgr', group = 'default LSP gr binds' },
     })
   end
 end

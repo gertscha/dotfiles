@@ -34,16 +34,16 @@ function M.config()
     silent = true, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = false, -- use `nowait` when creating keymaps
-    { '<leader>dl', lint.try_lint, desc = 'Lint Buffer' },
+    { '<leader>dl', lint.try_lint, desc = '[D]iagnostics [L]int Buffer' },
     {
       '<leader>dL',
       function()
         lint.try_lint('cspell')
       end,
-      desc = 'Lint Spellcheck',
+      desc = '[D]iagnostics [L]int Spellcheck',
     },
     {
-      '<leader>dRl',
+      '<leader>drl',
       function()
         vim.diagnostic.reset(
           lint.get_namespace('cspell'),

@@ -11,6 +11,7 @@ opt.autowrite = false -- Enable auto write if the buffer changes
 opt.hidden = true -- Allow buffers to exist in the background, otherwise
 -- you need to save before switching buffers, also needed for Toggleterm
 
+opt.shell = 'fish'
 opt.clipboard = 'unnamedplus' -- Sync with system clipboard
 opt.mouse = 'a' -- Enable mouse mode
 -- opt.spelllang = { "en" }
