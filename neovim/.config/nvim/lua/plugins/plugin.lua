@@ -15,11 +15,8 @@ return {
   -- git integration
   {
     'tpope/vim-fugitive',
-    cmd = 'Git',
-    keys = {
-      { '<leader>g', desc = 'Open Git' },
-    },
     tag = 'v3.7',
+    event = 'VeryLazy',
     config = function()
       -- open fugitive, for other bindings see g? when it is open or use :h fugitive
       require('which-key').add({
@@ -31,7 +28,10 @@ return {
         -- https://github.com/tpope/vim-fugitive/commit/9a4d730270882f9d39a411eb126143eda4d46963
         -- the work around is: https://github.com/tpope/vim-fugitive/issues/1495
         -- open Git and set the split to 50 rows high when opened
-        { '<leader>g', '<cmd>50split|0Git<CR>', desc = 'Open Git' },
+        { '<leader>g', '<cmd>50split|0Git<cr>', desc = 'Open Git' },
+        { '<leader>rd', '<cmd>Gdiff<cr>', desc = 'open git diff view' },
+        { '<leader>rm', '<cmd>Git mergetool<cr>', desc = 'open git merge tool' },
+        { '<leader>rB', '<cmd>Git blame --date=human<cr>', desc = 'git blame (file)' },
       })
     end,
   },

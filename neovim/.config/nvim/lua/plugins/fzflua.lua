@@ -160,6 +160,13 @@ function M.config()
         end,
         desc = '[S]earch S[p]ellcheck',
       },
+      {
+        '<leader>sn',
+        function()
+          fzflua.git_diff()
+        end,
+        desc = '[S]earch Git [D]iff',
+      },
     },
   })
 end

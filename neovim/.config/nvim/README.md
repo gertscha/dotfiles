@@ -59,7 +59,6 @@ from default)
 space => <leader>
 // Normal Mode
 <leader>p               Paste most recent yank
-<leader>r               Redo
 <leader>ya              Select entire buffer, going into visual mode
 <C-d>                   Jump half page down (keep always keep cursor centered)
 <C-u>                   Jump half page up (keep always keep cursor centered)
@@ -127,6 +126,7 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>ss              Search builtin fzf pickers
 <leader>sc              Search Files in Neovim config
 <leader>sP              Search Files in Neovim plugins implementations
+<leader>sn              Search Git files with a diff
 <leader>sm              Search manpages (unix)
 <leader>sM              Search marks
 <leader>sj              Search jumplist
@@ -180,6 +180,10 @@ Templates for the formatter config files can be created with `:FormatterSetup[..
 ## Fugitive (Git)
 ```
 <leader>g               Open fugitive window
+<leader>rd              Open diff tool
+<leader>rm              Open merge tool
+<leader>rb              Open blame float for current line (gitsigns plugin feature)
+<leader>rB              Open blame for all lines in file
 
 // while inside the fugitive buffer
 g?                      Show the help with all the keybinds
@@ -264,7 +268,7 @@ Selection of default vim keybinds
   [action]i[motion]     Perform action on one motion exclusive whitespace
   // Editing
     u                   Undo
-    <C-r>               Redo (<leader>r is also bound to this)
+    <C-r>               Redo
     r                   Replace character under cursor with what is typed next
     R                   Replace characters until ESC is pressed
     ==                  Align indent of current line

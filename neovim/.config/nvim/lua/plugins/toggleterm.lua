@@ -2,6 +2,7 @@
 local M = {
   'akinsho/toggleterm.nvim',
   cmd = 'Toggleterm',
+  tag = 'v2.13.1',
   keys = {
     {
       '<leader>ot',
@@ -10,26 +11,31 @@ local M = {
     },
   },
   opts = {
+    -- size can be a number or function which is passed the current terminal
+    size = function(term)
+      if term.direction == 'horizontal' then
+        return vim.o.lines * 0.9
+      elseif term.direction == 'vertical' then
+        return vim.o.columns * 0.5
+      end
+    end,
     open_mapping = [[<leader>ot]],
+    insert_mappings = false, -- allow open mapping in insert mode
+    terminal_mappings = true, -- allow open mapping in terminals
     hide_numbers = true,
     start_in_insert = true,
-    insert_mappings = false, -- if true, the mapping will also take effect in insert mode
-    terminal_mappings = true, -- if true, the mappings take effect in the opened terminal
-    persist_size = true, -- resizing can destroy previous output
-    persist_mode = false, -- reset to insert mode (since start_in_insert = true)
-    direction = 'float',
-    close_on_exit = true,
-    auto_scroll = true,
-    shell = 'zsh',
-    float_opts = {
-      width = vim.o.columns,
-      height = function()
-        return math.floor(vim.o.lines * 0.95)
-      end,
-      row = -1,
-      zindex = 90,
-      winblend = 0,
-    },
+    persist_mode = false,
+    persist_size = false,
+    -- shade_filetypes = {},
+    autochdir = false, -- change current dir when neovim changes
+    auto_scroll = true, -- automatically scroll to the bottom on terminal output
+    close_on_exit = true, -- close the terminal window when the process exits
+    clear_env = false, -- use only env vars from `env`, passed to jobstart()
+    -- Change the default shell. Can be a string or a function returning a string
+    shell = vim.o.shell,
+    shade_terminals = true,
+    shading_factor = '-30',
+    direction = 'horizontal',
   },
 }
 

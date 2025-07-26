@@ -42,9 +42,6 @@ keymap('n', '<leader>ya', 'ggVG<cr>', opts('Select all'))
 -- make cut not overwrite the paste buffer
 keymap('n', 'x', '"9x', opts('Cut'))
 
--- redo alternate bind
-keymap('n', '<leader>r', '<C-r>', opts('Redo'))
-
 -- Press jj to leave insert mode, convenient but janky
 --keymap('i', 'jj', '<ESC>', opts('Go to Normal Mode'))
 

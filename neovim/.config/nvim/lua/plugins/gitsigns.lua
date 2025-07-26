@@ -20,10 +20,11 @@ function M.config()
     numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
     linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
     word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+    -- use <leader>rb to see the git blame directly
+    current_line_blame = false, -- Toggle `:Gitsigns toggle_current_line_blame`
     watch_gitdir = { interval = 4000, follow_files = true },
     auto_attach = true,
     attach_to_untracked = false,
-    current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
     current_line_blame_opts = {
       virt_text = true,
       virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
@@ -40,9 +41,46 @@ function M.config()
       border = 'rounded',
       style = 'minimal',
       relative = 'cursor',
-      row = 0,
+      row = 1,
       col = 1,
     },
+
+    on_attach = function(bufnr)
+      local gitsigns = require('gitsigns')
+
+      local function map(mode, l, r, desc)
+        local opts = {}
+        opts.desc = desc
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+      end
+
+      -- Navigation
+      map('n', ']c', function()
+        if vim.wo.diff then
+          vim.cmd.normal({ ']c', bang = true })
+        else
+          gitsigns.nav_hunk('next')
+        end
+      end, 'next git hunk')
+
+      map('n', '[c', function()
+        if vim.wo.diff then
+          vim.cmd.normal({ '[c', bang = true })
+        else
+          gitsigns.nav_hunk('prev')
+        end
+      end, 'previous git hunk')
+
+      -- Text object
+      map({ 'o', 'x' }, 'gh', gitsigns.select_hunk, 'git hunk textobject')
+
+      map('n', '<leader>rb', function()
+        gitsigns.blame_line({ full = true })
+      end, 'git blame (line)')
+
+      -- for proper git actions I use fugitive
+    end,
   })
 end
 

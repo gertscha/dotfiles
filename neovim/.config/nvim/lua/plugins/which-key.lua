@@ -32,6 +32,7 @@ function M.config()
       { '<space>o', group = 'Open Screens' },
       { '<space>om', group = 'Markdown' },
       { '<space>t', group = 'Toggle' },
+      { '<space>r', group = 'Git tools' },
       { '<space>tw', group = 'Line width settings' },
       { '<space>ts', group = 'Command line visibility toggle' },
       { '<leader>d', group = 'diagnostics' },
