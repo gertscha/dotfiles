@@ -15,13 +15,15 @@ Stow creates symlinks in the target directory based on
 the structure inside the package.
 By default this happens in the parent directory.
 ```
-stow [package] # create symlinks
-stow -D [package] # remove created symlinks
-stow -R [package] # restow, first remove all, then add back
+stow --dotfiles [package] # create symlinks
+stow --dotfiles -D [package] # remove created symlinks
+stow --dotfiles -R [package] # restow, first remove all, then add back
 ```
 Cloning this repo into the home directory and then running
 the stow commands inside the dotfiles folder generates the
 symlinks in the correct locations.
+The `--dotfiles` is necessary to expand the `dot-` prefix of the files.
+My shells have this aliased so it is only needed for the initial setup.
 
 ## Windows
 On Windows I use `mklink` to manually create the symbolic link for Neovim.
