@@ -13,8 +13,4 @@ abbr --add coi init-conda
 abbr --add cod conda deactivate
 abbr --add coa conda activate
 
-if test -f "$XDG_CONFIG_HOME/wm-source.sh"
-    abbr --add startwm 'bash "$XDG_CONFIG_HOME/wm-source.sh"'
-end
-
 abbr --add mm rmpc

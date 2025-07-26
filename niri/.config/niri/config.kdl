@@ -63,11 +63,11 @@ input {
     }
 
     // Uncomment this to make the mouse warp to the center of newly focused windows.
-    // warp-mouse-to-focus
+    warp-mouse-to-focus mode="center-xy"
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows fully on screen.
-    focus-follows-mouse max-scroll-amount="25%"
+    focus-follows-mouse max-scroll-amount="15%"
 
     // Normally, switching to the same workspace by index twice will do nothing
     // If this flag is enabled, switching to the same workspace by index twice will
@@ -370,18 +370,20 @@ window-rule {
     default-window-height { proportion 0.5; }
     open-floating true
 }
-// file selector popups (uses nautilus since Niri uses the Gnome Portal)
+// file selector popups
+// including nautilus (since Niri uses the Gnome Portal)
 window-rule {
     match app-id="org.gnome.Nautilus"
+    match app-id="org.kde.filelight" title="Select Folder to Scan — Filelight"
     default-column-width { proportion 0.33; }
     default-window-height { proportion 0.5; }
     open-floating true
 }
 
-// thunderbird
+// zoom is troublesome with wayland in general, but especially bad in tilers
 window-rule {
-    match app-id=r#"thunderbird"#
-    default-column-width { proportion 0.75; }
+    match app-id="zoom"
+    open-floating true
 }
 
 // Steam notifications do not use a custom notification backend
@@ -398,12 +400,17 @@ window-rule {
 
 // full width apps
 window-rule {
-    match app-id="obsidian"
     match app-id="Vivaldi-flatpak"
     match app-id=r#"^.*\.ungoogled_chromium$"#
     match app-id="gimp"
     match app-id=r#"^steam_app_"#
     default-column-width { proportion 1.0; }
+}
+
+// 0.75 width apps
+window-rule {
+    match app-id=r#"thunderbird"#
+    default-column-width { proportion 0.75; }
 }
 
 // 0.66 width apps
@@ -414,6 +421,7 @@ window-rule {
     match app-id="one.ablaze.floorp"
     match app-id="zen"
     match app-id="steam" title="Steam"
+    match app-id="obsidian"
     default-column-width { proportion 0.66; }
 }
 
@@ -512,9 +520,11 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
-// spawn-at-startup "/usr/libexec/kf6/polkit-kde-authentication-agent-1"
-spawn-at-startup "swaync" // notificaton center
 
+// autostart does not work with system theme
+// currently use the wm-start script to launch these manually (have an alias)
+
+spawn-at-startup "swaync" // notificaton center
 // systemd (fix startup issues (for now), because suddenly the dependency I
 // have configured for them with niri.service.wants does not work anymore
 spawn-at-startup "systemctl" "--user" "start" "swaybg"
@@ -572,8 +582,8 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+apostrophe cooldown-ms=400 { show-hotkey-overlay; } // Mod + ?
 
-    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "alacritty"; }
-    Mod+Shift+Return { spawn "foot"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "foot"; }
+    Mod+Shift+Return { spawn "alacritty"; }
     Mod+E hotkey-overlay-title="Open File Explorer" { spawn "dolphin"; }
     Mod+Shift+E { spawn "nautilus"; }
     Mod+G hotkey-overlay-title="Open Calculator" { spawn "gnome-calculator" "-m" \
@@ -806,7 +816,7 @@ binds {
     Mod+Shift+R { set-window-width "25%"; }
     Mod+Ctrl+R { set-window-width "50%"; }
     Mod+T hotkey-overlay-title="Change Column Height" { switch-preset-window-height; }
-    Mod+Shift+T { set-window-height "33%"; }
+    Mod+Shift+T { set-window-height "50%"; }
     Mod+Ctrl+T { reset-window-height; }
 
     Mod+F hotkey-overlay-title="Maximize Column" { maximize-column; }
