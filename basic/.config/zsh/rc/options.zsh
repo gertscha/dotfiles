@@ -19,7 +19,6 @@ else
   export EDITOR='nvim'
 fi
 
-
 # extend path
 path+=("$HOME/.local/bin")
 path+=("$HOME/.local/share/go/bin")

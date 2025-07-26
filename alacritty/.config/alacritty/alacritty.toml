@@ -61,9 +61,6 @@ white = '#d7d7d7'
 bindings = [
     # window management
     { key = "N", mods = "Control|Alt", action = "CreateNewWindow" },
-    { key = "z", mods = "Control|Alt", action = "IncreaseFontSize" },
-    { key = "h", mods = "Control|Alt", action = "DecreaseFontSize" },
-    { key = "r", mods = "Control|Alt", action = "ResetFontSize" },
     # vi mode
     { key = "M", mods = "Control|Alt", action = "ToggleViMode" },
     { key = "q", mode = "Vi", action = "ToggleViMode" },
@@ -71,7 +68,7 @@ bindings = [
     { key = "$", mode = "Vi", action = "Last" },
     { key = 13, mode = "Vi", action = "FirstOccupied" }, # binds ^
     # search mode
-    { key = "s", mods = "Control|Alt", action = "SearchBackward" },
+    { key = "r", mods = "Control|Shift", action = "SearchBackward" },
     { key = "q", mode = "Search", action = "SearchCancel" },
     { key = "c", mode = "Search", action = "SearchClear" },
     # fix numpad behavior (for nvim)

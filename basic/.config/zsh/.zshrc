@@ -12,6 +12,11 @@ setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 
 # prompt config
+# add OSC-133;A escape sequence before each prompt
+precmd_prompt_marker() {
+    print -Pn "\e]133;A\e\\"
+}
+# add conda info (if set)
 precmd_conda_info() {
     CONDA_ENV=""
     if [[ -n $CONDA_DEFAULT_ENV ]]; then
@@ -19,6 +24,7 @@ precmd_conda_info() {
     fi
 }
 autoload -Uz vcs_info
+precmd_functions+=( precmd_prompt_marker )
 precmd_functions+=( vcs_info )
 precmd_functions+=( precmd_conda_info )
 zstyle ':vcs_info:git:*' formats '[%F{blue}%b%f]'
