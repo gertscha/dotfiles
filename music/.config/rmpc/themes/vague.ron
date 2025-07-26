@@ -146,7 +146,8 @@
             (
                 left: [],
                 center: [
-                    (kind: Property(Song(Title)), style: (fg: "#cdcdcd", modifiers: "Bold"),
+                    (kind: Property(Song(Title)),
+                        style: (fg: "#cdcdcd", modifiers: "Bold"),
                         default: (kind: Text("No Song"), style: (fg: "#cdcdcd"))
                     )
                 ],
@@ -176,6 +177,10 @@
                     (kind: Property(Status(Elapsed)), style: (fg: "#6e94b2")),
                     (kind: Text(" / "), style: (fg: "#6e94b2")),
                     (kind: Property(Status(Duration)), style: (fg: "#6e94b2")),
+                    (kind: Text(" ("), style: (fg: "#6e94b2")),
+                    (kind: Property(Status(QueueTimeRemaining(separator: ""))),
+                        style: (fg: "#6e94b2")),
+                    (kind: Text(")"), style: (fg: "#6e94b2")),
                 ],
                 center: [],
                 right: [
