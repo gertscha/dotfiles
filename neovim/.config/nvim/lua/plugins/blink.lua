@@ -19,18 +19,23 @@ return {
         lazydev = {
           name = 'LazyDev',
           module = 'lazydev.integrations.blink',
-          score_offset = 100,
+          score_offset = 10,
           max_items = 10,
           min_keyword_length = 2,
         },
         lsp = {
           max_items = 20,
-          min_keyword_length = 2,
+          min_keyword_length = 1,
+          fallbacks = {}, -- this allows enables Buffer when LSP is active
         },
-        snippets = { max_items = 5 },
+        snippets = {
+          max_items = 8,
+          min_keyword_length = 1,
+          score_offset = 2,
+        },
         path = {
-          max_items = 3,
-          min_keyword_length = 3,
+          max_items = 8,
+          min_keyword_length = 0,
           opts = {
             get_cwd = function(_)
               return vim.fn.getcwd()
@@ -38,8 +43,9 @@ return {
           },
         },
         buffer = {
-          max_items = 5,
-          min_keyword_length = 3,
+          max_items = 3,
+          min_keyword_length = 2,
+          score_offset = -3,
         },
       }, -- providers
     }, -- sources
@@ -102,8 +108,7 @@ return {
             -- use icons and highlights from mini.icons
             kind_icon = {
               text = function(ctx)
-                local kind_icon, _, _ =
-                  require('mini.icons').get('lsp', ctx.kind)
+                local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
                 return kind_icon
               end,
               highlight = function(ctx)
