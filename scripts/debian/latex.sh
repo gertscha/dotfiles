@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 # nala install texlive latexmk texlive-science
-sudo nala install texlive-base texlive-science
+sudo apt install texlive-base texlive-science

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 eval `keychain -q --eval --absolute --dir "$XDG_DATA_HOME/keychain"`
 
