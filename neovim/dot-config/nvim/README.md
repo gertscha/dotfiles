@@ -119,6 +119,7 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>sh              Search Neovim Help
 <leader>sb              Search Open Buffers
 <leader>sr              Search Files in Git Repository
+<leader>sn              Search Git Diff's
 <leader>sd              Search LSP (everything related to symbol under cursor)
 <leader>sp              Search Spellcheck
 <leader>sg              Search with Grep
@@ -128,8 +129,9 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>sP              Search Files in Neovim plugins implementations
 <leader>sn              Search Git files with a diff
 <leader>sm              Search manpages (unix)
-<leader>sM              Search marks
-<leader>sj              Search jumplist
+<leader>sM              Search Vim marks
+<leader>sj              Search Vim jumplist
+<leader>sR              Search Vim registers
 <leader><leader>        Resume previous search
 
 
@@ -162,9 +164,11 @@ gI                      Go to implementation
 grn                     Rename all references to the symbol under the cursor
 grr                     Search references
 grt                     Go to type definition
-gda                     Get available code actions
-gds                     Get document symbols
-gdS                     Get workspace symbols
+gra                     Get available code actions
+grs                     Get document symbols
+grS                     Get workspace symbols
+grm                     Search diagnostic messages (buffer)
+grM                     Search diagnostic messages (workspace)
 K                       LSP Hover
 <leader>df              Format Buffer
 <leader>dl              Lint Buffer

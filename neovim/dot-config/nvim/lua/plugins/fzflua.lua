@@ -77,18 +77,18 @@ function M.config()
         desc = '[S]earch [F]iles',
       },
       {
-        '<leader>sr',
-        function()
-          fzflua.git_files()
-        end,
-        desc = '[S]earch Git [R]epository',
-      },
-      {
         '<leader>sh',
         function()
           fzflua.helptags()
         end,
         desc = '[S]earch [H]elp',
+      },
+      {
+        '<leader>ss',
+        function()
+          fzflua.builtin()
+        end,
+        desc = '[S]earch Builtin Pickers',
       },
       {
         '<leader>sb',
@@ -119,11 +119,32 @@ function M.config()
         desc = '[S]earch [J]umplist',
       },
       {
-        '<leader>ss',
+        '<leader>sc',
         function()
-          fzflua.builtin()
+          fzflua.files({ cwd = vim.fn.stdpath('config') })
         end,
-        desc = 'Search Builtin Pickers',
+        desc = '[S]earch [C]onfig files',
+      },
+      {
+        '<leader>sr',
+        function()
+          fzflua.git_files()
+        end,
+        desc = '[S]earch Git [R]epository',
+      },
+      {
+        '<leader>sR',
+        function()
+          fzflua.registers()
+        end,
+        desc = '[S]earch [R]egisters',
+      },
+      {
+        '<leader>sn',
+        function()
+          fzflua.git_diff()
+        end,
+        desc = '[S]earch Git Diff',
       },
       {
         '<leader>sm',
@@ -140,20 +161,6 @@ function M.config()
         desc = '[S]earch [M]arks',
       },
       {
-        '<leader>sc',
-        function()
-          fzflua.files({ cwd = vim.fn.stdpath('config') })
-        end,
-        desc = '[S]earch [C]onfig files',
-      },
-      {
-        '<leader>sP',
-        function()
-          fzflua.files({ cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy') })
-        end,
-        desc = '[S]earch [P]lugin implementations',
-      },
-      {
         '<leader>sp',
         function()
           fzflua.spellcheck()
@@ -161,11 +168,11 @@ function M.config()
         desc = '[S]earch S[p]ellcheck',
       },
       {
-        '<leader>sn',
+        '<leader>sP',
         function()
-          fzflua.git_diff()
+          fzflua.files({ cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy') })
         end,
-        desc = '[S]earch Git [D]iff',
+        desc = '[S]earch [P]lugin implementations',
       },
     },
   })
