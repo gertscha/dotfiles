@@ -25,6 +25,16 @@ function M.config()
     end
   end
 
+  local chafa = vim.fn.executable('chafa')
+  local extensions = {}
+  if chafa == 1 then
+    extensions = {
+      ['png'] = { 'chafa' },
+      ['jpeg'] = { 'chafa' },
+      ['jpg'] = { 'chafa' },
+    }
+  end
+
   local fzflua = require('fzf-lua')
   if minimal then
     fzflua.setup({
@@ -53,6 +63,7 @@ function M.config()
         },
       },
       winopts = { fullscreen = true },
+      previewers = { builtin = { extensions = extensions } },
     })
   end
 

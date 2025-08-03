@@ -5,13 +5,16 @@ local Viewer = {}
 Viewer.__index = Viewer
 
 function Viewer:_display(row, col, width, height, image)
+  -- getting the tty is not correct currently (i think)
+  -- usin fzf-lua will cause it to stop working, assume it spawns some other
+  -- threads and io.popen() gets one of those?
   local proc = assert(io.popen('tty'))
   local tty_name = proc:read()
   proc:close()
 
   -- vim.notify(string.format('size: %dx%d', width, height), vim.log.levels.INFO)
 
-  local cmd = string.format('chafa -s %ix%i %s', width, height, image)
+  local cmd = string.format('chafa -s %ix%i "%s"', width, height, image)
   local output = nil
   local handle = io.popen(cmd)
   if handle then
@@ -22,8 +25,9 @@ function Viewer:_display(row, col, width, height, image)
     return
   end
   pcall(function()
+    -- vim.notify('writing to tty', vim.log.levels.INFO)
     local stdout = assert(io.open(tty_name, 'ab'))
-    -- format is format(row, col)
+    -- format is: format(row, col)
     stdout:write(('\x1b[s\x1b[%d;%dH'):format(row, col))
     stdout:write(output)
     stdout:write('\x1b[u')
