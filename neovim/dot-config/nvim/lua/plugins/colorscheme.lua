@@ -80,6 +80,7 @@ M[1].config = function()
   -- adjust some other highlights (due to transparency)
   -- for example visible on expanding lazy plugin info with enter
   vim.api.nvim_set_hl(0, 'Conceal', { fg = '#c48282' })
+  vim.cmd('hi statusline guibg=NONE')
 end
 
 return M

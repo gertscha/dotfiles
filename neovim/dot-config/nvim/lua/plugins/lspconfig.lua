@@ -82,6 +82,7 @@ function M.config()
 
   --  This function gets run when an LSP attaches to a particular buffer.
   vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('my-lsp-attach', { clear = true }),
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       -- nil check, should not happen
@@ -99,7 +100,10 @@ function M.config()
       -- formatting
       local conf_format = P_require('conform')
       local format_fun = nil
-      local lsp_format = client:supports_method('textDocument/formatting')
+      local lsp_format = client:supports_method(
+        vim.lsp.protocol.Methods.textDocument_formatting,
+        args.buf
+      )
       if lsp_format and not conf_format then
         format_fun = function()
           vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
@@ -143,10 +147,18 @@ function M.config()
       --
 
       -- blink.cmp takes care of this
-      -- if client:supports_method('textDocument/completion') then
+      -- if client:supports_method(
+      --     vim.lsp.protocol.Methods.textDocument_completion, args.buf)
+      -- then
       --   vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
       -- end
-      if client:supports_method('textDocument/implementation') then
+
+      if
+        client:supports_method(
+          vim.lsp.protocol.Methods.textDocument_implementation,
+          args.buf
+        )
+      then
         lspKeybind(
           args.buf,
           'gI',
@@ -155,19 +167,25 @@ function M.config()
           'LSP: [g]o to [I]implementation'
         )
       end
-      if client:supports_method('textDocument/rename') then
-        lspKeybind(
-          args.buf,
-          'grn',
-          vim.lsp.buf.rename,
-          'n',
-          'LSP: re[n]ame symbol'
+      if
+        client:supports_method(
+          vim.lsp.protocol.Methods.textDocument_rename,
+          args.buf
         )
+      then
+        lspKeybind(args.buf, 'grn', vim.lsp.buf.rename, 'n', 'LSP: re[n]ame symbol')
       end
-      if client:supports_method('textDocument/hover') then
+      if
+        client:supports_method(vim.lsp.protocol.Methods.textDocument_hover, args.buf)
+      then
         lspKeybind(args.buf, 'K', vim.lsp.buf.hover, 'n', 'LSP: Lookup Symbol')
       end
-      if client:supports_method('textDocument/declaration') then
+      if
+        client:supports_method(
+          vim.lsp.protocol.Methods.textDocument_declaration,
+          args.buf
+        )
+      then
         lspKeybind(
           args.buf,
           'gD',
@@ -176,7 +194,12 @@ function M.config()
           'LSP: [g]o to [D]eclaration'
         )
       end
-      if client:supports_method('textDocument/definition') then
+      if
+        client:supports_method(
+          vim.lsp.protocol.Methods.textDocument_definition,
+          args.buf
+        )
+      then
         -- Jump to the definition of the word under your cursor.
         --  To jump back, press <C-T>.
         lspKeybind(
@@ -191,7 +214,12 @@ function M.config()
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
-      if client:supports_method('documentHighlightProvider') then
+      if
+        client:supports_method(
+          vim.lsp.protocol.Methods.textDocument_documentHighlight,
+          args.buf
+        )
+      then
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           buffer = args.buf,
           callback = vim.lsp.buf.document_highlight,
@@ -205,7 +233,12 @@ function M.config()
 
       local fzflua = P_require('fzf-lua')
       if fzflua then
-        if client:supports_method('textDocument/references') then
+        if
+          client:supports_method(
+            vim.lsp.protocol.Methods.textDocument_references,
+            args.buf
+          )
+        then
           lspKeybind(
             args.buf,
             'grr',
@@ -214,7 +247,12 @@ function M.config()
             'LSP: get [r]eferences'
           )
         end
-        if client:supports_method('textDocument/typeDefinition') then
+        if
+          client:supports_method(
+            vim.lsp.protocol.Methods.textDocument_typeDefinition,
+            args.buf
+          )
+        then
           lspKeybind(
             args.buf,
             'grt',
@@ -223,7 +261,12 @@ function M.config()
             'LSP: get [t]ype definition'
           )
         end
-        if client:supports_method('textDocument/codeAction') then
+        if
+          client:supports_method(
+            vim.lsp.protocol.Methods.textDocument_codeAction,
+            args.buf
+          )
+        then
           lspKeybind(
             args.buf,
             'gra',
@@ -232,7 +275,12 @@ function M.config()
             'LSP: code [a]ctions'
           )
         end
-        if client:supports_method('textDocument/documentSymbol') then
+        if
+          client:supports_method(
+            vim.lsp.protocol.Methods.textDocument_documentSymbol,
+            args.buf
+          )
+        then
           lspKeybind(
             args.buf,
             'grs',
@@ -241,7 +289,9 @@ function M.config()
             'LSP: get [s]ymbols in document'
           )
         end
-        if client:supports_method('workspace/symbol') then
+        if
+          client:supports_method(vim.lsp.protocol.Methods.workspace_symbol, args.buf)
+        then
           lspKeybind(
             args.buf,
             'grS',
@@ -257,20 +307,34 @@ function M.config()
           'n',
           '[S]earch [d]iagnostics for symbol under cursor'
         )
-        lspKeybind(
-          args.buf,
-          '<leader>dci',
-          fzflua.lsp_incoming_calls,
-          'n',
-          'LSP: [i]ncoming calls'
-        )
-        lspKeybind(
-          args.buf,
-          '<leader>dco',
-          fzflua.lsp_outgoing_calls,
-          'n',
-          'LSP: [o]utgoing calls'
-        )
+        if
+          client:supports_method(
+            vim.lsp.protocol.Methods.callHierarchy_incomingCalls,
+            args.buf
+          )
+        then
+          lspKeybind(
+            args.buf,
+            '<leader>dci',
+            fzflua.lsp_incoming_calls,
+            'n',
+            'LSP: [i]ncoming calls'
+          )
+        end
+        if
+          client:supports_method(
+            vim.lsp.protocol.Methods.callHierarchy_outgoingCalls,
+            args.buf
+          )
+        then
+          lspKeybind(
+            args.buf,
+            '<leader>dco',
+            fzflua.lsp_outgoing_calls,
+            'n',
+            'LSP: [o]utgoing calls'
+          )
+        end
         lspKeybind(
           args.buf,
           'grm',
