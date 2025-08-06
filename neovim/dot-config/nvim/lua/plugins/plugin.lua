@@ -45,17 +45,6 @@ return {
       fast_wrap = {},
     },
   },
-  -- LSP setup for Neovim provided Lua functions
-  {
-    'folke/lazydev.nvim',
-    ft = 'lua', -- only load on lua files
-    opts = {
-      library = {
-        -- Load luvit types when the `vim.uv` word is found
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-      },
-    },
-  },
   -- key press visualization
   {
     'nvzone/showkeys',

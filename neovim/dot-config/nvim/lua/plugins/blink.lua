@@ -10,19 +10,11 @@ return {
   opts = {
     sources = {
       default = { 'lsp', 'snippets', 'path', 'buffer' },
-      per_filetype = {
-        -- add lazydev to your completion providers (for lua only)
-        lua = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
-      },
-      -- add lazydev as source (for require statements and module annotations)
+      -- can also be adjusted for a filetype
+      -- per_filetype = {
+      --   lua = { 'someother provider', 'lsp', 'path', 'snippets', 'buffer' },
+      -- },
       providers = {
-        lazydev = {
-          name = 'LazyDev',
-          module = 'lazydev.integrations.blink',
-          score_offset = 10,
-          max_items = 10,
-          min_keyword_length = 2,
-        },
         lsp = {
           max_items = 20,
           min_keyword_length = 1,

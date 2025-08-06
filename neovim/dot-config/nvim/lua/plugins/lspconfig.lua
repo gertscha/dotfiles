@@ -70,6 +70,16 @@ function M.config()
     },
   })
 
+  vim.lsp.config('lua_ls', {
+    settings = {
+      Lua = {
+        workspace = {
+          library = vim.api.nvim_get_runtime_file('', true),
+        },
+      },
+    },
+  })
+
   -- mason-lspconfig automates the lsp server setup for mason installed servers
   -- servers not installed with Mason need to be enabled manually
   require('mason-lspconfig').setup({
