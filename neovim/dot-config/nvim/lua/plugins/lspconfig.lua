@@ -79,11 +79,12 @@ function M.config()
       },
     },
   })
+  vim.lsp.enable('lua_ls')
 
   -- mason-lspconfig automates the lsp server setup for mason installed servers
   -- servers not installed with Mason need to be enabled manually
   require('mason-lspconfig').setup({
-    ensure_installed = { 'lua_ls', 'texlab', 'clangd', 'pyright' },
+    ensure_installed = { 'texlab', 'clangd', 'pyright' },
     automatic_enable = true,
   })
 
@@ -104,8 +105,10 @@ function M.config()
       -- enable snacks.indent, otherwise an error popup if entering file with
       -- harpoon that does not have clear scopes, so we require a LSP for first
       -- enable, or do it manually with the key bind (a bug, on dfe44a6, v0.11.2)
-      local snacks_indent = require('snacks.indent')
-      snacks_indent.enable()
+      local snacks_indent = P_require('snacks.indent')
+      if snacks_indent then
+        snacks_indent.enable()
+      end
 
       -- formatting
       local conf_format = P_require('conform')

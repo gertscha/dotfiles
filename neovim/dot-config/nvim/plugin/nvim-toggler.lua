@@ -1,3 +1,6 @@
+-- fork of: 'nguyenvukhang/nvim-toggler'
+-- allows toggling of binary values
+-- keybind: <leader>i
 local log = {}
 local banner = function(msg)
   return '[nvim-toggler] ' .. msg
@@ -149,19 +152,42 @@ function app:setup(opts)
   if not self.opts.remove_default_keybinds then
     vim.keymap.set({ 'n', 'v' }, '<leader>i', function()
       self:toggle()
-    end, { silent = true, desc = 'Invert Text' })
+    end, { noremap = true, silent = true, desc = 'Invert Text' })
   end
 end
 
-return {
-  setup = function(opts)
-    app:setup(opts)
-  end,
-  toggle = function()
-    app:toggle()
-  end,
-  reset = function()
-    app.inv_tbl:reset()
-    app.opts = {}
-  end,
-}
+-- return {
+--   setup = function(opts)
+--     app:setup(opts)
+--   end,
+--   toggle = function()
+--     app:toggle()
+--   end,
+--   reset = function()
+--     app.inv_tbl:reset()
+--     app.opts = {}
+--   end,
+-- }
+
+-- Lazy load on first use
+vim.keymap.set({ 'n', 'v' }, '<leader>i', function()
+  app:setup({
+    inverses = {
+      ['true'] = 'false',
+      ['True'] = 'False',
+      ['TRUE'] = 'FALSE',
+      ['yes'] = 'no',
+      ['on'] = 'off',
+      ['left'] = 'right',
+      ['up'] = 'down',
+      ['enable'] = 'disable',
+      ['!='] = '==',
+      ['<'] = '>=',
+      ['>'] = '<=',
+    },
+    remove_default_keybinds = false,
+    remove_default_inverses = false,
+    autoselect_longest_match = true,
+  })
+  app:toggle()
+end, { noremap = true, silent = true, desc = 'Invert Text' })

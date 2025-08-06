@@ -59,7 +59,7 @@ from default)
 space => <leader>
 // Normal Mode
 <leader>p               Paste most recent yank
-<leader>ya              Select entire buffer, going into visual mode
+ga                      Select entire buffer, going into visual mode
 <C-d>                   Jump half page down (keep always keep cursor centered)
 <C-u>                   Jump half page up (keep always keep cursor centered)
 n                       Go to next search match (keeps the cursor centered)

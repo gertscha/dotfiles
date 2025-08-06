@@ -1,3 +1,7 @@
+-- Small plugin to get image previews for binary image files in nvim
+-- uses chafa and overwrites the tty with the output
+-- auto-triggering currently has some issues, but manual eybind works
+-- on cursor move the preview gets removed
 ---@class Viewer
 ---@field config {value: any, context: any}
 ---@field state {value: any, context: any}
@@ -14,7 +18,7 @@ function Viewer:_display(row, col, width, height, image)
 
   -- vim.notify(string.format('size: %dx%d', width, height), vim.log.levels.INFO)
 
-  local cmd = string.format('chafa -s %ix%i "%s"', width, height, image)
+  local cmd = string.format('chafa -s %ix%i --colors 256 "%s"', width, height, image)
   local output = nil
   local handle = io.popen(cmd)
   if handle then
@@ -97,17 +101,10 @@ function Viewer.new()
   return newViewer
 end
 
-local the_viewer = Viewer:new()
-
 ---@param self Viewer
 ---@param partial_config
 ---@return Viewer
 function Viewer.setup(self, partial_config)
-  if self ~= the_viewer then
-    partial_config = self
-    self = the_viewer
-  end
-
   local defaults = {
     filetypes = {
       png = true,
@@ -152,7 +149,34 @@ function Viewer.setup(self, partial_config)
     self.state.hooks_setup = true
   end
 
-  return self
+  -- default keybinds
+  vim.keymap.set('n', '<leader>tpc', function()
+    self:clean()
+  end, { noremap = true, silent = true, desc = 'Clear image' })
+  vim.keymap.set('n', '<leader>tps', function()
+    self:show_buf()
+  end, { noremap = true, silent = true, desc = 'Show image' })
 end
 
-return the_viewer
+local the_viewer = nil
+local function initmyviewer()
+  if not the_viewer then
+    the_viewer = Viewer:new()
+    -- adjust the config here
+    the_viewer:setup({
+      -- filetypes = {
+      --   jpg = false,
+      -- },
+    })
+  end
+  return the_viewer
+end
+-- Lazy load
+vim.keymap.set('n', '<leader>tpc', function()
+  local view = initmyviewer()
+  view:clean()
+end, { noremap = true, silent = true, desc = 'Clear image' })
+vim.keymap.set('n', '<leader>tps', function()
+  local view = initmyviewer()
+  view:show_buf()
+end, { noremap = true, silent = true, desc = 'Show image' })
