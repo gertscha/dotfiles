@@ -10,13 +10,8 @@ local M = {
 }
 
 M[1].config = function()
-  -- only make transparent if Foot terminal is used
-  local term = os.getenv('TERM')
-  local transparent = false
-  if term == 'foot' or term == 'tmux-256color' then transparent = true end
-
   require('vague').setup({
-    transparent = transparent, -- i.e. don't set background color
+    transparent = true, -- i.e. don't set background color
 
     -- bold/italic global setting in `style`s, i.e. on/off
     bold = true,
