@@ -38,22 +38,52 @@ local function formatMode(str)
   return str
 end
 
+-- lsp progress spinner, inspired by:
+-- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md#-examples
+-- but adjusted to show status spinner in lualine instead
+local spinner =
+  { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+local spinner_pos = 1
+local lsp_has_progress = false
+-- autocommand to detect lsp status changes, spinner shown with status_info()
+vim.api.nvim_create_autocmd('LspProgress', {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local value = ev.data.params.value
+    if not client or type(value) ~= 'table' then return end
+    if value.kind == 'begin' or value.kind == 'report' then
+      lsp_has_progress = true
+    elseif value.kind == 'end' then
+      lsp_has_progress = false
+      vim.notify('Attached LSP Server', vim.log.levels.INFO, {
+        id = 'lsp_progress',
+        title = client.name,
+      })
+    else
+      vim.notify('LSP progress error (lualine.lua)', vim.log.levels.ERROR)
+    end
+  end,
+})
+
 local function status_info()
   -- Obsession.vim: [$] -> on and [S] -> off
   local ses_st = vim.fn.ObsessionStatus()
+  local ses_icon = '󰅖'
+  if ses_st == '[$]' then ses_icon = '' end
+
   -- LSP, returns a list of attached servers for the current buffer, take length
   local lsp_st = #(vim.lsp.get_clients({ bufnr = 0 }))
-  if ses_st == '[$]' and lsp_st > 0 then
-    return '   '
-  elseif ses_st == '[$]' and lsp_st == 0 then
-    return '   󰅖'
-  elseif (ses_st == '[S]' or ses_st == '') and lsp_st > 0 then
-    return ' 󰅖  '
-  elseif (ses_st == '[S]' or ses_st == '') and lsp_st == 0 then
-    return ' 󰅖  󰅖'
-  else
-    return 'ERR'
+  local lsp_icon = '󰅖'
+  if lsp_st > 0 then
+    if lsp_has_progress then
+      spinner_pos = math.fmod(spinner_pos + 1, #spinner) + 1 -- one indexed
+      lsp_icon = spinner[spinner_pos]
+    else
+      lsp_icon = ''
+    end
   end
+
+  return string.format(' %s  %s', ses_icon, lsp_icon)
 end
 
 -- status line at the bottom of the buffers
@@ -81,9 +111,13 @@ local M = {
       always_divide_middle = false,
       globalstatus = false,
       refresh = {
-        statusline = 2000,
-        tabline = 2000,
-        winbar = 2000,
+        statusline = 1000,
+        tabline = 5000,
+        winbar = 5000,
+        refresh_time = 41, -- 24 FPS
+        -- events = {
+        --   'LspProgress',
+        -- },
       },
     },
     sections = {
