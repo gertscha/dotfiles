@@ -165,3 +165,23 @@ trick please bless me with the knowledge).
 There is an install script that should cover the required packages, see
 `scripts/debian/sway-install.sh`.
 
+
+# Dependencies
+Main programs I use (included in Base):
+- [fish](https://fishshell.com/)
+- [tmux](https://github.com/tmux/tmux/wiki)
+- [lf](https://github.com/gokcehan/lf)
+- [zoxide](https://github.com/ajeetdsouza/zoxide)
+- [zsh](https://sourceforge.net/p/zsh/code) (fallback POSIX shell)
+
+Programs that have a full stow directory:
+- [foot](https://codeberg.org/dnkl/foot) (separate due to various versions I use)
+- [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
+- [rmpc](https://mierak.github.io/rmpc/) and [mpd](https://www.musicpd.org/)
+([Music](#Music))
+- [Alacritty](https://alacritty.org/) (my fallback cross-platform terminal)
+
+Display Manager based desktop setups:
+- [niri](https://github.com/YaLTeR/niri)
+- [sway](https://swaywm.org/)
+See [Niri](#niri) and [Sway](#sway) sections.

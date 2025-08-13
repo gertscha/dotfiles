@@ -31,3 +31,6 @@ fish_add_path ~/.local/share/go/bin
 fish_add_path ~/build_sys/install/bin
 fish_add_path ~/.local/share/cargo/bin
 
+if type -q zoxide
+    zoxide init --cmd cd fish | source
+end

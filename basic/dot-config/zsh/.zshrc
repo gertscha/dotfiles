@@ -57,3 +57,7 @@ if command -v keychain &> /dev/null; then
     # make sure we follow the custom path
     alias keychain="keychain --absolute --dir \"$XDG_DATA_HOME/keychain\""
 fi
+
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init --cmd cd zsh)"
+fi
