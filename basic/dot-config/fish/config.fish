@@ -32,5 +32,7 @@ fish_add_path ~/build_sys/install/bin
 fish_add_path ~/.local/share/cargo/bin
 
 if type -q zoxide
+    set -x _ZO_RESOLVE_SYMLINKS '1'
+    set -x _ZO_DATA_DIR "$XDG_DATA_HOME/zoxide"
     zoxide init --cmd cd fish | source
 end

@@ -59,5 +59,7 @@ if command -v keychain &> /dev/null; then
 fi
 
 if command -v zoxide &> /dev/null; then
+    export _ZO_RESOLVE_SYMLINKS='1'
+    export _ZO_DATA_DIR="$XDG_DATA_HOME/zoxide"
     eval "$(zoxide init --cmd cd zsh)"
 fi
