@@ -106,9 +106,7 @@ function M.config()
       -- harpoon that does not have clear scopes, so we require a LSP for first
       -- enable, or do it manually with the key bind (a bug, on dfe44a6, v0.11.2)
       local snacks_indent = P_require('snacks.indent')
-      if snacks_indent then
-        snacks_indent.enable()
-      end
+      if snacks_indent then snacks_indent.enable() end
 
       -- formatting
       local conf_format = P_require('conform')
@@ -348,20 +346,6 @@ function M.config()
             'LSP: [o]utgoing calls'
           )
         end
-        lspKeybind(
-          args.buf,
-          'grm',
-          fzflua.diagnostics_document,
-          'n',
-          'LSP: diagnostics [m]essages in buffer'
-        )
-        lspKeybind(
-          args.buf,
-          'grM',
-          fzflua.diagnostics_workspace,
-          'n',
-          'LSP: diagnostics [M]essages in workspace'
-        )
       end
     end,
   })

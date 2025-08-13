@@ -39,6 +39,7 @@ vim.g.maplocalleader = ' '
 
 -- select all bind
 keymap('n', 'ga', 'ggVG<cr>', opts('Select all'))
+keymap('n', 'gy', '<cmd>%y<cr>', opts('Yank Select all'))
 -- make cut not overwrite the paste buffer
 keymap('n', 'x', '"9x', opts('Cut'))
 
@@ -114,8 +115,12 @@ keymap('t', '<esc>', '<c-\\><c-n>', opts('Escape the terminal'))
 -- navigate entries of the current quickfix list
 keymap('n', '<M-n>', '<cmd>cnext<cr>', opts('Quickfix list next'))
 keymap('n', '<M-p>', '<cmd>cprev<cr>', opts('Quickfix list previous'))
--- close quickfix list
+-- open/close quickfix list
+keymap('n', '<M-w>', '<cmd>copen<cr>', opts('Open Quickfix list'))
 keymap('n', '<M-q>', '<cmd>cclose<cr>', opts('Close Quickfix list'))
+
+-- run the current line in lua (nice when configruing neovim)
+keymap('n', '<leader>x', '<cmd>.lua<cr>', opts('Run current line (Lua)'))
 
 -- session management
 keymap('n', '<leader>lt', function()
@@ -172,6 +177,7 @@ keymap({ 'n', 'v', 'i' }, '<C-z>', '<nop>', { silent = true })
 keymap('n', 'Q', '<nop>', { silent = true })
 keymap('n', '<C-j>', '<nop>', { silent = true }) -- move line down, causes conflicts
 keymap('n', '<C-f>', '<nop>', { silent = true }) -- page down, use <C-d> instead
+keymap('n', '<C-b>', '<nop>', { silent = true }) -- page up, use <C-u> instead
 keymap('n', '<F1>', '<nop>', { silent = true }) -- would open help, accidental when pressing ESC
 
 -- change default bindings for LSP, all of these have better alternatives using fzf

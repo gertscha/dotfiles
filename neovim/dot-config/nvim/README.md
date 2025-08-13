@@ -31,14 +31,14 @@ Check that you have the
 
 Then clone the neovim repo, checkout the release tag of the version you want
 and run:
-```
+``` bash
 make CMAKE_BUILD_TYPE=Release
 sudo make install
 ```
 
 When updating the installation to a new release, first uninstall (only do this
 if you used sudo make install):
-```
+``` bash
 sudo cmake --build build/ --target uninstall
 ```
 then checkout the new release tag with `git` and run the install make commands
@@ -55,11 +55,10 @@ manage plugins with `:Lazy`.
 ## Adjusted & Custom Global Keybinds
 Adjusted keybinds have a alteration remark in braces i.e. key - effect (deviation
 from default)
-```
+``` text
 space => <leader>
 // Normal Mode
 <leader>p               Paste most recent yank
-ga                      Select entire buffer, going into visual mode
 <C-d>                   Jump half page down (keep always keep cursor centered)
 <C-u>                   Jump half page up (keep always keep cursor centered)
 n                       Go to next search match (keeps the cursor centered)
@@ -76,8 +75,10 @@ x                       Cut (goes into register 9 instead of 1)
 ```
 
 ## Misc
-```
+``` text
 // Normal Mode
+  ga                    Select entire buffer, going into visual mode
+  gy                    Yank entire buffer
   // Oil
   -                     Open Oil filemanager float, if already open, go up one level
   q                     Exit // changes must be saved manually
@@ -102,9 +103,14 @@ x                       Cut (goes into register 9 instead of 1)
   // Quickfix list
   <M-n>                 Quickfix list next
   <M-p>                 Quickfix list previous
+  <M-w>                 Open Quickfix list
   <M-q>                 Close Quickfix list
   // Treesitter
-  <cr>                  Visual select next incremental outer scope
+  <leader><cr>          Start incremental scope selection
+  <cr>                  Extend incremental scope selection
+  <bs>                  Reduce incremental scope selection
+  // Neovim config
+  <leader>x             Execute the current line (as Lua no context)
 // Insert Mode
   <A-e>                 Enter FastWrap mode (Autopairs)
 // All Modes (except visual block)
@@ -113,7 +119,7 @@ x                       Cut (goes into register 9 instead of 1)
 ```
 
 ## Search (fzf-lua)
-```
+``` text
 // Normal Mode
 <leader>sf              Search Files
 <leader>sh              Search Neovim Help
@@ -156,7 +162,7 @@ Use `:LspInfo` to get a status on the language server\
 Use `:Mason` to manage the language servers\
 Most of these keybindings work on the symbol under the cursor and are only
 available if the LSP server supports the functionality
-```
+``` text
 // Normal Mode
 gd                      Go to definition
 gD                      Go to declaration
@@ -177,12 +183,14 @@ K                       LSP Hover
 <leader>dci             Search incoming calls
 <leader>drs             Restart LSP server
 <leader>dr              rebind of the default gr keybinds (without fzf-lua)
+// Insert Mode
+<C-s>                   Show Signature Help
 ```
 
 Templates for the formatter config files can be created with `:FormatterSetup[...]`.
 
 ## Fugitive (Git)
-```
+``` text
 <leader>g               Open fugitive window
 <leader>rd              Open diff tool
 <leader>rm              Open merge tool
@@ -220,7 +228,7 @@ r<Space>                Populate command line with ":Git rebase "
 ```
 
 ## Harpoon
-```
+``` text
 <leader>a               Add current file to the swap list
 <leader>h               Toggle quick menu showing the complete list
 <leader>m               Go to file 1
@@ -232,13 +240,12 @@ r<Space>                Populate command line with ":Git rebase "
 ```
 
 ## Completion - blink
-```
+``` text
 <C-space>               Show completion menu
 <C-e>                   Close completion menu
 <Enter>                 Accept selected completion
 <C-n> or <Tab>          Select next item in the completion list
 <C-p>                   Select previous item the completion list
-<C-k>                   Show signature popup
 <C-Tab>                 Go forward in the snippet
 <S-Tab>                 Go backwards in the snippet
 <C-b>                   Scroll documentation up
@@ -246,7 +253,7 @@ r<Space>                Populate command line with ":Git rebase "
 ```
 
 ## Markdown Preview
-```
+``` text
 // inside Neovim
 <leader>omb             Toggle Markdown preview in nvim (uses basic highlighting)
 // external browser window
@@ -266,7 +273,7 @@ ShowKeys can only be enabled with the command (`ShowkeysToggle`).
 
 ## Default Keybinds
 Selection of default vim keybinds
-```
+``` text
 // Normal Mode
   [action]a[motion]     Perform action on one motion inclusive whitespace
   [action]i[motion]     Perform action on one motion exclusive whitespace
@@ -289,11 +296,15 @@ Selection of default vim keybinds
     g~[motion]          Swap character case based on motion (g~~ does whole line)
     gU                  Make upper case based on motion (gUU does whole line)
     gu                  Make lower case based on motion (guu does whole line)
+    gi                  Resume insert mode from where it was last left
     .                   Repeat last command
     &                   Repeat last substitute (&& also keeps flags as well)
-    gww                 Format line to fit textwidth (or 80 if no textwidth set)
+    gw[motion]          Format line to fit textwidth (or 80 if no textwidth set)
+    gq[motion]          Format lines, similar to gw but first tries 'formatexpr'
+                        and 'formatprg' and only then falls back to textwidth
     [<space>            Insert empty line above
     ]<space>            Insert empty line below
+    <C-v>               Next input will be verbatim (to insert sequence like ESC)
   // Cursor Movement
     $                   Goto end of current line
     0                   Goto beginning of current line
@@ -312,6 +323,10 @@ Selection of default vim keybinds
     :[number]           Goto line [number] or bottom if no number
     { and }             Jump paragraphs
     /                   Search forward
+    ?                   Search backward
+    *                   Search word under cursor (forwards)
+    g*                  Search word under cursor (allow partial matches)
+    #                   Search word under cursor (backwards)
     gn                  Goto next match of previous search and enter visual mode
     gN                  Goto previous match of previous search and enter visual mode
     %                   Goto matching matching brace, on same line goto brace face cursor
@@ -322,6 +337,8 @@ Selection of default vim keybinds
     ;                   Repeat previous f,F,t,T movement
     ,                   Repeat previous f,F,t,T movement backwards
     H,L,M               Move the cursor to Top,Bottom,Middle of the screen
+    {count}%            Jump to count percent position of file
+    {count}|            Jump to count column on current line
     {count}<C-e>        Scroll count lines down, keep cursor in place
   // Indentation
     >>                  Indent line
@@ -354,11 +371,13 @@ Selection of default vim keybinds
   // Utility
     gx                  Open URl under the cursor with system default handler
     gf                  Open the file(path) under the cursor (searches path)
+    gv                  Resume last visual selection
     zg                  Add word under cursor to spellfile (see :h spell)
     zw                  Mark the word under cursor as a wrong (bad) word
-    z=                  Suggset corrections for word under cursor
+    z=                  Suggest corrections for word under cursor
     {count}<C-g>        Show file info, no count just shows name & info, setting
                         count gives full path, count > 1 also gives buffer number
+    q:                  Open command history (a special buffer, run cmd with <cr>)
 // Insert Mode
   // Entering Insert Mode
     i                   before cursor
@@ -371,10 +390,13 @@ Selection of default vim keybinds
                         useful for example to edit macros
   // Actions in Insert Mode
     <C-h>               Delete character before cursor
-    <C-j>               Same as Newline
+    <C-j> & <C-m>       Same as Newline
+    <C-i>               Insert a tab
+    <C-v>               Insert verbatim (like backspace control sequence, etc)
     <C-e>               Copy character from line below
     <C-y>               Copy character from line above
     <C-w>               Delete word before the cursor
+    <C-a>               Paste last inserted text
     <C-u>               Undo last insertion, or complete line if no insertion
     <C-t>               Indent current line one shiftwidth
     <C-d>               De-indent current line one shiftwidth
@@ -382,6 +404,7 @@ Selection of default vim keybinds
     ^<C-d>              De-indent line fully (restores indent for next line)
     <C-o>               Issue one normal mode command
     <C-r>{register}     Paste the contents of {register}
+    <C-g>j/k            Go line down/up
     <C-K>               Enter a digraph (see :dig and :h diagraph)
                         For example '-M' creates an Em Dash (—)
 // Visual Mode
@@ -395,6 +418,25 @@ Selection of default vim keybinds
   [a,i]t                Mark block <>
   u                     Make lower case
   U                     Make upper case
+// Search Mode (search open, i.e. not confiremd yet with enter)
+<C-g>                   Preview next search match
+<C-t>                   Preview previous search match
+```
+
+# Commands
+Useful commands that can be used in the vim command line, i.e. `:`.
+``` text
+e[dit]                  Open a file or creat it (not written to disk)
+e!                      Discard unsaved changes in buffer and reload from disk
+enew                    Open a scratch buffe
+{range}norm[!]          Run commands in normal mode (! ignores custom keybinds)
+{range}cop <line>       Copy range and paste as new lines at line (+0 is below)
+g/<pattern>/<cmd>       Perform cmd on lines which match pattern
+v/<pattern>/<cmd>       Perform cmd on lines that do not match pattern
+se ve=all               Enable virtualedit to allow movement over empty space
+.!                      Run a shell command and pipe the output into the
+                        current buffer (also bound to !! in normal mode)
+                        overwrites lines, starting from cursor position
 ```
 
 # Registers
@@ -405,7 +447,7 @@ Using lower case overwrites the contents, uppercase appends to them.
 
 The 10 numbered registers "0 to "9 contain the delete and paste history.
 Contents from "1 onward get pushed higher with new edits (1 to 2, 2 to 3, etc).
-```
+``` text
 :reg[isters]            show registers content
 "xy                     yank into register x
 "xp                     paste contents of register x
@@ -414,7 +456,7 @@ Contents from "1 onward get pushed higher with new edits (1 to 2, 2 to 3, etc).
 <C-r>x                  paste contents of register x while in insert mode
 ```
 Special registers:
-```
+``` text
 0 - last yank
 1 - last text deleted or changed
 " - unnamed register, last delete or yank
@@ -431,7 +473,7 @@ _ - black hole register
 ```
 
 # Macros
-```
+``` text
 q[0-9a-z]               Start recording into the register, use [A-Z] to append actions
 q                       Stop recording if a recording is ongoing (from normal mode)
 @[0-9a-z]               Run macro in the register (can also prefix a count)
@@ -443,7 +485,7 @@ A local mark is specific to a file and uses a lowercase letter\
 Global marks are universal across all files and use uppercase letters.\
 To jump to a mark either use a backtick (\`) or an apostrophe (\').\
 Using an apostrophe jumps to the first character on the line holding the mark.
-```
+``` text
 :marks                  View list of marks
 ma                      Set current position for mark A
 `a                      jump to position of mark A
@@ -473,7 +515,7 @@ g;                      Go to older position in change list
 `:echo &filetype` to get the type of the current buffer (to add a ftplugin)
 
 # Format Strings for Time and Date
-```
+``` text
 Format String           Example output
 %c                      Thu 27 Sep 2007 07:37:42 AM EDT
 %a %d %b %Y             Thu 27 Sep 2007
@@ -489,18 +531,18 @@ Format String           Example output
 ```
 
 # Sessions
-```
+``` text
 :mksession [name]       Save current session, optionally give file [name]
                         if no file name given the default is Session.vim is used
 :source <name>          Load the session stored in <name>
 ```
 Or use the following keybinds:
-```
+``` text
 <leader>ls              Save current state
 <leader>lg              Load the previously saved state
 ```
 Or use automatic management, from `obsession.vim` (nice with `tmux` session restore):
-```
+``` text
 <leader>lt              Start automatic saving of state
 <leader>ldd             Stop automatic saving and delete existing state
 r                       On the splash screen, this loads the saved session

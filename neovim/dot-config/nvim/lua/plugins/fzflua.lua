@@ -209,6 +209,22 @@ function M.config()
       end,
       desc = '[S]earch [P]lugin implementations',
     },
+    {
+      'grm',
+      function()
+        if not setupdone then setupfzf() end
+        require('fzf-lua').diagnostics_document()
+      end,
+      desc = 'LSP: diagnostics [m]essages in buffer',
+    },
+    {
+      'grM',
+      function()
+        if not setupdone then setupfzf() end
+        require('fzf-lua').diagnostics_workspace()
+      end,
+      desc = 'LSP: diagnostics [M]essages in workspace',
+    },
   })
 end
 
