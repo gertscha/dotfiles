@@ -123,7 +123,7 @@ exec_always {
     # Custom Binds
     bindsym $mod+Shift+p exec wlogout -p layer-shell
     bindsym $mod+m exec nautilus
-    bindsym $mod+n exec chromium
+    bindsym $mod+n exec firefox
 
     # Restoring the Fn bindings (check with 'wev' package)
     bindsym XF86MonBrightnessDown exec brightnessctl -q set 1%-
