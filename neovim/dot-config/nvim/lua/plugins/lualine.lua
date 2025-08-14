@@ -55,10 +55,6 @@ vim.api.nvim_create_autocmd('LspProgress', {
       lsp_has_progress = true
     elseif value.kind == 'end' then
       lsp_has_progress = false
-      vim.notify('Attached LSP Server', vim.log.levels.INFO, {
-        id = 'lsp_progress',
-        title = client.name,
-      })
     else
       vim.notify('LSP progress error (lualine.lua)', vim.log.levels.ERROR)
     end

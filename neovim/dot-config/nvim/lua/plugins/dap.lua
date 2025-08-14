@@ -12,6 +12,18 @@ local M = {
   },
 }
 
+-- This has not been working for some time, and gdb has been sufficient
+-- for what I needed
+
+-- nvim-dap: https://github.com/mfussenegger/nvim-dap
+-- nvim-dap-ui: https://github.com/rcarriga/nvim-dap-ui
+-- nvim-dap-virtual-text: https://github.com/theHamsta/nvim-dap-virtual-text
+-- nvim-dap-go: https://github.com/leoluz/nvim-dap-go
+
+-- kickstart dap config: https://github.com/nvim-lua/kickstart.nvim/blob/master/lua/kickstart/plugins/debug.lua
+-- my dap config: https://github.com/adibhanna/nvim/blob/main/lua/plugins/dap.lua
+
+
 function M.config()
   local dap = require('dap')
   local ui = require('dapui')
