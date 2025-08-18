@@ -25,6 +25,9 @@ symlinks in the correct locations.
 The `--dotfiles` is necessary to expand the `dot-` prefix of the files.
 My shells have this aliased so it is only needed for the initial setup.
 
+I have encountered a bug with the `--dotfiles` option in version `stow` 2.3
+that was fixed with version 2.4.
+
 ## Windows
 On Windows I use `mklink` to manually create the symbolic link for Neovim.
 ```
