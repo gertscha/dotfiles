@@ -16,6 +16,8 @@ fi
 PATH=$PATH:~/.local/share/go/bin
 PATH=$PATH:~/.local/share/cargo/bin
 PATH=$PATH:~/build_sys/install/bin
+# set "local-bin-path: /home/..." in $STACK_ROOT/config.yml
+PATH=$PATH:~/.local/share/stack/bin
 
 export PATH
 

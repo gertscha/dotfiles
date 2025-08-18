@@ -24,6 +24,8 @@ path+=("$HOME/.local/bin")
 path+=("$HOME/.local/share/go/bin")
 path+=("$HOME/build_sys/install/bin")
 path+=("$HOME/.local/share/cargo/bin")
+# set "local-bin-path: /home/..." in $STACK_ROOT/config.yml
+path+=("$HOME/.local/share/stack/bin")
 
 # extend man path
 export MANPATH=$MANPATH:~/build_sys/install/man

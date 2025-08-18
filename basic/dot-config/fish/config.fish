@@ -30,6 +30,8 @@ end
 fish_add_path ~/.local/share/go/bin
 fish_add_path ~/build_sys/install/bin
 fish_add_path ~/.local/share/cargo/bin
+# set "local-bin-path: /home/..." in $STACK_ROOT/config.yml
+fish_add_path ~/.local/share/stack/bin
 
 if type -q zoxide
     set -x _ZO_RESOLVE_SYMLINKS '1'
