@@ -41,7 +41,7 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" # gtk 3 & 4 are XDG compliant
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
-export STACK_ROOT="$XDG_DATA_HOME/stack-root"
+export STACK_ROOT="$XDG_DATA_HOME/stack"
 
 
 if command -v keychain &> /dev/null; then
