@@ -1,0 +1,8 @@
+[Unit]
+Description=KMonad keyboard config
+
+[Service]
+Restart=always
+RestartSec=3
+ExecStart=%h/.local/share/stack/bin/kmonad %h/.config/config.kbd
+Nice=-20
