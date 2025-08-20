@@ -168,6 +168,14 @@ trick please bless me with the knowledge).
 There is an install script that should cover the required packages, see
 `scripts/debian/sway-install.sh`.
 
+To customize the built-in keyboard, with a symbol layer and home row mods, I use
+[KMonad](https://github.com/kmonad/kmonad). The systemd module and config file
+to run it on startup is setup is setup. However the config is specific to my
+laptop model and the de-CH locale I use.
+Install it with `stack build && stack install`, after cloning the repo and
+installing [stack](https://docs.haskellstack.org/en/stable/). If you are not
+using my shell configs you usually need to add the stack install location to the
+path.
 
 # Dependencies
 Main programs I use (included in Base):
