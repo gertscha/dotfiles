@@ -38,6 +38,7 @@ vim.filetype.add({
   extension = {
     vert = 'glsl',
     frag = 'glsl',
+    typ = 'typst',
   },
 })
 
