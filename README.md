@@ -183,16 +183,29 @@ Main programs I use (included in Base):
 - [tmux](https://github.com/tmux/tmux/wiki)
 - [lf](https://github.com/gokcehan/lf)
 - [zoxide](https://github.com/ajeetdsouza/zoxide)
+- [fzf](https://github.com/junegunn/fzf) (dependency of several core programs)
 - [zsh](https://sourceforge.net/p/zsh/code) (fallback POSIX shell)
 
 Programs that have a full stow directory:
 - [foot](https://codeberg.org/dnkl/foot) (separate due to various versions I use)
 - [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
 - [rmpc](https://mierak.github.io/rmpc/) and [mpd](https://www.musicpd.org/)
-([Music](#Music))
+(see [Music](#Music), optionally install [cava](https://github.com/karlstav/cava))
 - [Alacritty](https://alacritty.org/) (my fallback cross-platform terminal)
 
 Display Manager based desktop setups:
 - [niri](https://github.com/YaLTeR/niri)
 - [sway](https://swaywm.org/)
 See [Niri](#niri) and [Sway](#sway) sections.
+
+# Other Programs
+Some other programs that I usually install (no particular order)
+[euporie](https://github.com/joouha/euporie)  - TUI interface for jupyter notebooks
+[caligula](https://github.com/ifd3f/caligula) - single command wrapper for dd
+[wiremix](https://github.com/tsowell/wiremix)  - TUI frontend for pipewire
+[impala](https://github.com/pythops/impala)   - TUI WiFi manager (iwd frontend)
+[lazygit](https://github.com/jesseduffield/lazygit)  - TUI for git
+[posting](https://github.com/darrenburns/posting)  - TUI for HTML requests
+[chafa](https://github.com/hpjansson/chafa)    - Convert images into terminal formats
+[isw](https://gitlab.com/thom-cameron/isw)      - Terminal stop watch (pomodoro)
+

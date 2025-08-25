@@ -354,6 +354,7 @@ Selection of default vim keybinds
     <C-w>j              Switch to buffer below
     <C-w>k              Switch to buffer above
     <C-w>l              Switch to buffer on the right
+    <C-w>i              Open keyword under cursor in new split
     zz                  Center the cursor on screen, keeping it in place
     <C-e>               Move screen up one line
     <C-y>               Move screen down one line
@@ -375,6 +376,7 @@ Selection of default vim keybinds
     zg                  Add word under cursor to spellfile (see :h spell)
     zw                  Mark the word under cursor as a wrong (bad) word
     z=                  Suggest corrections for word under cursor
+    g<C-g>              Show cursor info, postition, word&byte count
     {count}<C-g>        Show file info, no count just shows name & info, setting
                         count gives full path, count > 1 also gives buffer number
     q:                  Open command history (a special buffer, run cmd with <cr>)
