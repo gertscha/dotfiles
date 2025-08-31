@@ -1,17 +1,20 @@
 # Installation
+This config requires at least Neovim 0.12.
 [Install Neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md).
 Then add the content of this repo in the `nvim` config folder.
 Use `:h $XDG_CONFIG_HOME` for more information or run `:echo stdpath('config')`
 to get the location.
 
-The config uses the [lazy.nvim](https://github.com/folke/lazy.nvim) plugin
-manager by folke. Setup should be automatic on first startup but a restart may
-be required.
+The config uses the Neovims default plugin manager, `vim.pack`.
+Setup is automatic on first startup.
 
 Be sure to run `:checkhealth` and fix any errors shown. The notifications are
 handled by [snacks.nvim](https://github.com/folke/snacks.nvim), shown in the
 top right, to view them again use `:Mes` or `:Messages` instead of the default
 `:mes`/`:messages`.
+
+In particular installing LSP servers with Mason is not automated. Use `:Mason`
+to install what you need.
 
 To display some of the icons a nerd-font needs to be available and setup for the
 terminal. Install one and set it up. On windows use Windows Terminal (get from

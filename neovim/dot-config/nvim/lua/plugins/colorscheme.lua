@@ -1,18 +1,16 @@
+---@return { spec: function, config: nil|function, priority: nil|string }
+
 local M = {
-  -- main theme
-  { 'vague2k/vague.nvim', lazy = false },
-  -- fallbacks
-  -- { 'catppuccin/nvim', name = 'catppuccin.nvim', lazy = true },
-  -- { 'everviolet/nvim', name = 'evergarden.nvim', lazy = true },
-  -- { 'ellisonleao/gruvbox.nvim', lazy = true },
-  -- { 'folke/tokyonight.nvim', lazy = true },
-  { 'rebelot/kanagawa.nvim', lazy = true },
+  spec = function(spec)
+    Add_plugin(spec, 'vague2k/vague.nvim', { version = 'v1.5.0' })
+    Add_plugin(spec, 'rebelot/kanagawa.nvim', nil)
+  end,
+  priority = 'b'
 }
 
-M[1].config = function()
+function M.config()
   require('vague').setup({
     transparent = true, -- i.e. don't set background color
-
     -- bold/italic global setting in `style`s, i.e. on/off
     bold = true,
     italic = true,
@@ -70,11 +68,8 @@ M[1].config = function()
       delta = '#f3be7c',
     },
   })
-  vim.cmd('colorscheme vague')
 
-  -- adjust some other highlights (due to transparency)
-  -- for example visible on expanding lazy plugin info with enter
-  vim.api.nvim_set_hl(0, 'Conceal', { fg = '#c48282' })
+  vim.cmd('colorscheme vague')
   vim.cmd('hi statusline guibg=NONE')
 end
 

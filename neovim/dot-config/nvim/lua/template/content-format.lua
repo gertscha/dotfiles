@@ -67,4 +67,21 @@ split_all_top_level_comma_separated_values = true
 split_before_dot = true
 join_multiple_lines = true
 column_limit = 85]],
+
+  editorconfig = [[
+# this is the top-most EditorConfig file
+root = true
+# defaults for all file types
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+[*.py]
+indent_style = space
+indent_size = 4
+[Makefile]
+indent_style = tab
+[{src/**.c,src/**.h}]
+indent_style = space
+indent_size = 2]],
 }

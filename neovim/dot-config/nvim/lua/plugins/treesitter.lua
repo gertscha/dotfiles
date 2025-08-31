@@ -1,15 +1,17 @@
--- better syntactic highlighting
+---@return { spec: function, config: nil|function, priority: nil|string }
+
 local M = {
-  'nvim-treesitter/nvim-treesitter',
-  build = ':TSUpdate',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter-context',
-  },
-  lazy = true,
-  -- branch = 'main', -- currently there is a rewrite in progress
-  branch = 'master',
-  event = 'User my.lazy.trigger',
-  tag = 'v0.10.0',
+  spec = function(spec)
+    -- master was archieved but is still default branch
+    -- manually specifiy the 'main' branch, but is incompatible
+    -- v0.10.0 works for neovim 0.10 to 0.12
+    Add_plugin(spec, 'nvim-treesitter/nvim-treesitter', { version = 'v0.10.0' })
+    Add_plugin(
+      spec,
+      'nvim-treesitter/nvim-treesitter-context',
+      { version = 'v1.0.0' }
+    )
+  end,
 }
 
 function M.config()
@@ -33,6 +35,7 @@ function M.config()
       'c',
       'cpp',
       'fish',
+      'regex',
     },
     ignore_install = { 'phpdoc' }, -- List of parsers to ignore installing
     -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -61,7 +64,7 @@ function M.config()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = '<leader><Enter>',
+        init_selection = '<Space><Enter>',
         node_incremental = '<Enter>',
         scope_incremental = false,
         node_decremental = '<BS>',
@@ -87,5 +90,21 @@ function M.config()
     })
   end
 end
+
+vim.api.nvim_create_autocmd('PackChanged', {
+  desc = 'Handle nvim-treesitter updates',
+  group = vim.api.nvim_create_augroup(
+    'nvim-treesitter-pack-changed-update-handler',
+    { clear = true }
+  ),
+  callback = function(event)
+    if event.data.kind == 'update' then
+      vim.notify('nvim-treesitter updated, running :TSUpdate', vim.log.levels.INFO)
+      ---@diagnostic disable-next-line: param-type-mismatch
+      local ok = pcall(vim.cmd, 'TSUpdate')
+      if not ok then vim.notify('TSUpdate failed', vim.log.levels.WARN) end
+    end
+  end,
+})
 
 return M

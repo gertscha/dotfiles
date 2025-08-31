@@ -1,3 +1,12 @@
+---@return { spec: function, config: nil|function, priority: nil|string }
+
+local M = {
+  spec = function(spec)
+    Add_plugin(spec, 'nvim-lualine/lualine.nvim', { version = 'a94fc68' })
+  end,
+  priority = 'f',
+}
+
 -- helper function, taken from the lualine.nvim wiki
 --- @param trunc_width number trunctates component when screen width is less then trunc_width
 --- @param trunc_len number truncates component to trunc_len number of chars
@@ -32,7 +41,6 @@ local mode_map = {
   ['TERMINAL'] = 'T',
   ['REPLACE'] = 'R',
 }
-
 local function formatMode(str)
   if vim.o.columns < 87 then return mode_map[str] or str end
   return str
@@ -83,11 +91,8 @@ local function status_info()
 end
 
 -- status line at the bottom of the buffers
-local M = {
-  'nvim-lualine/lualine.nvim',
-  event = 'User my.lazy.trigger',
-  -- lazy passes a table argument to the config function of the plugin
-  opts = {
+function M.config()
+  require('lualine').setup({
     options = {
       icons_enabled = true,
       theme = 'iceberg_dark',
@@ -169,7 +174,7 @@ local M = {
     winbar = {},
     inactive_winbar = {},
     extensions = {},
-  },
-}
+  })
+end
 
 return M

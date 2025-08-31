@@ -1,23 +1,28 @@
+---@return { spec: function, config: nil|function, priority: nil|string }
+
 local M = {
-  'folke/snacks.nvim',
-  priority = 1000,
-  lazy = false,
-  tag = 'v2.22.0',
-  opts = {
+  spec = function(spec)
+    Add_plugin(spec, 'folke/snacks.nvim', { version = 'v2.22.0' })
+  end,
+  priority = 'c',
+}
+
+function M.config()
+  local enable_notififer = true
+  require('snacks').setup({
     -- nicer ui for input windows (for example lsp.buf.rename)
     input = {
       enabled = true,
     },
     indent = {
       enabled = false,
-      hl = 'SnacksIndentBlank', -- vague.nvim does not highlight properly
+      animate = { enabled = false },
       -- to get only current scope markers:
       -- https://github.com/folke/snacks.nvim/discussions/332
       indent = { enabled = false },
-      animate = { enabled = false },
     },
     notifier = {
-      enabled = true,
+      enabled = enable_notififer,
       timeout = 2000,
       height = { min = 1, max = 0.4 },
       width = { min = 1, max = 0.6 },
@@ -34,10 +39,8 @@ local M = {
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
     words = { enabled = false },
-  },
-}
+  })
 
-function M.init()
   -- dashboard settings
   vim.keymap.set(
     'n',
@@ -55,16 +58,18 @@ function M.init()
     end
   end, { desc = 'Toggle Scope Markers' })
   -- notifier settings
-  vim.api.nvim_create_user_command(
-    'Mes',
-    'lua Snacks.notifier.show_history()<cr>',
-    {}
-  )
-  vim.api.nvim_create_user_command(
-    'Messages',
-    'lua Snacks.notifier.show_history()<cr>',
-    {}
-  )
+  if enable_notififer then
+    vim.api.nvim_create_user_command(
+      'Mes',
+      'lua Snacks.notifier.show_history()<cr>',
+      {}
+    )
+    vim.api.nvim_create_user_command(
+      'Messages',
+      'lua Snacks.notifier.show_history()<cr>',
+      {}
+    )
+  end
 end
 
 return M

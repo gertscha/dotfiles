@@ -1,55 +1,20 @@
 -- Shorten function name
 local keymap = vim.keymap.set
 
--- little function to set the options for keymap
+-- set leader key
+keymap('', '<Space>', '<Nop>', {})
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 ---@param desc string
 ---@return table
 local function opts(desc)
   return { desc = desc, noremap = true, silent = true }
 end
 
-local function cmdheighttoggle()
-  local val = vim.api.nvim_get_option_value('cmdheight', {})
-  if val == 0 then
-    vim.o.cmdheight = 1
-  else
-    vim.o.cmdheight = 0
-  end
-end
-
--- set leader key
-keymap('', '<Space>', '<Nop>', opts(''))
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
--- Modes
---   normal_mode = "n"
---   insert_mode = "i"
---   visual_mode = "v"
---   visual_block_mode = "x"
---   term_mode = "t"
---   command_mode = "c"
-
--- open file explorer in main buffer
--- keymap('n', '<leader>ea', function() vim.cmd.Lex("%:p:h") end, opts('Open netrw (current file)'))
--- keymap('n', '<leader>e', vim.cmd.Lex, opts('Open netrw (working directory)'))
-
--- alternate command bind
--- keymap('n', '<leader><leader>', ':', opts('Open Commandline'))
-
--- select all bind
-keymap('n', 'ga', 'ggVG<cr>', opts('Select all'))
-keymap('n', 'gy', '<cmd>%y<cr>', opts('Yank Select all'))
--- make cut not overwrite the paste buffer
-keymap('n', 'x', '"9x', opts('Cut'))
-
--- Press jj to leave insert mode, convenient but janky
---keymap('i', 'jj', '<ESC>', opts('Go to Normal Mode'))
-
--- Stay in indent mode when moving lines left or right
-keymap('v', '<', '<gv', opts('Indent to the left'))
-keymap('v', '>', '>gv', opts('Indent to the right'))
-
+-- Highlighting toggles
+keymap('n', '<leader>tlc', '<cmd>se cuc!<cr>', opts('Show Column Hi'))
+keymap('n', '<leader>tll', '<cmd>se cul!<cr>', opts('Show Line Hi'))
 -- toggle line length indicator, cc ~= colorcolumn
 keymap(
   'n',
@@ -57,11 +22,17 @@ keymap(
   "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
   opts('Toggle line length limit highlighting')
 )
--- toggle line wrap
+
+keymap('n', '<leader>tsc', function()
+  local val = vim.api.nvim_get_option_value('cmdheight', {})
+  if val == 0 then
+    vim.o.cmdheight = 1
+  else
+    vim.o.cmdheight = 0
+  end
+end, opts('Toggle command line visibility'))
+
 keymap('n', '<leader>twl', '<cmd>set wrap!<enter>', opts('Toggle line wrap'))
--- toggle command line height
-keymap('n', '<leader>tsc', cmdheighttoggle, opts('Toggle command line visibility'))
--- toggle textwidth
 keymap(
   'n',
   '<leader>tw0',
@@ -81,22 +52,24 @@ keymap(
   opts('Set line length limit to 120')
 )
 
--- make saving and quitting more convenient (mainly for Laptop keyboard)
--- keymap('n', 'QQ', '<cmd>q<enter>', opts('Close current buffer'))
--- keymap('n', 'WW', '<cmd>w<enter>', opts('Save current buffer'))
-
--- make paste use the most recent yank
 keymap('n', '<leader>p', '"0p', opts('Paste most recent yank'))
 keymap('v', '<leader>p', '"0p', opts('Paste most recent yank'))
 
+keymap('n', 'ga', 'ggVG<cr>', opts('Select all')) -- select all bind
+keymap('n', 'gA', '<cmd>ascii<cr>', opts('Character info')) -- rebind default ga
+keymap('n', 'gy', '<cmd>%y<cr>', opts('Yank Select all'))
+keymap('n', '<Esc>', '<cmd>nohlsearch<CR>') --
+
+-- Stay in indent mode when moving lines left or right
+keymap('v', '<', '<gv', opts('Indent to the left'))
+keymap('v', '>', '>gv', opts('Indent to the right'))
 -- keep cursor in place when appending lines
 keymap('n', 'J', 'mzJ`z', opts('Append line below to current line'))
 keymap('n', 'gJ', 'mzgJ`z', opts('Append line below to current line'))
-
+keymap('n', 'x', '"9x', opts('Cut')) -- make cut not overwrite the paste register
 -- use the default half page jump binds but always center them
 keymap('n', '<C-d>', '<C-d>zz', opts('Half page jump down'))
 keymap('n', '<C-u>', '<C-u>zz', opts('Half page jump up'))
-
 -- keep cursor centered when jumping while searching (and open folds)
 keymap('n', 'n', 'nzzzv', opts('Go to next search hit'))
 keymap('n', 'N', 'Nzzzv', opts('Go to previous search hit'))
@@ -112,14 +85,11 @@ keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", opts('Move current line down'))
 -- Easily hit escape in terminal mode.
 keymap('t', '<esc>', '<c-\\><c-n>', opts('Escape the terminal'))
 
--- navigate entries of the current quickfix list
-keymap('n', '<M-n>', '<cmd>cnext<cr>', opts('Quickfix list next'))
-keymap('n', '<M-p>', '<cmd>cprev<cr>', opts('Quickfix list previous'))
--- open/close quickfix list
+-- open/close quickfix list, navigate with '[q' and ']q'
 keymap('n', '<M-w>', '<cmd>copen<cr>', opts('Open Quickfix list'))
 keymap('n', '<M-q>', '<cmd>cclose<cr>', opts('Close Quickfix list'))
 
--- run the current line in lua (nice when configruing neovim)
+-- run the current line in lua (nice when configuring neovim)
 keymap('n', '<leader>x', '<cmd>.lua<cr>', opts('Run current line (Lua)'))
 
 -- session management
@@ -175,10 +145,10 @@ end, { desc = 'Yank diagnostic on current line' })
 -- Keymap for better default experience
 keymap({ 'n', 'v', 'i' }, '<C-z>', '<nop>', { silent = true })
 keymap('n', 'Q', '<nop>', { silent = true })
-keymap('n', '<C-j>', '<nop>', { silent = true }) -- move line down, causes conflicts
+keymap('n', '<C-j>', '<nop>', { silent = true }) -- navigate line down, conflicts
 keymap('n', '<C-f>', '<nop>', { silent = true }) -- page down, use <C-d> instead
 keymap('n', '<C-b>', '<nop>', { silent = true }) -- page up, use <C-u> instead
-keymap('n', '<F1>', '<nop>', { silent = true }) -- would open help, accidental when pressing ESC
+keymap('n', '<F1>', '<nop>', { silent = true }) -- open help, accidental presses
 
 -- change default bindings for LSP, all of these have better alternatives using fzf
 -- but to keep them as fallback they are rebound
@@ -192,3 +162,4 @@ vim.keymap.set('n', '<leader>dgO', 'vim.lsp.buf.document_symbol()', remapopts)
 vim.keymap.set('n', '<leader>dgri', 'vim.lsp.buf.implementation()', remapopts)
 vim.keymap.set('n', '<leader>dgra', 'vim.lsp.buf.code_actions()', remapopts)
 vim.keymap.set('n', '<leader>dgrr', 'vim.lsp.buf.references()', remapopts)
+vim.keymap.set('n', '<leader>dgrn', 'vim.lsp.buf.rename()', remapopts)

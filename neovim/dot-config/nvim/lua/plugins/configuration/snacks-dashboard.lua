@@ -33,16 +33,6 @@ local M = {
       indent = 1,
       padding = 1,
     },
-    -- {
-    --   tile = lazystats(),
-    --   align = 'center',
-    --   indent = 1,
-    --   padding = 1,
-    -- },
-    {
-      section = 'startup',
-      padding = 2,
-    },
     {
       title = 'Most Recently Used',
       align = 'center',
@@ -141,8 +131,7 @@ _____________________________________________________
         icon = '',
         key = 'u',
         desc = 'Update Plugins',
-        action = ':Lazy',
-        enabled = package.loaded.lazy ~= nil,
+        action = function() Update_plugins() end,
       },
       {
         icon = '',

@@ -1,7 +1,9 @@
+-- Still WIP
 -- Small plugin to get image previews for binary image files in nvim
 -- uses chafa and overwrites the tty with the output
--- auto-triggering currently has some issues, but manual eybind works
+-- auto-triggering currently has some issues, but manual keybind works
 -- on cursor move the preview gets removed
+
 ---@class Viewer
 ---@field config {value: any, context: any}
 ---@field state {value: any, context: any}

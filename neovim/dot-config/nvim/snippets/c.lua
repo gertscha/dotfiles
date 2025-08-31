@@ -1,20 +1,4 @@
-local ls = require('luasnip')
-local s = ls.snippet
-local t = ls.text_node
-local i = ls.insert_node
-
-local sn = ls.snippet_node
-local f = ls.function_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local r = ls.restore_node
-
-local events = require('luasnip.util.events')
-local extras = require('luasnip.extras')
-local rep = extras.rep
-local fmta = require('luasnip.extras.fmt').fmta
-
--- require("luasnip.session.snippet_collection").clear_snippets "c"
+---@diagnostic disable: undefined-global
 
 local function header_guard()
   local filename = vim.fn.expand('%:t')

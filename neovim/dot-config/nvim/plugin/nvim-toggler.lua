@@ -1,6 +1,7 @@
 -- fork of: 'nguyenvukhang/nvim-toggler'
 -- allows toggling of binary values
 -- keybind: <leader>i
+
 local log = {}
 local banner = function(msg)
   return '[nvim-toggler] ' .. msg

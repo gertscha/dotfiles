@@ -1,20 +1,20 @@
+---@return { spec: function, config: nil|function, priority: nil|string }
+
 local M = {
-  'lewis6991/gitsigns.nvim',
-  tag = 'release',
-  event = 'User my.lazy.trigger',
-  cmd = 'Gitsigns',
+  spec = function(spec)
+    Add_plugin(spec, 'lewis6991/gitsigns.nvim', { version = 'v1.0.2' })
+  end,
 }
 
 function M.config()
-  local icons = require('settings.icons')
   require('gitsigns').setup({
     signs = {
-      add = { text = icons.ui.BoldLineMiddle },
-      change = { text = icons.ui.BoldLineDashedMiddle },
-      delete = { text = icons.ui.BoldDividerRight },
-      topdelete = { text = icons.ui.TriangleShortArrowRight },
-      changedelete = { text = icons.ui.BoldLineMiddle },
-      untracked = { text = icons.ui.BoldDividerLeft },
+      add = { text = '┃' },
+      change = { text = '┋' },
+      delete = { text = '' },
+      topdelete = { text = '' },
+      changedelete = { text = '┃' },
+      untracked = { text = '' },
     },
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
     numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
