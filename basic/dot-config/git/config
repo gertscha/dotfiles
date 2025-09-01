@@ -2,7 +2,7 @@
 	editor = nvim
 	whitespace = space-before-tab,trailing-space
 	preloadindex = true
-	excludesfile = ~/dotfiles/.gitignore
+	excludesfile = ~/.config/git/gitignore
 [init]
 	defaultBranch = main
 [color]
@@ -19,7 +19,7 @@
 [push]
 	default = current
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 [rebase]
 	autoStash = true
 	missingCommitsCheck = warn
