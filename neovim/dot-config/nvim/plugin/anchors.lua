@@ -114,7 +114,7 @@ local AP = {
 --- INTERNAL: determine the save file name (based on cwd)
 ---@return string?
 function AP.func.get_save_file_name()
-  local statedir = vim.fn.stdpath('data') .. '/sticky'
+  local statedir = vim.fn.stdpath('data') .. '/anchors'
   local basedir = vim.uv.cwd()
   if type(basedir) ~= 'string' then
     vim.notify(
