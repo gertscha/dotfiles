@@ -6,8 +6,8 @@
 # plugins, and themes.
 # For a full list of active aliases, run `alias`.
 alias stow='stow --dotfiles'
-alias ls='ls -A --color=auto'
-alias ll='ls -lAh --color=auto'
+alias ls='ls -A --hyperlink --color=auto'
+alias ll='ls -lAh --hyperlink --color=auto'
 alias grep='grep --color=auto'
 alias cl='clear'
 alias vi='nvim'
