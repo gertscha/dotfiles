@@ -70,20 +70,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- end
 
     if
-      client:supports_method(
-        vim.lsp.protocol.Methods.textDocument_implementation,
-        args.buf
-      )
-    then
-      lspKeybind(
-        'n',
-        'gI',
-        vim.lsp.buf.implementation,
-        args.buf,
-        'LSP: [g]o to [I]implementation'
-      )
-    end
-    if
       client:supports_method(vim.lsp.protocol.Methods.textDocument_rename, args.buf)
     then
       lspKeybind('n', 'grn', vim.lsp.buf.rename, args.buf, 'LSP: re[n]ame symbol')
@@ -92,36 +78,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       client:supports_method(vim.lsp.protocol.Methods.textDocument_hover, args.buf)
     then
       lspKeybind('n', 'K', vim.lsp.buf.hover, args.buf, 'LSP: Lookup Symbol')
-    end
-    if
-      client:supports_method(
-        vim.lsp.protocol.Methods.textDocument_declaration,
-        args.buf
-      )
-    then
-      lspKeybind(
-        'n',
-        'gD',
-        vim.lsp.buf.declaration,
-        args.buf,
-        'LSP: [g]o to [D]eclaration'
-      )
-    end
-    if
-      client:supports_method(
-        vim.lsp.protocol.Methods.textDocument_definition,
-        args.buf
-      )
-    then
-      -- Jump to the definition of the word under your cursor.
-      -- To jump back, press <C-T>.
-      lspKeybind(
-        'n',
-        'gd',
-        vim.lsp.buf.definition,
-        args.buf,
-        'LSP: [g]o to [d]efinition'
-      )
     end
 
     -- The following two autocommands are used to highlight references of the
@@ -144,8 +100,54 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
     end
 
+    -- if fzflua is not available, there are fallback keybinds to the default
+    -- nvim functions behind <leader>d, defined in lua/settings/keybinds.lua
     local fzflua = P_require('fzf-lua')
     if fzflua then
+      if
+        client:supports_method(
+          vim.lsp.protocol.Methods.textDocument_definition,
+          args.buf
+        )
+      then
+        -- Jump to the definition of the word under your cursor.
+        -- To jump back, press <C-T>.
+        lspKeybind(
+          'n',
+          'gd',
+          fzflua.lsp_definitions,
+          args.buf,
+          'LSP: [g]o to [d]efinition'
+        )
+      end
+      if
+        client:supports_method(
+          vim.lsp.protocol.Methods.textDocument_declaration,
+          args.buf
+        )
+      then
+        lspKeybind(
+          'n',
+          'gD',
+          fzflua.lsp_declarations,
+          args.buf,
+          'LSP: [g]o to [D]eclaration'
+        )
+      end
+      if
+        client:supports_method(
+          vim.lsp.protocol.Methods.textDocument_implementation,
+          args.buf
+        )
+      then
+        lspKeybind(
+          'n',
+          'gri',
+          fzflua.lsp_implementations,
+          args.buf,
+          'LSP: [g]o to [I]implementation'
+        )
+      end
       if
         client:supports_method(
           vim.lsp.protocol.Methods.textDocument_references,

@@ -73,6 +73,8 @@ keymap('n', '<C-u>', '<C-u>zz', opts('Half page jump up'))
 -- keep cursor centered when jumping while searching (and open folds)
 keymap('n', 'n', 'nzzzv', opts('Go to next search hit'))
 keymap('n', 'N', 'Nzzzv', opts('Go to previous search hit'))
+-- center after going to bottom of file
+keymap('n', 'G', 'Gzzzv', opts('Go to bottom of file'))
 
 -- move lines around
 keymap('n', '<A-j>', '<cmd>m .+1<CR>==', opts('Move current line down'))
@@ -87,7 +89,7 @@ keymap('t', '<esc>', '<c-\\><c-n>', opts('Escape the terminal'))
 
 -- open/close quickfix list, navigate with '[q' and ']q'
 keymap('n', '<M-w>', '<cmd>copen<cr>', opts('Open Quickfix list'))
-keymap('n', '<M-q>', '<cmd>cclose<cr>', opts('Close Quickfix list'))
+keymap('n', '<M-q>', '<cmd>cclose | lclose<cr>', opts('Close Quickfix/Location list'))
 
 -- run the current line in lua (nice when configuring neovim)
 keymap('n', '<leader>x', '<cmd>.lua<cr>', opts('Run current line (Lua)'))
@@ -151,15 +153,17 @@ keymap('n', '<C-b>', '<nop>', { silent = true }) -- page up, use <C-u> instead
 keymap('n', '<F1>', '<nop>', { silent = true }) -- open help, accidental presses
 
 -- change default bindings for LSP, all of these have better alternatives using fzf
--- but to keep them as fallback they are rebound
+-- but to keep them as fallback they are rebound behind <leader>d
 local remapopts = { noremap = true, silent = true }
 vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'grn')
 vim.keymap.del('n', 'gO')
-vim.keymap.set('n', '<leader>dgO', 'vim.lsp.buf.document_symbol()', remapopts)
-vim.keymap.set('n', '<leader>dgri', 'vim.lsp.buf.implementation()', remapopts)
-vim.keymap.set('n', '<leader>dgra', 'vim.lsp.buf.code_actions()', remapopts)
-vim.keymap.set('n', '<leader>dgrr', 'vim.lsp.buf.references()', remapopts)
-vim.keymap.set('n', '<leader>dgrn', 'vim.lsp.buf.rename()', remapopts)
+vim.keymap.set('n', '<leader>dgO', vim.lsp.buf.document_symbol, remapopts)
+vim.keymap.set('n', '<leader>dgd', vim.lsp.buf.definition, remapopts)
+vim.keymap.set('n', '<leader>dgD', vim.lsp.buf.declaration, remapopts)
+vim.keymap.set('n', '<leader>dgri', vim.lsp.buf.implementation, remapopts)
+vim.keymap.set('n', '<leader>dgra', vim.lsp.buf.code_action, remapopts)
+vim.keymap.set('n', '<leader>dgrr', vim.lsp.buf.references, remapopts)
+vim.keymap.set('n', '<leader>dgrn', vim.lsp.buf.rename, remapopts)
