@@ -9,7 +9,8 @@ local M = {
     Add_plugin(
       spec,
       'nvim-treesitter/nvim-treesitter-context',
-      { version = 'v1.0.0' }
+      -- disable to to performance issues (stutter on scroll over big context changes)
+      { version = 'v1.0.0', enabled = false }
     )
   end,
 }
@@ -72,7 +73,7 @@ function M.config()
     },
   })
 
-  local mod = P_require('treesitter-context')
+  local mod = P_require('treesitter-context', true)
   if mod then
     mod.setup({
       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
