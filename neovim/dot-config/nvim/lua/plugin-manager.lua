@@ -9,32 +9,42 @@ local plugin_directory = vim.fn.stdpath('config') .. '/lua/plugins'
 
 ---protected require
 ---@param module string
+---@param optional boolean?
 ---@return table?
-function P_require(module)
+function P_require(module, optional)
   local ok, m = pcall(require, module)
   if not ok then
-    vim.notify(
-      'P_rquire failed to load module "' .. module .. '"',
-      vim.log.levels.WARN
-    )
+    if not optional then
+      vim.notify(
+        'P_rquire failed to load module "' .. module .. '"',
+        vim.log.levels.WARN
+      )
+    end
     return nil
   end
   return m
 end
 
+---@class PluginOpts
+---@field version string?
+---@field name string?
+---@field enabled boolean?
+
 ---add plugin to spec
 ---@param spec table
 ---@param name string
----@param options table?
+---@param options PluginOpts?
 function Add_plugin(spec, name, options)
   local plugin = {
     src = 'https://github.com/' .. name,
   }
+  local enabled = true
   if options then
     if options.version then plugin.version = options.version end
     if options.name then plugin.name = options.name end
+    if options.enabled ~= nil then enabled = options.enabled end
   end
-  table.insert(spec, plugin)
+  if enabled then table.insert(spec, plugin) end
 end
 
 ---centralized function to update the plugins
@@ -47,6 +57,15 @@ end
 vim.api.nvim_create_user_command('Plug', function()
   Update_plugins()
 end, { desc = 'Update Plugins (confirm with :w)' })
+
+vim.api.nvim_create_user_command('PlugClean', function()
+  local plugins = vim.pack.get()
+  local remove = {}
+  for _, v in ipairs(plugins) do
+    if not v.active then table.insert(remove, v.spec.name) end
+  end
+  vim.pack.del(remove)
+end, { desc = 'Clean Plugins that are not active' })
 
 -- small local helper for priority sorting
 --- create iterator over t that is sorted by keys (and comp f)
