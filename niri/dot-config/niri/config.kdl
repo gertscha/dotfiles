@@ -390,7 +390,7 @@ window-rule {
 // this makes the placement better
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
-    default-floating-position x=10 y=10 relative-to="bottom-right"
+    default-floating-position x=10 y=10 relative-to="top-right"
 }
 window-rule {
     match app-id="steam" title="Friends List"
