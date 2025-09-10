@@ -128,7 +128,6 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>sh              Search Neovim Help
 <leader>sb              Search Open Buffers
 <leader>sr              Search Files in Git Repository
-<leader>sn              Search Git Diff's
 <leader>sd              Search LSP (everything related to symbol under cursor)
 <leader>sp              Search Spellcheck
 <leader>sg              Search with Grep
