@@ -11,8 +11,7 @@ local M = {
 }
 
 function M.config()
-  vim.lsp.log.set_level('OFF')
-  -- vim.notify('running LSP config', vim.log.levels.INFO)
+  vim.lsp.log.set_level(vim.lsp.log.levels.WARN)
 
   require('mason').setup({
     ui = {
@@ -170,7 +169,7 @@ function M.config()
   )
 
   vim.api.nvim_create_user_command('LspLog', function()
-    vim.cmd(string.format('tabnew %s', vim.lsp.get_log_path()))
+    vim.cmd(string.format('tabnew %s', vim.lsp.log.get_filename()))
   end, { desc = 'Opens the Nvim LSP client log.' })
 
   vim.api.nvim_create_user_command('LspRestart', function(info)
