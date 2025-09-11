@@ -32,4 +32,19 @@ def main():
 
 if __name__ == "__main__":
     main()]],
+  nvimpluginspec = [[
+---@return { spec: function, config: nil|function, priority: nil|string }
+
+local M = {
+  spec = function(spec)
+    -- Add_plugin(spec, 'name', { version = 'v' })
+    -- Add_plugin(spec, 'name', nil)
+  end,
+  -- priority = 'z',
+}
+function M.config()
+
+end
+
+return M]],
 }

@@ -47,3 +47,7 @@ vim.api.nvim_create_user_command('TmplQuickPython', function(_)
   vim.api.nvim_paste(require('template.content-quickstart')['python'], false, -1)
   vim.cmd('write')
 end, {})
+
+vim.api.nvim_create_user_command('TmplNvimPluginSpec', function(_)
+  vim.api.nvim_paste(require('template.content-quickstart')['nvimpluginspec'], false, -1)
+end, {})
