@@ -1,0 +1,4 @@
+# set the defaut notebook location
+[notebook]
+dir = "~/Documents/ZkNotes"
+

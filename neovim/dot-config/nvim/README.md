@@ -1,5 +1,5 @@
 # Installation
-This config requires at least Neovim 0.12.
+[!IMPORTANT] This config requires at least Neovim 0.12.
 [Install Neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md).
 Then add the content of this repo in the `nvim` config folder.
 Use `:h $XDG_CONFIG_HOME` for more information or run `:echo stdpath('config')`
@@ -47,13 +47,18 @@ sudo cmake --build build/ --target uninstall
 then checkout the new release tag with `git` and run the install make commands
 again.
 
+## Other Dependencies
+I use Zettelkasten style notes and [zk](https://github.com/zk-org/zk) to manage
+them. The corresponding nvim plugin [zk-nvim](https://github.com/zk-org/zk-nvim)
+is disabled automatically if the `zk` command is not available.
+
 # Keybinds Reference
 This is a reference to the keybinds (sample of the default bindings at the end).
 "Which-Key" plugin is also installed.
 But this is just a reference, if you do not know the basics, learn those first.
 
 Also keep in mind that you can use commands directly for most plugins. And
-manage plugins with `:Lazy`.
+manage plugins with `:Plug`.
 
 ## Adjusted & Custom Global Keybinds
 Adjusted keybinds have a alteration remark in braces i.e. key - effect (deviation

@@ -11,7 +11,7 @@ require('blink.cmp').setup({
     providers = {
       lsp = {
         max_items = 20,
-        min_keyword_length = 1,
+        min_keyword_length = 0,
         fallbacks = {}, -- this allows Buffer source even when LSP is active
       },
       snippets = {
