@@ -28,6 +28,7 @@ function M.config()
       width = { min = 1, max = 0.6 },
       margin = { top = 2, right = 3, bottom = 0 },
     },
+    image = { enabled = true },
     -- dashboard configured in separate file
     dashboard = require('plugins.configuration.snacks-dashboard'),
     -- disable all the others explicitly (not technically needed)
