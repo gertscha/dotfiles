@@ -26,4 +26,4 @@ alias coa='conda activate'
 alias cod='conda deactivate'
 
 alias mm='rmpc'
-alias zkcd="cd $ZK_NOTEBOOK_DIR"
+alias zkcd="cd $HOME/$ZK_NOTEBOOK_DIR"

@@ -1,4 +1,4 @@
 # set the defaut notebook location
 [notebook]
-dir = "~/Documents/ZkNotes"
+dir = "$HOME/Documents/ZkNotes"
 
