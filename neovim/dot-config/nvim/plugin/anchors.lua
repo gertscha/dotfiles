@@ -87,6 +87,7 @@ local default_config = {
     ui = {
       { '<CR>', 'ui_select' },
       { 'q', 'close_ui' },
+      { '<ESC>', 'close_ui' },
     },
   },
 }

@@ -10,6 +10,7 @@ else
     lua = { 'luac' },
     sh = { 'bash' },
     c = { 'cppcheck' },
+    txt = { 'codespell', 'cspell' },
     -- css = { 'stylelint' },
     -- html = { 'htmlhint' },
   }
