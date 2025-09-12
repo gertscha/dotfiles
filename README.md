@@ -193,20 +193,20 @@ Programs that have a full stow directory:
 (see [Music](#Music), optionally install [cava](https://github.com/karlstav/cava))
 - [Alacritty](https://alacritty.org/) (my fallback cross-platform terminal)
 
-Display Manager based desktop setups:
+Display Manager based desktop setups (see [Niri](#niri) and [Sway](#sway)):
 - [niri](https://github.com/YaLTeR/niri)
 - [sway](https://swaywm.org/)
-See [Niri](#niri) and [Sway](#sway) sections.
+
 
 # Other Programs
-Some other programs that I usually install (no particular order)
-[euporie](https://github.com/joouha/euporie)  - TUI interface for jupyter notebooks
-[caligula](https://github.com/ifd3f/caligula) - single command wrapper for dd
-[wiremix](https://github.com/tsowell/wiremix)  - TUI frontend for pipewire
-[zk](https://github.com/zk-org/zk)       - Manage Zettelkasten style notes
-[impala](https://github.com/pythops/impala)   - TUI WiFi manager (iwd frontend)
-[lazygit](https://github.com/jesseduffield/lazygit)  - TUI for git
-[posting](https://github.com/darrenburns/posting)  - TUI for HTML requests
-[chafa](https://github.com/hpjansson/chafa)    - Convert images into terminal formats
-[isw](https://gitlab.com/thom-cameron/isw)      - Terminal stop watch (pomodoro)
+Some other programs that I usually install (no particular order)  
+[euporie](https://github.com/joouha/euporie)  - TUI interface for jupyter notebooks  
+[caligula](https://github.com/ifd3f/caligula) - single command wrapper for dd  
+[wiremix](https://github.com/tsowell/wiremix)  - TUI frontend for pipewire  
+[zk](https://github.com/zk-org/zk)       - Manage Zettelkasten style notes  
+[impala](https://github.com/pythops/impala)   - TUI WiFi manager (iwd frontend)  
+[lazygit](https://github.com/jesseduffield/lazygit)  - TUI for git  
+[posting](https://github.com/darrenburns/posting)  - TUI for HTML requests  
+[chafa](https://github.com/hpjansson/chafa)    - Convert images into terminal formats  
+[isw](https://gitlab.com/thom-cameron/isw)      - Terminal stop watch (pomodoro)  
 
