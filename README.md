@@ -112,6 +112,8 @@ should not be installed if you have sway-notification-center.
 I disabled `sddm` and use `niri-session` to launch Niri. Currently
 `gnome-keyring-daemon` handles my secrets. I mostly disabled `kwalletd`
 (causing a pop up to unlock the keyring in KDE).
+My ssh keys are managed with KeePassXC, using `keychain` and the built-in
+ssh-agent it has.
 
 #### Systemd
 You can either launch services with `spawn-at-startup` in the Niri config, or
@@ -143,15 +145,6 @@ Exec=env DISPLAY=:12 /some/binary`
 ```
 Default locations: `/usr/share/applications/` and `~/.local/share/applications/`
 
-I am considering adding (to my Niri setup):
-- `swww`
-
-> [!NOTE]
-> manual build of `swww`, it requires `lz4-devel` (and `wayland-protocols-devel`,
-> not verified by me). Also see build
-> [intructions](https://github.com/LGFae/swww?tab=readme-ov-file#build)
-> for swww. (some early experiments give bad overhead results, need more
-> testing)
 
 ## Sway
 I set this up for my Debian 12 Laptop. The base/fallback DE is Gnome.
