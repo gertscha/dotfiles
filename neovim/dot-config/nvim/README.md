@@ -6,7 +6,9 @@ Use `:h $XDG_CONFIG_HOME` for more information or run `:echo stdpath('config')`
 to get the location.
 
 The config uses the Neovims default plugin manager, `vim.pack`.
-Setup is automatic on first startup.
+Setup is automatic on first startup. But some other dependencies are needed:
+- tree-sitter-cli: `cargo install tree-sitter-cli --locked`
+- python-venv
 
 Be sure to run `:checkhealth` and fix any errors shown. The notifications are
 handled by [snacks.nvim](https://github.com/folke/snacks.nvim), shown in the

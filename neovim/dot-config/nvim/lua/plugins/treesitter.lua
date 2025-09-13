@@ -26,6 +26,7 @@ function M.config()
       'latex',
       'bash',
       'rust',
+      'yaml',
       'vim',
       'vimdoc',
       'go',
