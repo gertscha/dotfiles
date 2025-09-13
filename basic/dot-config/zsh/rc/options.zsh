@@ -12,7 +12,7 @@
 export EDITOR=nvim
 export SYSTEMD_EDITOR=nvim
 
-export ZK_NOTEBOOK_DIR="$(grep "^dir =" ~/.config/zk/config.toml | cut -d/ -f2- | tr -d ' \"')"
+export ZK_NOTEBOOK_DIR="$(eval echo $(grep "^dir =" ~/.config/zk/config.toml | cut -d= -f2- | tr -d ' \"'))"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

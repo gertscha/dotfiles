@@ -36,7 +36,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_STATE_HOME="$HOME/.local/state"
-export ZK_NOTEBOOK_DIR="$(grep "^dir =" ~/.config/zk/config.toml | cut -d/ -f2- | tr -d ' \"')"
+export ZK_NOTEBOOK_DIR="$(eval echo $(grep "^dir =" ~/.config/zk/config.toml | cut -d= -f2- | tr -d ' \"'))"
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
