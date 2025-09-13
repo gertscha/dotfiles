@@ -1,3 +1,7 @@
-function ls --description 'alias ls ls --hyperlink'
- command ls --hyperlink $argv
+function ls
+    if command -sq eza
+        eza --hyperlink $argv
+    else
+        command ls --hyperlink $argv
+    end
 end
