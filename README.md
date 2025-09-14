@@ -172,23 +172,26 @@ path.
 
 # Dependencies
 Main programs I use (included in Base):
-- [fish](https://fishshell.com/)
-- [tmux](https://github.com/tmux/tmux/wiki)
-- [lf](https://github.com/gokcehan/lf)
-- [zoxide](https://github.com/ajeetdsouza/zoxide)
-- [fzf](https://github.com/junegunn/fzf) (dependency of several core programs)
-- [zsh](https://sourceforge.net/p/zsh/code) (fallback POSIX shell)
+- [fish](https://fishshell.com/), main shell (system package manager)
+- [tmux](https://github.com/tmux/tmux/wiki) (system package manager)
+- [lf](https://github.com/gokcehan/lf) (go install, see GitHub for full command)
+- [zoxide](https://github.com/ajeetdsouza/zoxide) (system package manager)
+- [eza](https://github.com/eza-community/eza), only used with fish (cargo install)
+- [fzf](https://github.com/junegunn/fzf), dependency of several core programs (system package manager)
+- [zsh](https://sourceforge.net/p/zsh/code), fallback POSIX shell, (system package manager)
 
 Programs that have a full stow directory:
-- [foot](https://codeberg.org/dnkl/foot) (separate due to various versions I use)
-- [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
-- [rmpc](https://mierak.github.io/rmpc/) and [mpd](https://www.musicpd.org/)
-(see [Music](#Music), optionally install [cava](https://github.com/karlstav/cava))
-- [Alacritty](https://alacritty.org/) (my fallback cross-platform terminal)
+- [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md) (build from source)
+- [rmpc](https://mierak.github.io/rmpc/) (build from source) and [mpd](https://www.musicpd.org/) (system package manager),
+see [Music](#Music), optionally install [cava](https://github.com/karlstav/cava)
+- [wezterm](https://wezterm.org/index.html) my cross-platform terminal (system package manager (copr))
+- [foot](https://codeberg.org/dnkl/foot), Wayland only, main terminal in my Sway setup (system package manager)
+- [Alacritty](https://alacritty.org/), my fallback cross-platform terminal
+- [kitty](https://sw.kovidgoyal.net/kitty/), not used, added for some testing
 
 Display Manager based desktop setups (see [Niri](#niri) and [Sway](#sway)):
-- [niri](https://github.com/YaLTeR/niri)
-- [sway](https://swaywm.org/)
+- [niri](https://github.com/YaLTeR/niri) (system package manager)
+- [sway](https://swaywm.org/) (system package manager)
 
 
 # Other Programs
