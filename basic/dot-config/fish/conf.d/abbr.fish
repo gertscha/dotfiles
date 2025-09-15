@@ -9,6 +9,7 @@ abbr --add cod conda deactivate
 abbr --add coa conda activate
 
 abbr --add mm rmpc
+abbr --add htop btop
 
 if command -sq eza
     # runs through function 'ls' first, which calls eza
