@@ -123,8 +123,8 @@ see [example setup](https://github.com/YaLTeR/niri/wiki/Example-systemd-Setup).
 The symlinks should be restored with Stow (otherwise add them with
 `systemctl --user add-wants niri.service <service file>`).
 
-Currently `swayidle`, `swaybg`, `wlsunset`, `waybar`, `mpd-mpris` and
-`xwayland-satellite` are launched with systemd.
+Currently `swayidle`, `swaybg`, `wlsunset`, `waybar` and `mpd-mpris` are
+launched with systemd.
 You can manage them with `systemctl --user <command> <name>`.
 
 This should also work if Niri is launched with `niri-session` from the tty.
@@ -134,16 +134,8 @@ Some files specify image paths, adjust them to images of your liking.
 Files: `niri/config.kdl`, `swaylock/config` (also grep for ~/Pictures).
 
 #### X11
-Niri does not include X11, the recommended way to run xwayland is using
-`xwayland-satellite`. The config launches: `xwayland-satellite" ":3`, and
-sets `DISPLAY=:3` (to make it more predictable).
-
-Launching applications with this explicitly requires changing the .desktop file
-(when using fuzzel):
-```
-Exec=env DISPLAY=:12 /some/binary`
-```
-Default locations: `/usr/share/applications/` and `~/.local/share/applications/`
+Niri does not include X11, it uses `xwayland-satellite` (version >= 0.7) instead.
+It handles all the setup, including setting `DISPLAY`, automatically.
 
 
 ## Sway
@@ -200,6 +192,7 @@ Some other programs that I usually install (no particular order)
 [caligula](https://github.com/ifd3f/caligula) - single command wrapper for dd  
 [wiremix](https://github.com/tsowell/wiremix)  - TUI frontend for pipewire  
 [zk](https://github.com/zk-org/zk)       - Manage Zettelkasten style notes  
+[bartib](https://github.com/nikolassv/bartib)   - Time tracking  
 [impala](https://github.com/pythops/impala)   - TUI WiFi manager (iwd frontend)  
 [lazygit](https://github.com/jesseduffield/lazygit)  - TUI for git  
 [posting](https://github.com/darrenburns/posting)  - TUI for HTML requests  

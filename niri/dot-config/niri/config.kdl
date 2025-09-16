@@ -480,12 +480,11 @@ layer-rule {
 
 // set environment variables
 environment {
-    DISPLAY ":3"
     QT_QPA_PLATFORM "wayland"
     QT_QPA_PLATFORMTHEME "qt6ct"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
-// Display for xwayland-satellite
+// Display for xwayland-satellite, automatically handled by niri, requires version >= 0.7
 // for Electron version > 28 the environment variable above is sufficient
 // Electron apps with version <= 28, pass these options explicitly
 // --enable-features=UseOzonePlatform --ozone-platform-hint=auto
@@ -532,14 +531,12 @@ spawn-at-startup "systemctl" "--user" "start" "swayidle"
 spawn-at-startup "systemctl" "--user" "start" "waybar"
 spawn-at-startup "systemctl" "--user" "start" "wlsunset"
 spawn-at-startup "systemctl" "--user" "start" "mpdris"
-spawn-at-startup "systemctl" "--user" "start" "xwayland-satellite"
 
 // these would be needed, but are handled with systemd instead:
 // spawn-at-startup "sh" "-c" "swaybg -m fill -i $(find ~/Pictures/backgrounds/ -type f | shuf -n1) &"
 // spawn-at-startup "waybar"
 // spawn-at-startup "wlsunset" "-T" "6500" "-t" "3000" "-S" "05:00" "-s" "20:00" "-d" "1800"
 // 󱞩 gamma shift blue light at night, start at 20:00, takes 30 minutes, ends 05:00
-// spawn-at-startup "xwayland-satellite" ":3"
 // spawn-at-startup "swayidle" "-w" \
 //     "timeout" "900" "'niri msg action power-off-monitors'" \
 //     "timeout" "1800" "'swaylock -f'" \

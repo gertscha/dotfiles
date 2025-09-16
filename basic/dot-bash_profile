@@ -6,7 +6,6 @@ if [ "$(tty)" = "/dev/tty1" ] ; then
     export ELECTRON_OZONE_PLATFORM_HINT=auto
     export XDG_SESSION_TYPE=wayland
     export XDG_CURRENT_DESKTOP=Niri
-    export DISPLAY=":3"
     export GTK_IM_MODULE=ibus
     export QT_IM_MODULE=ibus
     export XMODIFIERS=@im=ibus
