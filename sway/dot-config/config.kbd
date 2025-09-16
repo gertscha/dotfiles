@@ -92,7 +92,7 @@
 (deflayer code-symbols
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    @tld S-8  S-9  RA-2 RA-7 @acu S-2  -    @grv S-]  _    _    _
+  _    @tld S-8  S-9  RA-2 RA-7 @acu S-2  -    @grv S-]  pgup pgdn _
   _    @car RA-[ RA-] S-0  \    S-7  S-,  S-.  RA-lsgt   S--  _    _
   _    0    RA-' RA-\ S-5  S-6  _    kp+  S-/  RA-3 kp*  _    _    _    _    _
   _    _    lsgt S-lsgt         _                   _    _    _    _    _    _

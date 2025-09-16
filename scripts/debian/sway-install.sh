@@ -3,12 +3,10 @@ cd ~
 
 # install sway, assumes there is a gnome DE installed
 sudo apt update
-sudo apt install nala
-sudo nala install sway waybar swayidle swaylock foot
-sudo nala install brightnessctl swayimg wlogout
-sudo nala install mako-notifier wayland-protocols xwayland
-sudo nala install wofi grim slurp grimshot
+sudo apt install -y sway waybar swayidle swaylock foot wofi grim slurp \
+grimshot brightnessctl swayimg wlogout network-manager-applet \
+mako-notifier wayland-protocols xwayland
 
 cd ~/dotfiles
-stow sway
+stow --dotfiles sway
 cd ~
