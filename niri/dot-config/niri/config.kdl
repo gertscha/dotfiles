@@ -507,6 +507,7 @@ prefer-no-csd
 // don't show the shortcut overlay at startup
 hotkey-overlay {
     skip-at-startup
+    hide-not-bound
 }
 
 // You can change the path where screenshots are saved.
@@ -635,7 +636,7 @@ binds {
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     Mod+O repeat=false { toggle-overview; }
 
-    Mod+Q { close-window; }
+    Mod+Q repeat=false { close-window; }
 
     // change focus
     Mod+Left  hotkey-overlay-title=null { focus-column-left; }
