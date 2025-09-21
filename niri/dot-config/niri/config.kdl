@@ -371,9 +371,7 @@ window-rule {
     open-floating true
 }
 // file selector popups
-// including nautilus (since Niri uses the Gnome Portal)
 window-rule {
-    match app-id="org.gnome.Nautilus"
     match app-id="org.kde.filelight" title="Select Folder to Scan — Filelight"
     default-column-width { proportion 0.33; }
     default-window-height { proportion 0.5; }
@@ -481,7 +479,6 @@ layer-rule {
 // set environment variables
 environment {
     QT_QPA_PLATFORM "wayland"
-    QT_QPA_PLATFORMTHEME "qt6ct"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 // Display for xwayland-satellite, automatically handled by niri, requires version >= 0.7
@@ -525,8 +522,7 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // currently use the wm-start script to launch these manually (have an alias)
 
 spawn-at-startup "swaync" // notificaton center
-// systemd (fix startup issues (for now), because suddenly the dependency I
-// have configured for them with niri.service.wants does not work anymore
+// systemd services, mainly for auto-restarts
 spawn-at-startup "systemctl" "--user" "start" "swaybg"
 spawn-at-startup "systemctl" "--user" "start" "swayidle"
 spawn-at-startup "systemctl" "--user" "start" "waybar"
@@ -583,12 +579,11 @@ binds {
     // applications
     Mod+D hotkey-overlay-title="Run an Application" { spawn "wofi" "--show=drun"; }
     Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "wezterm"; }
-    // Mod+Shift+Return { spawn "foot" "-o" "colors.alpha=0.6"; }
-    Mod+Shift+Return { spawn "foot"; }
+    Mod+Shift+Return { spawn "foot" "-o" "colors.alpha=0.6"; }
+    Mod+Alt+Return { spawn "foot"; }
     Mod+Control+Return { spawn "kitty"; }
-    Mod+Alt+Return { spawn "alacritty"; }
-    Mod+E hotkey-overlay-title="Open File Explorer" { spawn "dolphin"; }
-    Mod+Shift+E { spawn "nautilus"; }
+    // Mod+Alt+Return { spawn "alacritty"; }
+    Mod+E hotkey-overlay-title="Open File Explorer" { spawn "nautilus" "-w"; }
     Mod+Ctrl+E { spawn "pcmanfm"; }
     Mod+B hotkey-overlay-title="Open Browser" { spawn "flatpak" "run" "one.ablaze.floorp"; }
     Mod+Shift+B  { spawn "firefox"; }

@@ -93,7 +93,7 @@ DE on the system). So here is how I did it for my system:
 
 #### TLDR (Fedora):
 ```
-sudo dnf install niri waybar swaybg swayidle wlogout wlsunset sway-notification-center
+sudo dnf install niri waybar swaybg swayidle wlogout wlsunset sway-notification-center wofi
 ```
 The other core dependencies should be covered by this. But you can check that
 these are installed: `xdg-desktop-portal-gtk`, `xdg-desktop-portal-gnome`,
@@ -188,14 +188,16 @@ Display Manager based desktop setups (see [Niri](#niri) and [Sway](#sway)):
 
 # Other Programs
 Some other programs that I usually install (no particular order)  
-[euporie](https://github.com/joouha/euporie)  - TUI interface for jupyter notebooks  
-[caligula](https://github.com/ifd3f/caligula) - single command wrapper for dd  
-[wiremix](https://github.com/tsowell/wiremix)  - TUI frontend for pipewire  
-[zk](https://github.com/zk-org/zk)       - Manage Zettelkasten style notes  
-[bartib](https://github.com/nikolassv/bartib)   - Time tracking  
-[impala](https://github.com/pythops/impala)   - TUI WiFi manager (iwd frontend)  
-[lazygit](https://github.com/jesseduffield/lazygit)  - TUI for git  
-[posting](https://github.com/darrenburns/posting)  - TUI for HTML requests  
-[chafa](https://github.com/hpjansson/chafa)    - Convert images into terminal formats  
-[isw](https://gitlab.com/thom-cameron/isw)      - Terminal stop watch (pomodoro)  
+[euporie](https://github.com/joouha/euporie)    - TUI interface for jupyter notebooks  
+[caligula](https://github.com/ifd3f/caligula)   - single command wrapper for dd  
+[wiremix](https://github.com/tsowell/wiremix)    - TUI frontend for pipewire  
+[zk](https://github.com/zk-org/zk)         - Manage Zettelkasten style notes  
+[bartib](https://github.com/nikolassv/bartib)     - Time tracking  
+[impala](https://github.com/pythops/impala)     - TUI WiFi manager (iwd frontend)  
+[lazygit](https://github.com/jesseduffield/lazygit)    - TUI for git  
+[posting](https://github.com/darrenburns/posting)    - TUI for HTML requests  
+[chafa](https://github.com/hpjansson/chafa)      - Convert images into terminal formats  
+[isw](https://gitlab.com/thom-cameron/isw)        - Terminal stop watch (pomodoro)  
+[lazygit](https://github.com/jesseduffield/lazygit)    - Git TUI  
+[lazydocker](https://github.com/jesseduffield/lazydocker) - Docker TUI  
 
