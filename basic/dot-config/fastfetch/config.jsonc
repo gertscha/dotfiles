@@ -1,0 +1,79 @@
+{
+  "modules": [
+    {
+      // "key": "whoami",
+      "type": "title",
+      // "format": "  {user-name}"
+    },
+    {
+      "type": "separator",
+      "string": "─",
+      "length": 8
+    },
+    {
+      "key": "Distro",
+      "type": "os",
+      "format": "  {pretty-name} {arch}"
+    },
+    {
+      "type": "kernel",
+      "format": "  {sysname} {release}"
+    },
+    {
+      "type": "uptime",
+      "format": "  {hours} hours, {minutes} mins"
+    },
+    {
+      "type": "shell",
+      "format": "   {pretty-name} {version}"
+    },
+    {
+      "type": "de",
+      "format": "      {pretty-name} {version}"
+    },
+    {
+      "type": "wm",
+      "format": "      {pretty-name} ({protocol-name})"
+    },
+    "terminal",
+    {
+      "key": "Font",
+      "type": "terminalfont",
+      "format": "    {name}"
+    },
+    "separator",
+    { 
+      "type": "cpu",
+      "format": "     {name} ({cores-physical}:{cores-logical}) @ {freq-max}"
+    },
+    {
+      "type": "gpu",
+      "format": "     {name} [{type}]"
+    },
+    {
+      "type": "display",
+      "key": "Display",
+      "keyColor": "blue",
+      "format": " {#blue}{name}{#} {width}x{height} @ {refresh-rate} Hz in {inch}\" [{type}]"
+    },
+    "separator",
+    {
+      "type": "memory",
+      "format": "  {used} / {total} ({percentage})"
+    },
+    {
+      "type": "swap",
+      "format": "    {used} / {total} ({percentage})"
+    },
+    {
+      "type": "disk",
+      "key": "Disk",
+      "format": "    {#blue}{mountpoint}{#} {size-used} / {size-total} ({size-percentage}) - {filesystem}"
+    },
+    // "break",
+    // {
+    //   "type": "colors",
+    //   "paddingLeft": 10
+    // }
+  ]
+}
