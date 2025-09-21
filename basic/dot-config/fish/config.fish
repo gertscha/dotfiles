@@ -21,8 +21,8 @@ if command -sq nvim
 end
 
 # keychain is used to manage the agent, but keys are handled with KeePassXC
-if type -q keychain
-    keychain -q --absolute --dir "$XDG_DATA_HOME/keychain"
+if type -q command keychain
+    command keychain -q --absolute --dir "$XDG_DATA_HOME/keychain"
     # --eval uses the $SHELL variable, which depends on the login shell
     # so we need to manually select the file to source here
     source "$XDG_DATA_HOME/keychain/$(hostname)-fish"
