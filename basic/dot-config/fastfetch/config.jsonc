@@ -1,4 +1,11 @@
 {
+  "display": {
+    "separator": ": ",     // Separator between keys and values
+    "color": {
+        "keys": "bright_blue",    // Key color
+        "title": "bright_blue"     // Title color
+    }
+  },
   "modules": [
     {
       // "key": "whoami",
@@ -11,35 +18,44 @@
       "length": 8
     },
     {
-      "key": "Distro",
-      "type": "os",
-      "format": "  {pretty-name} {arch}"
+      "type": "Host",
+      "format": "    {family} ({name})"
     },
     {
       "type": "kernel",
       "format": "  {sysname} {release}"
     },
     {
-      "type": "uptime",
-      "format": "  {hours} hours, {minutes} mins"
-    },
-    {
-      "type": "shell",
-      "format": "   {pretty-name} {version}"
+      "key": "Distro",
+      "type": "os",
+      "format": "  {pretty-name} {arch}"
     },
     {
       "type": "de",
       "format": "      {pretty-name} {version}"
     },
     {
+      "type": "uptime",
+      "format": "  {?days}{days} days, {?}{?hours}{hours} hours, {?}{minutes} mins"
+    },
+    {
       "type": "wm",
       "format": "      {pretty-name} ({protocol-name})"
+    },
+    {
+      "type": "shell",
+      "format": "   {pretty-name} {version}"
     },
     "terminal",
     {
       "key": "Font",
       "type": "terminalfont",
       "format": "    {name}"
+    },
+    {
+      "type": "localip",
+      "key": "IP",
+      "format": "      {#blue}{ifname}{#} {ipv4} {ipv6}"
     },
     "separator",
     { 
