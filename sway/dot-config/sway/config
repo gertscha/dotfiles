@@ -101,6 +101,7 @@ exec_always {
     # Start a terminal
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+Return exec foot -o colors.alpha=1
+    bindsym $mod+Ctrl+Return exec wezterm
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -138,7 +139,7 @@ exec_always {
     bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ .01-
     bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ .01+
     bindsym Print exec grimshot --notify copy screen
-    bindsym Control+Print exec grimshot --notify copy window
+    bindsym Control+Print exec grimshot --notify copy area
     bindsym Alt+Print exec grimshot --notify copy active
     bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
     # bindsym XF86Display exec
