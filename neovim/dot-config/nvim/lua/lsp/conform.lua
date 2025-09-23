@@ -13,6 +13,8 @@ else
     cpp = { 'clang-format' },
     python = { 'yapf' },
     json = { 'jq' },
+    bib = { 'bibtex-tidy' },
+    tex = { 'tex-fmt' },
     -- rust = { 'rustfmt', stop_after_first = true, lsp_format = 'fallback' },
   }
 

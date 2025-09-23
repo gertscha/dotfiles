@@ -18,15 +18,19 @@ return {
     )
   ),
   s(
-    { trig = 'tt', snippetType = 'snippet', wordTrig = false },
+    { trig = 'ttt', snippetType = 'snippet', wordTrig = false },
     fmta([[\texttt{<>}]], { i(1) })
   ),
   s(
-    { trig = 'bf', snippetType = 'snippet', wordTrig = false },
+    { trig = 'tbf', snippetType = 'snippet', wordTrig = false },
     fmta([[\textbf{<>}]], { i(1) })
   ),
   s(
-    { trig = 'it', snippetType = 'snippet', wordTrig = false },
+    { trig = 'tit', snippetType = 'snippet', wordTrig = false },
     fmta([[\textit{<>}]], { i(1) })
+  ),
+  s(
+    { trig = 'cit', snippetType = 'snippet', wordTrig = false },
+    fmta([[\cite{<>}]], { i(1) })
   ),
 }
