@@ -19,7 +19,7 @@
     },
     {
       "type": "Host",
-      "format": "    {family} ({name})"
+      "format": "    {?family}{family} ({name}){?}{/family}{name}{/}"
     },
     {
       "type": "kernel",
