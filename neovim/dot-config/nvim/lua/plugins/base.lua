@@ -59,8 +59,8 @@ function M.config()
 
     -- instead we use :only / <C-w>o to maximize the buffer
     { '<leader>g', '<cmd>Git|only<cr>', desc = 'Open Git' },
-    { '<leader>rd', '<cmd>Gdiff<cr>', desc = 'open git diff view' },
-    { '<leader>rm', '<cmd>Git mergetool<cr>', desc = 'open git merge tool' },
+    { '<leader>rD', '<cmd>Gdiff<cr>', desc = 'open git diff view' },
+    { '<leader>rM', '<cmd>Git mergetool<cr>', desc = 'open git merge tool' },
     { '<leader>rB', '<cmd>Git blame --date=human<cr>', desc = 'git blame (file)' },
   })
 

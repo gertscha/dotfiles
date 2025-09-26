@@ -137,11 +137,22 @@ function M.config()
     require('fzf-lua').registers()
   end, opts('[S]earch [R]egisters'))
 
-  -- <leader>sd is used for a lsp picker, use 'n' for 'new' instead
-  vim.keymap.set('n', '<leader>sn', function()
+  -- <leader>sd is used for a lsp picker
+  -- group it with the other git related binds under <leader>r
+  vim.keymap.set('n', '<leader>rd', function()
     if not setupdone then setupfzf() end
     require('fzf-lua').git_diff()
-  end, opts('[S]earch Git Diff'))
+  end, opts('Search Git Diff'))
+
+  vim.keymap.set('n', '<leader>rW', function()
+    if not setupdone then setupfzf() end
+    require('fzf-lua').git_worktrees()
+  end, opts('Search Git Worktree'))
+
+  vim.keymap.set('n', '<leader>rw', function()
+    if not setupdone then setupfzf() end
+    require('fzf-lua').git_branches()
+  end, opts('Search Git Branchej'))
 
   vim.keymap.set('n', '<leader>sm', function()
     if not setupdone then setupfzf() end

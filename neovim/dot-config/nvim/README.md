@@ -142,11 +142,13 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>ss              Search builtin fzf pickers
 <leader>sc              Search Files in Neovim config
 <leader>sP              Search Files in Neovim plugins implementations
-<leader>sn              Search Git files with a diff
 <leader>sm              Search manpages (unix)
 <leader>sM              Search Vim marks
 <leader>sj              Search Vim jumplist
 <leader>sR              Search Vim registers
+<leader>rd              Search Git diff (i.e. files with changes)
+<leader>rW              Search Git worktrees
+<leader>rw              Search Git branches
 <leader><leader>        Resume previous search
 
 
@@ -201,8 +203,8 @@ Templates for the formatter config files can be created with `:FormatterSetup[..
 ## Fugitive (Git)
 ``` text
 <leader>g               Open fugitive window
-<leader>rd              Open diff tool
-<leader>rm              Open merge tool
+<leader>rD              Open diff tool
+<leader>rM              Open merge tool
 <leader>rb              Open blame float for current line (gitsigns plugin feature)
 <leader>rB              Open blame for all lines in file
 
