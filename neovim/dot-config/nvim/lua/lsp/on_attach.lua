@@ -33,16 +33,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.protocol.Methods.textDocument_formatting,
       args.buf
     )
-    if lsp_format and not conf_format then
+    if lsp_format then
       format_fun = function()
         vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
       end
-    elseif conf_format then
+    end
+    if conf_format then
       local fmtconvcnt = #conf_format.list_formatters(args.buf)
       if fmtconvcnt > 0 then
         format_fun = function()
           conf_format.format({ bufnr = args.buf, lsp_format = 'fallback' })
         end
+      end
+    end
+    -- tinymist does not advertise formatting correctly
+    if client.name == 'tinymist' then
+      format_fun = function()
+        vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
       end
     end
     if format_fun == nil then

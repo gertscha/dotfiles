@@ -15,6 +15,7 @@ else
     json = { 'jq' },
     bib = { 'bibtex-tidy' },
     tex = { 'tex-fmt' },
+    typ = { 'typstyle', lsp_format = 'prefer' },
     -- rust = { 'rustfmt', stop_after_first = true, lsp_format = 'fallback' },
   }
 
