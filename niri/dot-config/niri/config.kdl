@@ -370,12 +370,18 @@ window-rule {
     default-window-height { proportion 0.5; }
     open-floating true
 }
+
 // file selector popups
 window-rule {
     match app-id="org.kde.filelight" title="Select Folder to Scan — Filelight"
     default-column-width { proportion 0.33; }
     default-window-height { proportion 0.5; }
     open-floating true
+}
+window-rule {
+    match title="Save As" app-id="org.gnome.Nautilus"
+    default-column-width { proportion 0.33; }
+    default-window-height { proportion 0.6; }
 }
 
 // zoom is troublesome with wayland in general, but especially bad in tilers
