@@ -81,35 +81,33 @@ my workflows. Unlike something like Sway which is great for a laptop but I
 don't want to use on my desktop.
 
 ### Setup
-See the [Getting Started](https://github.com/YaLTeR/niri/wiki/Getting-Started)
-and [required software](https://github.com/YaLTeR/niri/wiki/Important-Software).
+See the [Getting Started](https://yalter.github.io/niri/Getting-Started.html)
+and note the "Important Software" section in particular.
 
-I am using Niri on top of Fedora KDE Plasma (its a good idea to have a fallback
-DE on the system). So here is how I did it for my system:
+I am using Niri on top of Fedora Workstation (Gnome) (its a good idea to have a
+fallback DE on the system). So here is how I did it for my system:
 
 #### TLDR (Fedora):
 ```
 sudo dnf install niri waybar swaybg swayidle wlogout wlsunset sway-notification-center wofi
 ```
-The other core dependencies should be covered by this. But you can check that
-these are installed: `xdg-desktop-portal-gtk`, `xdg-desktop-portal-gnome`,
-`polkit-kde` and `xwayland-satellite`.
+The other core dependencies should be covered by this and the fact that Gnome
+is installed.
+X11/xwayland should work out of the box (since 25.08), but you might want to
+check that `xwayland-satellite` is installed.
 
 To get `mpd` integration in waybar I use
 [mpdris2-rs](https://github.com/szclsya/mpdris2-rs). I build it from source.
 the systemd service is setup to expect the `mpdris2-rs` binary in path (bash).
 
-Because Niri uses the Gnome portal, the file picker dialogue requires Nautilus.
-So it needs to be installed, `sudo dnf install nautilus`.
+Because Niri uses the Gnome portal, the file picker usually dialogue requires
+Nautilus, so it needs to be installed.
 
-Mako notifier is also configured, but the systemd link is not done and it
-should not be installed if you have sway-notification-center.
+Mako notifier is also configured, but not enabled and has not been used/tested
+in a long time. I prefer `sway-notification-center`.
 
-I disabled `sddm` and use `niri-session` to launch Niri. Currently
-`gnome-keyring-daemon` handles my secrets. I mostly disabled `kwalletd`
-(causing a pop up to unlock the keyring in KDE).
-My ssh keys are managed with KeePassXC, using `keychain` and the built-in
-ssh-agent it has.
+My ssh keys are managed with KeePassXC (its built-in ssh-agent) and `keychain`.
+This keeps the keys protected and portable across my systems.
 
 #### Systemd
 You can either launch services with `spawn-at-startup` in the Niri config, or
@@ -128,10 +126,6 @@ This should also work if Niri is launched with `niri-session` from the tty.
 #### Paths
 Some files specify image paths, adjust them to images of your liking.
 Files: `niri/config.kdl`, `swaylock/config` (also grep for ~/Pictures).
-
-#### X11
-Niri does not include X11, it uses `xwayland-satellite` (version >= 0.7) instead.
-It handles all the setup, including setting `DISPLAY`, automatically.
 
 
 ## Sway
