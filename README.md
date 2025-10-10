@@ -71,10 +71,6 @@ systemctl --user enable --now mpd
 ## Alacritty
 My Alacritty setup, not in basic since I want to use it on Windows.
 
-## KDE
-This just configures `ksshaskpass`, to allow it to be used to store SSH keys
-in a KDE Plamsa desktop (usually you also need to install it).
-
 ## Neovim
 See the README inside `neovim/.config/nvim/`
 
