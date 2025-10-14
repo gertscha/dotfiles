@@ -23,6 +23,8 @@ keymap(
   opts('Toggle line length limit highlighting')
 )
 
+keymap('n', '<leader>w', '<cmd>update<cr>', opts('Save'))
+
 keymap('n', '<leader>tsc', function()
   local val = vim.api.nvim_get_option_value('cmdheight', {})
   if val == 0 then
