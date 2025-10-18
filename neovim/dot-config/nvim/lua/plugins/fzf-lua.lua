@@ -47,6 +47,7 @@ function M.config()
         fzf_colors = true, -- auto-generate from colorscheme
       })
     else
+      vim.cmd('FzfLua register_ui_select')
       require('fzf-lua').setup({
         -- <esc> does not terminate the process, allowing
         -- resume to fully recover the previous state

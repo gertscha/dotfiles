@@ -63,7 +63,7 @@ function M.config()
   })
 
   -- enable a server
-  vim.lsp.enable({ 'lua_ls', 'clangd', 'pyright', 'tinymist', 'texlab' })
+  vim.lsp.enable({ 'lua_ls', 'clangd', 'pyright', 'tinymist', 'texlab', 'gopls' })
 
   -- make it easy to enable a server on the fly
   vim.keymap.set('n', '<leader>de', function()
