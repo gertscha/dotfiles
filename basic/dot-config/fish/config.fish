@@ -28,10 +28,10 @@ if type -q command keychain
     source "$XDG_DATA_HOME/keychain/$(hostname)-fish"
 end
 
+fish_add_path ~/.local/bin
 fish_add_path ~/.local/share/go/bin
-fish_add_path ~/build_sys/install/bin
 fish_add_path ~/.local/share/cargo/bin
-# set "local-bin-path: /home/..." in $STACK_ROOT/config.yml
+fish_add_path ~/build_sys/install/bin
 fish_add_path ~/.local/share/stack/bin
 
 if type -q zoxide
