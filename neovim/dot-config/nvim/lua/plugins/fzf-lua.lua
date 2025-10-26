@@ -16,6 +16,7 @@ function M.config()
 
   vim.schedule(function()
     if vim.fn.executable('fzf') == 1 then
+      vim.cmd('FzfLua register_ui_select')
       local version = vim.fn.system('fzf --version')
       local viter = string.gmatch(version, '%d+')
       local ind = 1
@@ -47,7 +48,6 @@ function M.config()
         fzf_colors = true, -- auto-generate from colorscheme
       })
     else
-      vim.cmd('FzfLua register_ui_select')
       require('fzf-lua').setup({
         -- <esc> does not terminate the process, allowing
         -- resume to fully recover the previous state

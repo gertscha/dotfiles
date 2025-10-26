@@ -183,6 +183,7 @@ layout {
     // You can also customize the heights that "switch-preset-window-height"
     // (Mod+T) toggles between.
     preset-window-heights { 
+        proportion 0.20
         proportion 0.33
         proportion 0.5
         proportion 0.66
@@ -819,7 +820,7 @@ binds {
     Mod+Period { expel-window-from-column; }
 
     Mod+R hotkey-overlay-title="Change Column Width" { switch-preset-column-width; }
-    Mod+Shift+R { set-window-width "25%"; }
+    Mod+Shift+R { set-window-width "33%"; }
     Mod+Ctrl+R { set-window-width "50%"; }
     Mod+T hotkey-overlay-title="Change Column Height" { switch-preset-window-height; }
     Mod+Shift+T { set-window-height "50%"; }
