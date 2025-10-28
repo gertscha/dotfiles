@@ -39,3 +39,8 @@ if type -q zoxide
     set -x _ZO_DATA_DIR "$XDG_DATA_HOME/zoxide"
     zoxide init --cmd cd fish | source
 end
+
+# BEGIN opam configuration
+test -r "$XDG_DATA_HOME/opam/opam-init/init.fish" && source "$XDG_DATA_HOME/opam/opam-init/init.fish" > /dev/null 2> /dev/null; or true
+# END opam configuration
+
