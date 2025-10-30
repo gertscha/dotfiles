@@ -80,8 +80,8 @@ fi
 
 # alias
 
-if [ -f "$XDG_CONFIG_HOME/wm-source.sh" ]; then
-    alias startwm='bash "$XDG_CONFIG_HOME/wm-source.sh"'
+if [ -f "$HOME/wm-source.sh" ]; then
+    alias startwm='bash "$HOME/wm-source.sh"'
 fi
 
 alias stow='stow --dotfiles'

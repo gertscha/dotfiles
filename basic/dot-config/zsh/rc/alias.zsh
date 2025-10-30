@@ -17,8 +17,8 @@ alias ..='cd ..'
 alias zshec="$EDITOR $ZDOTDIR/.zshrc" # edit .zshrc
 alias zshsc="source $ZDOTDIR/.zshrc"  # reload zsh configuration
 
-if [ -f "$XDG_CONFIG_HOME/wm-source.sh" ]; then
-    alias startwm='bash "$XDG_CONFIG_HOME/wm-source.sh"'
+if [ -f "$HOME/wm-source.sh" ]; then
+    alias startwm='bash "$HOME/wm-source.sh"'
 fi
 
 alias coi='eval "$(~/.conda/conda shell.zsh hook)" && conda deactivate'

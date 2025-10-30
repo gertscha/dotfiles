@@ -1,6 +1,6 @@
 function startwm
-    if test -f "$XDG_CONFIG_HOME/wm-source.sh"
-        bash "$XDG_CONFIG_HOME/wm-source.sh"
+    if test -f "$HOME/wm-source.sh"
+        bash "$HOME/wm-source.sh"
     else
         echo "wm-source.sh does not exist"
     end
