@@ -877,6 +877,7 @@ binds {
     Ctrl+Print  hotkey-overlay-title="Screenshot Screen"  \
         { screenshot-screen show-pointer=false; }
     Shift+Print hotkey-overlay-title="Screeenshot Window" { screenshot-window; }
+    Alt+Print hotkey-overlay-title="Screenshot with script" { spawn "~/scripts/screenshot.py"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
