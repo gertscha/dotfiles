@@ -81,8 +81,8 @@ keymap('n', 'G', 'Gzzzv', opts('Go to bottom of file'))
 -- move lines around
 keymap('n', '<A-j>', '<cmd>m .+1<CR>==', opts('Move current line down'))
 keymap('n', '<A-k>', '<cmd>m .-2<CR>==', opts('Move current line up'))
-keymap('i', '<A-j>', '<esc><cmd>m .+1<CR>==gi', opts('Move current line down'))
-keymap('i', '<A-k>', '<esc><cmd>m .-2<CR>==gi', opts('Move current line up'))
+-- keymap('i', '<A-j>', '<esc><cmd>m .+1<CR>==gi', opts('Move current line down'))
+-- keymap('i', '<A-k>', '<esc><cmd>m .-2<CR>==gi', opts('Move current line up'))
 keymap('v', '<A-j>', ":m '>+1<CR>gv=gv", opts('Move current line down'))
 keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", opts('Move current line down'))
 
