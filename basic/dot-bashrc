@@ -81,7 +81,7 @@ fi
 # alias
 
 if [ -f "$HOME/wm-source.sh" ]; then
-    alias startwm='bash "$HOME/wm-source.sh"'
+    alias startwm='bash "$HOME/scripts/wm-source.sh"'
 fi
 
 alias stow='stow --dotfiles'
