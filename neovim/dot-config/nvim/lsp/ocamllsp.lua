@@ -9,27 +9,43 @@
 --- opam install ocaml-lsp-server
 --- ```
 
-local util = require 'lspconfig.util'
-
-local language_id_of = {
-  menhir = 'ocaml.menhir',
-  ocaml = 'ocaml',
-  ocamlinterface = 'ocaml.interface',
-  ocamllex = 'ocaml.ocamllex',
-  reason = 'reason',
-  dune = 'dune',
-}
-
-local get_language_id = function(_, ftype)
-  return language_id_of[ftype]
+local switch_prefix = os.getenv('OPAM_SWITCH_PREFIX')
+if switch_prefix then
+  local ocamllsp_cmd = switch_prefix .. '/bin/ocamllsp'
+  return {
+    cmd = { ocamllsp_cmd },
+    filetypes = {
+      'ocaml',
+      'ocaml.menhir',
+      'ocaml.interface',
+      'ocaml.ocamllex',
+      'reason',
+      'dune',
+    },
+    root_markers = {
+      { 'dune-project', 'dune-workspace' },
+      { '*.opam', 'esy.json', 'package.json' },
+      '.git',
+    },
+    settings = {},
+  }
+else
+  vim.notify('OPAM_SWITCH_PREFIX not set', vim.log.levels.WARN)
+  return {
+    cmd = { 'ocamllsp' },
+    filetypes = {
+      'ocaml',
+      'ocaml.menhir',
+      'ocaml.interface',
+      'ocaml.ocamllex',
+      'reason',
+      'dune',
+    },
+    root_markers = {
+      { 'dune-project', 'dune-workspace' },
+      { '*.opam', 'esy.json', 'package.json' },
+      '.git',
+    },
+    settings = {},
+  }
 end
-
-return {
-  cmd = { 'ocamllsp' },
-  filetypes = { 'ocaml', 'menhir', 'ocamlinterface', 'ocamllex', 'reason', 'dune' },
-  root_dir = function(bufnr, on_dir)
-    local fname = vim.api.nvim_buf_get_name(bufnr)
-    on_dir(util.root_pattern('*.opam', 'esy.json', 'package.json', '.git', 'dune-project', 'dune-workspace')(fname))
-  end,
-  get_language_id = get_language_id,
-}
