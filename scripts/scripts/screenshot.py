@@ -17,7 +17,7 @@ if not XDG_DATA_HOME:
 else:
     DATA_DIR = Path(XDG_DATA_HOME)
 
-SCREENSHOT_DIR = Path.home() / "Pictures" / "Screenshots"
+SCREENSHOT_DIR = "Pictures/Screenshots"
 CONFIG_DIR = DATA_DIR / "py-scripts"
 DATA_FILE = CONFIG_DIR / "screenshot.json"
 
@@ -131,26 +131,31 @@ def handle_item_selection(key: str, data: dict) -> dict:
 
 def screenshot(data: dict):
     """Take a screenshot and save/follow up actions based on the state."""
-    savepath = "savepath"
-    savename = "filename_base"
+    savepath = "file_path"
+    savename = "file_name"
+    basepath = "default_base_path"
+    md_path = "markdown_base_path"
+    md_dir = "markdown_int_dir"
     md_mode = "markdown_mode"
-    md_dir = "markdown_dir"
     if savepath not in data:
         data[savepath] = str(SCREENSHOT_DIR)
+    if basepath not in data:
+        data[basepath] = str(Path.home())
     if savename not in data:
         data[savename] = "tmp"
     if md_mode not in data:
         data[md_mode] = False
-        data[md_dir] = str(Path.home() / "Documents")
+        data[md_dir] = "Documents"
+        data[md_path] = str(Path.home())
 
     number = show_menu(["", "Enter name suffix (optional)"])
     if not number:
         number = ""
 
     save_name = f"{data[savename]}{number}.png"
-    save_path = f"{data[savepath]}/{save_name}"
+    save_path = f"{data[basepath]}/{data[savepath]}/{save_name}"
     if data[md_mode]:
-        save_path = f"{data[md_dir]}/{save_path}"
+        save_path = f"{data[md_path]}/{data[md_dir]}/{save_name}"
 
     try:
         slurp_result = subprocess.run("slurp", capture_output=True)
@@ -164,15 +169,21 @@ def screenshot(data: dict):
                 show_menu(["Failed to screenshot"])
                 return data
 
-            follow_cmd = []
             if data[md_mode]:
                 width = geometry.decode().split(" ", 1)[1].split("x", 1)[1]
-                follow_cmd = ["wl-copy", f"![[{save_name}.png | {width}]]"]
+                cpy_cmd = ["wl-copy", f"![[{save_name} | {width}]]"]
+                result = subprocess.run(cpy_cmd, timeout=10)
             else:
-                follow_cmd = [
-                    "cat", save_path, "|", "wl-copy", "-t", "image/png"
-                ]
-            result = subprocess.run(follow_cmd, timeout=10)
+                catdata = subprocess.run(['cat', save_path],
+                                         check=True,
+                                         capture_output=True)
+                if catdata.returncode == 0:
+                    subprocess.run(['wl-copy', "-t", "image/png"],
+                                   input=catdata.stdout,
+                                   timeout=10)
+                else:
+                    show_menu(["Failed to change clipboard"])
+                    return data
 
     except Exception as e:
         print(f"An unexpected error occurred with grim: {e}", file=sys.stderr)

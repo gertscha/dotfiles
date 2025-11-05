@@ -140,7 +140,8 @@ exec_always {
     bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ .01+
     bindsym Print exec grimshot --notify copy screen
     bindsym Control+Print exec grimshot --notify copy area
-    bindsym Alt+Print exec grimshot --notify copy active
+    bindsym Alt+Print exec ~/scripts/screenshot.py
+    # bindsym Alt+Print exec grimshot --notify copy active
     bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
     # bindsym XF86Display exec
 
