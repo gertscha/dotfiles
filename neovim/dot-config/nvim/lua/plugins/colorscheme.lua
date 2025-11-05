@@ -2,10 +2,10 @@
 
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'vague2k/vague.nvim', { version = 'v1.5.0' })
+    Add_plugin(spec, 'vague2k/vague.nvim', { version = 'dba2805' })
     Add_plugin(spec, 'rebelot/kanagawa.nvim', nil)
   end,
-  priority = 'b'
+  priority = 'b',
 }
 
 function M.config()
@@ -45,6 +45,7 @@ function M.config()
     -- Override colors
     colors = {
       bg = '#141415',
+      inactiveBg = '#1c1c24',
       fg = '#cdcdcd',
       floatBorder = '#878787',
       line = '#252530',
