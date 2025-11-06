@@ -170,8 +170,8 @@ def screenshot(data: dict):
                 return data
 
             if data[md_mode]:
-                width = geometry.decode().split(" ", 1)[1].split("x", 1)[1]
-                cpy_cmd = ["wl-copy", f"![[{save_name} | {width}]]"]
+                width = geometry.decode().split(" ", 1)[1].split("x", 1)[0]
+                cpy_cmd = ["wl-copy", f"![[{save_name} | {int(width) // 2}]]"]
                 result = subprocess.run(cpy_cmd, timeout=10)
             else:
                 catdata = subprocess.run(['cat', save_path],
