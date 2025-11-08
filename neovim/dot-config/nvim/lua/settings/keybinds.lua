@@ -98,12 +98,12 @@ keymap('n', '<leader>x', '<cmd>.lua<cr>', opts('Run current line (Lua)'))
 
 -- session management
 keymap('n', '<leader>lt', function()
-  vim.cmd('Obsession')
+  vim.cmd('Obsession ' .. SessionSaveFile)
 end, opts('Toggle Auto-recording of Session'))
 keymap('n', '<leader>ldd', function()
   vim.cmd('Obsession!')
 end, opts('Stop Auto-recording of Session and delete session file'))
-local my_session = 'Session-manual.vim'
+local my_session = 'manual-' .. SessionSaveFile
 keymap(
   'n',
   '<leader>lg',

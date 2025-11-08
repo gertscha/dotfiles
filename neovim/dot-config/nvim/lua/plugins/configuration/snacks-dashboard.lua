@@ -138,8 +138,8 @@ _____________________________________________________
         key = 'r',
         desc = 'Restore Session',
         action = function()
-          if vim.fn.filereadable('Session.vim') == 1 then
-            vim.cmd('source Session.vim')
+          if vim.fn.filereadable(SessionSaveFile) == 1 then
+            vim.cmd('source ' .. SessionSaveFile)
           else
             vim.notify('No Session file found', vim.log.levels.INFO)
           end
