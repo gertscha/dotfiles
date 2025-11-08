@@ -4,8 +4,8 @@ sudo dnf update
 # base
 sudo dnf -y install vim alacritty stow fish zsh vlc git git-gui fd tmux tree bat zip
 # dev
-sudo dnf -y install @development-tools @c-development @development-tools
-sudo dnf -y install rust cargo golang xxd gcc lvm python3-pip
+sudo dnf -y install @c-development @development-tools
+sudo dnf -y install xxd gcc lvm python3-pip
 sudo dnf -y install javac gdb jq zig npm clang boost
 sudo dnf intall ffmpeg --allowerasing
 # neovim
