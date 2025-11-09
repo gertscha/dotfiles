@@ -153,7 +153,7 @@ function M.config()
   vim.keymap.set('n', '<leader>rw', function()
     if not setupdone then setupfzf() end
     require('fzf-lua').git_branches()
-  end, opts('Search Git Branchej'))
+  end, opts('Search Git Branch'))
 
   vim.keymap.set('n', '<leader>sm', function()
     if not setupdone then setupfzf() end

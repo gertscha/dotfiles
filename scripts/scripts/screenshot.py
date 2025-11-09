@@ -137,6 +137,7 @@ def screenshot(data: dict):
     md_path = "markdown_base_path"
     md_dir = "markdown_int_dir"
     md_mode = "markdown_mode"
+
     if savepath not in data:
         data[savepath] = str(SCREENSHOT_DIR)
     if basepath not in data:
@@ -151,20 +152,28 @@ def screenshot(data: dict):
         data[md_path] = str(Path.home())
 
     number = show_menu(["", "Enter name suffix (optional)"])
-    if not number:
+    if number is None:
         number = ""
-
     save_name = f"{data[savename]}{number}.png"
-    save_path = f"{data[basepath]}/{data[savepath]}/{save_name}"
+
     if data[md_mode]:
-        save_path = f"{data[md_path]}/{data[md_dir]}/{save_name}"
+        save_path = Path(data[md_path]) / data[md_dir] / save_name
+    else:
+        save_path = Path(data[basepath]) / data[savepath] / save_name
+
+    if save_path.exists():
+        action = show_menu(["[Overwrite]", "[Cancel]"],
+                           prompt=f"Warning: '{save_name}' exists!")
+        if action != "[Overwrite]":
+            return data
+    save_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:
         slurp_result = subprocess.run("slurp", capture_output=True)
         if slurp_result.returncode == 0:
             geometry = slurp_result.stdout.strip()
 
-            sc_cmd = ["grim", "-g", geometry, "-t", "png", save_path]
+            sc_cmd = ["grim", "-g", geometry, "-t", "png", str(save_path)]
             result = subprocess.run(sc_cmd, capture_output=True, check=True)
 
             if result.returncode != 0:
@@ -174,22 +183,15 @@ def screenshot(data: dict):
             if data[md_mode]:
                 width = geometry.decode().split(" ", 1)[1].split("x", 1)[0]
                 cpy_cmd = ["wl-copy", f"![[{save_name} | {int(width) // 2}]]"]
-                result = subprocess.run(cpy_cmd, timeout=10)
+                subprocess.run(cpy_cmd, timeout=10, check=False)
             else:
-                catdata = subprocess.run(['cat', save_path],
-                                         check=True,
-                                         capture_output=True)
-                if catdata.returncode == 0:
+                with open(save_path, 'rb') as f:
                     subprocess.run(['wl-copy', "-t", "image/png"],
-                                   input=catdata.stdout,
-                                   timeout=10)
-                else:
-                    show_menu(["Failed to change clipboard"])
-                    return data
-
+                                   stdin=f,
+                                   timeout=10,
+                                   check=False)
     except Exception as e:
-        print(f"An unexpected error occurred with grim: {e}", file=sys.stderr)
-        sys.exit(1)
+        print(f"An error occurred during screenshot: {e}", file=sys.stderr)
 
     return data
 
