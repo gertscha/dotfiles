@@ -47,6 +47,7 @@ trap 'shred -f -u -z "$KEY_FILE";' EXIT
 
 echo "Enter KeePassXC DB password:"
 if ! keepassxc-cli attachment-export -q "$KDBX_PATH" "$KEY_ENTRY_NAME" "$KEY_ATTACHMENT_NAME" "$KEY_FILE"; then
+    echo "Failed to export key file"
     exit 1 # Trap will run
 fi
 

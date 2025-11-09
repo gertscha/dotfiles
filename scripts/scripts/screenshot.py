@@ -145,7 +145,9 @@ def screenshot(data: dict):
         data[savename] = "tmp"
     if md_mode not in data:
         data[md_mode] = False
+    if md_dir not in data:
         data[md_dir] = "Documents"
+    if md_path not in data:
         data[md_path] = str(Path.home())
 
     number = show_menu(["", "Enter name suffix (optional)"])
