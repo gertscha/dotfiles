@@ -646,15 +646,15 @@ binds {
     // Scripts
     // select and run directly
     Mod+S repeat=false { spawn "bash" "-c" \
-        "foot --app-id=script-float -D $HOME/scripts -e bash -c \\
+        "foot --app-id=script-float -D $HOME/scripts bash -c \\
         'cmd=$(ls | fzf); [ -n \"$cmd\" ] && { ./$cmd; }' }"; }
     // select and run with arguments, no pause after script
     Mod+Alt+S repeat=false { spawn "bash" "-c" \
-        "foot --app-id=script-float -D $HOME/scripts -e bash -c \\
+        "foot --app-id=script-float -D $HOME/scripts bash -c \\
         'cmd=$(ls | fzf); [ -n \"$cmd\" ] && { read -e -p \"./$cmd \" args; ./$cmd $args; }'"; }
     // select and run with arguments, pause after script
     Mod+Shift+S repeat=false { spawn "bash" "-c" \
-        "foot --app-id=script-float -D $HOME/scripts -e bash -c \\
+        "foot --app-id=script-float -D $HOME/scripts bash -c \\
         'cmd=$(ls | fzf); [ -n \"$cmd\" ] && { read -e -p \"./$cmd \" args; \\
         ./$cmd $args; echo; read -p \"Press Enter to close...\"; }'"; }
 

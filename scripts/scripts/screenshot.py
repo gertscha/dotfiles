@@ -165,6 +165,7 @@ def screenshot(data: dict):
         action = show_menu(["[Overwrite]", "[Cancel]"],
                            prompt=f"Warning: '{save_name}' exists!")
         if action != "[Overwrite]":
+            subprocess.run(['wl-copy', 'Aborted screenshot copy'], check=False)
             return data
     save_path.parent.mkdir(parents=True, exist_ok=True)
 

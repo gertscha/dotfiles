@@ -2,7 +2,8 @@
 
 sudo dnf update
 # base
-sudo dnf -y install vim alacritty stow fish zsh git git-gui fd tmux tree bat zip
+sudo dnf -y install vim alacritty stow fish zsh git git-gui fd tmux tree bat \
+zip gimp audacity
 # dev
 sudo dnf -y install @c-development @development-tools
 sudo dnf -y install xxd gcc lvm python3-pip slurp grim keychain
@@ -30,3 +31,9 @@ sudo dnf -y install wine virt-manager foot blivet-gui
 
 # niri
 sudo dnf -y install niri waybar swaylock swaybg swayidle wpctl mako wl-clipboard
+
+# flatpak
+flatpak install app.drey.EarTag app.zen_browser.zen com.discordapp.Discord \
+com.vivaldi.Vivaldi md.obsidian.Obsidian us.zoom.Zoom org.kde.filelight \
+net.lutris.Lutris io.github.josephmawa.Bella com.github.tchx84.Flatseal
+
