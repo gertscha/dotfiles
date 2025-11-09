@@ -21,6 +21,9 @@ else
   export EDITOR='nvim'
 fi
 
+# opam configuration
+[[ ! -r "$OPAMROOT/opam-init/init.zsh" ]] || source "$OPAMROOT/opam-init/init.zsh" > /dev/null 2> /dev/null
+
 # extend path
 path+=("$HOME/.local/bin")
 path+=("$HOME/.local/share/go/bin")

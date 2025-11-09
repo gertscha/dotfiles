@@ -28,6 +28,9 @@ if type -q command keychain
     source "$XDG_DATA_HOME/keychain/$(hostname)-fish"
 end
 
+# opam configuration
+test -r "$OPAMROOT/opam-init/init.fish" && source "$OPAMROOT/opam-init/init.fish" > /dev/null 2> /dev/null; or true
+
 fish_add_path ~/.local/bin
 fish_add_path ~/.local/share/go/bin
 fish_add_path ~/.local/share/cargo/bin
@@ -39,8 +42,3 @@ if type -q zoxide
     set -x _ZO_DATA_DIR "$XDG_DATA_HOME/zoxide"
     zoxide init --cmd cd fish | source
 end
-
-# BEGIN opam configuration
-test -r "$XDG_DATA_HOME/opam/opam-init/init.fish" && source "$XDG_DATA_HOME/opam/opam-init/init.fish" > /dev/null 2> /dev/null; or true
-# END opam configuration
-
