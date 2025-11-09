@@ -16,13 +16,14 @@
 	interHunkContext = 10
 	alogrithm = histogram
 [pull]
-	rebase = false
+	ff = true
 [push]
 	default = current
 [merge]
 	conflictstyle = zdiff3
 [rebase]
 	autoStash = true
+	autoSquash = true
 	missingCommitsCheck = warn
 [status]
 	showStash = true
@@ -65,4 +66,5 @@
 	smartblame = blame -C -C -C
 	hh = rev-parse HEAD
 	hash = rev-parse --verify
+	ap = add --patch
 
