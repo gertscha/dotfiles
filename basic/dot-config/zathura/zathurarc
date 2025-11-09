@@ -1,0 +1,22 @@
+# Configuration
+# Customize zathura
+# see man zathurarc(5)
+
+set selection-clipboard clipboard
+
+map <C-i> feedkeys ":info<Return>"
+
+# make q not quite (accidental press), instead Shift+q quits
+map q abort
+map Q quit
+
+# swap page-wise and scroll-movement binds
+map j navigate next
+map J scroll down
+map k navigate previous
+map K scroll up
+
+# mouse based zoom
+map <C-Button4> zoom in
+map <C-Button5> zoom out
+

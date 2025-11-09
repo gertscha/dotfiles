@@ -17,6 +17,7 @@ sudo dnf install steam -y
 
 # other apps
 sudo dnf -y install thunderbird texlive-scheme-basic
+sudo dnf -y install zathura zathura-plugins-all
 sudo dnf -y install texlive-standalone texlive-bibtex texlive-enumitem
 sudo dnf -y install texlive-fancyhdr texlive-hyphen texlive-pgf texlive-beamer
 sudo dnf -y install texlive-babel texlive-amsmath texlive-acro

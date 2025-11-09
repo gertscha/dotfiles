@@ -161,6 +161,8 @@ Main programs I use (included in Base):
 - [eza](https://github.com/eza-community/eza), only used with fish (cargo install)
 - [fzf](https://github.com/junegunn/fzf), dependency of several core programs (system package manager)
 - [zsh](https://sourceforge.net/p/zsh/code), fallback POSIX shell, (system package manager)
+- [zathura](https://pwmt.org/projects/zathura/), PDF viewer (system packet manager)
+- and the obligatory [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 
 Programs that have a full stow directory:
 - [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md) (build from source)
@@ -190,4 +192,5 @@ Some other programs that I usually install (no particular order)
 [chafa](https://github.com/hpjansson/chafa)      - Convert images into terminal formats  
 [isw](https://gitlab.com/thom-cameron/isw)        - Terminal stop watch (pomodoro)  
 [lazydocker](https://github.com/jesseduffield/lazydocker) - Docker TUI  
+[btop](https://github.com/aristocratos/btop)       - Resource Monitor  
 
