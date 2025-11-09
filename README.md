@@ -184,10 +184,10 @@ Some other programs that I usually install (no particular order)
 [zk](https://github.com/zk-org/zk)         - Manage Zettelkasten style notes  
 [bartib](https://github.com/nikolassv/bartib)     - Time tracking  
 [impala](https://github.com/pythops/impala)     - TUI WiFi manager (iwd frontend)  
-[lazygit](https://github.com/jesseduffield/lazygit)    - TUI for git  
+[lazygit](https://github.com/jesseduffield/lazygit)    - TUI for Git  
+[calcure](https://github.com/anufrievroman/calcure)    - TUI calendar  
 [posting](https://github.com/darrenburns/posting)    - TUI for HTML requests  
 [chafa](https://github.com/hpjansson/chafa)      - Convert images into terminal formats  
 [isw](https://gitlab.com/thom-cameron/isw)        - Terminal stop watch (pomodoro)  
-[lazygit](https://github.com/jesseduffield/lazygit)    - Git TUI  
 [lazydocker](https://github.com/jesseduffield/lazydocker) - Docker TUI  
 
