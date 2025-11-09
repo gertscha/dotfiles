@@ -9,7 +9,6 @@ abbr --add cod conda deactivate
 abbr --add coa conda activate
 
 abbr --add mm rmpc
-abbr --add tm bartib
 abbr --add htop btop
 
 if command -sq eza

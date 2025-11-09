@@ -184,7 +184,6 @@ Some other programs that I usually install (no particular order)
 [caligula](https://github.com/ifd3f/caligula)   - single command wrapper for dd  
 [wiremix](https://github.com/tsowell/wiremix)    - TUI frontend for pipewire  
 [zk](https://github.com/zk-org/zk)         - Manage Zettelkasten style notes  
-[bartib](https://github.com/nikolassv/bartib)     - Time tracking  
 [impala](https://github.com/pythops/impala)     - TUI WiFi manager (iwd frontend)  
 [lazygit](https://github.com/jesseduffield/lazygit)    - TUI for Git  
 [calcure](https://github.com/anufrievroman/calcure)    - TUI calendar  
