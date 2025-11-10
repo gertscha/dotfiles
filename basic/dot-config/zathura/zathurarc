@@ -3,6 +3,7 @@
 # see man zathurarc(5)
 
 set selection-clipboard clipboard
+set database sqlite
 
 map <C-i> feedkeys ":info<Return>"
 
