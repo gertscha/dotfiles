@@ -143,7 +143,6 @@ for_window [app_id="script-float"] floating enable, resize set 1000 800
     bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SOURCE@ .01+
     bindsym Print exec grimshot --notify copy screen
     bindsym Control+Print exec grimshot --notify copy area
-    bindsym Alt+Print exec ~/scripts/screenshot.py
     # bindsym Alt+Print exec grimshot --notify copy active
     bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
     # bindsym XF86Display exec
@@ -154,9 +153,13 @@ for_window [app_id="script-float"] floating enable, resize set 1000 800
     # select and run with arguments, no pause after script
     bindsym $mod+Alt+S exec foot --app-id=script-float -D $HOME/scripts bash -c \
     'cmd=$(ls | fzf); [ -n "$cmd" ] && { read -e -p "./$cmd " args; ./$cmd $args; }'
-    # // select and run with arguments, pause after script
+    # select and run with arguments, pause after script
     bindsym $mod+Shift+S exec foot --app-id=script-float -D $HOME/scripts bash -c \
     'cmd=$(ls | fzf); [ -n "$cmd" ] && { read -e -p "./$cmd " args; ./$cmd $args; echo; read -p "Press Enter to close..."; }'
+
+    # specific scripts
+    bindsym $mod+Shift+O exec foot --app-id=script-float -D $HOME/scripts bash pdf-open.sh
+    bindsym Alt+Print exec ~/scripts/screenshot.py
 
 #
 # Moving around:
