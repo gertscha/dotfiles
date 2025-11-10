@@ -3,7 +3,8 @@
 sudo dnf update
 # base
 sudo dnf -y install vim alacritty stow fish zsh git git-gui fd tmux tree bat \
-zip gimp audacity
+zip gimp audacity fzf zoxide ripgrep fastfetch btop keepassxc
+
 # dev
 sudo dnf -y install @c-development @development-tools
 sudo dnf -y install xxd gcc lvm python3-pip slurp grim keychain
@@ -17,8 +18,8 @@ sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-releas
 sudo dnf install steam -y
 
 # other apps
-sudo dnf -y install thunderbird texlive-scheme-basic
-sudo dnf -y install zathura zathura-plugins-all
+sudo dnf -y install thunderbird texlive-scheme-basic nextcloud-client
+sudo dnf -y install zathura zathura-plugins-all octave
 sudo dnf -y install texlive-standalone texlive-bibtex texlive-enumitem
 sudo dnf -y install texlive-fancyhdr texlive-hyphen texlive-pgf texlive-beamer
 sudo dnf -y install texlive-babel texlive-amsmath texlive-acro

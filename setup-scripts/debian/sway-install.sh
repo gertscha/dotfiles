@@ -8,5 +8,5 @@ grimshot brightnessctl swayimg wlogout network-manager-applet \
 mako-notifier wayland-protocols xwayland
 
 cd ~/dotfiles
-stow --dotfiles sway
+stow sway
 cd ~
