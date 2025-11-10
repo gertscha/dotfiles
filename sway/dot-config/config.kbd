@@ -41,15 +41,15 @@
 ---------------------------------------------------------------------------- |#
 
 (defalias
-    h_a (tap-hold-next-release 180 a lmet)
+    h_a (tap-hold-next-release 200 a lmet)
     h_s (tap-hold-next-release 180 s lalt)
     h_d (tap-hold-next-release 180 d lctl)
-    h_f (tap-hold-next-release 160 f lsft)
+    h_f (tap-hold-next-release 150 f lsft)
 
-    h_j (tap-hold-next-release 160 j rsft)
+    h_j (tap-hold-next-release 150 j rsft)
     h_k (tap-hold-next-release 180 k rctl)
     h_l (tap-hold-next-release 180 l lalt)
-    h_; (tap-hold-next-release 180 ; rmet)
+    h_; (tap-hold-next-release 200 ; rmet)
 
     tnh (layer-toggle no-layers)
     tcs (layer-toggle code-symbols)
@@ -95,7 +95,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    @tld S-8  S-9  RA-2 RA-7 @acu S-2  -    @grv S-]  _    _    _
   _    @car RA-[ RA-] S-0  \    S-7  S-,  S-.  RA-lsgt   S--  _    _
-  _    0    RA-' RA-\ S-5  S-6  _    kp+  S-/  RA-3 kp*  _    _    _    _    _
+  _    0    RA-' RA-\ S-5  S-6  _    kp+  kp*  RA-3 _    _    _    _    _    _
   _    _    lsgt S-lsgt         _                   _    _    _    _    _    _
 )
 

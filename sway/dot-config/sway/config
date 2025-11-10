@@ -93,6 +93,9 @@ exec_always {
     gsettings set $gnome-schema gtk-theme 'Dracula'
 }
 
+### Window Rules
+for_window [app_id="script-float"] floating enable, resize set 1000 800
+
 
 ### Key bindings
 #
@@ -144,6 +147,16 @@ exec_always {
     # bindsym Alt+Print exec grimshot --notify copy active
     bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
     # bindsym XF86Display exec
+
+    # scripts
+    bindsym $mod+S exec foot --app-id=script-float -D $HOME/scripts bash -c \
+    'cmd=$(ls | fzf); [ -n \"$cmd\" ] && { ./$cmd; }'
+    # select and run with arguments, no pause after script
+    bindsym $mod+Alt+S exec foot --app-id=script-float -D $HOME/scripts bash -c \
+    'cmd=$(ls | fzf); [ -n "$cmd" ] && { read -e -p "./$cmd " args; ./$cmd $args; }'
+    # // select and run with arguments, pause after script
+    bindsym $mod+Shift+S exec foot --app-id=script-float -D $HOME/scripts bash -c \
+    'cmd=$(ls | fzf); [ -n "$cmd" ] && { read -e -p "./$cmd " args; ./$cmd $args; echo; read -p "Press Enter to close..."; }'
 
 #
 # Moving around:
