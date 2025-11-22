@@ -187,6 +187,7 @@ grS                     Get workspace symbols
 grm                     Search diagnostic messages (buffer)
 grM                     Search diagnostic messages (workspace)
 K                       LSP Hover
+gK                      Toggle virtual lines for lsp messages
 <leader>df              Format Buffer
 <leader>dl              Lint Buffer
 <leader>dL              Spellcheck Lint Buffer (remove with <leader>drl)

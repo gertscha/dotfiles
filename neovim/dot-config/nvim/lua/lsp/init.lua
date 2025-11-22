@@ -62,8 +62,25 @@ function M.config()
     },
   })
 
+  vim.keymap.set('n', 'gK', function()
+    local new_config = not vim.diagnostic.config().virtual_lines
+    if new_config == true then
+      vim.diagnostic.config({ virtual_lines = { current_line = true } })
+    else
+      vim.diagnostic.config({ virtual_lines = false })
+    end
+  end, { desc = 'Toggle diagnostic virtual_lines' })
+
   -- enable a server
-  vim.lsp.enable({ 'lua_ls', 'clangd', 'pyright', 'tinymist', 'texlab', 'gopls', 'ocamllsp' })
+  vim.lsp.enable({
+    'lua_ls',
+    'clangd',
+    'pyright',
+    'tinymist',
+    'texlab',
+    'gopls',
+    'ocamllsp',
+  })
 
   -- make it easy to enable a server on the fly
   vim.keymap.set('n', '<leader>de', function()
