@@ -96,15 +96,17 @@ is installed.
 X11/xwayland should work out of the box (since 25.08), but you might want to
 check that `xwayland-satellite` is installed.
 
-To get `mpd` integration in waybar I use
-[mpdris2-rs](https://github.com/szclsya/mpdris2-rs). I build it from source.
-the systemd service is setup to expect the `mpdris2-rs` binary in path (bash).
-
 Because Niri uses the Gnome portal, the file picker usually dialogue requires
 Nautilus, so it needs to be installed.
 
 Mako notifier is also configured, but not enabled and has not been used/tested
 in a long time. I prefer `sway-notification-center`.
+
+Previously I have used [mpdris2-rs](https://github.com/szclsya/mpdris2-rs) to
+integrate mpd into mpdris. But I had some stability issues (crashes of waybar
+when triggering playback with it after waking up the system). It was not a
+huge problem since I run waybar with systemd, but it annoyed me, so I switched
+to the mpd module in waybar and now have two playback controllers.
 
 My ssh keys are managed with KeePassXC (its built-in ssh-agent) and `keychain`.
 This keeps the keys protected and portable across my systems.
@@ -117,8 +119,7 @@ see [example setup](https://github.com/YaLTeR/niri/wiki/Example-systemd-Setup).
 The symlinks should be restored with Stow (otherwise add them with
 `systemctl --user add-wants niri.service <service file>`).
 
-Currently `swayidle`, `swaybg`, `wlsunset`, `waybar` and `mpd-mpris` are
-launched with systemd.
+Currently `swayidle`, `swaybg`, `wlsunset` and `waybar` are launched with systemd.
 You can manage them with `systemctl --user <command> <name>`.
 
 This should also work if Niri is launched with `niri-session` from the tty.

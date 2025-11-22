@@ -17,6 +17,7 @@
     ],
     "modules-right": [
         "group/audio-group",
+        "group/mpd-group",
         "bluetooth",
         "group/network-group",
         "tray",
@@ -206,6 +207,61 @@
         "modules": ["mpris", "mpris#title", "custom/separator-dot-line",
             "wireplumber#source", "custom/separator-dot-line", "wireplumber#sink",
             "custom/separator-dot-line", "mpris#control-bw", "mpris#control-fw",
+            "custom/separator-dot-line"],
+    },
+
+    "mpd": {
+        "format": "{stateIcon}",
+        "format-disconnected": "Disconnected",
+        "format-stopped": "",
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (Connected)",
+        "tooltip-format-disconnected": "MPD (Disconnected)",
+        "on-click": "mpc toggle",
+        "on-click-right": "mpc next",
+        "on-scroll-up": "mpc volume +5",
+        "on-scroll-down": "mpc volume -5",
+        "server": "127.0.0.1",
+        "port": 6600,
+    },
+    "mpd#title": {
+        "format": "{artist} | {title}",
+        "format-disconnected": "",
+        "format-stopped": "Stopped",
+        "format-paused": "{artist}",
+        "tooltip-format": "{elapsedTime}/{totalTime} : {songPosition} of {queueLength}",
+        "max-length": 50,
+        "on-click": "mpc toggle",
+    },
+    "mpd#volume": {
+        "format": "{volume}%",
+        "format-disconnected": "",
+        "on-scroll-up": "mpc volume +2",
+        "on-scroll-down": "mpc volume -2",
+        "tooltip-format": "scroll to adjust",
+    },
+    "custom/mpd-next": {
+        "format": "󰒭",
+        "on-click": "mpc next",
+        "tooltip-format": "next",
+    },
+    "custom/mpd-prev": {
+        "format": "󰒮 ",
+        "on-click": "mpc prev",
+        "tooltip-format": "previous",
+    },
+    "group/mpd-group": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 700,
+            "transition-left-to-right": false,
+        },
+        "modules": [ "mpd", "mpd#title", "custom/separator-dot-line",
+            "mpd#volume", "custom/separator-dot-line",
+            "custom/mpd-prev", "custom/mpd-next",
             "custom/separator-dot-line"],
     },
 

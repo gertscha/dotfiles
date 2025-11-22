@@ -147,6 +147,12 @@ window#waybar.empty #window {
     color: @foreground;
     margin: 0px 2px;
 }
+#mpd-group {
+    color: @foreground;
+    background: @background;
+    margin:0px 1px;
+    padding: 0px 8px;
+}
 
 #bluetooth{
     color:@foreground;
