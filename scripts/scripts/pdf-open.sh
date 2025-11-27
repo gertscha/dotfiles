@@ -2,9 +2,9 @@
 
 # === Configuration ===
 SEARCH_DIRS=(
-    "$HOME/Documents"
-    "$HOME/Downloads"
-    "$HOME/ln/files/Nextcloud"
+    "$HOME/Documents/"
+    "$HOME/Downloads/"
+    "$HOME/ln/files/Nextcloud/"
 )
 CACHE_DIR="${SCRIPT_CACHE_DIR:-$HOME/.local/share}"
 CACHE_FILE="$CACHE_DIR/fzf_pdf_cache"
