@@ -163,6 +163,7 @@ Main programs I use (included in Base):
 - [fzf](https://github.com/junegunn/fzf), dependency of several core programs (system package manager)
 - [zsh](https://sourceforge.net/p/zsh/code), fallback POSIX shell, (system package manager)
 - [zathura](https://pwmt.org/projects/zathura/), PDF viewer (system packet manager)
+- [swayimg](https://github.com/artemsen/swayimg), image viewer (system package manager)
 - and the obligatory [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 
 Programs that have a full stow directory:
@@ -178,6 +179,8 @@ Display Manager based desktop setups (see [Niri](#niri) and [Sway](#sway)):
 - [niri](https://github.com/YaLTeR/niri) (system package manager)
 - [sway](https://swaywm.org/) (system package manager)
 
+Things that distros will hopefully ship by default the future:
+- [libjxl](https://github.com/libjxl/libjxl)
 
 # Other Programs
 Some other programs that I usually install (no particular order)  
