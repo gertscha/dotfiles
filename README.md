@@ -180,7 +180,7 @@ Display Manager based desktop setups (see [Niri](#niri) and [Sway](#sway)):
 - [sway](https://swaywm.org/) (system package manager)
 
 Things that distros will hopefully ship by default the future:
-- [libjxl](https://github.com/libjxl/libjxl)
+- [libjxl](https://github.com/libjxl/libjxl) (usually packaged as: `libjxl-utils`)
 
 # Other Programs
 Some other programs that I usually install (no particular order)  
@@ -192,7 +192,7 @@ Some other programs that I usually install (no particular order)
 [lazygit](https://github.com/jesseduffield/lazygit)    - TUI for Git  
 [calcure](https://github.com/anufrievroman/calcure)    - TUI calendar  
 [posting](https://github.com/darrenburns/posting)    - TUI for HTML requests  
-[chafa](https://github.com/hpjansson/chafa)      - Convert images into terminal formats  
+[chafa](https://github.com/hpjansson/chafa)      - Convert images into terminal formats (build from source for .jxl support)  
 [isw](https://gitlab.com/thom-cameron/isw)        - Terminal stop watch (pomodoro)  
 [lazydocker](https://github.com/jesseduffield/lazydocker) - Docker TUI  
 [btop](https://github.com/aristocratos/btop)       - Resource Monitor  

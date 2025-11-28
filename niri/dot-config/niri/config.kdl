@@ -411,6 +411,11 @@ window-rule {
     default-column-width { proportion 0.12; }
 }
 
+window-rule {
+    match app-id="Swayimg"
+    draw-border-with-background false
+}
+
 // full width apps
 window-rule {
     match app-id="Vivaldi-flatpak"
