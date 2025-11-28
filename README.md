@@ -194,6 +194,5 @@ Some other programs that I usually install (no particular order)
 [posting](https://github.com/darrenburns/posting)    - TUI for HTML requests  
 [chafa](https://github.com/hpjansson/chafa)      - Convert images into terminal formats (build from source for .jxl support)  
 [isw](https://gitlab.com/thom-cameron/isw)        - Terminal stop watch (pomodoro)  
-[lazydocker](https://github.com/jesseduffield/lazydocker) - Docker TUI  
 [btop](https://github.com/aristocratos/btop)       - Resource Monitor  
 
