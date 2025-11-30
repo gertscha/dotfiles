@@ -186,7 +186,8 @@ r = reload
 i = info
 Shift+Alt+Delete = exec rm "%"; skip_file
 Escape = exit
-q = exit
+Shift+q = exit
+q = none
 # Mouse related
 ScrollLeft = step_right 5
 ScrollRight = step_left 5
@@ -224,7 +225,8 @@ r = reload
 i = info
 Shift+Alt+Delete = exec rm "%"; skip_file
 Escape = exit
-q = exit
+Shift+q = exit
+q = none
 # Mouse related
 ScrollLeft = step_right
 ScrollRight = step_left

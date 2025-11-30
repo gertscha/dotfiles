@@ -175,7 +175,8 @@ i = info
 f = fullscreen
 Return = mode
 Escape = exit
-q = exit
+Shift+q = exit
+q = none
 
 ################################################################################
 # Viewer mode key binding configuration: key = action [parameters]
@@ -225,7 +226,8 @@ r = reload
 i = info
 Shift+Alt+Delete = exec rm "%"; skip_file
 Escape = exit
-q = exit
+Shift+q = exit
+q = none
 # Mouse related
 ScrollLeft = step_right 5
 ScrollRight = step_left 5
@@ -268,7 +270,8 @@ Minus = thumb -20
 Kp_Subtract = thumb -20
 Shift+Alt+Delete = exec rm "%"; skip_file
 Escape = exit
-q = exit
+Shift+q = exit
+q = none
 # Mouse related
 ScrollLeft = step_right
 ScrollRight = step_left
