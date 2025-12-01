@@ -7,7 +7,7 @@ SEARCH_DIRS=(
     "$HOME/Downloads/"
     "$HOME/ln/files/Nextcloud/"
 )
-CACHE_DIR="${SCRIPT_CACHE_DIR:-$HOME/.local/share}"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/scripts_cache"
 CACHE_FILE="$CACHE_DIR/fzf_img_cache"
 
 mkdir -p "$CACHE_DIR"
