@@ -14,6 +14,12 @@ set -gx LSCOLORS "cxgxHxHxBxhxhxahahCxCx"
 set -gx GREP_COLORS "sl=49;39:cx=49;39:mt=49;31;1:fn=49;32:ln=49;33:bn=49;33:se=1;36"
 set -gx ZK_NOTEBOOK_DIR (eval echo (grep '^dir =' $XDG_CONFIG_HOME/zk/config.toml | cut -d= -f2- | tr -d ' "'))
 
+fish_add_path ~/.local/bin
+fish_add_path ~/.local/share/go/bin
+fish_add_path ~/.local/share/cargo/bin
+fish_add_path ~/build_sys/install/bin
+fish_add_path ~/.local/share/stack/bin
+
 if command -sq nvim
     set -gx EDITOR nvim
     set -gx VISUAL nvim
@@ -31,14 +37,23 @@ end
 # opam configuration
 test -r "$OPAMROOT/opam-init/init.fish" && source "$OPAMROOT/opam-init/init.fish" > /dev/null 2> /dev/null; or true
 
-fish_add_path ~/.local/bin
-fish_add_path ~/.local/share/go/bin
-fish_add_path ~/.local/share/cargo/bin
-fish_add_path ~/build_sys/install/bin
-fish_add_path ~/.local/share/stack/bin
-
 if type -q zoxide
     set -x _ZO_RESOLVE_SYMLINKS '1'
     set -x _ZO_DATA_DIR "$XDG_DATA_HOME/zoxide"
     zoxide init --cmd cd fish | source
+end
+
+if type -q swayimg
+    set -l si_version_output (command swayimg --version)
+    set -l si_version (echo $si_version_output | string match -r '[0-9]+\.[0-9]+' | head -n1)
+    set -l si_major_version (echo $si_version | cut -d. -f1)
+
+    if ! test -d $XDG_CONFIG_HOME/swayimg
+        mkdir -p $XDG_CONFIG_HOME/swayimg
+    end
+    if test $si_major_version -lt 4
+        ln -sf $XDG_CONFIG_HOME/swayimg.d/config_v3 $XDG_CONFIG_HOME/swayimg/config
+    else
+        ln -sf $XDG_CONFIG_HOME/swayimg.d/config_v4 $XDG_CONFIG_HOME/swayimg/config
+    end
 end
