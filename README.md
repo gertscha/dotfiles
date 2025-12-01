@@ -175,6 +175,10 @@ see [Music](#Music), optionally install [cava](https://github.com/karlstav/cava)
 - [Alacritty](https://alacritty.org/), my fallback cross-platform terminal
 - [kitty](https://sw.kovidgoyal.net/kitty/), not used, added for some testing
 
+Other dependencies:
+- [fd](https://github.com/sharkdp/fd), find alternative, used in scripts (system package manager)
+	On Debian/Ubuntu, symlink fdfind i.e. link .local/bin/fd -> /usr/bin/fdfind
+
 Display Manager based desktop setups (see [Niri](#niri) and [Sway](#sway)):
 - [niri](https://github.com/YaLTeR/niri) (system package manager)
 - [sway](https://swaywm.org/) (system package manager)
