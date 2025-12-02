@@ -123,6 +123,11 @@ function M.config()
     require('fzf-lua').jumps()
   end, opts('[S]earch [J]umplist'))
 
+  vim.keymap.set('n', '<leader>su', function()
+    if not setupdone then setupfzf() end
+    require('fzf-lua').undotree()
+  end, opts('[S]earch [U]ndotree'))
+
   vim.keymap.set('n', '<leader>sc', function()
     if not setupdone then setupfzf() end
     require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })
