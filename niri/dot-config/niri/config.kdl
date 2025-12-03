@@ -541,13 +541,12 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // autostart does not work with system theme
 // currently use the wm-start script to launch these manually (have an alias)
 
-spawn-at-startup "swaync" // notificaton center
 // systemd services, mainly for auto-restarts
 spawn-at-startup "systemctl" "--user" "start" "swaybg"
 spawn-at-startup "systemctl" "--user" "start" "swayidle"
+spawn-at-startup "systemctl" "--user" "start" "swaync"
 spawn-at-startup "systemctl" "--user" "start" "waybar"
 spawn-at-startup "systemctl" "--user" "start" "wlsunset"
-spawn-at-startup "systemctl" "--user" "start" "mpdris"
 
 // these would be needed, but are handled with systemd instead:
 // spawn-at-startup "sh" "-c" "swaybg -m fill -i $(find ~/Pictures/backgrounds/ -type f | shuf -n1) &"

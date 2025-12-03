@@ -12,8 +12,8 @@
 @define-color green #7fa563;
 
 * {
-  font-size: 14px;
-  font-family: "FiraCode Nerd Font";
+  font-size: 15px;
+  font-family: "Noto Sans";
   transition: 200ms;
 }
 
@@ -36,7 +36,7 @@
   box-shadow: none;
   font-size: 16px;
   border: 1px solid @border;
-  border-radius: 8px;
+  border-radius: 12px;
 }
 .control-center .notification-row .notification.critical .notification-content {
   border-color: @red;
@@ -59,7 +59,7 @@
   /* color: @green; */
   background-color: @black;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   margin: 0px;
   padding: 0px;
 }
@@ -79,7 +79,7 @@
   box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.4);
 }
 .floating-notifications.background .notification-row .notification-background {
-  border-radius: 18px;
+  border-radius: 8px;
   margin: 14px 14px 4px 0px;
   background-color: @black;
   color: @white;
@@ -88,7 +88,7 @@
 .floating-notifications.background .notification-row .notification-background
   .notification {
   padding: 6px;
-  border-radius: 18px;
+  border-radius: 8px;
   border-color: @border;
 }
 .floating-notifications.background .notification-row .notification-background
@@ -135,7 +135,7 @@
   border-radius: 16px;
   background-color: alpha(@marker,.5);
   padding: 8px;
-  margin: 0px -1px
+  margin: 0px -1px;
 }
 .widget-dnd label {
   margin: 0px 0px 0px 18px;
@@ -178,7 +178,7 @@
   background-color: @marker;
 }
 .control-center .notification-group {
-  border-radius: 18px;
+  border-radius: 12px;
   background-color: alpha(@marker,.3);
 }
 
