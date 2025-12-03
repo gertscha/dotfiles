@@ -8,7 +8,7 @@ local M = {
     Add_plugin(
       spec,
       'MeanderingProgrammer/render-markdown.nvim',
-      { version = 'v8.8.0' }
+      { version = 'v8.10.0' }
     )
   end,
 }
