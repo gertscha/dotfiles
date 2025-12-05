@@ -89,12 +89,18 @@ fallback DE on the system). So here is how I did it for my system:
 
 #### TLDR (Fedora):
 ```
-sudo dnf install niri waybar swaybg swayidle wlogout wlsunset sway-notification-center wofi
+dnf install niri waybar swaybg swayidle wlogout wlsunset wayland-devel
+dnf copr enable erikreider/SwayNotificationCenter
+dnf install SwayNotificationCenter-git
+cargo install --locked chameleos
 ```
 The other core dependencies should be covered by this and the fact that Gnome
 is installed.
 X11/xwayland should work out of the box (since 25.08), but you might want to
 check that `xwayland-satellite` is installed.
+
+If you want yo can omit `wayland-devel` and `chameleos`, but then you need to
+remove the spawn-at-startup for it as well.
 
 Because Niri uses the Gnome portal, the file picker usually dialogue requires
 Nautilus, so it needs to be installed.
@@ -199,4 +205,5 @@ Some other programs that I usually install (no particular order)
 [chafa](https://github.com/hpjansson/chafa)      - Convert images into terminal formats (build from source for .jxl support)  
 [isw](https://gitlab.com/thom-cameron/isw)        - Terminal stop watch (pomodoro)  
 [btop](https://github.com/aristocratos/btop)       - Resource Monitor  
+[chameleos](https://github.com/Treeniks/chameleos)  - Screen Annotation Tool  
 

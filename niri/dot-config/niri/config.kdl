@@ -548,6 +548,9 @@ spawn-at-startup "systemctl" "--user" "start" "swaync"
 spawn-at-startup "systemctl" "--user" "start" "waybar"
 spawn-at-startup "systemctl" "--user" "start" "wlsunset"
 
+// screen annotation tool (also has keybindings)
+spawn-at-startup "systemctl" "--user" "start" "chameleos"
+
 // these would be needed, but are handled with systemd instead:
 // spawn-at-startup "sh" "-c" "swaybg -m fill -i $(find ~/Pictures/backgrounds/ -type f | shuf -n1) &"
 // spawn-at-startup "waybar"
@@ -667,6 +670,18 @@ binds {
     Mod+Shift+O hotkey-overlay-title="Open PDF file" repeat=false { spawn "bash" "-c" \
         "foot --app-id=script-float -D $HOME/scripts -e bash pdf-open.sh"; }
     Alt+Print hotkey-overlay-title="Screenshot with script" { spawn "~/scripts/screenshot.py"; }
+
+    // chameleos (https://github.com/Treeniks/chameleos)
+    // requires chameleos to run, see spawn-at-startup
+    Mod+F1 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "4"; }
+    Mod+F2 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "8"; }
+    Mod+F3 hotkey-overlay-title=null { spawn "chamel" "clear"; }
+    Mod+F4 hotkey-overlay-title=null { spawn "chamel" "toggle"; }
+    Mod+F5 hotkey-overlay-title=null { spawn "chamel" "clear-and-deactivate"; }
+    Mod+F6 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#00BFFF"; }
+    Mod+F7 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#FF0000"; }
+    Mod+F8 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#00BF00"; }
+    Mod+F9 hotkey-overlay-title=null { spawn "chamel" "undo"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     Mod+O repeat=false { toggle-overview; }
