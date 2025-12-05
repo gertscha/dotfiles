@@ -597,19 +597,20 @@ binds {
 
     // applications
     Mod+D hotkey-overlay-title="Run an Application" { spawn "wofi" "--show=drun"; }
-    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "wezterm"; }
-    Mod+Shift+Return { spawn "foot" "-o" "colors.alpha=0.6"; }
-    Mod+Alt+Return { spawn "foot"; }
-    Mod+Control+Return { spawn "kitty"; }
+    Mod+Return hotkey-overlay-title="Open Wezterm" { spawn "wezterm"; }
+    Mod+Shift+Return hotkey-overlay-title="Open Foot (transparent)" { spawn "foot" "-o" "colors.alpha=0.6"; }
+    Mod+Alt+Return hotkey-overlay-title="Open Foot" { spawn "foot"; }
+    Mod+Control+Return hotkey-overlay-title=null { spawn "kitty"; }
     // Mod+Alt+Return { spawn "alacritty"; }
     Mod+E hotkey-overlay-title="Open File Explorer" { spawn "nautilus" "-w"; }
-    Mod+Ctrl+E { spawn "pcmanfm"; }
     Mod+B hotkey-overlay-title="Open Browser" { spawn "flatpak" "run" "one.ablaze.floorp"; }
-    Mod+Shift+B  { spawn "firefox"; }
-    Mod+Ctrl+B { spawn "flatpak" "run" "io.github.ungoogled_software.ungoogled_chromium"; }
-    Mod+Alt+B { spawn "flatpak" "run" "app.zen_browser.zen"; }
+    Mod+Shift+B  hotkey-overlay-title="Open Firefox" { spawn "firefox"; }
+    Mod+Ctrl+B hotkey-overlay-title="Open Ungoogled Chromium" \
+        { spawn "flatpak" "run" "io.github.ungoogled_software.ungoogled_chromium"; }
+    Mod+Alt+B hotkey-overlay-title="Open Zen" \
+        { spawn "flatpak" "run" "app.zen_browser.zen"; }
     // popups
-    Mod+N { spawn "swaync-client" "-op"; }
+    Mod+N hotkey-overlay-title="Open Notifications" { spawn "swaync-client" "-op"; }
     Mod+G hotkey-overlay-title="Open Calculator" { spawn "gnome-calculator" "-m" \
         "advanced"; }
 
@@ -622,7 +623,7 @@ binds {
         { power-off-monitors; }
 
     // Audio
-    Mod+P                allow-when-locked=true { spawn "mpc" "toggle"; }
+    Mod+P hotkey-overlay-title="Toggle mpd playback" allow-when-locked=true { spawn "mpc" "toggle"; }
     XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" \
         "@DEFAULT_AUDIO_SINK@" "0.01+"; }
@@ -649,21 +650,21 @@ binds {
 
     // Scripts
     // select and run directly
-    Mod+S repeat=false { spawn "bash" "-c" \
+    Mod+S hotkey-overlay-title="Run script" repeat=false { spawn "bash" "-c" \
         "foot --app-id=script-float -D $HOME/scripts bash -c \\
         'cmd=$(ls | fzf); [ -n \"$cmd\" ] && { ./$cmd; }' }"; }
     // select and run with arguments, no pause after script
-    Mod+Alt+S repeat=false { spawn "bash" "-c" \
+    Mod+Alt+S hotkey-overlay-title="Run script with arguments" repeat=false { spawn "bash" "-c" \
         "foot --app-id=script-float -D $HOME/scripts bash -c \\
         'cmd=$(ls | fzf); [ -n \"$cmd\" ] && { read -e -p \"./$cmd \" args; ./$cmd $args; }'"; }
     // select and run with arguments, pause after script
-    Mod+Shift+S repeat=false { spawn "bash" "-c" \
+    Mod+Shift+S hotkey-overlay-title="Run script with arguments & confirm" repeat=false { spawn "bash" "-c" \
         "foot --app-id=script-float -D $HOME/scripts bash -c \\
         'cmd=$(ls | fzf); [ -n \"$cmd\" ] && { read -e -p \"./$cmd \" args; \\
         ./$cmd $args; echo; read -p \"Press Enter to close...\"; }'"; }
 
     // specific scripts
-    Mod+Shift+O repeat=false { spawn "bash" "-c" \
+    Mod+Shift+O hotkey-overlay-title="Open PDF file" repeat=false { spawn "bash" "-c" \
         "foot --app-id=script-float -D $HOME/scripts -e bash pdf-open.sh"; }
     Alt+Print hotkey-overlay-title="Screenshot with script" { spawn "~/scripts/screenshot.py"; }
 
