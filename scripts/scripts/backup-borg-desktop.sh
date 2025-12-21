@@ -15,7 +15,7 @@ KEEPASS_ENTRY="Backup Borg Desktop"
 BORG_REPO="/mnt/backup/Desktop"
 
 # Directories to backup
-DOC_DIRS="media/data0/Documents /media/data0/Pictures /media/data0/Music"
+DOC_DIRS="/media/data0/Documents /media/data0/Pictures /media/data0/Music"
 DATA_DIRS="/media/data0/Nextcloud $USER_HOME/dotfiles"
 
 SOURCE_DIRS="$DOC_DIRS $DATA_DIRS"
@@ -74,7 +74,7 @@ else
     echo "Starting Borg backup..."
     borg create --stats --progress --compression lz4 --exclude-caches "$BORG_REPO"::{user}-{now} $SOURCE_DIRS
     echo "Starting Borg compact..."
-    borg compact
+    borg compact -p "$BORG_REPO"
 
     echo "-----------------------------------------------------"
     echo "Backup finished successfully at $(date)"
