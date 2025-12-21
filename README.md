@@ -206,4 +206,5 @@ Some other programs that I usually install (no particular order)
 [isw](https://gitlab.com/thom-cameron/isw)        - Terminal stop watch (pomodoro)  
 [btop](https://github.com/aristocratos/btop)       - Resource Monitor  
 [chameleos](https://github.com/Treeniks/chameleos)  - Screen Annotation Tool  
+[tray-tui](https://github.com/Levizor/tray-tui)   - Terminal System tray  
 
