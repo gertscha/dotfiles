@@ -166,6 +166,7 @@ layout {
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
     center-focused-column "never"
+    always-center-single-column
 
     // The widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
@@ -290,6 +291,34 @@ gestures {
     // open overview if mouse goes to top-left corner
     hot-corners {
         off
+    }
+}
+
+// Alt+Tab or Mod+Tab window switching
+recent-windows {
+    debounce-ms 1250
+    open-delay-ms 100
+    highlight {
+        active-color "#878787ff"
+        urgent-color "#ff9999ff"
+        padding 30
+        corner-radius 0
+    }
+    previews {
+        max-height 1080
+        max-scale 0.5
+    }
+    binds {
+        // Escape will cancel the switcher
+        Alt+Tab               { next-window; }
+        Alt+Shift+Tab         { previous-window; }
+        Alt+Control+Tab       { next-window     filter="app-id"; }
+        Alt+Shift+Control+Tab { previous-window filter="app-id"; }
+
+        Mod+Tab               { next-window; }
+        Mod+Shift+Tab         { previous-window; }
+        Mod+Control+Tab       { next-window     filter="app-id"; }
+        Mod+Shift+Control+Tab { previous-window filter="app-id"; }
     }
 }
 
@@ -877,7 +906,7 @@ binds {
     Mod+F hotkey-overlay-title="Maximize Column" { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     // makes the column "fill the rest of the space"
-    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+Ctrl+F { maximize-window-to-edges; }
 
     Mod+C hotkey-overlay-title="Center Column" { center-column; }
     Mod+Ctrl+C { center-visible-columns; } // Center all fully visible columns on screen.
@@ -904,8 +933,8 @@ binds {
         { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       hotkey-overlay-title="Toggle Floating" { toggle-window-floating; }
-    Mod+Shift+V hotkey-overlay-title="Focus Floating Toggle" \
+    Mod+Shift+V hotkey-overlay-title="Toggle Floating" { toggle-window-floating; }
+    Mod+V       hotkey-overlay-title="Focus Floating Toggle" \
         { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
