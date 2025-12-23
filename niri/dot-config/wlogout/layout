@@ -15,7 +15,7 @@
 }
 {
     "label": "reboot",
-    "action": "shutdown -r now",
+    "action": "systemctl reboot",
     "text": "Restart",
     "keybind": "r"
 }
@@ -27,7 +27,7 @@
 }
 {
     "label": "shutdown",
-    "action": "poweroff",
+    "action": "systemctl poweroff",
     "text": "Shutdown",
     "keybind": "s"
 }
