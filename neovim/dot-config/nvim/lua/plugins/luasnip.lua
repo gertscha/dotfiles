@@ -2,7 +2,7 @@
 
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'L3MON4D3/LuaSnip', { version = 'v2.4.0' })
+    Add_plugin(spec, 'L3MON4D3/LuaSnip', { version = 'v2.4.1' })
   end,
 }
 

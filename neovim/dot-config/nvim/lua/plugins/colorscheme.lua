@@ -2,7 +2,7 @@
 
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'vague2k/vague.nvim', { version = 'dba2805' })
+    Add_plugin(spec, 'vague2k/vague.nvim', { version = 'fcc2835' })
     Add_plugin(spec, 'rebelot/kanagawa.nvim', nil)
   end,
   priority = 'b',
