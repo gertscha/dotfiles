@@ -18,6 +18,8 @@
     "modules-right": [
         "group/audio-group",
         "group/mpd-group",
+        "wireplumber#source",
+        "wireplumber#sink",
         "bluetooth",
         "group/network-group",
         "tray",
@@ -183,7 +185,7 @@
         "format": "󰍬 {volume}%",
         "format-muted": "󰍭",
         "tooltip-format": "{node_name}",
-        "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_pulseaudio",
+        "on-click": "GTK_THEME=Adwaita:dark pavucontrol",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
         "scroll-step": 5,
     },
@@ -194,7 +196,7 @@
             "default": ["", "", ""],
         },
         "tooltip-format": "{node_name}",
-        "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_pulseaudio",
+        "on-click": "GTK_THEME=Adwaita:dark pavucontrol",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "scroll-step": 1,
     },
@@ -205,9 +207,7 @@
             "transition-left-to-right": false,
         },
         "modules": ["mpris", "mpris#title", "custom/separator-dot-line",
-            "wireplumber#source", "custom/separator-dot-line", "wireplumber#sink",
-            "custom/separator-dot-line", "mpris#control-bw", "mpris#control-fw",
-            "custom/separator-dot-line"],
+            "mpris#control-bw", "mpris#control-fw", "custom/separator-dot-line"],
     },
 
     "mpd": {
@@ -273,8 +273,8 @@
         "tooltip-format-connected": "{num_connections} connection(s)\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias} | {device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias} | {device_battery_percentage}%",
-        "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_bluetooth",
-        "on-click-right": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_bluetooth",
+        "on-click": "GTK_THEME=Adwaita:dark blueman-manager",
+        "on-click-right": "GTK_THEME=Adwaita:dark blueman-manager",
     },
 
     "network#status": {
@@ -286,8 +286,6 @@
         "tooltip-format-ethernet": " {ifname}",
         "tooltip-format-disconnected": "Disconnected",
         "interval": 30,
-        "on-click": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_networkmanagement",
-        "on-click-right": "QT_QPA_PLATFORMTHEME=qt6ct kcmshell6 kcm_networkmanagement",
     },
     "network#stats": {
         "format": " {bandwidthUpBytes} /  {bandwidthDownBytes}",
