@@ -89,7 +89,7 @@ fallback DE on the system). So here is how I did it for my system:
 
 #### TLDR (Fedora):
 ```
-dnf install niri waybar swaybg swayidle wlogout wlsunset wayland-devel
+dnf install niri waybar swaybg swayidle wlogout wlsunset wayland-devel pavucontrol blueman
 dnf copr enable erikreider/SwayNotificationCenter
 dnf install SwayNotificationCenter-git
 cargo install --locked chameleos

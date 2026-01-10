@@ -54,6 +54,7 @@ vim.o.termguicolors = true
 vim.o.updatetime = 400 -- idle time until swap file is written and CursorHold
 vim.o.timeoutlen = 800 -- keybind sequence timeout length
 
+vim.o.cpoptions = "aABceFs_q~"
 vim.o.undofile = true
 vim.o.undolevels = 20000
 vim.o.swapfile = false
