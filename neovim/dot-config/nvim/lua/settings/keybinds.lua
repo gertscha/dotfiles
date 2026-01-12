@@ -91,7 +91,12 @@ keymap('t', '<esc>', '<c-\\><c-n>', opts('Escape the terminal'))
 
 -- open/close quickfix list, navigate with '[q' and ']q'
 keymap('n', '<M-w>', '<cmd>copen<cr>', opts('Open Quickfix list'))
-keymap('n', '<M-q>', '<cmd>cclose | lclose<cr>', opts('Close Quickfix/Location list'))
+keymap(
+  'n',
+  '<M-q>',
+  '<cmd>cclose | lclose<cr>',
+  opts('Close Quickfix/Location list')
+)
 
 -- run the current line in lua (nice when configuring neovim)
 keymap('n', '<leader>x', '<cmd>.lua<cr>', opts('Run current line (Lua)'))
@@ -158,14 +163,18 @@ keymap('n', '<F1>', '<nop>', { silent = true }) -- open help, accidental presses
 -- but to keep them as fallback they are rebound behind <leader>d
 local remapopts = { noremap = true, silent = true }
 vim.keymap.del('n', 'grr')
+vim.keymap.set('n', '<leader>dgrr', vim.lsp.buf.references, remapopts)
 vim.keymap.del('n', 'gri')
+vim.keymap.set('n', '<leader>dgri', vim.lsp.buf.implementation, remapopts)
 vim.keymap.del('n', 'gra')
+vim.keymap.set('n', '<leader>dgra', vim.lsp.buf.code_action, remapopts)
+vim.keymap.del('n', 'grt')
+vim.keymap.set('n', '<leader>dgrt', vim.lsp.buf.type_definition, remapopts)
 vim.keymap.del('n', 'grn')
+vim.keymap.set('n', '<leader>dgrn', vim.lsp.buf.rename, remapopts)
 vim.keymap.del('n', 'gO')
 vim.keymap.set('n', '<leader>dgO', vim.lsp.buf.document_symbol, remapopts)
+-- 'gd' cannot be deleted
 vim.keymap.set('n', '<leader>dgd', vim.lsp.buf.definition, remapopts)
+-- 'gD' cannot be deleted
 vim.keymap.set('n', '<leader>dgD', vim.lsp.buf.declaration, remapopts)
-vim.keymap.set('n', '<leader>dgri', vim.lsp.buf.implementation, remapopts)
-vim.keymap.set('n', '<leader>dgra', vim.lsp.buf.code_action, remapopts)
-vim.keymap.set('n', '<leader>dgrr', vim.lsp.buf.references, remapopts)
-vim.keymap.set('n', '<leader>dgrn', vim.lsp.buf.rename, remapopts)
