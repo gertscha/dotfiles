@@ -57,6 +57,8 @@ ln -s <path to install>/miniforge3/bin/conda .
 where I specify a custom install directory (usually `~/build`, or `~/build_sys`),
 and symlink it in `.conda` to keep my shell aliases simple.
 
+I also use `xdg-terminal-exec` to set the default terminal for context actions.
+
 ## Music
 I use `mpd` with the `rmpc` front-end (with `cava`). All the mpd data is in
 `~/Music`. I typically install `mpd` and `mpc` and I build `rmpc` from source
@@ -207,4 +209,5 @@ Some other programs that I usually install (no particular order)
 [btop](https://github.com/aristocratos/btop)       - Resource Monitor  
 [chameleos](https://github.com/Treeniks/chameleos)  - Screen Annotation Tool  
 [tray-tui](https://github.com/Levizor/tray-tui)   - Terminal System tray  
+[pastel](https://github.com/sharkdp/pastel)     - Nice color helper  
 

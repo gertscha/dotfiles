@@ -3,7 +3,7 @@
 sudo dnf update
 # base
 sudo dnf -y install vim alacritty stow fish zsh git git-gui fd tmux tree bat \
-zip gimp audacity fzf zoxide ripgrep fastfetch btop keepassxc
+zip gimp audacity fzf zoxide ripgrep fastfetch btop keepassxc xdg-terminal-exec
 
 # dev
 sudo dnf -y install @c-development @development-tools
