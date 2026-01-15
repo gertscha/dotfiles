@@ -10,42 +10,27 @@
 --- ```
 
 local switch_prefix = os.getenv('OPAM_SWITCH_PREFIX')
+local ocamllsp_cmd = ''
 if switch_prefix then
-  local ocamllsp_cmd = switch_prefix .. '/bin/ocamllsp'
-  return {
-    cmd = { ocamllsp_cmd },
-    filetypes = {
-      'ocaml',
-      'ocaml.menhir',
-      'ocaml.interface',
-      'ocaml.ocamllex',
-      'reason',
-      'dune',
-    },
-    root_markers = {
-      { 'dune-project', 'dune-workspace' },
-      { '*.opam', 'esy.json', 'package.json' },
-      '.git',
-    },
-    settings = {},
-  }
+  ocamllsp_cmd = switch_prefix .. '/bin/ocamllsp'
 else
-  vim.notify('OPAM_SWITCH_PREFIX not set', vim.log.levels.WARN)
-  return {
-    cmd = { 'ocamllsp' },
-    filetypes = {
-      'ocaml',
-      'ocaml.menhir',
-      'ocaml.interface',
-      'ocaml.ocamllex',
-      'reason',
-      'dune',
-    },
-    root_markers = {
-      { 'dune-project', 'dune-workspace' },
-      { '*.opam', 'esy.json', 'package.json' },
-      '.git',
-    },
-    settings = {},
-  }
+  ocamllsp_cmd = 'ocamllsp'
 end
+
+return {
+  cmd = { ocamllsp_cmd },
+  filetypes = {
+    'ocaml',
+    'ocaml.menhir',
+    'ocaml.interface',
+    'ocaml.ocamllex',
+    'reason',
+    'dune',
+  },
+  root_markers = {
+    { 'dune-project', 'dune-workspace' },
+    { '*.opam', 'esy.json', 'package.json' },
+    '.git',
+  },
+  settings = {},
+}

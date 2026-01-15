@@ -49,3 +49,17 @@ vim.api.nvim_create_autocmd('InsertLeave', {
     end
   end,
 })
+
+-- Check if there is an OPAM switch when opening Ocaml files (only once)
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'ocaml', 'dune' },
+  once = true,
+  callback = function()
+    local switch = os.getenv('OPAM_SWITCH_PREFIX')
+    if not switch then
+      vim.notify('No OPAM switch detected', vim.log.levels.ERROR)
+    elseif string.find(switch, 'default') then
+      vim.notify('Using default OPAM switch: ' .. switch, vim.log.levels.WARN)
+    end
+  end,
+})
