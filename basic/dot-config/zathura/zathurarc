@@ -7,6 +7,10 @@ set database sqlite
 
 map <C-i> feedkeys ":info<Return>"
 
+# toggle transparency (view)
+map v feedkeys ":set default-bg 0<Return>"
+map <C-v> feedkeys ":set default-bg '#141415<Return>'<Return>"
+
 # make q not quite (accidental press), instead Shift+q quits
 map q abort
 map Q quit
