@@ -702,14 +702,16 @@ binds {
 
     // chameleos (https://github.com/Treeniks/chameleos)
     // requires chameleos to run, see spawn-at-startup
+    Mod+Shift+F1 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "2"; }
     Mod+F1 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "4"; }
     Mod+F2 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "8"; }
+    Mod+Shift+F2 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "16"; }
     Mod+F3 hotkey-overlay-title=null { spawn "chamel" "clear"; }
     Mod+F4 hotkey-overlay-title=null { spawn "chamel" "toggle"; }
     Mod+F5 hotkey-overlay-title=null { spawn "chamel" "clear-and-deactivate"; }
-    Mod+F6 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#00BFFF"; }
+    Mod+F6 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#3B8DFF"; }
     Mod+F7 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#FF0000"; }
-    Mod+F8 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#00BF00"; }
+    Mod+F8 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#008000"; }
     Mod+F9 hotkey-overlay-title=null { spawn "chamel" "undo"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
