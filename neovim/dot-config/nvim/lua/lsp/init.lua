@@ -3,7 +3,7 @@
 -- LSP setup
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'mason-org/mason.nvim', { version = 'v2.1.0' })
+    Add_plugin(spec, 'mason-org/mason.nvim', { version = 'v2.2.1' })
     Add_plugin(spec, 'stevearc/conform.nvim', { version = 'v9.1.0' })
     Add_plugin(spec, 'saghen/blink.cmp', { version = 'v1.8.0' })
     Add_plugin(spec, 'mfussenegger/nvim-lint', nil)
@@ -80,6 +80,7 @@ function M.config()
     'texlab',
     'gopls',
     'ocamllsp',
+    'qmlls',
   })
 
   -- make it easy to enable a server on the fly

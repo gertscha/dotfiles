@@ -108,6 +108,7 @@ x                       Cut (goes into register 9 instead of 1)
   <leader>tc            Toggle color visualization
   <leader>ti            Toggle scope markers (indent lines)
   <leader>tsc           Toggle command line visibility
+  <leader>tss           Toggle spell check
   // Invert
   <leader>i             Invert text (on/off, true/false, etc)
   // Quickfix list

@@ -34,6 +34,8 @@ keymap('n', '<leader>tsc', function()
   end
 end, opts('Toggle command line visibility'))
 
+keymap('n', '<leader>tss', '<cmd>set spell!<cr>', opts('Toggle Spellchec'))
+
 keymap('n', '<leader>twl', '<cmd>set wrap!<enter>', opts('Toggle line wrap'))
 keymap(
   'n',
