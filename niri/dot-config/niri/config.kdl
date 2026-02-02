@@ -395,6 +395,7 @@ window-rule {
 // small popup
 window-rule {
     match app-id="org.gnome.Calculator"
+    match app-id="qalculate-gtk"
     match app-id=r#"pomodoro"#
     default-column-width { proportion 0.28; }
     default-window-height { proportion 0.5; }
@@ -643,8 +644,7 @@ binds {
         { spawn "flatpak" "run" "app.zen_browser.zen"; }
     // popups
     Mod+N hotkey-overlay-title="Open Notifications" { spawn "swaync-client" "-op"; }
-    Mod+G hotkey-overlay-title="Open Calculator" { spawn "gnome-calculator" "-m" \
-        "advanced"; }
+    Mod+G hotkey-overlay-title="Open Calculator" { spawn "flatpak" "run" "io.github.Qalculate"; }
 
     // wlogout menu
     Mod+Shift+P allow-inhibiting=false hotkey-overlay-title="Lock the Screen" \
