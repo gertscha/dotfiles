@@ -720,14 +720,14 @@ binds {
     Mod+Q repeat=false { close-window; }
 
     // change focus
-    Mod+Left  hotkey-overlay-title=null { focus-column-left; }
-    Mod+Down  hotkey-overlay-title=null { focus-window-down; }
-    Mod+Up    hotkey-overlay-title=null { focus-window-up; }
-    Mod+Right hotkey-overlay-title=null { focus-column-right; }
-    Mod+H     hotkey-overlay-title="Focus column left" { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
+    Mod+Left  hotkey-overlay-title=null { focus-column-or-monitor-left; }
+    Mod+Down  hotkey-overlay-title=null { focus-window-or-monitor-down; }
+    Mod+Up    hotkey-overlay-title=null { focus-window-or-monitor-up; }
+    Mod+Right hotkey-overlay-title=null { focus-column-or-monitor-right; }
+    Mod+H     hotkey-overlay-title="Focus column left" { focus-column-or-monitor-left; }
+    Mod+J     { focus-window-or-monitor-down; }
+    Mod+K     { focus-window-or-monitor-up; }
+    Mod+L     { focus-column-or-monitor-right; }
 
     Mod+Home hotkey-overlay-title="Focus First Column" { focus-column-first; }
     Mod+End  hotkey-overlay-title="Focus Last Column"  { focus-column-last; }
