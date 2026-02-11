@@ -45,3 +45,8 @@ script to uninstall the current version and build Neovim again.
 
 For more information about building Neovim see
 [upstream](https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-source).
+
+# Other installs
+[rust](https://rustup.rs/)
+[kmonad](https://github.com/kmonad/kmonad/blob/master/doc/installation.md) (+ stack)
+

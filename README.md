@@ -47,6 +47,12 @@ This covers the basics, meaning shells (bash, zsh and fish), `tmux`, `lf`,
 `lf` is built from source (very simple since it uses `go`). The `go` binary
 output path (`~/go/bin`) is already added to path in my shells.
 
+For `swayimg` I have two configs, one for version 3.x and one for 4.x since
+the apt repos still have 3.x. The quick hack I use to handle this is manual
+creation of a symlink that links `.config/swayimg/config` to
+`.config/swayimg.d/config_vX`. This is the only thing that needs manual
+intervention right now, so I have not spend the time to automate this.
+
 I use [miniforge](https://github.com/conda-forge/miniforge), with this setup:
 ```
 curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"

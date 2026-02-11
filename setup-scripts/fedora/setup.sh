@@ -2,6 +2,7 @@
 
 sudo dnf update
 # base
+mkdir ~/scripts
 sudo dnf -y install vim alacritty stow fish zsh git git-gui fd tmux tree bat \
 zip gimp audacity fzf zoxide ripgrep fastfetch btop keepassxc xdg-terminal-exec
 

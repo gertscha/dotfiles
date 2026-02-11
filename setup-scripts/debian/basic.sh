@@ -7,6 +7,8 @@ sudo apt install wl-clipboard ripgrep curl unzip gettext stow zsh tmux \
 vim alacritty fish fd-find tree bat zip gimp audacity fzf zoxide zathura \
 zathura-pdf-poppler grim slurp jq
 
+mkdir ~/scripts
+
 # load configuration
 cd ~/dotfiles
 stow --dotfiles basic
