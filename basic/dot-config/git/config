@@ -21,6 +21,12 @@
 	default = current
 [merge]
 	conflictstyle = zdiff3
+	tool = nvimdiff
+	prompt = false
+[mergetool]
+	keepBackup = false
+[mergetool "nvimdiff"]
+	layout = LOCAL,BASE,REMOTE / MERGED
 [rebase]
 	autoStash = true
 	autoSquash = true
