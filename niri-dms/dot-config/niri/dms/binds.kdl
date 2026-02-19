@@ -46,9 +46,9 @@ binds {
         spawn "gnome-calculator" "-m" "advanced";
     }
 
-    // screen lock
+    // power menu (also has lock option)
     Mod+Shift+P hotkey-overlay-title="Lock Screen" {
-        spawn "dms" "ipc" "call" "lock" "lock";
+        spawn "dms" "ipc" "call" "powermenu" "toggle";
     }
 
     // Audio Controls
