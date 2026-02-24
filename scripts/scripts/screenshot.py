@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Screenshots utility based on a JSON state (wofi, grim, slurp, wl-copy)
+Screenshots utility based on a JSON state (fuzzel, grim, slurp, wl-copy)
 take and save screenshots based on the key-value pairs in the state
 Allows adding, editing, and deleting of key-value pairs
 """
@@ -57,7 +57,7 @@ def save_data(filepath: Path, data: dict):
         with open(filepath, 'w') as f:
             json.dump(data, f, indent=4)
     except Exception as e:
-        # Try to show an error in wofi if saving fails
+        # Try to show an error in fuzzel if saving fails
         print(f"Error saving data: {e}", file=sys.stderr)
         show_menu([f"FATAL: Could not save data to {filepath}",
                    str(e)], "Save Error")
@@ -65,14 +65,22 @@ def save_data(filepath: Path, data: dict):
 
 def show_menu(options: list[str], prompt: str = "") -> str | None:
     """
-    Displays a wofi menu with the given options and returns the selected item.
+    Displays a fuzzel menu with the given options and returns the selected item.
     Returns None if the user cancels (e.g., presses Esc).
     """
-    wofi_cmd = ["wofi", "--dmenu", f"--prompt={prompt}"]
+    # Base command: dmenu mode and a wider window to fit long paths
+    fuzzel_cmd = ["fuzzel", "--dmenu", "--width=80"]
+
+    if not options or options == [""]:
+        fuzzel_cmd.append("--lines=0")
+
+    if prompt:
+        fuzzel_cmd.extend([f"--mesg={prompt}"])
+
     input_str = "\n".join(options)
 
     try:
-        result = subprocess.run(wofi_cmd,
+        result = subprocess.run(fuzzel_cmd,
                                 input=input_str,
                                 capture_output=True,
                                 text=True,
@@ -83,11 +91,12 @@ def show_menu(options: list[str], prompt: str = "") -> str | None:
         else:
             return None
     except FileNotFoundError:
-        print("Error: 'wofi' command not found. Please install wofi.",
+        print("Error: 'fuzzel' command not found. Please install fuzzel.",
               file=sys.stderr)
         sys.exit(1)
     except Exception as e:
-        print(f"An unexpected error occurred with wofi: {e}", file=sys.stderr)
+        print(f"An unexpected error occurred with fuzzel: {e}",
+              file=sys.stderr)
         sys.exit(1)
 
 
@@ -208,7 +217,7 @@ def main():
         special_options = ["[Screenshot]", "[Add New Entry]", "[Exit]"]
 
         selection = show_menu(special_options + json_data,
-                              prompt="Persistent JSON Menu")
+                              prompt="Screenshot Tool - JSON Menu")
 
         if selection is None or selection == "[Exit]":
             break
