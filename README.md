@@ -97,7 +97,8 @@ fallback DE on the system). So here is how I did it for my system:
 
 #### TLDR (Fedora):
 ```
-dnf install niri waybar swaybg swayidle wlogout wlsunset wayland-devel pavucontrol blueman
+dnf install niri waybar swaybg fuzzel swayidle wlogout wlsunset wayland-devel
+dnf install pavucontrol blueman grim slurp
 dnf copr enable erikreider/SwayNotificationCenter
 dnf install SwayNotificationCenter-git
 cargo install --locked chameleos
@@ -178,6 +179,7 @@ Main programs I use (included in Base):
 - [zsh](https://sourceforge.net/p/zsh/code), fallback POSIX shell, (system package manager)
 - [zathura](https://pwmt.org/projects/zathura/), PDF viewer (system packet manager)
 - [swayimg](https://github.com/artemsen/swayimg), image viewer (system package manager)
+- [fuzzel](https://codeberg.org/dnkl/fuzzel), app launcher (system package manager)
 - and the obligatory [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 
 Programs that have a full stow directory:
@@ -216,4 +218,5 @@ Some other programs that I usually install (no particular order)
 [chameleos](https://github.com/Treeniks/chameleos)  - Screen Annotation Tool  
 [tray-tui](https://github.com/Levizor/tray-tui)   - Terminal System tray  
 [pastel](https://github.com/sharkdp/pastel)     - Nice color helper  
+[just](https://github.com/casey/just)       - Make with some extra conveniences
 
