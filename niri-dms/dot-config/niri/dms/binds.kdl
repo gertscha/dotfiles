@@ -100,7 +100,7 @@ binds {
     // specific scripts
     Mod+Shift+O hotkey-overlay-title="Open PDF file" repeat=false { spawn "bash" "-c" \
         "foot --app-id=script-float -D $HOME/scripts -e bash pdf-open.sh"; }
-    Alt+Print hotkey-overlay-title="Screenshot with script" { spawn "~/scripts/screenshot.py"; }
+    Alt+Print hotkey-overlay-title="Screenshot with script" { spawn "~/scripts/.fuzzel/screenshot.sh"; }
 
     // chameleos (https://github.com/Treeniks/chameleos)
     // requires chameleos to run, see spawn-at-startup

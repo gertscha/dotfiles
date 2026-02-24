@@ -629,7 +629,7 @@ binds {
     Mod+Shift+apostrophe cooldown-ms=400 { show-hotkey-overlay; } // Mod + ?
 
     // applications
-    Mod+D hotkey-overlay-title="Run an Application" { spawn "wofi" "--show=drun"; }
+    Mod+D hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
     Mod+Return hotkey-overlay-title="Open Wezterm" { spawn "wezterm"; }
     Mod+Shift+Return hotkey-overlay-title="Open Foot (transparent)" { spawn "foot" "-o" "colors.alpha=0.6"; }
     Mod+Alt+Return hotkey-overlay-title="Open Foot" { spawn "foot"; }
@@ -698,7 +698,7 @@ binds {
     // specific scripts
     Mod+Shift+O hotkey-overlay-title="Open PDF file" repeat=false { spawn "bash" "-c" \
         "foot --app-id=script-float -D $HOME/scripts -e bash pdf-open.sh"; }
-    Alt+Print hotkey-overlay-title="Screenshot with script" { spawn "~/scripts/screenshot.py"; }
+    Alt+Print hotkey-overlay-title="Screenshot with script" { spawn "~/scripts/.fuzzel/screenshot.sh"; }
 
     // chameleos (https://github.com/Treeniks/chameleos)
     // requires chameleos to run, see spawn-at-startup
