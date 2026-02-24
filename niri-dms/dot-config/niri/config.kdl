@@ -331,10 +331,19 @@ workspace "browser" {
 workspace "files" {
     open-on-output "eDP-1"
 }
-workspace "apps" {
+workspace "4" {
     open-on-output "eDP-1"
 }
-workspace "notes" {
+workspace "5" {
+    open-on-output "eDP-1"
+}
+workspace "6" {
+    open-on-output "eDP-1"
+}
+workspace "7" {
+    open-on-output "eDP-1"
+}
+workspace "apps" {
     open-on-output "eDP-1"
 }
 
