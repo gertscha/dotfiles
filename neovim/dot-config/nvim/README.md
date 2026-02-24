@@ -88,6 +88,7 @@ x                       Cut (goes into register 9 instead of 1)
 ``` text
 // Normal Mode
   ga                    Select entire buffer, going into visual mode
+                        (default ga of getting character info is bound to gA)
   gy                    Yank entire buffer
   // Oil
   -                     Open Oil filemanager float, if already open, go up one level
@@ -98,7 +99,7 @@ x                       Cut (goes into register 9 instead of 1)
   // ToggleTerm (Terminal)
   <leader>ot            Toggle terminal overlay
   // Textwidth settings
-  <leader>th            Toggle colorcolumn highlight on and off
+  <leader>tle           Toggle colorcolumn highlight on and off
   <leader>twl           Toggle text wrapping
   <leader>tw0           Set textwidth to zero (disable)
   <leader>tw1           Set textwidth to 80

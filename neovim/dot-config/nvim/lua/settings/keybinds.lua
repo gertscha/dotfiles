@@ -18,7 +18,7 @@ keymap('n', '<leader>tll', '<cmd>se cul!<cr>', opts('Show Line Hi'))
 -- toggle line length indicator, cc ~= colorcolumn
 keymap(
   'n',
-  '<leader>th',
+  '<leader>tle',
   "<cmd>let &cc = &cc == '' ? '80,120' : ''<enter>",
   opts('Toggle line length limit highlighting')
 )
@@ -34,7 +34,7 @@ keymap('n', '<leader>tsc', function()
   end
 end, opts('Toggle command line visibility'))
 
-keymap('n', '<leader>tss', '<cmd>set spell!<cr>', opts('Toggle Spellchec'))
+keymap('n', '<leader>tss', '<cmd>set spell!<cr>', opts('Toggle Spellcheck'))
 
 keymap('n', '<leader>twl', '<cmd>set wrap!<enter>', opts('Toggle line wrap'))
 keymap(
