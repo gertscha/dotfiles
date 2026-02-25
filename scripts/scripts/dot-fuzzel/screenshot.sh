@@ -67,9 +67,11 @@ else
 fi
 
 # Ensure parent directories exist
-mkdir -p "$(dirname "$FULL_SAVE_PATH")"
-
-echo $FULL_SAVE_PATH
+TARGET_DIR="$(dirname "$FULL_SAVE_PATH")"
+if [[ ! -d "$TARGET_DIR" ]]; then
+    printf "[Acknowledge]\n" | $DMENU_CMD --mesg="Error: Directory '${TARGET_DIR}' does not exist!"
+    exit 1
+fi
 
 # --- Overwrite Check ---
 if [[ -f "$FULL_SAVE_PATH" ]]; then
@@ -93,7 +95,7 @@ if [[ $? -eq 0 ]]; then
     if [[ "$MD_MODE" == "True" ]]; then
         WIDTH=$(echo "$GEOMETRY" | awk '{print $2}' | cut -d'x' -f1)
         HALF_WIDTH=$((WIDTH / 2))
-        echo -n "![[${FINAL_NAME} | ${HALF_WIDTH}]]" | wl-copy
+        wl-copy "![[${FINAL_NAME} | ${HALF_WIDTH}]]"
     else
         wl-copy -t image/png < "$FULL_SAVE_PATH"
     fi
