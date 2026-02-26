@@ -271,8 +271,10 @@ animations {
     slowdown 0.6
 
     window-open {
-        duration-ms 100
-        curve "ease-out-expo"
+        off
+    }
+    workspace-switch {
+        off
     }
     horizontal-view-movement {
         spring damping-ratio=1.0 stiffness=1600 epsilon=0.0001
