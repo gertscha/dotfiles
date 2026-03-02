@@ -210,6 +210,9 @@ Templates for the formatter config files can be created with `:FormatterSetup[..
 <leader>rM              Open merge tool
 <leader>rb              Open blame float for current line (gitsigns plugin feature)
 <leader>rB              Open blame for all lines in file
+<leader>rq              Add hunks in file to quickfix list (gitsigns plugin feature)
+<leader>rQ              Add all hunks to quickfix list (gitsigns plugin feature)
+
 
 // while inside the fugitive buffer
 g?                      Show the help with all the keybinds

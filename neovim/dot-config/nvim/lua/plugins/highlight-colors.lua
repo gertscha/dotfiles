@@ -5,7 +5,7 @@ local M = {
     Add_plugin(
       spec,
       'brenoprata10/nvim-highlight-colors',
-      { version = 'b42a5ccec7457b44e89f7ed3b3afb1b375bb2093' }
+      { version = 'e2cb22089cc2358b2b995c09578224f142de6039' }
     )
   end,
 }

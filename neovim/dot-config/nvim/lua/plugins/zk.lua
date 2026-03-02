@@ -2,7 +2,7 @@
 
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'zk-org/zk-nvim', { version = 'v0.4.6' })
+    Add_plugin(spec, 'zk-org/zk-nvim', { version = 'v0.4.7' })
   end,
 }
 function M.config()

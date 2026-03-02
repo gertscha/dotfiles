@@ -4,11 +4,11 @@
 
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'brianhuster/live-preview.nvim', { version = 'v0.9.5' })
+    Add_plugin(spec, 'brianhuster/live-preview.nvim', { version = 'v0.9.6' })
     Add_plugin(
       spec,
       'MeanderingProgrammer/render-markdown.nvim',
-      { version = 'v8.10.0' }
+      { version = 'v8.11.0' }
     )
   end,
 }
