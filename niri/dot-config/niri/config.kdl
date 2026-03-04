@@ -405,7 +405,7 @@ window-rule {
 // script popup
 window-rule {
     match app-id="script-float"
-    default-column-width { proportion 0.3; }
+    default-column-width { proportion 0.35; }
     default-window-height { proportion 0.5; }
     open-floating true
 }
@@ -413,8 +413,9 @@ window-rule {
 // file selector popups
 window-rule {
     match app-id="org.kde.filelight" title="Select Folder to Scan — Filelight"
-    default-column-width { proportion 0.33; }
-    default-window-height { proportion 0.5; }
+    match title="Select Folder to Scan"
+    default-column-width { proportion 0.45; }
+    default-window-height { proportion 0.6; }
     open-floating true
 }
 window-rule {
@@ -450,6 +451,7 @@ window-rule {
 window-rule {
     match app-id="Vivaldi-flatpak"
     match app-id=r#"^.*\.ungoogled_chromium$"#
+    match app-id="org.mozilla.firefox"
     match app-id="gimp"
     match app-id=r#"^steam_app_"#
     default-column-width { proportion 1.0; }
@@ -465,11 +467,9 @@ window-rule {
 window-rule {
     match app-id="org.kde.discover"
     match app-id=r#"Discord$"#
-    match app-id="org.mozilla.firefox"
     match app-id="one.ablaze.floorp"
     match app-id="zen"
     match app-id="steam" title="Steam"
-    match app-id="obsidian"
     default-column-width { proportion 0.66; }
 }
 
