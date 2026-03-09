@@ -2,7 +2,7 @@
 
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'nvim-lualine/lualine.nvim', { version = 'a94fc68' })
+    Add_plugin(spec, 'nvim-lualine/lualine.nvim', { version = 'master' })
   end,
   priority = 'f',
 }

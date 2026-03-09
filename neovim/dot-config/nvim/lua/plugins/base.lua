@@ -8,8 +8,8 @@ local M = {
     Add_plugin(spec, 'tpope/vim-sleuth', nil)
     Add_plugin(spec, 'tpope/vim-obsession', nil)
     Add_plugin(spec, 'tpope/vim-fugitive', { version = 'v3.7' })
-    Add_plugin(spec, 'stevearc/oil.nvim', { version = 'bbad9a7' })
-    Add_plugin(spec, 'windwp/nvim-autopairs', { version = '23320e7' })
+    Add_plugin(spec, 'stevearc/oil.nvim', { version = '0fcc838' })
+    Add_plugin(spec, 'windwp/nvim-autopairs', { version = '59bce2e' })
     Add_plugin(spec, 'nvzone/showkeys', nil)
   end,
 }
