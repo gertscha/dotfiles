@@ -447,12 +447,6 @@ window-rule {
     open-floating true
 }
 
-// zoom is troublesome with wayland in general, but especially bad in tilers
-window-rule {
-    match app-id="zoom"
-    open-floating true
-}
-
 // full width apps
 window-rule {
     match app-id="Vivaldi-flatpak"
