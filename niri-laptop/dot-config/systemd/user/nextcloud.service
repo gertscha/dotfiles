@@ -1,0 +1,11 @@
+[Unit]
+Description=Nextcloud Startup
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=nextcloud --background
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

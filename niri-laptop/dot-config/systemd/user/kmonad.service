@@ -1,0 +1,11 @@
+[Unit]
+Description=KMonad keyboard config
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=always
+RestartSec=3
+ExecStart=%h/.local/bin/kmonad %h/.config/config.kbd
+Nice=-20

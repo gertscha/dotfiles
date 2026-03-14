@@ -1,0 +1,223 @@
+/* Vague color scheme */
+@define-color background #141415;
+@define-color foreground #cdcdcd;
+@define-color hoverfg #ffffff;
+@define-color border #878787;
+@define-color marker #252530;
+@define-color shadow #606079;
+@define-color lightshadow #90a0b5;
+@define-color red #c48282;
+@define-color blue #6e94b2;
+@define-color orange #f3be7c;
+@define-color aqua #b4d4cf;
+@define-color green #7fa563;
+
+
+/* Global */
+
+* {
+    font-size:14px;
+    min-height: 0;
+    border-radius: 12px;
+    font-family: "Noto Sans", "FiraCode Nerd Font Propo";
+}
+#waybar{
+    background: transparent;
+}
+#custom-separator-dot-line {
+    margin: 0px 4px;
+    padding: 0px 4px 0px 2px;
+    color: alpha(@white,.7);
+}
+tooltip {
+    background: @background;
+    color: @foreground;
+}
+
+
+/* Hover */
+
+#clock:hover,#battery:hover,#cpu:hover,#memory:hover,#temperature:hover,
+#network:hover,#custom-swaync:hover,#idle_inhibitor:hover,#mpris.title:hover,
+#wireplumber:hover,#mpris:hover,#bluetooth:hover,#network:hover,#window:hover {
+    color: @hoverfg;
+}
+#custom-powermenu:hover{
+    color: @red;
+}
+#tray > widget:hover {
+    background-color: @border;
+}
+#workspaces button:hover,
+#workspaces button.active:hover,
+#workspaces button.empty:hover {
+    color: @hoverfg;
+    text-shadow: 0px 0px 2px alpha(black,.8);
+}
+
+
+/* Left Modules */
+
+
+.modules-left {
+    margin: 0px 0px 0px 2px;
+}
+#workspaces {
+    background: @background;
+    margin: 0px 1px;
+    padding: 0px 6px;
+}
+#workspaces button {
+    all:unset;
+    margin: 0px 3px;
+    color: alpha(@foreground,.85);
+}
+#workspaces button.active,
+#workspaces button.empty.active {
+    color: @blue;
+    border-radius:4px;
+    text-shadow: 0px 0px 2px alpha(black,.8);
+    font-weight: bold;
+}
+#workspaces button.empty {
+    color: alpha(@foreground,.6);
+    text-shadow: 0px 0px 2px alpha(black,.8);
+}
+
+#window {
+    color: @foreground;
+    background: @background;
+    margin: 0px 1px;
+    padding: 0px 8px;
+}
+window#waybar.empty #window {
+    min-width: 0px;
+    margin: 0px;
+    background: transparent;
+}
+
+
+/* Center Modules */
+
+.modules-center {
+    margin:0px 10px 0px 10px;
+}
+#custom-swaync{
+    color: @foreground;
+    background: @background;
+    margin:0px 4px;
+    padding: 0px 8px;
+}
+
+#clock-group {
+    color: @foreground;
+    background: @background;
+}
+#clock{
+    color:@foreground;
+    background: @background;
+    margin:0px 0px;
+    padding: 0px 8px;
+}
+
+#idle_inhibitor {
+    color:@foreground;
+    background: @background;
+    margin:0px 4px;
+    padding: 0px 8px;
+}
+
+
+/* Right Modules */
+
+.modules-right {
+    margin: 0px 2px 0px 0px;
+}
+#audio-group {
+    color: @foreground;
+    background: @background;
+    padding: 0px 4px 0px 8px;
+    border-radius: 12px 0px 0px 12px;
+}
+#mpris.title {
+    color: @foreground;
+    margin: 0px 2px;
+}
+#mpd-group {
+    color: @foreground;
+    background: @background;
+    margin:0px 4px 0px 0px;
+    padding: 0px 8px 0px 5px;
+    border-radius: 0px 12px 12px 0px;
+}
+
+
+#pulseaudio.source {
+    color: @foreground;
+    background: @background;
+    margin: 0px 0px 0px 1px;
+    padding: 0px 4px 0px 8px;
+    border-radius: 12px 0px 0px 12px;
+}
+#pulseaudio.sink {
+    color: @foreground;
+    background: @background;
+    margin: 0px;
+    padding: 0px 4px;
+    border-radius: 0px;
+}
+#bluetooth{
+    color:@foreground;
+    background: @background;
+    margin: 0px;
+    padding: 0px 4px;
+    border-radius: 0px;
+}
+#network-group,
+#tray,
+#backlight,
+#battery{
+    color:@foreground;
+    background: @background;
+    margin: 0px;
+    padding: 0px 4px;
+    border-radius: 0px;
+}
+/* #network.stats { */
+/*     min-width: 12em; */
+/* } */
+#network.disconnected,
+#network.disabled {
+    color:@red;
+}
+#tray menu,
+#tray menu menuitem {
+  background-color: @background;
+  color: @foreground;
+}
+#tray menu menuitem:hover {
+  background-color: @marker;
+  color: @hoverfg;
+}
+#battery.charging {
+    color: @green;
+}
+#battery.warning:not(.charging) {
+    color: @orange;
+}
+#battery.critical:not(.charging) {
+    color: @red;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#custom-powermenu{
+    color: @foreground;
+    background: @background;
+    margin: 0px 1px 0px 0px;
+    padding: 0px 8px 0px 4px;
+    border-radius: 0px 12px 12px 0px;
+}

@@ -1,0 +1,184 @@
+/* vague theme */
+@define-color black #141415;
+@define-color white #cdcdcd;
+@define-color border #878787;
+@define-color marker #252530;
+@define-color shadow #606079;
+@define-color lightshadow #90a0b5;
+@define-color red #c48282;
+@define-color blue #6e94b2;
+@define-color orange #f3be7c;
+@define-color aqua #b4d4cf;
+@define-color green #7fa563;
+
+* {
+  font-size: 15px;
+  font-family: "Noto Sans";
+  transition: 200ms;
+}
+
+
+/* Notification Center */
+.control-center {
+  box-shadow:
+    0 0 8px 0 rgba(0, 0, 0, 0.8),
+    inset 0 0 0 2px @border;
+  border-radius: 18px;
+  font-size: 18px;
+  background-color: alpha(@black,.95);
+  color: @white;
+  /* margin: 18px; */
+  padding: 14px;
+}
+.control-center .notification-row .notification-content {
+  background-color: @black;
+  padding: 4px;
+  box-shadow: none;
+  font-size: 16px;
+  border: 1px solid @border;
+  border-radius: 12px;
+}
+.control-center .notification-row .notification.critical .notification-content {
+  border-color: @red;
+}
+.control-center .control-center-list .notification-group .horizontal {
+  padding: 4px;
+  box-shadow: none;
+}
+.control-center .notification-row .notification-content .time {
+  font-style: normal;
+  color: @lightshadow;
+  font-size: 13px;
+}
+.notification {
+  background-color: @black;
+  border: 1px solid alpha(@border,.3);
+}
+.control-center .notification-default-action,
+.control-center .notification-action {
+  /* color: @green; */
+  background-color: @black;
+  border: none;
+  border-radius: 12px;
+  margin: 0px;
+  padding: 0px;
+}
+.control-center .notification-action:hover {
+  background-color: alpha(@shadow,.3);
+}
+/* .control-center .notification-row .notification-background */
+/*   .critical .summary { */
+/*   color: @red; */
+/* } */
+
+
+
+/* Floating Notifications */
+.floating-notifications .notification-row .notification.vertical {
+  border: 2px solid @border;
+  box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.4);
+}
+.floating-notifications.background .notification-row .notification-background {
+  border-radius: 8px;
+  margin: 14px 14px 4px 0px;
+  background-color: @black;
+  color: @white;
+  padding: 0;
+}
+.floating-notifications.background .notification-row .notification-background
+  .notification {
+  padding: 6px;
+  border-radius: 8px;
+  border-color: @border;
+}
+.floating-notifications.background .notification-row .notification-background
+  .notification .notification-content {
+  margin: 4px;
+  color: @blue;
+}
+.floating-notifications.background .notification-row .notification-background
+.notification.critical {
+  border-color: @red;
+}
+/* .floating-notifications.background .notification-row .notification-background */
+/*   .notification.critical .summary { */
+/*   font-style: italic; */
+/* } */
+
+
+
+/* Main Header and clear all button */
+.widget-title {
+  background-color: alpha(@marker,.5);
+  margin: 0px -1px 8px -1px;
+  border-radius: 16px;
+  padding-left: 24px;
+  padding-right: 24px; 
+}
+.widget-title .control-center-clear-all {
+  background-color: @black;
+    border: 1px solid @border;
+  margin: 4px 2px;
+  font-size: 12px;
+}
+.widget-title .control-center-clear-all:hover {
+  background-color: @marker;
+}
+.widget-title .control-center-clear-all label {
+  font-size: 12px;
+}
+
+
+
+/* Mute Notifications Header */
+.widget-dnd {
+  border-radius: 16px;
+  background-color: alpha(@marker,.5);
+  padding: 8px;
+  margin: 0px -1px;
+}
+.widget-dnd label {
+  margin: 0px 0px 0px 18px;
+  font-size: 15px;
+}
+.control-center-dnd slider {
+  background: @black;
+  border: 1px solid @border;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.8);
+}
+.control-center-dnd slider:hover {
+  background: @marker;
+  border: 1px solid @border;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.8);
+}
+.control-center .control-center-dnd {
+  background-color: @red;
+  margin: 0px 20px 0px 0px;
+}
+.control-center .control-center-dnd:checked {
+  background-color: @green;
+}
+
+
+
+/* Notification Groups and their buttons */
+.notification-group-close-all-button,
+.notification-group-collapse-button {
+  background-image: none;
+  background-color: @black;
+  color: @white;
+  /* color: white; */
+  /* background-color: #2d2d2d; */
+  /* border: 1px solid @marker; */
+  border: 1px solid @border;
+  box-shadow: 0px 0px 4px 0px rgba(10, 10, 10, 0.4);
+}
+.notification-group-close-all-button:hover,
+.notification-group-collapse-button:hover {
+  background-color: @marker;
+}
+.control-center .notification-group {
+  border-radius: 12px;
+  background-color: alpha(@marker,.3);
+}
+
