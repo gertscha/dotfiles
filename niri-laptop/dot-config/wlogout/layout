@@ -6,12 +6,15 @@
 }
 {
     "label": "hibernate",
-    "action": "systemctl suspend",
-    "text": "Sleep",
-    "keybind": "u"
+    "action": "systemctl hibernate",
+    "text": "Hibernate",
+    "keybind": "h"
 }
 {
-    "label": "empty",
+    "label" : "suspend",
+    "action" : "systemctl suspend",
+    "text" : "Suspend",
+    "keybind" : "u"
 }
 {
     "label": "reboot",
