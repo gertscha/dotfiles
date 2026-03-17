@@ -53,7 +53,10 @@ if type -q swayimg
     end
     if test $si_major_version -lt 4
         ln -sf $XDG_CONFIG_HOME/swayimg.d/config_v3 $XDG_CONFIG_HOME/swayimg/config
-    else
+    else if test $si_major_version -eq 4
         ln -sf $XDG_CONFIG_HOME/swayimg.d/config_v4 $XDG_CONFIG_HOME/swayimg/config
+    else if test $si_major_version -ge 5
+        ln -sf $XDG_CONFIG_HOME/swayimg.d/config_v5.lua $XDG_CONFIG_HOME/swayimg/init.lua
     end
 end
+
