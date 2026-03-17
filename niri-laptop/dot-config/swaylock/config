@@ -6,7 +6,7 @@ indicator-y-position=100
 indicator-x-position=100
 color=1d1f21
 
-image=~/Pictures/lockscreen/bonsai-pixel.png
+image=~/Pictures/lockscreen/lock.jpg
 scaling=fill
 font=FiraMono
 font-size=14
