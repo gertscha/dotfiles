@@ -43,20 +43,3 @@ if type -q zoxide
     zoxide init --cmd cd fish | source
 end
 
-if type -q swayimg
-    set -l si_version_output (command swayimg --version)
-    set -l si_version (echo $si_version_output | string match -r '[0-9]+\.[0-9]+' | head -n1)
-    set -l si_major_version (echo $si_version | cut -d. -f1)
-
-    if ! test -d $XDG_CONFIG_HOME/swayimg
-        mkdir -p $XDG_CONFIG_HOME/swayimg
-    end
-    if test $si_major_version -lt 4
-        ln -sf $XDG_CONFIG_HOME/swayimg.d/config_v3 $XDG_CONFIG_HOME/swayimg/config
-    else if test $si_major_version -eq 4
-        ln -sf $XDG_CONFIG_HOME/swayimg.d/config_v4 $XDG_CONFIG_HOME/swayimg/config
-    else if test $si_major_version -ge 5
-        ln -sf $XDG_CONFIG_HOME/swayimg.d/config_v5.lua $XDG_CONFIG_HOME/swayimg/init.lua
-    end
-end
-
