@@ -50,10 +50,6 @@ close_all_windows() (
     sleep 0.2
 )
 
-# niri msg action toggle-overview
-close_all_windows # defined above
-# niri msg action toggle-overview
-niri msg action focus-monitor DP-1
-sleep 0.1
-niri msg action focus-workspace code
+close_all_windows
+niri msg action focus-workspace 1
 

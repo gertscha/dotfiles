@@ -1,0 +1,214 @@
+// This config is in the KDL format: https://kdl.dev
+// It is supposed to extend my base config with device specific settings
+
+
+//
+// load base settings
+//
+include "base-config.kdl"
+// TODO next release this will be valid
+// include optional=true "base-config.kdl"
+
+
+//
+// Cursor
+//
+// cursor files in $XDG_DATA_HOME/icons/<theme-name>
+/- cursor {
+    xcursor-theme "breeze_black_cursors"
+    xcursor-size 18
+}
+
+
+//
+// Outputs
+// https://niri-wm.github.io/niri/Configuration%3A-Outputs.html
+// You can configure outputs by their name, which you can find by running
+// `niri msg outputs` while inside a niri instance. 
+
+// my main monitor
+output "DP-1" {
+    position x=2560 y=0
+    backdrop-color "#141415"
+}
+// my secondary monitor
+output "HDMI-A-1" {
+    position x=0 y=0
+    backdrop-color "#141415"
+}
+
+
+//
+// Layout
+//
+layout {
+    struts {
+        // left 10
+        // right 10
+        top -2
+        bottom -4
+    }
+    shadow {
+        off
+    }
+}
+
+
+//
+// Named workspaces
+//
+workspace "browser" {
+    open-on-output "DP-1"
+}
+
+workspace "work" {
+    open-on-output "DP-1"
+}
+
+workspace "code" {
+    open-on-output "DP-1"
+}
+
+// set the windows to the named workspaces
+window-rule {
+    match at-startup=true app-id=r#"thunderbird"#
+    match app-id="Vivaldi-flatpak"
+    match app-id=r#"^.*\.ungoogled_chromium$"#
+    match app-id="org.mozilla.firefox"
+    open-on-workspace "browser"
+}
+window-rule {
+    match app-id="one.ablaze.floorp"
+    match app-id="zen"
+    match app-id="obsidian"
+    open-on-workspace "work"
+}
+
+
+//
+// Window rules
+//
+
+// small popup
+window-rule {
+    match app-id=r#"pomodoro"#
+    default-column-width { proportion 0.28; }
+    default-window-height { proportion 0.5; }
+    open-floating true
+}
+
+// zoom is troublesome with wayland in general, but especially bad in tilers
+window-rule {
+    match app-id="zoom"
+    open-floating true
+}
+
+// Steam notifications do not use a custom notification backend
+// this makes the placement better
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="top-right"
+}
+window-rule {
+    match app-id="steam" title="Friends List"
+    match app-id="steam" title="Players"
+    default-column-width { proportion 0.12; }
+}
+
+// full width apps
+window-rule {
+    match app-id="Vivaldi-flatpak"
+    match app-id=r#"^.*\.ungoogled_chromium$"#
+    match app-id="org.mozilla.firefox"
+    match app-id="gimp"
+    match app-id=r#"^steam_app_"#
+    default-column-width { proportion 1.0; }
+}
+
+// 0.66 width apps
+window-rule {
+    match app-id=r#"Discord$"#
+    match app-id="one.ablaze.floorp"
+    match app-id="zen"
+    match app-id="steam" title="Steam"
+    default-column-width { proportion 0.66; }
+}
+
+// 0.33 width apps
+window-rule {
+    match app-id="steam" title="Settings"
+    match app-id="steam" title="Challenge"
+    default-column-width { proportion 0.33; }
+}
+
+
+//
+// Layer Rules
+// https://niri-wm.github.io/niri/Configuration%3A-Layer-Rules.html
+//
+layer-rule {
+    match namespace="waybar"
+    match at-startup=true
+    block-out-from "screencast"
+    // block-out-from "screen-capture"
+}
+
+
+//
+// General Configuration
+//
+
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+
+// autostart does not work with system theme
+// currently use the wm-start script to launch these manually (have an alias)
+
+// systemd services, mainly for auto-restarts
+spawn-at-startup "systemctl" "--user" "start" "swaybg"
+spawn-at-startup "systemctl" "--user" "start" "swaync"
+spawn-at-startup "systemctl" "--user" "start" "waybar"
+spawn-at-startup "systemctl" "--user" "start" "wlsunset"
+
+// screen annotation tool (also has keybindings)
+spawn-at-startup "systemctl" "--user" "start" "chameleos"
+
+
+//
+// Keybindings
+//
+binds {
+    Mod+Return hotkey-overlay-title="Open Wezterm" { spawn "wezterm"; }
+    Mod+Control+Return hotkey-overlay-title=null { spawn "kitty"; }
+
+    Mod+E hotkey-overlay-title="Open File Explorer" { spawn "nautilus" "-w"; }
+
+    Mod+B hotkey-overlay-title="Open Browser" { spawn "flatpak" "run" "one.ablaze.floorp"; }
+    Mod+Shift+B  hotkey-overlay-title="Open Firefox" { spawn "firefox"; }
+    Mod+Ctrl+B hotkey-overlay-title="Open Ungoogled Chromium" \
+        { spawn "flatpak" "run" "io.github.ungoogled_software.ungoogled_chromium"; }
+    Mod+Alt+B hotkey-overlay-title="Open Zen" \
+        { spawn "flatpak" "run" "app.zen_browser.zen"; }
+
+    // Audio
+    Mod+P hotkey-overlay-title="Toggle mpd playback" allow-when-locked=true { spawn "mpc" "toggle"; }
+    Mod+Alt+P allow-when-locked=true { spawn "playerctl" "play-pause"; }
+
+    // chameleos (https://github.com/Treeniks/chameleos)
+    // requires chameleos to run, see spawn-at-startup
+    Mod+Shift+F1 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "2"; }
+    Mod+F1 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "4"; }
+    Mod+F2 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "8"; }
+    Mod+Shift+F2 hotkey-overlay-title=null { spawn "chamel" "stroke-width" "16"; }
+    Mod+F3 hotkey-overlay-title=null { spawn "chamel" "clear"; }
+    Mod+F4 hotkey-overlay-title=null { spawn "chamel" "toggle"; }
+    Mod+F5 hotkey-overlay-title=null { spawn "chamel" "clear-and-deactivate"; }
+    Mod+F6 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#3B8DFF"; }
+    Mod+F7 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#FF0000"; }
+    Mod+F8 hotkey-overlay-title=null { spawn "chamel" "stroke-color" "#008000"; }
+    Mod+F9 hotkey-overlay-title=null { spawn "chamel" "undo"; }
+
+    // Switches focus between the current and the previous workspace.
+    // Mod+Tab { focus-workspace-previous; }
+}

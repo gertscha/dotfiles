@@ -4,4 +4,4 @@
 source "$XDG_DATA_HOME/keychain/$(hostname)-sh"
 
 # Launch KeePassXC
-exec keepassxc
+keepassxc
