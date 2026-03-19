@@ -314,12 +314,18 @@
 
     "battery": {
         "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% 󰂄",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
         "format-icons": ["", "", "", "", ""],
         "states": {
-            "full": 90,
+            "full": 95,
             "warning": 30,
-            "critical": 10,
+            "critical": 15,
         },
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
     },
 
     "custom/powermenu": {
