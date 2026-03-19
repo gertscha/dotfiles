@@ -36,6 +36,7 @@ mklink /j "C:\Users\#username\AppData\Local\nvim" "D:\#path_to_repository\neovim
 This creates a [Junction](https://learn.microsoft.com/en-us/windows/win32/fileio/hard-links-and-junctions#junctions)
 which can go to other volumes.
 
+I have not tried this in several years though.
 
 # Packages
 Overview for the various "packages" I have.
@@ -77,7 +78,8 @@ systemctl --user enable --now mpd
 ```
 
 ## Alacritty
-My Alacritty setup, not in basic since I want to use it on Windows.
+My Alacritty setup, not in basic since I mainly have it for Windows and I am
+not actively using it anymore.
 
 ## Neovim
 See the README inside `neovim/.config/nvim/`
@@ -86,15 +88,22 @@ See the README inside `neovim/.config/nvim/`
 The Wayland Compositor. This is my second DE free setup. Niri is great for
 big multitasking on a desktop. Its scrolling tiling works very well with
 my workflows. Unlike something like Sway which is great for a laptop but I
-don't want to use on my desktop.
+don't want to use on my desktop. Currently I am using Niri on my Laptop as
+well.
 
 ### Setup
 See the [Getting Started](https://yalter.github.io/niri/Getting-Started.html)
 and note the "Important Software" section in particular.
 
-I am using Niri on top of Fedora Workstation (Gnome) (its a good idea to have a
-fallback DE on the system). So here is how I did it for my system:
+I am using Niri on top of Fedora Workstation (Gnome) and on Debian (Gnome)
+(its a good idea to have a fallback DE on the system). Installing on Debian
+requires several packages to be built from source (`fuzzel`, etc).
 
+Once everything is installed load the `niri-base` and `niri-desktop` stow
+packages.
+
+So here is how I setup for my Fedora system (I also have a setup script
+although I don't use it that often).
 #### TLDR (Fedora):
 ```
 dnf install niri waybar swaybg fuzzel swayidle wlogout wlsunset wayland-devel
@@ -113,9 +122,6 @@ remove the spawn-at-startup for it as well.
 
 Because Niri uses the Gnome portal, the file picker usually dialogue requires
 Nautilus, so it needs to be installed.
-
-Mako notifier is also configured, but not enabled and has not been used/tested
-in a long time. I prefer `sway-notification-center`.
 
 Previously I have used [mpdris2-rs](https://github.com/szclsya/mpdris2-rs) to
 integrate mpd into mpdris. But I had some stability issues (crashes of waybar
@@ -140,21 +146,17 @@ You can manage them with `systemctl --user <command> <name>`.
 This should also work if Niri is launched with `niri-session` from the tty.
 
 #### Paths
-Some files specify image paths, adjust them to images of your liking.
-Files: `niri/config.kdl`, `swaylock/config` (also grep for ~/Pictures).
+Some files specify image paths. The output path for screenshots is defined
+in `niri-base.kdl`. The `swaylock/config` file specifies the background image.
+The `swaybg.service` searches a directory for images to choose from.
 
 
 ## Sway
-I set this up for my Debian 12 Laptop. The base/fallback DE is Gnome.
-This works decently for me, I would not use it on a Desktop though.
+I had this set this up for my Debian 13 Laptop. The base/fallback DE is Gnome.
+This worked decently for me, I would not use it on a Desktop though.
 The tiling nature can be constricting if you are someone that has dozens of
-windows open.
-
-My setup does not handle the keyring properly. SSH keys and some logins (for
-example Nextcloud) require authorization every time the system boots.
-I have not bothered fixing this, since I always hibernate my device (keyrings
-are an absolute pain to handle in compositor only setups, if there is an easy
-trick please bless me with the knowledge).
+windows open. Currently I am using Niri instead, since it is scrolling tiling
+is much more relaxed.
 
 There is an install script that should cover the required packages, see
 `scripts/debian/sway-install.sh`.
