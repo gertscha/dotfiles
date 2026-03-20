@@ -250,10 +250,12 @@ window-rule {
 
 // file selector popups
 window-rule {
-    match app-id="org.gnome.Nautilus"
-    match is-floating=true
+    match app-id="org.gnome.Nautilus" title="(?i)^(Open|Save|Select|Choose|File Upload)" 
+    match app-id="filelight" title="(?i)^(Open|Save|Select|Choose|File Upload)" 
+
     default-column-width { proportion 0.4; }
     default-window-height { proportion 0.6; }
+    open-floating true
 }
 
 // 0.75 width apps
