@@ -264,6 +264,14 @@ window-rule {
     default-column-width { proportion 0.75; }
 }
 
+// Applications that do not suport the xdg-decoration protocol and are
+// transparent or have rounded corners need to be added here to work properly
+window-rule {
+    match app-id="Swayimg"
+    match app-id=r#"[Uu]ngoogled.[Cc]hromium$"#
+    draw-border-with-background false
+}
+
 // block out apps from screen recordings
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
