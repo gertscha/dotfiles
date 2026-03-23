@@ -8,14 +8,15 @@ if nvimconform then
 else
   -- configure the formatters by file type (auto installed based on this table)
   local formatters = {
-    lua = { 'stylua' },
+    lua = { 'lua-language-server' },
     c = { 'clang-format' },
+    go = { 'gopls' },
     cpp = { 'clang-format' },
     python = { 'yapf' },
-    json = { 'jq' },
+    json = { 'prettier' },
     bib = { 'bibtex-tidy' },
-    tex = { 'tex-fmt' },
-    typ = { 'typstyle', lsp_format = 'prefer' },
+    tex = { 'tex-fmt', 'bibtex-tidy' },
+    typ = { 'tinymist', 'typstyle', lsp_format = 'prefer' },
     -- rust = { 'rustfmt', stop_after_first = true, lsp_format = 'fallback' },
   }
 
@@ -55,7 +56,8 @@ else
     end
   end)
 
-  require('conform').setup({
+  local conform = require('conform')
+  conform.setup({
     -- You can customize some of the format options for the filetype
     -- (:help conform.format)
     formatters_by_ft = formatters,
