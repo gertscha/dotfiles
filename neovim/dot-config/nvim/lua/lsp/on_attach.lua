@@ -111,14 +111,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
       -- Disable colors by default, but add a keybinding to enable them
       -- mainly because I have 'brenoprata10/nvim-highlight-colors' installed
       -- but also because I don't like to have them on by default
-      vim.lsp.document_color.enable(false, args.buf)
+      vim.lsp.document_color.enable(false)
       lspKeybind('n', '<leader>tC', function()
-        local is_enabled = vim.lsp.document_color.is_enabled(args.buf)
+        local is_enabled = vim.lsp.document_color.is_enabled()
         vim.notify(
           string.format('Setting LSP document colors to %q', not is_enabled),
           vim.log.levels.INFO
         )
-        vim.lsp.document_color.enable(not is_enabled, args.buf)
+        vim.lsp.document_color.enable(not is_enabled)
       end, args.buf, 'Toggle color visualization (LSP)')
     end
 
