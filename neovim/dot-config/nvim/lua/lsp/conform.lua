@@ -8,7 +8,7 @@ if nvimconform then
 else
   -- configure the formatters by file type (auto installed based on this table)
   local formatters = {
-    lua = { 'lua-language-server' },
+    lua = { 'stylua' },
     c = { 'clang-format' },
     go = { 'gopls' },
     cpp = { 'clang-format' },
