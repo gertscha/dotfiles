@@ -99,13 +99,13 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 window-rule {
-    match at-startup=true app-id=r#"thunderbird"#
-    match at-startup=true app-id=r#"keepass"#
+    match app-id=r#"keepass"#
     open-on-workspace "apps"
     default-column-width { proportion 0.8; }
 }
 window-rule {
     match app-id="obsidian"
+    match app-id=r#"thunderbird"#
     open-on-workspace "notes"
     default-column-width { proportion 1.0; }
 }
@@ -136,6 +136,10 @@ window-rule {
     match app-id=r#"Discord$"#
     match app-id="obsidian"
     default-column-width { proportion 0.66; }
+}
+window-rule {
+    match app-id=r#"zathura$"#
+    default-column-width { proportion 0.43; }
 }
 
 
