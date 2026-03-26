@@ -28,7 +28,7 @@ local config = {
 
 	-------------------------------- Behavior --------------------------------
 	default_prog = { "fish" },
-	default_cwd = "~",
+	default_cwd = wezterm.home_dir,
 
 	----------------------------- Window Settings -----------------------------
 	window_frame = {
