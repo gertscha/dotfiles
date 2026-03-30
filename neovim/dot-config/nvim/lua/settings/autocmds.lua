@@ -63,3 +63,40 @@ vim.api.nvim_create_autocmd('FileType', {
     end
   end,
 })
+
+-- Make opening large files more performant
+local big_file_group = vim.api.nvim_create_augroup('BigFileSetup', { clear = true })
+vim.api.nvim_create_autocmd('BufReadPre', {
+  desc = 'Disable expensive features for massive files',
+  group = big_file_group,
+  callback = function(args)
+    -- threshold (20MB)
+    local max_filesize = 20 * 1024 * 1024
+
+    local file = args.match
+    local ok, stats = pcall(vim.uv.fs_stat, file)
+    if ok and stats and stats.size > max_filesize then
+      vim.b[args.buf].is_large_file = true -- add a tag
+
+      vim.bo[args.buf].swapfile = false
+      vim.bo[args.buf].undofile = false
+      -- Clear syntax safely after the buffer is fully loaded
+      vim.schedule(function()
+        vim.bo[args.buf].syntax = ''
+      end)
+
+      vim.notify(
+        'Syntax, Undo, etc disabled for performance',
+        vim.log.levels.INFO
+      )
+    end
+  end,
+})
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  group = big_file_group,
+  desc = 'Disable window folding for massive files',
+  callback = function(args)
+    -- use the tag from the BufReadPre autocmd
+    if vim.b[args.buf].is_large_file then vim.wo.foldmethod = 'manual' end
+  end,
+})
