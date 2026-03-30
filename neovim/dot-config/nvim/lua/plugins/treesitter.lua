@@ -2,25 +2,29 @@
 
 local M = {
   spec = function(spec)
-    -- master was archieved but is still default branch
-    -- manually specifiy the 'main' branch, but is incompatible
-    -- v0.10.0 works for neovim 0.10 to 0.12
-    Add_plugin(spec, 'nvim-treesitter/nvim-treesitter', { version = 'v0.10.0' })
+    Add_plugin(
+      spec,
+      'nvim-treesitter/nvim-treesitter',
+      { version = 'main', enabled = true }
+    )
+    Add_plugin(
+      spec,
+      'sustech-data/wildfire.nvim',
+      { version = 'master', enabled = true }
+    )
     Add_plugin(
       spec,
       'nvim-treesitter/nvim-treesitter-context',
       -- disable to to performance issues (stutter on scroll over big context changes)
-      { version = 'v1.0.0', enabled = false }
+      { version = 'v1.0.0', enabled = true }
     )
   end,
 }
 
 function M.config()
-  require('nvim-treesitter.configs').setup({
-    TSConfig = {},
-    modules = {},
-    -- A list of parser names, or 'all' (the listed parsers should always be installed)
-    ensure_installed = {
+  local mod_ts = P_require('nvim-treesitter', true)
+  if mod_ts then
+    mod_ts.install({
       'lua',
       'markdown',
       'latex',
@@ -38,45 +42,69 @@ function M.config()
       'cpp',
       'fish',
       'regex',
-    },
-    ignore_install = { 'phpdoc' }, -- List of parsers to ignore installing
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-    highlight = {
-      enable = true,
-      disable = function(lang, buf)
-        local max_filesize = 1000 * 1024
+      'zig',
+    })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { '*' },
+      callback = function(args)
+        local buf = args.buf
+        -- Map the filetype to a treesitter language
+        local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+        if not lang then return end
+        -- Check if the parser is actually installed
+        if not vim.treesitter.language.add(lang) then return end
+
+        -- Do not enable it for big files
+        local max_filesize = 1024 * 1024 -- 1MB
         local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
           vim.notify(
             'Disabled treesitter due to large file size!',
             vim.log.levels.INFO
           )
-          return true
+          return
+        end
+
+        vim.treesitter.start(buf, lang)
+
+        -- start() disables regex highlights
+        -- enable them again if the parser does not provided highlights
+        local h_query = vim.treesitter.query.get(lang, 'highlights')
+        if not h_query then vim.bo.syntax = 'ON' end
+
+        -- enable the (experimental) treesitter indents if available
+        local i_query = vim.treesitter.query.get(lang, 'indents')
+        if i_query then
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
       end,
-      additional_vim_regex_highlighting = false,
-    },
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
-    indent = {
-      enable = true,
-    },
-    incremental_selection = {
-      enable = true,
+    })
+  end
+
+  -- wildfire does incremental selection
+  -- (using this because treesitter dropped this capability)
+  local mod_wf = P_require('wildfire', true)
+  if mod_wf then
+    require('wildfire').setup({
+      surrounds = {
+        { '(', ')' },
+        { '{', '}' },
+        { '<', '>' },
+        { '[', ']' },
+      },
       keymaps = {
-        init_selection = '<Space><Enter>',
-        node_incremental = '<Enter>',
-        scope_incremental = false,
+        init_selection = '<leader><CR>',
+        node_incremental = '<CR>',
         node_decremental = '<BS>',
       },
-    },
-  })
+      filetype_exclude = { 'qf' },
+    })
+  end
 
-  local mod = P_require('treesitter-context', true)
-  if mod then
-    mod.setup({
+  local mod_tsc = P_require('treesitter-context', true)
+  if mod_tsc then
+    mod_tsc.setup({
       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
       max_lines = 6, -- How many lines the window should span. Values <= 0 mean no limit.
       min_window_height = 50, -- Minimum editor window height to enable context. Values <= 0 mean no limit.

@@ -7,7 +7,7 @@ to get the location.
 
 The config uses the Neovims default plugin manager, `vim.pack`.
 Setup is automatic on first startup. But some other dependencies are needed:
-- tree-sitter-cli: `cargo install tree-sitter-cli --locked`
+- tree-sitter-cli (v0.26.1 or later): `cargo install tree-sitter-cli --locked`
 - python-venv
 
 Be sure to run `:checkhealth` and fix any errors shown. The notifications are
@@ -117,7 +117,7 @@ x                       Cut (goes into register 9 instead of 1)
   <M-p>                 Quickfix list previous
   <M-w>                 Open Quickfix list
   <M-q>                 Close Quickfix list
-  // Treesitter
+  // Wildfire (Treesitter based)
   <leader><cr>          Start incremental scope selection
   <cr>                  Extend incremental scope selection
   <bs>                  Reduce incremental scope selection
