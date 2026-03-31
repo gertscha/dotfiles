@@ -103,6 +103,12 @@ window-rule {
     open-floating true
 }
 
+// adjust zathura width to fit a A4 page nicely
+window-rule {
+    match app-id=r#"zathura$"#
+    default-column-width { proportion 0.39; }
+}
+
 // Steam notifications do not use a custom notification backend
 // this makes the placement better
 window-rule {
