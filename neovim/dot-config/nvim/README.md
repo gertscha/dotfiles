@@ -5,7 +5,7 @@ Then add the content of this repo in the `nvim` config folder.
 Use `:h $XDG_CONFIG_HOME` for more information or run `:echo stdpath('config')`
 to get the location.
 
-The config uses the Neovims default plugin manager, `vim.pack`.
+The config uses Neovim's default plugin manager, `vim.pack`.
 Setup is automatic on first startup. But some other dependencies are needed:
 - tree-sitter-cli (v0.26.1 or later): `cargo install tree-sitter-cli --locked`
 - python-venv
@@ -13,7 +13,9 @@ Setup is automatic on first startup. But some other dependencies are needed:
 Be sure to run `:checkhealth` and fix any errors shown. The notifications are
 handled by [snacks.nvim](https://github.com/folke/snacks.nvim), shown in the
 top right, to view them again use `:Mes` or `:Messages` instead of the default
-`:mes`/`:messages`.
+`:mes`/`:messages`. As `ui2` makes progress this may be come obsolete.
+Non-custom notifications (for example errors) can be viewed with `:mes` or
+`g<`.
 
 In particular installing LSP servers with Mason is not automated. Use `:Mason`
 to install what you need.
@@ -34,7 +36,7 @@ from `~/.config/my-cool-config/`. See `:h $NVIM_APPNAME`.
 Check that you have the
 [prerequisites](https://github.com/neovim/neovim/blob/master/BUILD.md#build-prerequisites).
 
-Then clone the neovim repo, checkout the release tag of the version you want
+Then clone the Neovim repo, checkout the release tag of the version you want
 and run:
 ``` bash
 make CMAKE_BUILD_TYPE=Release
@@ -42,7 +44,7 @@ sudo make install
 ```
 
 When updating the installation to a new release, first uninstall (only do this
-if you used sudo make install):
+if you used `sudo make install`):
 ``` bash
 sudo cmake --build build/ --target uninstall
 ```

@@ -54,7 +54,7 @@ vim.o.termguicolors = true
 vim.o.updatetime = 400 -- idle time until swap file is written and CursorHold
 vim.o.timeoutlen = 800 -- keybind sequence timeout length
 
-vim.o.cpoptions = "aABceFs_q~"
+vim.o.cpoptions = 'aABceFs_q~'
 vim.o.undofile = true
 vim.o.undolevels = 20000
 vim.o.swapfile = false
@@ -69,3 +69,26 @@ vim.api.nvim_set_var('loaded_perl_provider', 0)
 vim.api.nvim_set_var('loaded_python3_provider', 0)
 vim.api.nvim_set_var('loaded_node_provider', 0)
 vim.api.nvim_set_var('loaded_ruby_provider', 0)
+
+-- Enable the experimental feature intended to replace the builtin message +
+-- cmdline presentation layer, see :h ui2
+require('vim._core.ui2').enable({
+  enable = true,
+  msg = {
+    ---@type 'cmd'|'msg' Default message target
+    targets = 'cmd',
+    cmd = { -- Options related to messages in the cmdline window.
+      height = 0.5, -- Maximum height while expanded for messages beyond 'cmdheight'.
+    },
+    dialog = { -- Options related to dialog window.
+      height = 0.5, -- Maximum height.
+    },
+    msg = { -- Options related to msg window.
+      height = 0.5, -- Maximum height.
+      timeout = 4000, -- Time a message is visible in the message window.
+    },
+    pager = { -- Options related to message window.
+      height = 1, -- Maximum height.
+    },
+  },
+})
