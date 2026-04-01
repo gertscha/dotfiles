@@ -48,7 +48,12 @@ vim.o.matchpairs = '(:),{:},[:],<:>'
 
 vim.o.hidden = true
 vim.o.confirm = true
+-- mouse enabled but right-click popups removed
 vim.o.mouse = 'nvh'
+vim.cmd [[
+  aunmenu PopUp
+  autocmd! nvim.popupmenu
+]]
 vim.o.shell = 'fish'
 vim.o.clipboard = 'unnamedplus'
 vim.o.termguicolors = true
