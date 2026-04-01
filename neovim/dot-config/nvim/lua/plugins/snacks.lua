@@ -2,7 +2,7 @@
 
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'folke/snacks.nvim', { version = 'v2.28.0' })
+    Add_plugin(spec, 'folke/snacks.nvim', { version = 'v2.31.0' })
   end,
   priority = 'c',
 }

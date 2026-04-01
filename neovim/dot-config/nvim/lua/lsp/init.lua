@@ -5,7 +5,7 @@ local M = {
   spec = function(spec)
     Add_plugin(spec, 'mason-org/mason.nvim', { version = 'v2.2.1' })
     Add_plugin(spec, 'stevearc/conform.nvim', { version = 'v9.1.0' })
-    Add_plugin(spec, 'saghen/blink.cmp', { version = 'v1.9.1' })
+    Add_plugin(spec, 'saghen/blink.cmp', { version = 'v1.10.1' })
     Add_plugin(spec, 'mfussenegger/nvim-lint', nil)
   end,
 }
