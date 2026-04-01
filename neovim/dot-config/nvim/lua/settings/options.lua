@@ -30,6 +30,7 @@ vim.o.foldcolumn = 'auto'
 vim.o.scrolloff = 5
 vim.o.conceallevel = 0
 vim.o.showmode = false -- status line shows mode
+vim.o.laststatus = 0 -- disable default status bar
 
 vim.o.incsearch = true
 vim.o.completeopt = 'noselect,noinsert'
@@ -75,20 +76,6 @@ vim.api.nvim_set_var('loaded_ruby_provider', 0)
 require('vim._core.ui2').enable({
   enable = true,
   msg = {
-    ---@type 'cmd'|'msg' Default message target
-    targets = 'cmd',
-    cmd = { -- Options related to messages in the cmdline window.
-      height = 0.5, -- Maximum height while expanded for messages beyond 'cmdheight'.
-    },
-    dialog = { -- Options related to dialog window.
-      height = 0.5, -- Maximum height.
-    },
-    msg = { -- Options related to msg window.
-      height = 0.5, -- Maximum height.
-      timeout = 4000, -- Time a message is visible in the message window.
-    },
-    pager = { -- Options related to message window.
-      height = 1, -- Maximum height.
-    },
+    targets = 'cmd', -- 'cmd'|'msg'
   },
 })

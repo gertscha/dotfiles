@@ -49,25 +49,11 @@ end
 -- lsp progress spinner, inspired by:
 -- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md#-examples
 -- but adjusted to show status spinner in lualine instead
+-- the autocmd that drives this is below
 local spinner =
   { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
 local spinner_pos = 1
 local lsp_has_progress = false
--- autocommand to detect lsp status changes, spinner shown with status_info()
-vim.api.nvim_create_autocmd('LspProgress', {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    local value = ev.data.params.value
-    if not client or type(value) ~= 'table' then return end
-    if value.kind == 'begin' or value.kind == 'report' then
-      lsp_has_progress = true
-    elseif value.kind == 'end' then
-      lsp_has_progress = false
-    else
-      vim.notify('LSP progress error (lualine.lua)', vim.log.levels.ERROR)
-    end
-  end,
-})
 
 local function status_info()
   -- Obsession.vim: [$] -> on and [S] -> off
@@ -92,7 +78,9 @@ end
 
 -- status line at the bottom of the buffers
 function M.config()
-  require('lualine').setup({
+  local mod = P_require('lualine', true)
+  if not mod then return end
+  mod.setup({
     options = {
       icons_enabled = true,
       theme = 'iceberg_dark',
@@ -174,6 +162,22 @@ function M.config()
     winbar = {},
     inactive_winbar = {},
     extensions = {},
+  })
+
+  -- autocommand to detect lsp status changes, spinner shown with status_info()
+  vim.api.nvim_create_autocmd('LspProgress', {
+    callback = function(ev)
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+      local value = ev.data.params.value
+      if not client or type(value) ~= 'table' then return end
+      if value.kind == 'begin' or value.kind == 'report' then
+        lsp_has_progress = true
+      elseif value.kind == 'end' then
+        lsp_has_progress = false
+      else
+        vim.notify('LSP progress error (lualine.lua)', vim.log.levels.ERROR)
+      end
+    end,
   })
 end
 
