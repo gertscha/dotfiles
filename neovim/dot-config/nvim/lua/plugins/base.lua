@@ -4,7 +4,6 @@ local M = {
   spec = function(spec)
     Add_plugin(spec, 'echasnovski/mini.icons', { version = 'stable' })
     Add_plugin(spec, 'folke/which-key.nvim', { version = 'stable' })
-    Add_plugin(spec, 'mbbill/undotree', nil)
     Add_plugin(spec, 'tpope/vim-sleuth', nil)
     Add_plugin(spec, 'tpope/vim-obsession', nil)
     Add_plugin(spec, 'tpope/vim-fugitive', { version = 'v3.7' })
@@ -64,13 +63,14 @@ function M.config()
     { '<leader>rB', '<cmd>Git blame --date=human<cr>', desc = 'git blame (file)' },
   })
 
-  -- undo tree plugin
-  -- change default width of the undotree buffer width
-  vim.g.undotree_SplitWidth = 50
-  -- set the focus to the undotree buffer
-  vim.g.undotree_ShortIndicators = 1
-  vim.g.undotree_SetFocusWhenToggle = 1
-  vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, {
+  -- undo tree plugin (built-in)
+  vim.cmd.packadd('nvim.undotree')
+  vim.keymap.set('n', '<leader>u', function()
+    require('undotree').open({
+      command = 'topleft 50vnew',
+      title = 'undotree',
+    })
+  end, {
     desc = 'Open Undotree',
     silent = true, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
