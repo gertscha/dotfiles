@@ -4,11 +4,15 @@
 
 local M = {
   spec = function(spec)
-    Add_plugin(spec, 'brianhuster/live-preview.nvim', { version = 'v0.9.6' })
+    Add_plugin(
+      spec,
+      'brianhuster/live-preview.nvim',
+      { version = 'v0.9.6', enabled = false }
+    )
     Add_plugin(
       spec,
       'MeanderingProgrammer/render-markdown.nvim',
-      { version = 'v8.11.0' }
+      { version = 'v8.12.0' }
     )
   end,
 }
@@ -17,39 +21,43 @@ function M.config()
   --
   -- Live Preview (in the browser)
   --
+  local lp_mod = P_require('livepreview', true)
+  if lp_mod then
+    -- vim.schedule(function()
+    --   require('livepreview.config').set({
+    --     port = 5500,
+    --     browser = 'default',
+    --     dynamic_root = false,
+    --     sync_scroll = true,
+    --     picker = '',
+    --   })
+    -- end)
 
-  -- vim.schedule(function()
-  --   require('livepreview.config').set({
-  --     port = 5500,
-  --     browser = 'default',
-  --     dynamic_root = false,
-  --     sync_scroll = true,
-  --     picker = '',
-  --   })
-  -- end)
-
-  vim.keymap.set(
-    'n',
-    '<leader>oms',
-    '<cmd>LivePreview start<cr>',
-    { desc = 'Markdown Preview start', silent = true, noremap = true }
-  )
-  vim.keymap.set(
-    'n',
-    '<leader>omc',
-    '<cmd>LivePreview close<cr>',
-    { desc = 'Markdown Preview close', silent = true, noremap = true }
-  )
-  vim.keymap.set(
-    'n',
-    '<leader>omp',
-    '<cmd>LivePreview pick<cr>',
-    { desc = 'Markdown Preview pick', silent = true, noremap = true }
-  )
+    vim.keymap.set(
+      'n',
+      '<leader>oms',
+      '<cmd>LivePreview start<cr>',
+      { desc = 'Markdown Preview start', silent = true, noremap = true }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>omc',
+      '<cmd>LivePreview close<cr>',
+      { desc = 'Markdown Preview close', silent = true, noremap = true }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>omp',
+      '<cmd>LivePreview pick<cr>',
+      { desc = 'Markdown Preview pick', silent = true, noremap = true }
+    )
+  end
 
   --
   -- Render Markdown (in place using highlights and icons)
   --
+  local rm_mod = P_require('render-markdown', true)
+  if not rm_mod then return end
   vim.schedule(function()
     local has_latex2text = vim
       .system({
