@@ -525,6 +525,16 @@ function M.func.select(index)
     notify('No mark for index ' .. tostring(index), vim.log.levels.INFO)
     return
   end
+
+  -- update cursor position of the buffer we are currently leaving (if marked)
+  local current_file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p')
+  for _, v in pairs(M.state.marks) do
+    if v.argname == current_file then
+      v.last_line = vim.fn.line('.')
+      break
+    end
+  end
+
   M.state.current = index
   local success, err = pcall(function()
     vim.cmd(mark.argindex .. 'argument')
