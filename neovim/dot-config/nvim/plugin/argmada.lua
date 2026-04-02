@@ -117,7 +117,8 @@ local _debug = false
 ---@param mark ArgMarkElement
 ---@return string
 function M.func.print_entry(mark)
-  return string.format('%i %s', mark.markindex, mark.argname)
+  local relative_name = vim.fn.fnamemodify(mark.argname, ':.')
+  return string.format('%i %s', mark.markindex, relative_name)
 end
 
 --- determine the save file name (based on cwd)
@@ -139,7 +140,9 @@ function M.func.get_save_file_name()
 end
 
 --- Clean up old state files that haven't been modified in X days
+--- Uses a tag file to do the check at most once every 24h
 function M.func.garbage_collect()
+  -- special case X=0 means disabled
   if M.config.cleanup_days_limit == 0 then return end
   local tag_file = M.state_dir .. '/gc_tag'
   local uv = vim.uv or vim.loop
@@ -150,7 +153,6 @@ function M.func.garbage_collect()
   local now = os.time()
   if tag_stat and (now - tag_stat.mtime.sec) < 86400 then return end
 
-  -- delete files older than the limit
   local handle = uv.fs_scandir(M.state_dir)
   if not handle then return end
   local limit_sec = M.config.cleanup_days_limit * 86400
@@ -168,10 +170,9 @@ function M.func.garbage_collect()
       end
     end
   end
-  -- update or create the tag file
   local f = io.open(tag_file, 'w')
   if f then
-    f:write(tostring(now))
+    f:write('auto-gen')
     f:close()
   end
 end
@@ -191,9 +192,8 @@ function M.func.apply_state()
     return a.markindex < b.markindex
   end)
 
-  -- clear current arglist
+  -- clear current arglist and rebuild it, sync "physical" state back into the argindex
   vim.cmd('%argdelete')
-  -- rebuild arglist and sync the physical argindex back to state
   local physical_index = 1
   for _, entry in ipairs(sorted_marks) do
     local safe_name = vim.fn.fnameescape(entry.data.argname)
@@ -227,7 +227,7 @@ function M.func.sync_ui()
           for ind in pairs(M.state.marks) do
             local pot_mark = M.state.marks[ind]
             if pot_mark then
-              local pot_fname = pot_mark.argname
+              local pot_fname = vim.fn.fnamemodify(pot_mark.argname, ':.')
               if file_str == pot_fname then
                 local new_pos = linenr
                 if linenr == pot_mark.markindex then new_pos = pos_val end
@@ -274,36 +274,61 @@ end
 
 --- Save plugin state to disk
 function M.func.save_state()
-  if not M.state.savefilename then
-    M.state.savefilename = M.func.get_save_file_name()
-    if not M.state.savefilename then return end
+  local savefilename = M.state.savefilename or M.func.get_save_file_name()
+  if not savefilename then return end
+
+  local dir = vim.fn.fnamemodify(savefilename, ':h')
+  if vim.fn.isdirectory(dir) == 0 then
+    if vim.fn.mkdir(dir, 'p') == 0 then
+      vim.notify(
+        string.format('Cannot save state (mkdir failed for: %s)', dir),
+        vim.log.levels.ERROR,
+        { title = 'Argmada' }
+      )
+      return
+    end
   end
-  local file, err = io.open(M.state.savefilename, 'w')
+
+  local file, err = io.open(savefilename, 'w')
   if not file then
-    -- intermediate directories may be missing, try to create them
-    local dir = vim.fn.fnamemodify(M.state.savefilename, ':h')
-    if not vim.fn.mkdir(dir, 'p') then
-      vim.notify(
-        string.format('Cannot save state (mkdir failed: %s)', err),
-        vim.log.levels.ERROR,
-        { title = 'Argmada' }
-      )
-      return
-    end
-    -- try opening again
-    file, err = io.open(M.state.savefilename, 'w')
-    if not file then
-      vim.notify(
-        string.format('Cannot save state (file open failed: %s)', err),
-        vim.log.levels.ERROR,
-        { title = 'Argmada' }
-      )
-      return
-    end
+    vim.notify(
+      string.format('Cannot save state (file open failed: %s)', err),
+      vim.log.levels.ERROR,
+      { title = 'Argmada' }
+    )
+    return
   end
-  file:write(vim.json.encode(M.state))
+
+  -- we don't need to save everything in the state, strip out unnecessary stuff
+  local original_marks = M.state.marks
+  local marks_copy = vim.deepcopy(original_marks)
+  for _, mark in pairs(marks_copy) do
+    mark.loaded = nil
+    mark.argindex = nil
+  end
+  M.state.marks = marks_copy
+  -- already copied the savefilename at the beginning of the function
+  M.state.savefilename = nil
+
+  local ok, encoded_state = pcall(vim.json.encode, M.state)
+
+  M.state.marks = original_marks
+  M.state.savefilename = savefilename
+
+  if not ok then
+    file:close()
+    vim.notify(
+      'Failed to encode state: ' .. tostring(encoded_state),
+      vim.log.levels.ERROR,
+      { title = 'Argmada' }
+    )
+    return
+  end
+
+  file:write(encoded_state)
   file:flush()
   file:close()
+
   if not M.config.enable_autosave then
     vim.notify('Saved state', vim.log.levels.INFO, { title = 'Argmada' })
   end
@@ -312,32 +337,29 @@ end
 --- Load plugin state from disk
 --- extends current state with the state, no change if no save available
 function M.func.load_state()
-  if not M.state.savefilename then
-    M.state.savefilename = M.func.get_save_file_name()
-    if not M.state.savefilename then return end
-  end
-  local file = io.open(M.state.savefilename, 'r')
-  -- no save file exists, just keep the current one
+  -- load it based on cwd, then keep it, even if cwd changes
+  local savefilename = M.state.savefilename or M.func.get_save_file_name()
+  if not savefilename then return end
+
+  local file = io.open(savefilename, 'r')
   if not file then
     if not M.config.enable_autosave then
       vim.notify('No saved state found', vim.log.levels.INFO, { title = 'Argmada' })
     end
     return
   end
-  -- load the data
+
   local readstate = vim.json.decode(file:read('*a'))
   file:close()
-  M.state.savefilename = readstate.savefilename
   M.state.current = readstate.current
-  -- restore the marks
   for key, value in ipairs(readstate.marks) do
     if value ~= vim.NIL then
       local entry = {
-        loaded = false,
+        loaded = false, -- on fresh load want to use last_line
         markindex = value.markindex,
         argname = value.argname,
         last_line = value.last_line,
-        argindex = -1, -- init with apply_state()
+        argindex = -1, -- init occurs during apply_state()
       }
       M.state.marks[key] = entry
     end
@@ -361,7 +383,7 @@ function M.func.mark(index)
   end
 
   -- Use path relative to cwd for cleaner UI and portability
-  local argname = vim.fn.fnamemodify(current_file, ':.')
+  local argname = vim.fn.fnamemodify(current_file, ':p')
 
   -- prevent duplicate entries, but allow updates
   for k, v in pairs(M.state.marks) do
@@ -416,7 +438,7 @@ end
 function M.func.unmark(index)
   if not index then
     -- Try to find the current file in marks to unmark it
-    local current_file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':.')
+    local current_file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p')
     for k, v in pairs(M.state.marks) do
       if v.argname == current_file then
         index = k
