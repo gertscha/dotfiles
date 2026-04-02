@@ -153,6 +153,7 @@ x                       Cut (goes into register 9 instead of 1)
 <leader>rd              Search Git diff (i.e. files with changes)
 <leader>rW              Search Git worktrees
 <leader>rw              Search Git branches
+<leader>oc              Search Neovim Config files (cd to config if fzf-lua unavailable)
 <leader><leader>        Resume previous search
 
 
@@ -275,7 +276,7 @@ r<Space>                Populate command line with ":Git rebase "
 ``` text
 // inside Neovim
 <leader>omb             Toggle Markdown preview in nvim (uses basic highlighting)
-// external browser window
+// external browser window (currently plugin disabled)
 <leader>oms             Open Markdown in browser
 <leader>omp             Pick Markdown file to open in browser
 <leader>omc             Close Markdown preview in browser
@@ -395,7 +396,7 @@ Selection of default vim keybinds
     zg                  Add word under cursor to spellfile (see :h spell)
     zw                  Mark the word under cursor as a wrong (bad) word
     z=                  Suggest corrections for word under cursor
-    g<C-g>              Show cursor info, postition, word&byte count
+    g<C-g>              Show cursor info, position, word&byte count
     {count}<C-g>        Show file info, no count just shows name & info, setting
                         count gives full path, count > 1 also gives buffer number
     q:                  Open command history (a special buffer, run cmd with <cr>)
@@ -449,7 +450,7 @@ Useful commands that can be used in the vim command line, i.e. `:`.
 ``` text
 e[dit]                  Open a file or creat it (not written to disk)
 e!                      Discard unsaved changes in buffer and reload from disk
-enew                    Open a scratch buffe
+enew                    Open a scratch buffer
 {range}norm[!]          Run commands in normal mode (! ignores custom keybinds)
 {range}cop <line>       Copy range and paste as new lines at line (+0 is below)
 g/<pattern>/<cmd>       Perform cmd on lines which match pattern
