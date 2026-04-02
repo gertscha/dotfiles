@@ -45,10 +45,12 @@
 ---@field func ArgmadaFunctions
 ---@field state ArgmadaState
 ---@field plugin_loaded boolean
----@field augroup integer?
+---@field state_dir string
 ---@field popup_win integer?
 ---@field popup_buf integer?
----@field state_dir string
+---@field augroup integer
+---@field ns_id integer
+---@field ui_extmarks table<integer, ArgMarkElement>
 
 ---@type ArgmadaConfig
 local default_config = {
@@ -95,10 +97,12 @@ local M = {
     marks = {},
   },
   plugin_loaded = false,
-  augroup = nil,
+  augroup = vim.api.nvim_create_augroup('Argmada.au', {}),
   popup_win = nil,
   popup_buf = nil,
   state_dir = vim.fn.stdpath('data') .. '/argmada',
+  ns_id = vim.api.nvim_create_namespace('argmada_ui'),
+  ui_extmarks = {},
 }
 
 --- config interface map that gives stable names to functions
@@ -203,69 +207,143 @@ function M.func.apply_state()
   end
 end
 
---- Sync the UI buffer state to plugin state
---- only updates if the UI buffer is valid, otherwise changes are discarded
+--- Sync the UI buffer state to plugin state using extmarks
 function M.func.sync_ui()
   if _debug then vim.notify('Argmada: Called Sync()', vim.log.levels.DEBUG) end
-  if M.popup_win and vim.api.nvim_win_is_valid(M.popup_win) then
-    local marks = {}
-    local valid = true
-    local content = vim.api.nvim_buf_get_lines(M.popup_buf, 0, -1, true)
-    for linenr, line_str in ipairs(content) do
-      local pos_str, file_str = line_str:match('^(%d+)%s(.+)')
-      local pos_val = tonumber(pos_str)
-      if pos_str and pos_val and file_str then
-        local mark_i = M.state.marks[linenr] -- can be nil
-        local expect = nil
-        if mark_i then
-          expect = M.func.print_entry(mark_i)
-          if line_str == expect then marks[linenr] = mark_i end
-        end
-        if not expect or line_str ~= expect then
-          -- find what was moved to this line
-          local matched = false
-          for ind in pairs(M.state.marks) do
-            local pot_mark = M.state.marks[ind]
-            if pot_mark then
-              local pot_fname = vim.fn.fnamemodify(pot_mark.argname, ':.')
-              if file_str == pot_fname then
-                local new_pos = linenr
-                if linenr == pot_mark.markindex then new_pos = pos_val end
-                local mark = {
-                  argname = pot_mark.argname,
-                  markindex = new_pos,
-                  argindex = pot_mark.argindex,
-                }
-                marks[new_pos] = mark
-                matched = true
-                break
-              end
-            end
-          end
-          if not matched then
-            vim.notify(
-              'Not a valid mark: ' .. file_str,
-              vim.log.levels.WARN,
-              { title = 'Argmada' }
-            )
-            valid = false
+  if not (M.popup_win and vim.api.nvim_win_is_valid(M.popup_win)) then return end
+
+  -- 1 Collect the state info from the UI buffer
+  local content = vim.api.nvim_buf_get_lines(M.popup_buf, 0, -1, true)
+  local extmarks = vim.api.nvim_buf_get_extmarks(M.popup_buf, M.ns_id, 0, -1, {})
+  -- build zero-indexed row to extmark_id list map
+  local row_to_extmarks = {}
+  for _, em in ipairs(extmarks) do
+    local id, row = em[1], em[2]
+    row_to_extmarks[row] = row_to_extmarks[row] or {}
+    table.insert(row_to_extmarks[row], id)
+  end
+  -- collect the state
+  local parsed_lines = {}
+  local claimed_indices = {}
+  for row = 0, #content - 1 do
+    local line_str = content[row + 1]
+    if not line_str:match('^%s*$') then
+      local parsed_num_str, parsed_name = line_str:match('^(%d+)%s+(.+)')
+      if not parsed_name then parsed_name = line_str:match('^%s*(.+)') end
+      if not parsed_name then
+        vim.notify(
+          'Invalid UI state (bad parsing): changes discarded',
+          vim.log.levels.ERROR,
+          { title = 'Argmada' }
+        )
+        return
+      end
+      -- leading number optional, use line number if absent
+      local parsed_num = parsed_num_str and tonumber(parsed_num_str) or (row + 1)
+      local extmark_ids = row_to_extmarks[row] or {}
+      local extmark_id = nil
+
+      if #extmark_ids == 1 then
+        extmark_id = extmark_ids[1]
+      elseif #extmark_ids > 1 then
+        -- If multiple (from a deleted line), find the best match
+        for _, id in ipairs(extmark_ids) do
+          local mark = M.ui_extmarks[id]
+          if mark and parsed_name == vim.fn.fnamemodify(mark.argname, ':.') then
+            extmark_id = id
             break
           end
         end
+        -- Fallback if no exact match (e.g. user deleted a line AND edited the path)
+        if not extmark_id then extmark_id = extmark_ids[1] end
       end
-    end
-    if valid then
-      M.func.apply_state()
-      M.state.marks = marks
-      if M.config.enable_autosave then M.func.save_state() end
+      local mark_data = extmark_id and M.ui_extmarks[extmark_id] or nil
+      local orig_line = mark_data and mark_data.markindex or nil
+      table.insert(parsed_lines, {
+        new_idx = row + 1,
+        orig_idx = orig_line,
+        parsed_idx = parsed_num,
+        parsed_name = parsed_name,
+        orig_mark = mark_data,
+      })
+      claimed_indices[row + 1] = true
     end
   end
+
+  -- 2 Apply the "leading integer" rule for unmoved lines
+  for _, entry in ipairs(parsed_lines) do
+    local orig_mark_idx = entry.orig_mark and entry.orig_mark.markindex or nil
+
+    if entry.parsed_idx ~= entry.new_idx and entry.parsed_idx ~= orig_mark_idx then
+      if not claimed_indices[entry.parsed_idx] then
+        claimed_indices[entry.new_idx] = false
+        entry.new_idx = entry.parsed_idx
+        claimed_indices[entry.parsed_idx] = true
+      end
+    end
+  end
+
+  -- 3 Update state
+  local new_marks = {}
+  local uv = vim.uv or vim.loop
+  for _, entry in ipairs(parsed_lines) do
+    local mark = nil
+    if entry.orig_mark then
+      mark = {
+        argname = entry.orig_mark.argname,
+        loaded = entry.orig_mark.loaded,
+        last_line = entry.orig_mark.last_line,
+        argindex = -1,
+      }
+      local current_rel = vim.fn.fnamemodify(mark.argname, ':.')
+      if entry.parsed_name ~= current_rel then
+        local new_abs = vim.fn.fnamemodify(entry.parsed_name, ':p')
+        if uv.fs_stat(new_abs) then
+          mark.argname = new_abs
+        else
+          vim.notify(
+            'Invalid UI state (change non-existant): dicarding changes',
+            vim.log.levels.ERROR,
+            { title = 'Argmada' }
+          )
+          return
+        end
+      end
+    else
+      local new_abs = vim.fn.fnamemodify(entry.parsed_name, ':p')
+      if uv.fs_stat(new_abs) then
+        mark = {
+          argname = new_abs,
+          loaded = true,
+          last_line = 1,
+          argindex = -1,
+        }
+      else
+        vim.notify(
+          'Invalid UI state (create non-existant): dicarding changes',
+          vim.log.levels.ERROR,
+          { title = 'Argmada' }
+        )
+        return
+      end
+    end
+
+    if mark then
+      mark.markindex = entry.new_idx
+      new_marks[entry.new_idx] = mark
+    end
+  end
+
+  M.state.marks = new_marks
+  M.func.apply_state()
+  if M.config.enable_autosave then M.func.save_state() end
 end
 
 --- Select mark based on current cursor line, should only be bound in the UI buffer
 function M.func.select_via_ui()
-  M.func.sync_ui()
-  M.func.select(vim.fn.line('.'))
+  local target = vim.fn.line('.')
+  M.func.close_ui()
+  M.func.select(target)
 end
 
 --
@@ -549,10 +627,12 @@ end
 function M.func.close_ui()
   if M.popup_win == nil then return end
   if M.popup_win and vim.api.nvim_win_is_valid(M.popup_win) then
+    -- buffer is set to 'wipe' so this deletes the ext_marks as well
     vim.api.nvim_win_close(M.popup_win, true)
   end
   M.popup_win = nil
   M.popup_buf = nil
+  M.ui_extmarks = {}
 end
 
 --- Open the UI window
@@ -601,6 +681,22 @@ function M.func.open_ui()
   end
 
   vim.api.nvim_buf_set_lines(popup_buf, 0, -1, false, lines)
+  -- set ext_marks to track changes
+  M.ui_extmarks = {}
+  for i = 1, lines_count do
+    local v = M.state.marks[i]
+    if v then
+      local extmark_id =
+        vim.api.nvim_buf_set_extmark(popup_buf, M.ns_id, i - 1, 0, {})
+      M.ui_extmarks[extmark_id] = {
+        argname = v.argname,
+        loaded = v.loaded,
+        last_line = v.last_line,
+        markindex = v.markindex,
+        argindex = v.argindex,
+      }
+    end
+  end
   -- place cursor on last jump
   local cursor_pos = M.state.current or 1
   vim.cmd('norm! ' .. cursor_pos .. 'G')
@@ -659,7 +755,6 @@ keybind_map = {
 function M.setup(opts)
   if M.plugin_loaded then return end
   M.plugin_loaded = true
-  M.augroup = vim.api.nvim_create_augroup('Argmada.au', {})
 
   if opts and not opts.keep_default_binds then M.config.keymaps = {} end
 
