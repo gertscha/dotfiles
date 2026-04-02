@@ -22,12 +22,6 @@
 ---@field keymaps table
 
 ---@class ArgmadaFunctions
----@field print_entry function
----@field get_save_file_name function
----@field garbage_collect function
----@field apply_state function
----@field sync_ui function
----@field select_via_ui function
 ---@field save_state function
 ---@field load_state function
 ---@field mark function
@@ -35,6 +29,7 @@
 ---@field select function
 ---@field select_next function
 ---@field select_prev function
+---@field select_via_ui function
 ---@field open_ui function
 ---@field close_ui function
 ---@field toggle_ui function
@@ -61,27 +56,27 @@ local default_config = {
   cleanup_days_limit = 30,
   keymaps = {
     normal = {
-      { '<C-s>', 'mark', {}, { desc = 'Argmada: Append new Mark' } },
-      { '<C-h>', 'toggle_ui', {}, { desc = 'Argmada: Toggle UI' } },
-      { '<leader>am', 'mark', { 1 }, { desc = 'Argmada: Mark 1' } },
-      { '<leader>an', 'mark', { 2 }, { desc = 'Argmada: Mark 2' } },
-      { '<leader>ab', 'mark', { 3 }, { desc = 'Argmada: Mark 3' } },
-      { '<leader>av', 'mark', { 4 }, { desc = 'Argmada: Mark 4' } },
-      { '<leader>m', 'select', { 1 }, { desc = 'Argmada: Go to 1' } },
-      { '<leader>n', 'select', { 2 }, { desc = 'Argmada: Go to 2' } },
-      { '<leader>b', 'select', { 3 }, { desc = 'Argmada: Go to 3' } },
-      { '<leader>v', 'select', { 4 }, { desc = 'Argmada: Go to 4' } },
-      { '[h', 'prev', {}, { desc = 'Argmada: previous Mark' } },
-      { ']h', 'next', {}, { desc = 'Argmada: next Mark' } },
-      { '<leader>hc', 'unmark', {}, { desc = 'Argmada: Remove Mark' } },
+      ['<C-s>'] = { 'mark', {}, { desc = 'Argmada: Append new Mark' } },
+      ['<C-h>'] = { 'toggle_ui', {}, { desc = 'Argmada: Toggle UI' } },
+      ['<leader>am'] = { 'mark', { 1 }, { desc = 'Argmada: Mark 1' } },
+      ['<leader>an'] = { 'mark', { 2 }, { desc = 'Argmada: Mark 2' } },
+      ['<leader>ab'] = { 'mark', { 3 }, { desc = 'Argmada: Mark 3' } },
+      ['<leader>av'] = { 'mark', { 4 }, { desc = 'Argmada: Mark 4' } },
+      ['<leader>m'] = { 'select', { 1 }, { desc = 'Argmada: Go to 1' } },
+      ['<leader>n'] = { 'select', { 2 }, { desc = 'Argmada: Go to 2' } },
+      ['<leader>b'] = { 'select', { 3 }, { desc = 'Argmada: Go to 3' } },
+      ['<leader>v'] = { 'select', { 4 }, { desc = 'Argmada: Go to 4' } },
+      ['[h'] = { 'prev', {}, { desc = 'Argmada: previous Mark' } },
+      [']h'] = { 'next', {}, { desc = 'Argmada: next Mark' } },
+      ['<leader>hc'] = { 'unmark', {}, { desc = 'Argmada: Remove Mark' } },
     },
     visual = {},
     insert = {},
     -- keybinds added to the UI buffer (normal mode)
     ui = {
-      { '<CR>', 'select_ui' },
-      { 'q', 'close_ui' },
-      { '<ESC>', 'close_ui' },
+      ['<CR>'] = { 'select_ui' },
+      ['q'] = { 'close_ui' },
+      ['<ESC>'] = { 'close_ui' },
     },
   },
 }
@@ -97,10 +92,10 @@ local M = {
     marks = {},
   },
   plugin_loaded = false,
-  augroup = vim.api.nvim_create_augroup('Argmada.au', {}),
+  augroup = vim.api.nvim_create_augroup('Argmada.au', { clear = true }),
   popup_win = nil,
   popup_buf = nil,
-  state_dir = vim.fn.stdpath('data') .. '/argmada',
+  state_dir = vim.fs.joinpath(vim.fn.stdpath('data'), 'argmada'),
   ns_id = vim.api.nvim_create_namespace('argmada_ui'),
   ui_extmarks = {},
 }
@@ -117,60 +112,68 @@ local keybind_map = {}
 --- enable debug messages
 local _debug = false
 
+local function notify(msg, level)
+  vim.notify(msg, level, { title = 'Argmada' })
+end
+
 --- Get the pretty string of a MarkElement
 ---@param mark ArgMarkElement
 ---@return string
-function M.func.print_entry(mark)
+local function print_entry(mark)
   local relative_name = vim.fn.fnamemodify(mark.argname, ':.')
   return string.format('%i %s', mark.markindex, relative_name)
 end
 
+--- Get the maximum markindex
+---@param marks table<integer, ArgMarkElement>
+---@return integer
+local function get_max_mark_index(marks)
+  local max_idx = 0
+  for k in pairs(marks) do
+    if k > max_idx then max_idx = k end
+  end
+  return max_idx
+end
+
 --- determine the save file name (based on cwd)
 ---@return string?
-function M.func.get_save_file_name()
-  local uv = vim.uv or vim.loop
-  local basedir = uv.cwd()
+local function get_save_file_name()
+  local basedir = vim.uv.cwd()
   if type(basedir) ~= 'string' then
-    vim.notify(
-      'Cannot determine save file name (uv.cwd() failed)',
-      vim.log.levels.ERROR,
-      { title = 'Argmada' }
-    )
+    notify('Cannot determine save file name (uv.cwd() failed)', vim.log.levels.ERROR)
     return nil
   end
   local strip_home = vim.fn.fnamemodify(basedir, ':~')
-  local basename = strip_home:gsub('[\\/:]', '-')
-  return M.state_dir .. '/' .. basename .. '-state.json'
+  local basename = 'f' .. strip_home:gsub('[\\/:]', '-')
+  local path = vim.fs.joinpath(M.state_dir, basename .. '-state.json')
+  return path
 end
 
 --- Clean up old state files that haven't been modified in X days
 --- Uses a tag file to do the check at most once every 24h
-function M.func.garbage_collect()
+local function garbage_collect()
   -- special case X=0 means disabled
   if M.config.cleanup_days_limit == 0 then return end
-  local tag_file = M.state_dir .. '/gc_tag'
-  local uv = vim.uv or vim.loop
+  local tag_file = vim.fs.joinpath(M.state_dir, 'gc_tag')
   if vim.fn.isdirectory(M.state_dir) == 0 then vim.fn.mkdir(M.state_dir, 'p') end
 
   -- wait at least 24h before checking again
-  local tag_stat = uv.fs_stat(tag_file)
+  local tag_stat = vim.uv.fs_stat(tag_file)
   local now = os.time()
   if tag_stat and (now - tag_stat.mtime.sec) < 86400 then return end
 
-  local handle = uv.fs_scandir(M.state_dir)
+  local handle = vim.uv.fs_scandir(M.state_dir)
   if not handle then return end
   local limit_sec = M.config.cleanup_days_limit * 86400
   while true do
-    local name, _ = uv.fs_scandir_next(handle)
+    local name, _ = vim.uv.fs_scandir_next(handle)
     if not name then break end
     if name:match('%-state.json$') then
-      local path = M.state_dir .. '/' .. name
-      local stat = uv.fs_stat(path)
+      local path = vim.fs.joinpath(M.state_dir, name)
+      local stat = vim.uv.fs_stat(path)
       if stat and (now - stat.mtime.sec) > limit_sec then
         os.remove(path)
-        if _debug then
-          vim.notify('Argmada: GC removed ' .. name, vim.log.levels.DEBUG)
-        end
+        if _debug then notify('GC removed ' .. name, vim.log.levels.DEBUG) end
       end
     end
   end
@@ -182,10 +185,8 @@ function M.func.garbage_collect()
 end
 
 --- Apply the plugin state to the argument list
-function M.func.apply_state()
-  if _debug then
-    vim.notify('apply_state() called', vim.log.levels.DEBUG, { title = 'Argmada' })
-  end
+local function apply_state()
+  if _debug then notify('apply_state() called', vim.log.levels.DEBUG) end
 
   -- Extract into a list and sort by markindex to handle gaps
   local sorted_marks = {}
@@ -208,8 +209,8 @@ function M.func.apply_state()
 end
 
 --- Sync the UI buffer state to plugin state using extmarks
-function M.func.sync_ui()
-  if _debug then vim.notify('Argmada: Called Sync()', vim.log.levels.DEBUG) end
+local function sync_ui()
+  if _debug then notify('Called Sync()', vim.log.levels.DEBUG) end
   if not (M.popup_win and vim.api.nvim_win_is_valid(M.popup_win)) then return end
 
   -- 1 Collect the state info from the UI buffer
@@ -231,10 +232,9 @@ function M.func.sync_ui()
       local parsed_num_str, parsed_name = line_str:match('^(%d+)%s+(.+)')
       if not parsed_name then parsed_name = line_str:match('^%s*(.+)') end
       if not parsed_name then
-        vim.notify(
+        notify(
           'Invalid UI state (bad parsing): changes discarded',
-          vim.log.levels.ERROR,
-          { title = 'Argmada' }
+          vim.log.levels.ERROR
         )
         return
       end
@@ -285,7 +285,6 @@ function M.func.sync_ui()
 
   -- 3 Update state
   local new_marks = {}
-  local uv = vim.uv or vim.loop
   for _, entry in ipairs(parsed_lines) do
     local mark = nil
     if entry.orig_mark then
@@ -298,20 +297,19 @@ function M.func.sync_ui()
       local current_rel = vim.fn.fnamemodify(mark.argname, ':.')
       if entry.parsed_name ~= current_rel then
         local new_abs = vim.fn.fnamemodify(entry.parsed_name, ':p')
-        if uv.fs_stat(new_abs) then
+        if vim.uv.fs_stat(new_abs) then
           mark.argname = new_abs
         else
-          vim.notify(
+          notify(
             'Invalid UI state (change non-existant): dicarding changes',
-            vim.log.levels.ERROR,
-            { title = 'Argmada' }
+            vim.log.levels.ERROR
           )
           return
         end
       end
     else
       local new_abs = vim.fn.fnamemodify(entry.parsed_name, ':p')
-      if uv.fs_stat(new_abs) then
+      if vim.uv.fs_stat(new_abs) then
         mark = {
           argname = new_abs,
           loaded = true,
@@ -319,10 +317,9 @@ function M.func.sync_ui()
           argindex = -1,
         }
       else
-        vim.notify(
+        notify(
           'Invalid UI state (create non-existant): dicarding changes',
-          vim.log.levels.ERROR,
-          { title = 'Argmada' }
+          vim.log.levels.ERROR
         )
         return
       end
@@ -335,15 +332,8 @@ function M.func.sync_ui()
   end
 
   M.state.marks = new_marks
-  M.func.apply_state()
+  apply_state()
   if M.config.enable_autosave then M.func.save_state() end
-end
-
---- Select mark based on current cursor line, should only be bound in the UI buffer
-function M.func.select_via_ui()
-  local target = vim.fn.line('.')
-  M.func.close_ui()
-  M.func.select(target)
 end
 
 --
@@ -352,16 +342,19 @@ end
 
 --- Save plugin state to disk
 function M.func.save_state()
-  local savefilename = M.state.savefilename or M.func.get_save_file_name()
+  local savefilename = M.state.savefilename or get_save_file_name()
   if not savefilename then return end
+
+  if vim.tbl_isempty(M.state.marks) then
+    if not vim.uv.fs_stat(savefilename) then return end
+  end
 
   local dir = vim.fn.fnamemodify(savefilename, ':h')
   if vim.fn.isdirectory(dir) == 0 then
     if vim.fn.mkdir(dir, 'p') == 0 then
-      vim.notify(
+      notify(
         string.format('Cannot save state (mkdir failed for: %s)', dir),
-        vim.log.levels.ERROR,
-        { title = 'Argmada' }
+        vim.log.levels.ERROR
       )
       return
     end
@@ -369,36 +362,30 @@ function M.func.save_state()
 
   local file, err = io.open(savefilename, 'w')
   if not file then
-    vim.notify(
+    notify(
       string.format('Cannot save state (file open failed: %s)', err),
-      vim.log.levels.ERROR,
-      { title = 'Argmada' }
+      vim.log.levels.ERROR
     )
     return
   end
 
-  -- we don't need to save everything in the state, strip out unnecessary stuff
-  local original_marks = M.state.marks
-  local marks_copy = vim.deepcopy(original_marks)
-  for _, mark in pairs(marks_copy) do
-    mark.loaded = nil
-    mark.argindex = nil
+  local export_state = {
+    current = M.state.current,
+    marks = {},
+  }
+  for k, mark in pairs(M.state.marks) do
+    export_state.marks[k] = {
+      argname = mark.argname,
+      markindex = mark.markindex,
+      last_line = mark.last_line,
+    }
   end
-  M.state.marks = marks_copy
-  -- already copied the savefilename at the beginning of the function
-  M.state.savefilename = nil
-
-  local ok, encoded_state = pcall(vim.json.encode, M.state)
-
-  M.state.marks = original_marks
-  M.state.savefilename = savefilename
-
+  local ok, encoded_state = pcall(vim.json.encode, export_state)
   if not ok then
     file:close()
-    vim.notify(
+    notify(
       'Failed to encode state: ' .. tostring(encoded_state),
-      vim.log.levels.ERROR,
-      { title = 'Argmada' }
+      vim.log.levels.ERROR
     )
     return
   end
@@ -407,28 +394,32 @@ function M.func.save_state()
   file:flush()
   file:close()
 
-  if not M.config.enable_autosave then
-    vim.notify('Saved state', vim.log.levels.INFO, { title = 'Argmada' })
-  end
+  if not M.config.enable_autosave then notify('Saved state', vim.log.levels.INFO) end
 end
 
 --- Load plugin state from disk
 --- extends current state with the state, no change if no save available
 function M.func.load_state()
   -- load it based on cwd, then keep it, even if cwd changes
-  local savefilename = M.state.savefilename or M.func.get_save_file_name()
+  local savefilename = M.state.savefilename or get_save_file_name()
   if not savefilename then return end
 
   local file = io.open(savefilename, 'r')
   if not file then
     if not M.config.enable_autosave then
-      vim.notify('No saved state found', vim.log.levels.INFO, { title = 'Argmada' })
+      notify('No saved state found', vim.log.levels.INFO)
     end
     return
   end
 
-  local readstate = vim.json.decode(file:read('*a'))
+  local content = file:read('*a')
   file:close()
+  local ok, readstate = pcall(vim.json.decode, content)
+  if not ok then
+    notify('Failed to parse saved state', vim.log.levels.ERROR)
+    return
+  end
+
   M.state.current = readstate.current
   for key, value in ipairs(readstate.marks) do
     if value ~= vim.NIL then
@@ -442,9 +433,9 @@ function M.func.load_state()
       M.state.marks[key] = entry
     end
   end
-  M.func.apply_state()
+  apply_state()
   if not M.config.enable_autosave then
-    vim.notify('Loaded state', vim.log.levels.INFO, { title = 'Argmada' })
+    notify('Loaded state', vim.log.levels.INFO)
   end
 end
 
@@ -452,11 +443,7 @@ end
 function M.func.mark(index)
   local current_file = vim.api.nvim_buf_get_name(0)
   if current_file == '' then
-    vim.notify(
-      'Cannot mark an unnamed buffer',
-      vim.log.levels.WARN,
-      { title = 'Argmada' }
-    )
+    notify('Cannot mark an unnamed buffer', vim.log.levels.WARN)
     return
   end
 
@@ -472,10 +459,9 @@ function M.func.mark(index)
         break -- continue to update
       else
         -- Do not allow duplicates
-        vim.notify(
+        notify(
           string.format('Buffer already marked (index: %d)', k),
-          vim.log.levels.INFO,
-          { title = 'Argmada' }
+          vim.log.levels.INFO
         )
         return -- exit
       end
@@ -485,11 +471,7 @@ function M.func.mark(index)
   if not index then
     if M.config.append_to_end then
       -- append at the end of the list, skipping over gaps
-      local max_idx = 0
-      for k in pairs(M.state.marks) do
-        if k > max_idx then max_idx = k end
-      end
-      index = max_idx + 1
+      index = get_max_mark_index(M.state.marks) + 1
     else
       -- use first available slot
       index = 1
@@ -507,9 +489,9 @@ function M.func.mark(index)
     argindex = -1, -- calculated by apply_state
   }
 
-  M.func.apply_state()
+  apply_state()
   if M.config.enable_autosave then M.func.save_state() end
-  if _debug then vim.notify('Argmada: Marked at ' .. index, vim.log.levels.DEBUG) end
+  if _debug then notify('Marked at ' .. index, vim.log.levels.DEBUG) end
 end
 
 --- Remove a mark at the given index (or current file if no index)
@@ -527,17 +509,11 @@ function M.func.unmark(index)
 
   if index and M.state.marks[index] then
     M.state.marks[index] = nil
-    M.func.apply_state()
+    apply_state()
     if M.config.enable_autosave then M.func.save_state() end
-    if _debug then
-      vim.notify('Argmada: Removed mark ' .. index, vim.log.levels.DEBUG)
-    end
+    if _debug then notify('Removed mark ' .. index, vim.log.levels.DEBUG) end
   else
-    vim.notify(
-      'No mark to remove for this buffer',
-      vim.log.levels.INFO,
-      { title = 'Argmada' }
-    )
+    notify('No mark to remove for this buffer', vim.log.levels.INFO)
   end
 end
 
@@ -546,11 +522,7 @@ end
 function M.func.select(index)
   local mark = M.state.marks[index]
   if not mark then
-    vim.notify(
-      'No mark for index ' .. tostring(index),
-      vim.log.levels.INFO,
-      { title = 'Argmada' }
-    )
+    notify('No mark for index ' .. tostring(index), vim.log.levels.INFO)
     return
   end
   M.state.current = index
@@ -567,7 +539,7 @@ function M.func.select(index)
       M.state.marks[index].last_line = vim.fn.line('.')
     end
   else
-    vim.notify('Argmada: Failed to jump - ' .. tostring(err), vim.log.levels.ERROR)
+    notify('Failed to jump - ' .. tostring(err), vim.log.levels.ERROR)
   end
 end
 
@@ -575,11 +547,7 @@ end
 function M.func.select_next()
   if not M.state.current then return end
   local next_idx = M.state.current + 1
-  local max_idx = 0
-  -- Find the highest logical index
-  for k in pairs(M.state.marks) do
-    if k > max_idx then max_idx = k end
-  end
+  local max_idx = get_max_mark_index(M.state.marks)
   -- Search forward
   while next_idx <= max_idx do
     if M.state.marks[next_idx] then
@@ -610,10 +578,7 @@ function M.func.select_prev()
     prev_idx = prev_idx - 1
   end
   -- Wrap around, first find max index
-  local max_idx = 0
-  for k in pairs(M.state.marks) do
-    if k > max_idx then max_idx = k end
-  end
+  local max_idx = get_max_mark_index(M.state.marks)
   while max_idx > M.state.current do
     if M.state.marks[max_idx] then
       M.func.select(max_idx)
@@ -623,16 +588,11 @@ function M.func.select_prev()
   end
 end
 
---- Close the UI, state sync is handled by autocmd (set in open_ui)
-function M.func.close_ui()
-  if M.popup_win == nil then return end
-  if M.popup_win and vim.api.nvim_win_is_valid(M.popup_win) then
-    -- buffer is set to 'wipe' so this deletes the ext_marks as well
-    vim.api.nvim_win_close(M.popup_win, true)
-  end
-  M.popup_win = nil
-  M.popup_buf = nil
-  M.ui_extmarks = {}
+--- Select mark based on current cursor line, should only be bound in the UI buffer
+function M.func.select_via_ui()
+  local target = vim.fn.line('.')
+  M.func.close_ui()
+  M.func.select(target)
 end
 
 --- Open the UI window
@@ -674,7 +634,7 @@ function M.func.open_ui()
   for i = 1, lines_count do
     local v = M.state.marks[i]
     if v then
-      table.insert(lines, M.func.print_entry(v))
+      table.insert(lines, print_entry(v))
     else
       table.insert(lines, ' ') -- Empty line for empty slot
     end
@@ -699,27 +659,41 @@ function M.func.open_ui()
   end
   -- place cursor on last jump
   local cursor_pos = M.state.current or 1
-  vim.cmd('norm! ' .. cursor_pos .. 'G')
+  -- vim.cmd('norm! ' .. cursor_pos .. 'G')
+  vim.cmd.normal({ cursor_pos .. 'G', bang = true })
   -- auto close the window if buffer or window changes
   vim.api.nvim_create_autocmd({ 'BufLeave', 'WinLeave' }, {
     group = M.augroup,
     buffer = popup_buf,
     callback = function()
       if M.popup_buf ~= nil then
-        M.func.sync_ui()
+        sync_ui()
         M.func.close_ui()
       end
     end,
   })
   -- set keymaps
-  for _, mapping in ipairs(M.config.keymaps.ui) do
-    local key = mapping[1]
-    local action = keybind_map[mapping[2]]
-    local args = mapping[3] or {}
-    vim.keymap.set('n', key, function()
-      action(unpack(args))
-    end, { buffer = popup_buf })
+  for key, mapping in pairs(M.config.keymaps.ui or {}) do
+    if mapping then
+      local action = keybind_map[mapping[1]]
+      local args = mapping[2] or {}
+      vim.keymap.set('n', key, function()
+        action(unpack(args))
+      end, { buffer = popup_buf })
+    end
   end
+end
+
+--- Close the UI, state sync is handled by autocmd (set in open_ui)
+function M.func.close_ui()
+  if M.popup_win == nil then return end
+  if M.popup_win and vim.api.nvim_win_is_valid(M.popup_win) then
+    -- buffer is set to 'wipe' so this deletes the ext_marks as well
+    vim.api.nvim_win_close(M.popup_win, true)
+  end
+  M.popup_win = nil
+  M.popup_buf = nil
+  M.ui_extmarks = {}
 end
 
 --- Toggle the UI window
@@ -751,21 +725,23 @@ keybind_map = {
 
 --- Init the plugin
 --- Override default config with opts argument
----@param opts table?
-function M.setup(opts)
+---@param config table?
+function M.setup(config)
   if M.plugin_loaded then return end
   M.plugin_loaded = true
 
-  if opts and not opts.keep_default_binds then M.config.keymaps = {} end
+  if config and config.keep_default_binds == false then
+    default_config.keymaps = { normal = {}, visual = {}, insert = {}, ui = {} }
+  end
 
-  M.config = vim.tbl_deep_extend('force', default_config, opts or {})
+  M.config = vim.tbl_deep_extend('force', default_config, config or {})
 
   if M.config.enable_autosave then
     keybind_map['save'] = function()
-      vim.notify('Save disabled', vim.log.levels.INFO, { title = 'Argmada' })
+      notify('Save disabled', vim.log.levels.INFO)
     end
     keybind_map['load'] = function()
-      vim.notify('Load disabled', vim.log.levels.INFO, { title = 'Argmada' })
+      notify('Load disabled', vim.log.levels.INFO)
     end
 
     -- handle lazy loading
@@ -774,54 +750,51 @@ function M.setup(opts)
     else
       vim.api.nvim_create_autocmd('VimEnter', {
         group = M.augroup,
-        callback = function()
-          M.func.load_state()
-        end,
+        callback = M.func.load_state,
       })
     end
     -- save before exit
     vim.api.nvim_create_autocmd('VimLeavePre', {
       group = M.augroup,
-      callback = function()
-        local has_marks = false
-        for _ in pairs(M.state.marks) do
-          has_marks = true
-          break
-        end
-        if has_marks then M.func.save_state() end
-      end,
+      callback = M.func.save_state,
     })
   end
 
-  for _, mapping in ipairs(M.config.keymaps.normal or {}) do
-    local key = mapping[1]
-    local action = keybind_map[mapping[2]]
-    local args = mapping[3] or {}
-    vim.keymap.set('n', key, function()
-      action(unpack(args))
-    end, mapping[4] or {})
+  for key, mapping in pairs(M.config.keymaps.normal or {}) do
+    if mapping then
+      local action = keybind_map[mapping[1]]
+      local args = mapping[2] or {}
+      local opts = mapping[3] or {}
+      vim.keymap.set('n', key, function()
+        action(unpack(args))
+      end, opts)
+    end
   end
 
-  for _, mapping in ipairs(M.config.keymaps.visual or {}) do
-    local key = mapping[1]
-    local action = keybind_map[mapping[2]]
-    local args = mapping[3] or {}
-    vim.keymap.set('v', key, function()
-      action(unpack(args))
-    end, mapping[4] or {})
+  for key, mapping in pairs(M.config.keymaps.visual or {}) do
+    if mapping then
+      local action = keybind_map[mapping[1]]
+      local args = mapping[2] or {}
+      local opts = mapping[3] or {}
+      vim.keymap.set('v', key, function()
+        action(unpack(args))
+      end, opts)
+    end
   end
 
-  for _, mapping in ipairs(M.config.keymaps.insert or {}) do
-    local key = mapping[1]
-    local action = keybind_map[mapping[2]]
-    local args = mapping[3] or {}
-    vim.keymap.set('i', key, function()
-      action(unpack(args))
-    end, mapping[4] or {})
+  for key, mapping in pairs(M.config.keymaps.insert or {}) do
+    if mapping then
+      local action = keybind_map[mapping[1]]
+      local args = mapping[2] or {}
+      local opts = mapping[3] or {}
+      vim.keymap.set('i', key, function()
+        action(unpack(args))
+      end, opts)
+    end
   end
 
   vim.schedule(function()
-    M.func.garbage_collect()
+    garbage_collect()
   end)
 end
 
