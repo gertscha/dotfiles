@@ -373,12 +373,12 @@ function M.func.save_state()
     current = M.state.current,
     marks = {},
   }
-  for k, mark in pairs(M.state.marks) do
-    export_state.marks[k] = {
+  for _, mark in pairs(M.state.marks) do
+    table.insert(export_state.marks, {
       argname = mark.argname,
       markindex = mark.markindex,
       last_line = mark.last_line,
-    }
+    })
   end
   local ok, encoded_state = pcall(vim.json.encode, export_state)
   if not ok then
@@ -421,7 +421,7 @@ function M.func.load_state()
   end
 
   M.state.current = readstate.current
-  for key, value in ipairs(readstate.marks) do
+  for _, value in ipairs(readstate.marks) do
     if value ~= vim.NIL then
       local entry = {
         loaded = false, -- on fresh load want to use last_line
@@ -430,7 +430,7 @@ function M.func.load_state()
         last_line = value.last_line,
         argindex = -1, -- init occurs during apply_state()
       }
-      M.state.marks[key] = entry
+      M.state.marks[value.markindex] = entry
     end
   end
   apply_state()
@@ -617,11 +617,8 @@ function M.func.open_ui()
   vim.bo[popup_buf].buftype = 'nofile'
   vim.bo[popup_buf].bufhidden = 'wipe'
   -- create the popup window and open the buffer in it
-  local lines_count = 0
-  for k in pairs(M.state.marks) do
-    if k > lines_count then lines_count = k end
-  end
-  local height = lines_count + M.config.ui_after_padding
+  local max_idx = get_max_mark_index(M.state.marks)
+  local height = max_idx + M.config.ui_after_padding
   local width = 80
   local row = math.ceil((vim.o.lines - height) / 2)
   local col = math.ceil((vim.o.columns - width) / 2)
@@ -641,7 +638,7 @@ function M.func.open_ui()
   vim.wo[popup_win].wrap = false
   -- set the content of the popup buffer
   local lines = {}
-  for i = 1, lines_count do
+  for i = 1, height do
     local v = M.state.marks[i]
     if v then
       table.insert(lines, print_entry(v))
@@ -653,7 +650,7 @@ function M.func.open_ui()
   vim.api.nvim_buf_set_lines(popup_buf, 0, -1, false, lines)
   -- set ext_marks to track changes
   M.ui_extmarks = {}
-  for i = 1, lines_count do
+  for i = 1, max_idx do
     local v = M.state.marks[i]
     if v then
       local extmark_id =
