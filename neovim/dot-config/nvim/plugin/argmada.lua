@@ -529,8 +529,10 @@ function M.func.select(index)
     return
   end
 
-  -- update cursor position of the buffer we are currently leaving (if marked)
   local current_file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p')
+  -- do nothing if the current buffer is the target
+  if mark.argname == current_file then return end
+  -- update cursor position of the buffer we are currently leaving (if marked)
   for _, v in pairs(M.state.marks) do
     if v.argname == current_file then
       v.last_line = vim.fn.line('.')
