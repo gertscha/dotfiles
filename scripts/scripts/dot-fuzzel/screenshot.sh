@@ -12,6 +12,8 @@ DEFAULTS=(
     "markdown_base_path=$HOME"
     "markdown_int_dir=Documents"
     "markdown_mode=False"
+    "retain_selection=False"
+    "recent_selections="
 )
 DMENU_CMD="fuzzel --dmenu --width=80"
 
@@ -54,6 +56,8 @@ BASE_PATH=$(get_val "default_base_path")
 MD_BASE=$(get_val "markdown_base_path")
 MD_DIR=$(get_val "markdown_int_dir")
 MD_MODE=$(get_val "markdown_mode")
+RETAIN_SELECTION=$(get_val "retain_selection")
+RECENT_SELECTIONS=$(get_val "recent_selections")
 
 # Prompt for suffix
 SUFFIX=$(printf "\n" | $DMENU_CMD --mesg="Add suffix (optional):")
@@ -84,10 +88,28 @@ if [[ -f "$FULL_SAVE_PATH" ]]; then
 fi
 
 # --- Take Screenshot ---
-GEOMETRY=$(slurp 2> /dev/null)
+GEOMETRY=""
+# Try preset selection if enabled and history exists
+if [[ "$RETAIN_SELECTION" == "True" && -n "$RECENT_SELECTIONS" ]]; then
+    GEOMETRY=$(printf "%s" "$RECENT_SELECTIONS" | tr ';' '\n' | slurp -r 2> /dev/null)
+    # Fallback to free selection if preset selection was aborted
+    if [[ -z "$GEOMETRY" ]]; then
+        GEOMETRY=$(slurp 2> /dev/null)
+    fi
+else
+    GEOMETRY=$(slurp 2> /dev/null)
+fi
+
 if [[ -z "$GEOMETRY" ]]; then
     exit 0 # Exit cleanly if aborted
 fi
+
+if [[ "$RETAIN_SELECTION" == "True" ]]; then
+    # update the JSON state, maintaining the 3 latest selections
+    python3 "$SCRIPT_DIR/json_state_history_helper.py" "$FILENAME" "$GEOMETRY"
+fi
+
+# Execute grim using the defined geometry
 grim -g "$GEOMETRY" -t png "$FULL_SAVE_PATH"
 
 # --- Copy to clipboard ---
