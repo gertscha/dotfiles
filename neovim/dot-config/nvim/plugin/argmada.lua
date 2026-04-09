@@ -488,6 +488,7 @@ function M.func.mark(index)
     loaded = true,
     argindex = -1, -- calculated by apply_state
   }
+  M.state.current = index
   apply_state()
   if M.config.enable_autosave then M.func.save_state() end
   if _debug then notify('Marked at ' .. index, 'debug') end
