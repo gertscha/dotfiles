@@ -160,6 +160,12 @@ keymap('n', '<C-j>', '<nop>', { silent = true }) -- navigate line down, conflict
 keymap('n', '<C-f>', '<nop>', { silent = true }) -- page down, use <C-d> instead
 keymap('n', '<C-b>', '<nop>', { silent = true }) -- page up, use <C-u> instead
 keymap('n', '<F1>', '<nop>', { silent = true }) -- open help, accidental presses
+-- I don't like q: as command history bind
+-- removing it is tricky however, this is half of it, the other half is a autocmd
+vim.keymap.set('c', '<C-f>', function()
+  vim.g.requested_cmdwin = true
+  return '<C-f>'
+end, { expr = true })
 
 -- change default bindings for LSP, all of these have better alternatives using fzf
 -- but to keep them as fallback they are rebound behind <leader>d

@@ -1,5 +1,6 @@
 -- auto resize buffers
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
+  group = vim.api.nvim_create_augroup('auto-resize-buf', { clear = true }),
   callback = function()
     vim.cmd('tabdo wincmd =')
   end,
@@ -16,6 +17,7 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
 
 -- Hide cursorline when the window doesn't have focus
 vim.api.nvim_create_autocmd({ 'WinLeave', 'FocusLost' }, {
+  group = vim.api.nvim_create_augroup('hide-inactive-cursorline', { clear = true }),
   callback = function()
     if not vim.opt.diff:get() and not vim.opt.cursorbind:get() then
       vim.opt_local.cursorline = false
@@ -31,6 +33,7 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'FocusGained' }, {
 -- Hide trailing spaces markers in insert mode
 local trailchar = nil
 vim.api.nvim_create_autocmd('InsertEnter', {
+  group = vim.api.nvim_create_augroup('hide-trailing-in-insert', { clear = true }),
   callback = function()
     local listchars = vim.opt_local.listchars:get()
     if listchars then
@@ -50,6 +53,21 @@ vim.api.nvim_create_autocmd('InsertLeave', {
   end,
 })
 
+-- add keybinds to close the cmd win history
+vim.api.nvim_create_autocmd('CmdwinEnter', {
+  group = vim.api.nvim_create_augroup('close-cmd-window', { clear = true }),
+  callback = function(args)
+    if vim.g.requested_cmdwin then
+      local opts = { buffer = args.buf, silent = true }
+      vim.keymap.set('n', '<Esc>', '<CMD>q<CR>', opts)
+      vim.keymap.set('n', '<A-q>', '<CMD>q<CR>', opts)
+      vim.g.requested_cmdwin = nil
+    else
+      vim.cmd('quit')
+    end
+  end,
+})
+
 -- Check if there is an OPAM switch when opening Ocaml files (only once)
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'ocaml', 'dune' },
@@ -65,7 +83,8 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Make opening large files more performant
-local big_file_group = vim.api.nvim_create_augroup('BigFileSetup', { clear = true })
+local big_file_group =
+  vim.api.nvim_create_augroup('big-file-setup', { clear = true })
 vim.api.nvim_create_autocmd('BufReadPre', {
   desc = 'Disable expensive features for massive files',
   group = big_file_group,
@@ -85,10 +104,7 @@ vim.api.nvim_create_autocmd('BufReadPre', {
         vim.bo[args.buf].syntax = ''
       end)
 
-      vim.notify(
-        'Syntax, Undo, etc disabled for performance',
-        vim.log.levels.INFO
-      )
+      vim.notify('Syntax, Undo, etc disabled for performance', vim.log.levels.INFO)
     end
   end,
 })
