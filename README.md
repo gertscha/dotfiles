@@ -172,16 +172,16 @@ path.
 
 # Dependencies
 Main programs I use (included in Base):
-- [fish](https://fishshell.com/), main shell (system package manager)
+- [fish](https://fishshell.com/), main shell (cargo install)
 - [tmux](https://github.com/tmux/tmux/wiki) (system package manager)
 - [lf](https://github.com/gokcehan/lf) (go install, see GitHub for full command)
-- [zoxide](https://github.com/ajeetdsouza/zoxide) (system package manager)
+- [zoxide](https://github.com/ajeetdsouza/zoxide) (cargo install)
 - [eza](https://github.com/eza-community/eza), only used with fish (cargo install)
 - [fzf](https://github.com/junegunn/fzf), dependency of several core programs (system package manager)
 - [zsh](https://sourceforge.net/p/zsh/code), fallback POSIX shell, (system package manager)
 - [zathura](https://pwmt.org/projects/zathura/), PDF viewer (system packet manager)
 - [swayimg](https://github.com/artemsen/swayimg), image viewer (system package manager)
-- [fuzzel](https://codeberg.org/dnkl/fuzzel), app launcher (system package manager)
+- [fuzzel](https://codeberg.org/dnkl/fuzzel), app launcher (from source (meson))
 - and the obligatory [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 
 Programs that have a full stow directory:
