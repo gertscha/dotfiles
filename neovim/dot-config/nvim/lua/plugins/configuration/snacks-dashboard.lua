@@ -140,7 +140,7 @@ _____________________________________________________
         desc = 'Restore Session',
         action = function()
           if vim.fn.filereadable(SessionSaveFile) == 1 then
-            vim.cmd('source ' .. SessionSaveFile)
+            vim.schedule(function() vim.cmd('source ' .. SessionSaveFile) end)
           else
             vim.notify('No Session file found', vim.log.levels.INFO)
           end
