@@ -74,3 +74,5 @@
 	hash = rev-parse --verify
 	ap = add --patch
 
+[checkout]
+	defaultRemote = origin
