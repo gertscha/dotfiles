@@ -186,8 +186,9 @@ Main programs I use (included in Base):
 
 Programs that have a full stow directory:
 - [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md) (build from source)
-- [rmpc](https://mierak.github.io/rmpc/) (build from source) and [mpd](https://www.musicpd.org/) (system package manager),
-see [Music](#Music), optionally install [cava](https://github.com/karlstav/cava)
+- [rmpc](https://mierak.github.io/rmpc/) (build from source)
+  and [mpd](https://www.musicpd.org/) (system package manager),
+  also see [Music](#Music), optionally install [cava](https://github.com/karlstav/cava)
 - [wezterm](https://wezterm.org/index.html) my cross-platform terminal (system package manager (copr))
 - [foot](https://codeberg.org/dnkl/foot), Wayland only, main terminal in my Sway setup (system package manager)
 - [Alacritty](https://alacritty.org/), my fallback cross-platform terminal
