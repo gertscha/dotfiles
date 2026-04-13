@@ -67,6 +67,8 @@ vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = true
 
+vim.o.modeline = false
+
 vim.g.tex_flavor = 'latex'
 vim.g.have_nerd_font = true
 vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
