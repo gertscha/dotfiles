@@ -1,0 +1,75 @@
+local M = {}
+
+---@param t FangColorScheme
+---@return table
+function M.get(t)
+  -- stylua: ignore
+  local hl = {
+    -- Editor highlights
+    Normal                                  = { fg = t.base.fgc, bg = t.transparent and 'none' or t.base.bgc },
+    Cursor                                  = { fg = t.base.bgc, bg = t.base.fgc },
+    lCursor                                 = { fg = t.base.bgc, bg = t.base.fgc },
+    CursorIM                                = { fg = t.base.bgc, bg = t.base.fgc },
+    CursorLine                              = { bg = t.bgc_hi },
+    CursorColumn                            = { bg = t.bgc_hi },
+    ColorColumn                             = { bg = t.bgc_hi },
+    Conceal                                 = { fg = t.base.bgc },
+    CurSearch                               = '@fangcs.search',
+    CursorLineNr                            = { fg = t.base.fgc },
+    Debug                                   = { fg = t.base.fgc, italic = true },
+    debugPC                                 = { fg = t.base.bgc, bg = t.base.fgc },
+    debugBreakpoint                         = { fg = t.base.bgc, bg = t.green_bgc },
+    Directory                               = '@fangcs.declaration',
+    OkMsg                                   = { fg = t.base.green },
+    WarningMsg                              = { fg = t.warning },
+    ErrorMsg                                = { fg = t.error, bold = true },
+    EndOfBuffer                             = { fg = t.base.muted },
+    FloatBorder                             = { fg = t.bgc_hi },
+    FloatTitle                              = { fg = t.base.primary },
+    FloatShadow                             = { bg = t.base.muted },
+    FloatShadowThrough                      = { bg = t.base.muted },
+    Folded                                  = { fg = t.deemphasize, bg = t.transparent and "none" or t.bgc_hi },
+    FoldColumn                              = { fg = t.base.fgc },
+    IncSearch                               = '@fangcs.search',
+    LineNr                                  = { fg = t.base.muted },
+    MatchParen                              = { fg = t.base.secondary },
+    MoreMsg                                 = { fg = t.base.yellow },
+    MsgArea                                 = { fg = t.base.fgc, bg = t.transparent and 'none' or t.base.bgc },
+    MsgSeparator                            = '@fangcs.base',
+    NonText                                 = { fg = t.base.muted },
+    NormalFloat                             = { fg = t.base.fgc, bg = t.transparent and 'none' or t.base.bgc },
+    ModeMsg                                 = '@fangcs.base',
+    Pmenu                                   = { bg = t.base.bgc },
+    PmenuSel                                = { fg = t.base.bgc, bg = t.base.fgc },
+    PmenuThumb                              = { bg = t.deemphasize },
+    PmenuBorder                             = { fg = t.bgc_hi },
+    Question                                = '@fangcs.base',
+    QuickFixLine                            = { fg = t.base.primary },
+    qfError                                 = { fg = t.base.red },
+    qfFileName                              = '@fangcs.base',
+    Search                                  = '@fangcs.highlight',
+    SignColumn                              = { fg = t.base.fgc },
+    SpecialKey                              = { fg = t.hint },
+    SpellBad                                = { sp = t.base.red, underdotted = true },
+    SpellCap                                = { sp = t.base.yellow, underdotted = true },
+    SpellLocal                              = { sp = t.base.green, underdotted = true },
+    SpellRare                               = { sp = t.base.primary, underdotted = true },
+    StatusLine                              = { fg = t.base.fgc, bg = t.bgc_hi },
+    StatusLineNC                            = { fg = t.base.comment, bg = t.bgc_hi },
+    StatusLineTerm                          = { fg = t.base.fgc, bg = t.base.bgc },
+    StatusLineTermNC                        = { fg = t.base.muted, bg = t.base.bgc },
+    Substitute                              = { fg = t.base.bgc, bg = t.secondary_bgc },
+    TabLine                                 = { fg = t.deemphasize },
+    TabLineSel                              = { fg = t.base.fgc } ,
+    Visual                                  = { bg = t.bgc_hi_bright },
+    VisualNOS                               = { bg = t.bgc_hi_bright, underline = true },
+    Whitespace                              = { fg = t.bgc_hi }, -- listchars
+    WildMenu                                = { fg = t.base.bgc, bg = t.base.primary },
+    WinSeparator                            = { fg = t.bgc_hi },
+    WinBar                                  = { fg = t.deemphasize, bg = t.base.bgc },
+    WinBarNC                                = { fg = t.base.muted, bg = t.base.bgc },
+  }
+  return hl
+end
+
+return M

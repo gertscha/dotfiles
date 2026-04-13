@@ -70,8 +70,9 @@ function M.config()
     },
   })
 
-  vim.cmd('colorscheme vague')
-  vim.cmd('hi statusline guibg=NONE')
+  -- vim.cmd('colorscheme vague')
+  -- vim.cmd('hi statusline guibg=NONE')
+  vim.cmd('colorscheme fang')
 end
 
 return M
