@@ -15,7 +15,6 @@
 (
     default_album_art_path: None,
     show_song_table_header: true,
-    draw_borders: false,
     format_tag_separator: " | ",
     browser_column_widths: [22, 38, 40],
     background_color: None, // keep transparent
