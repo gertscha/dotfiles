@@ -11,8 +11,6 @@ local M = {
 }
 
 function M.config()
-  vim.lsp.log.set_level(vim.lsp.log.levels.WARN)
-
   require('mason').setup({
     ui = {
       icons = {

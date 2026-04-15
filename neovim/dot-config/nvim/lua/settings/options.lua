@@ -1,6 +1,9 @@
 -- :help options
 -- for full list and detailed explanation
 
+-- reduce log (usually .local/state/nvim/lsp.log)
+vim.lsp.log.set_level(vim.lsp.log.levels.WARN)
+
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.wrap = false
