@@ -116,8 +116,8 @@ M.set = function(colors, term_colors, transparent)
 
   t.error = t.base.red
   t.warning = t.base.yellow
-  t.information = t.base.muted
-  t.hint = t.deemphasize
+  t.information = '#aeaed1'
+  t.hint = '#aeaed1'
 
   -- =========================
   -- Terminal colors
