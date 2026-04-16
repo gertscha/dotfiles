@@ -99,6 +99,7 @@ local M = {
   popup_buf = nil,
   state_dir = vim.fs.joinpath(vim.fn.stdpath('data'), 'argmada'),
   ns_id = vim.api.nvim_create_namespace('argmada_ui'),
+  hl_ns_id = vim.api.nvim_create_namespace('argmada_ui_hl'),
   ui_extmarks = {},
 }
 
@@ -638,6 +639,8 @@ function M.func.open_ui()
   vim.wo[popup_win].number = false
   vim.wo[popup_win].wrap = false
 
+  -- determine what the current mark is for highlight and cursor position
+  local cursor_pos = M.state.current or 1
   -- set the content of the popup buffer
   local lines = {}
   for i = 1, height do
@@ -655,6 +658,17 @@ function M.func.open_ui()
   for i = 1, max_idx do
     local v = M.state.marks[i]
     if v then
+      local idx_len = string.len(tostring(v.markindex))
+      local line_len = string.len(lines[i])
+      local pos_idx_end = { i - 1, idx_len + 1 }
+      local pos_end = { i - 1, line_len }
+      vim.hl.range(popup_buf, M.hl_ns_id, 'ArgmadaIndex', { i - 1, 0 }, pos_idx_end)
+      if i ~= cursor_pos then
+        vim.hl.range(popup_buf, M.hl_ns_id, 'ArgmadaPath', pos_idx_end, pos_end)
+      else
+        vim.hl.range(popup_buf, M.hl_ns_id, 'ArgmadaPathCur', pos_idx_end, pos_end)
+      end
+
       local extmark_id =
         vim.api.nvim_buf_set_extmark(popup_buf, M.ns_id, i - 1, 1, {})
       M.ui_extmarks[extmark_id] = {
@@ -668,7 +682,6 @@ function M.func.open_ui()
     end
   end
   -- place cursor on last jump that was made
-  local cursor_pos = M.state.current or 1
   vim.cmd.normal({ cursor_pos .. 'G', bang = true })
 
   -- auto close the window if buffer or window changes
@@ -783,6 +796,19 @@ function M.setup(config)
   end
 
   M.config = vim.tbl_deep_extend('force', default_config, config or {})
+
+  local base_hl = vim.api.nvim_get_hl(0, { name = 'Normal' })
+  vim.api.nvim_set_hl(
+    0,
+    'ArgmadaIndex',
+    { fg = base_hl.fg, italic = true, default = true }
+  )
+  vim.api.nvim_set_hl(
+    0,
+    'ArgmadaPathCur',
+    { fg = base_hl.fg, bold = true, default = true }
+  )
+  vim.api.nvim_set_hl(0, 'ArgmadaPath', { link = 'Normal', default = true })
 
   -- Check the keymaps format
   validate_keymaps(M.config.keymaps)
