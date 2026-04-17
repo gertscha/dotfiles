@@ -20,6 +20,10 @@
 ---@field ui_width integer
 ---@field cleanup_days_limit integer
 ---@field mark_keybind_max_index integer
+---@field map_select_prefix string
+---@field map_mark_prefix string
+---@field map_idx_suffix table<integer, string>
+---@field map_ui_toggle string
 ---@field keep_default_binds boolean
 ---@field keep_default_ui_binds boolean
 
@@ -56,9 +60,13 @@ local default_config = {
   ui_width = 80,
   append_to_end = false,
   cleanup_days_limit = 60,
-  -- the last three need to be changed manually in plugin/argmada.lua if the
-  -- default needs to be changed (here only as reference)
+  -- the following need to be changed manually in plugin/argmada.lua
+  -- in order to be changed (here listed only as reference)
   mark_keybind_max_index = 4,
+  map_select_prefix = '<leader>',
+  map_mark_prefix = '<leader>a',
+  map_idx_suffix = { 'm', 'n', 'b', 'v' },
+  map_ui_toggle = '<A-h>',
   keep_default_binds = true,
   keep_default_ui_binds = true,
 }
@@ -424,7 +432,9 @@ function M.func.load_state()
   end
 end
 
---- Add or update a mark at the given index (or append if no index given)
+--- Add or update a mark at the given index (or append if no index given). Uses
+--- config.append_to_end to decide whether to take first available or last slot
+---@param index integer
 function M.func.mark(index)
   M.init()
   local current_file = vim.api.nvim_buf_get_name(0)
@@ -475,6 +485,7 @@ function M.func.mark(index)
 end
 
 --- Remove a mark at the given index (or current file if no index)
+---@param index integer
 function M.func.unmark(index)
   M.init()
   if not index then

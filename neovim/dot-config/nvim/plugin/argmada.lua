@@ -8,13 +8,32 @@
 if vim.g.loaded_argmada == 1 then return end
 vim.g.loaded_argmada = 1
 
+---@type ArgmadaConfig
 local config = vim.g.argmada_config or {}
 
--- default value for config.mark_keybind_max_index
-local default_jump_count = 4
+-- default config values (remaining ones are lazy loaded)
+local mark_keybind_max_index = 4
+local default_select_map_prefix = '<leader>'
+local default_mark_map_prefix = '<leader>a'
+local default_ui_toggle = '<A-h>'
+local default_map_idx_suffix = { 'm', 'n', 'b', 'v' }
+
+-- config values by user or default
+local max_idx = config.mark_keybind_max_index or mark_keybind_max_index
+local keep_maps = config.keep_default_binds ~= false
+local keep_ui_maps = config.keep_default_ui_binds ~= false
+local map_mark_pref = config.map_mark_prefix or default_mark_map_prefix
+local map_sel_pref = config.map_select_prefix or default_select_map_prefix
+local map_ui_toggle = config.map_ui_toggle or default_ui_toggle
+local map_suffix = config.map_idx_suffix
+if map_suffix == nil then
+  map_suffix = default_map_idx_suffix
+elseif map_suffix == false then
+  map_suffix = {}
+end
 
 --
--- Define <Plug> Keybinds
+-- Define <Plug> Targets
 --
 --   Base Actions
 vim.keymap.set('', '<Plug>(ArgmadaToggleUI)', function()
@@ -48,7 +67,6 @@ vim.keymap.set('', '<Plug>(ArgmadaSaveState)', function()
   require('argmada').func.save_state()
 end)
 
-local max_idx = config.mark_keybind_max_index or default_jump_count
 for i = 1, max_idx do
   vim.keymap.set('', '<Plug>(ArgmadaMark' .. i .. ')', function()
     require('argmada').func.mark(i)
@@ -68,9 +86,22 @@ vim.keymap.set('', '<Plug>(ArgmadaSelectUI)', function()
 end)
 
 --
+-- User commands
+--
+vim.api.nvim_create_user_command('ArgmadaToggle', function()
+  require('argmada').func.toggle_ui()
+end, { desc = 'Toggle the Argmada UI' })
+vim.api.nvim_create_user_command('ArgmadaOpen', function()
+  require('argmada').func.open_ui()
+end, { desc = 'Open the Argmada UI' })
+vim.api.nvim_create_user_command('ArgmadaClose', function()
+  require('argmada').func.close_ui()
+end, { desc = 'Close the Argmada UI' })
+
+--
 -- Apply Default Bindings
 --
-if config.keep_default_binds ~= false then
+if keep_maps then
   local function safe_map(mode, lhs, plug_target, desc)
     -- only add binding if action is not bound already
     if vim.fn.hasmapto(plug_target, mode) == 0 then
@@ -78,39 +109,28 @@ if config.keep_default_binds ~= false then
     end
   end
 
-  -- Base default bindings
-  safe_map('n', '<C-h>', '<Plug>(ArgmadaToggleUI)', 'Argmada: Toggle UI')
-  safe_map('n', '<C-s>', '<Plug>(ArgmadaMarkAppend)', 'Argmada: Append new Mark')
-  safe_map('n', ']h', '<Plug>(ArgmadaNext)', 'Argmada: next Mark')
-  safe_map('n', '[h', '<Plug>(ArgmadaPrev)', 'Argmada: previous Mark')
-  safe_map('n', '<leader>hc', '<Plug>(ArgmadaUnmarkCurrent)', 'Argmada: Remove Mark')
+  safe_map('n', map_ui_toggle, '<Plug>(ArgmadaToggleUI)', 'Argmada: Toggle UI')
+  safe_map('n', ']h', '<Plug>(ArgmadaNext)', 'Argmada: Next Mark')
+  safe_map('n', '[h', '<Plug>(ArgmadaPrev)', 'Argmada: Previous Mark')
 
-  -- Map the numbered defaults safely (respecting max_idx)
-  -- should have length: default_jump_count
-  local mark_defaults = { '<leader>am', '<leader>an', '<leader>ab', '<leader>av' }
-  local select_defaults = { '<leader>m', '<leader>n', '<leader>b', '<leader>v' }
-
-  -- max_idx from the config sets the maximum for the <Plug> bindings
-  for i = 1, math.min(max_idx, default_jump_count) do
-    -- Only map if we actually have a default key defined for this index
-    if mark_defaults[i] then
-      safe_map(
-        'n',
-        mark_defaults[i],
-        '<Plug>(ArgmadaMark' .. i .. ')',
-        'Argmada: Mark ' .. i
-      )
-      safe_map(
-        'n',
-        select_defaults[i],
-        '<Plug>(ArgmadaSelect' .. i .. ')',
-        'Argmada: Go to ' .. i
-      )
-    end
+  for i, suffix in pairs(map_suffix) do
+    -- it's fine to have more than max_idx bindings, they just will have no
+    -- effect since the <Plug> target for it was not created
+    safe_map(
+      'n',
+      map_mark_pref .. suffix,
+      '<Plug>(ArgmadaMark' .. i .. ')',
+      'Argmada: Mark ' .. i
+    )
+    safe_map(
+      'n',
+      map_sel_pref .. suffix,
+      '<Plug>(ArgmadaSelect' .. i .. ')',
+      'Argmada: Go to ' .. i
+    )
   end
 end
-
-if config.keep_default_ui_binds ~= false then
+if keep_ui_maps then
   -- UI buffer bindings via FileType
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'argmada-ui-popup',
@@ -121,13 +141,9 @@ if config.keep_default_ui_binds ~= false then
         silent = true,
         nowait = true,
       }
-      if vim.fn.hasmapto('<Plug>(ArgmadaSelectUI)', 'n') == 0 then
-        vim.keymap.set('n', '<CR>', '<Plug>(ArgmadaSelectUI)', map_opts)
-      end
-      if vim.fn.hasmapto('<Plug>(ArgmadaCloseUI)', 'n') == 0 then
-        vim.keymap.set('n', 'q', '<Plug>(ArgmadaCloseUI)', map_opts)
-        vim.keymap.set('n', '<ESC>', '<Plug>(ArgmadaCloseUI)', map_opts)
-      end
+      vim.keymap.set('n', '<CR>', '<Plug>(ArgmadaSelectUI)', map_opts)
+      vim.keymap.set('n', 'q', '<Plug>(ArgmadaCloseUI)', map_opts)
+      vim.keymap.set('n', '<ESC>', '<Plug>(ArgmadaCloseUI)', map_opts)
     end,
   })
 end
