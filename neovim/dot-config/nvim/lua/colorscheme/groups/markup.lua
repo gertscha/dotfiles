@@ -11,6 +11,7 @@ function M.get(t)
     ['@markup.strikethrough']               = { fg = t.base.fgc, strikethrough = true },
     ['@markup.underline']                   = { fg = t.base.fgc, underline = true },
     ['@markup.heading']                     = { fg = t.base.primary, bg = t.bgc_hi, bold = true },
+    ['@markup.raw']                         = { fg = t.base.fgc, bg = t.bgc_hi },
     ['@markup.link']                        = { fg = t.base.secondary },
     ["@markup.link.label"]                  = { fg = t.base.secondary },
     ["@markup.link.url"]                    = { italic = true },

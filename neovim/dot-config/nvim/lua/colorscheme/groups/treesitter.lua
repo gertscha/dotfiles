@@ -12,9 +12,11 @@ function M.get(t)
     ['@variable.member']                    = '@fangcs.deemphasize',
     ['@property']                           = '@fangcs.base',
     ['@field']                              = '@fangcs.base',
-    ['@constant']                           = '@fangcs.base',
 
     ['@string']                             = '@fangcs.string',
+
+    ['@constant']                           = '@fangcs.constant',
+    ['@constant.builtin']                   = '@fangcs.constant',
     ['@number']                             = '@fangcs.constant',
     ["@number.float"]                       = "@fangcs.constant",
 
@@ -45,6 +47,8 @@ function M.get(t)
     ["@lsp.typemod.function.definition"]    = "@fangcs.declaration",
     ["@lsp.type.function"]                  = "@fangcs.base",
     ["@lsp.type.comment"]                   = "@fangcs.comment",
+    ["@lsp.type.property"]                  = "@fangcs.base",
+    ["@lsp.type.method"]                    = "@fangcs.base",
     ["@lsp.type.generic"]                   = "@fangcs.deemphasize",
     ["@lsp.type.variable"]                  = "@fangcs.variable",
     ["@lsp.type.punct"]                     = "@fangcs.muted",
