@@ -10,6 +10,7 @@ local M = {
     Add_plugin(spec, 'stevearc/oil.nvim', { version = '0fcc838' })
     Add_plugin(spec, 'windwp/nvim-autopairs', { version = '59bce2e' })
     Add_plugin(spec, 'nvzone/showkeys', nil)
+    Add_plugin(spec, 'gertscha/argmada.nvim', { version = 'main' })
   end,
 }
 
@@ -82,6 +83,27 @@ function M.config()
     disable_in_macro = true,
     fast_wrap = {},
   })
+
+  -- Argmada
+  -- vim.g.argmada_config = { }
+  vim.keymap.set(
+    'n',
+    '<leader>hc',
+    '<Plug>(ArgmadaUnmarkCurrent)',
+    { desc = 'Argmada: Remove Mark' }
+  )
+  vim.keymap.set(
+    'n',
+    '<C-s>',
+    '<Plug>(ArgmadaMarkAppend)',
+    { desc = 'Argmada: Append new Mark' }
+  )
+  vim.keymap.set(
+    'n',
+    '<C-h>',
+    '<Plug>(ArgmadaToggleUI)',
+    { desc = 'Argmada: Toggle UI' }
+  )
 
   -- file navigation
   require('oil').setup({
