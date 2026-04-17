@@ -28,6 +28,7 @@ end
 ---@class PluginOpts
 ---@field version string?
 ---@field name string?
+---@field url string?
 ---@field enabled boolean?
 
 ---add plugin to spec
@@ -43,6 +44,7 @@ function Add_plugin(spec, name, options)
     if options.version then plugin.version = options.version end
     if options.name then plugin.name = options.name end
     if options.enabled ~= nil then enabled = options.enabled end
+    if options.url ~= nil then plugin.src = options.url .. name end
   end
   if enabled then table.insert(spec, plugin) end
 end

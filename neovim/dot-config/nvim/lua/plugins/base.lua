@@ -10,7 +10,11 @@ local M = {
     Add_plugin(spec, 'stevearc/oil.nvim', { version = '0fcc838' })
     Add_plugin(spec, 'windwp/nvim-autopairs', { version = '59bce2e' })
     Add_plugin(spec, 'nvzone/showkeys', nil)
-    Add_plugin(spec, 'gertscha/argmada.nvim', { version = 'main' })
+    Add_plugin(
+      spec,
+      'gertscha/argmada.nvim',
+      { version = 'main', url = 'https://codeberg.org/' }
+    )
   end,
 }
 
