@@ -247,16 +247,20 @@ r<Space>                Populate command line with ":Git rebase "
 .                       Start a |:| command line with the file under the cursor prepopulated
 ```
 
-## Harpoon
+## Argmada
 ``` text
-<leader>a               Add current file to the swap list
-<leader>h               Toggle quick menu showing the complete list
+<A-s>                   Add current file to the swap list
+<A-h>                   Toggle quick menu showing the complete list
 <leader>m               Go to file 1
 <leader>n               Go to file 2
 <leader>b               Go to file 3
 <leader>v               Go to file 4
-<A-h>                   Go to previous file in swap list
-<A-l>                   Go to next file in swap list
+<leader>am              Place mark 1 in current buffer
+<leader>an              Place mark 2 in current buffer
+<leader>ab              Place mark 3 in current buffer
+<leader>av              Place mark 4 in current buffer
+[h                      Go to previous file in swap list
+]h                      Go to next file in swap list
 ```
 
 ## Completion - blink

@@ -89,7 +89,12 @@ function M.config()
   })
 
   -- Argmada
-  -- vim.g.argmada_config = { }
+  vim.g.argmada_config = {
+    map_ui_toggle = '<A-h>',
+    map_select_prefix = '<leader>',
+    map_mark_prefix = '<leader>a',
+    map_idx_suffix = { 'm', 'n', 'b', 'v' },
+  }
   vim.keymap.set(
     'n',
     '<leader>hc',
@@ -98,15 +103,9 @@ function M.config()
   )
   vim.keymap.set(
     'n',
-    '<C-s>',
+    '<A-s>',
     '<Plug>(ArgmadaMarkAppend)',
     { desc = 'Argmada: Append new Mark' }
-  )
-  vim.keymap.set(
-    'n',
-    '<C-h>',
-    '<Plug>(ArgmadaToggleUI)',
-    { desc = 'Argmada: Toggle UI' }
   )
 
   -- file navigation
@@ -118,7 +117,7 @@ function M.config()
       show_hidden = false, -- can be toggled with 'g.' keybind
       -- This function defines what is considered a "hidden" file
       is_hidden_file = function(name, bufnr)
-        if name ~= '.config' then
+        if name ~= '.config' and name ~= '.gitignore' then
           local m = name:match('^%.')
           return m ~= nil
         else
