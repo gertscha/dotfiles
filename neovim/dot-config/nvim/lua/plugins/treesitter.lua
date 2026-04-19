@@ -2,10 +2,12 @@
 
 local M = {
   spec = function(spec)
+    -- nvim-treesitter has been archieved, neovim itself is considering what
+    -- to do, it will continue to work for a while but will break eventually
     Add_plugin(
       spec,
       'nvim-treesitter/nvim-treesitter',
-      { version = 'main', enabled = true }
+      { version = '4916d6592ede8c07973490d9322f187e07dfefac', enabled = true }
     )
     Add_plugin(
       spec,
@@ -15,72 +17,64 @@ local M = {
     Add_plugin(
       spec,
       'nvim-treesitter/nvim-treesitter-context',
-      -- disable to to performance issues (stutter on scroll over big context changes)
       { version = 'v1.0.0', enabled = true }
     )
   end,
 }
 
 function M.config()
-  local mod_ts = P_require('nvim-treesitter', true)
-  if mod_ts then
-    mod_ts.install({
-      'lua',
-      'markdown',
-      'latex',
-      'bash',
-      'rust',
-      'yaml',
-      'vim',
-      'vimdoc',
-      'go',
-      'html',
-      'bibtex',
-      'make',
-      'cmake',
-      'c',
-      'cpp',
-      'fish',
-      'regex',
-      'zig',
-    })
+  -- To associate certain filetypes with a treesitter language (name of parser),
+  -- use vim.treesitter.language.register()
+  -- vim.treesitter.language.register('xml', { 'svg', 'xslt' })
 
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = { '*' },
-      callback = function(args)
-        local buf = args.buf
-        -- Map the filetype to a treesitter language
-        local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
-        if not lang then return end
-        -- Check if the parser is actually installed
-        if not vim.treesitter.language.add(lang) then return end
+  local augroup = vim.api.nvim_create_augroup('TreeSitterCheck', { clear = true })
 
-        -- Do not enable it for big files
-        local max_filesize = 1024 * 1024 -- 1MB
-        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
+  vim.api.nvim_create_autocmd('FileType', {
+    group = augroup,
+    pattern = { '*' },
+    callback = function(args)
+      local bufnr = args.buf
+
+      local is_running = vim.treesitter.highlighter.active[bufnr] ~= nil
+      if is_running then return end
+
+      local ft = vim.bo[bufnr].filetype
+      if vim.bo[bufnr].buftype ~= '' then return end
+      if ft == '' then
+        vim.notify(
+          'No filetype detected for current buffer',
+          vim.log.levels.INFO,
+          { title = 'treesitter' }
+        )
+        return
+      end
+
+      local lang = vim.treesitter.language.get_lang(ft) or ft
+      local is_available = vim.treesitter.language.add(lang)
+      if not is_available then
+        if ft ~= 'text' then
           vim.notify(
-            'Disabled treesitter due to large file size!',
-            vim.log.levels.INFO
+            string.format("No parser available for filetype: '%s'", ft),
+            vim.log.levels.WARN,
+            { title = 'treesitter' }
           )
-          return
         end
-
-        vim.treesitter.start(buf, lang)
-
+      else
+        local ok, err = pcall(vim.treesitter.start, bufnr, lang)
+        if not ok then
+          vim.notify(
+            string.format("Failed to start parser for '%s': %s", lang, err),
+            vim.log.levels.ERROR,
+            { title = 'treesitter' }
+          )
+        end
         -- start() disables regex highlights
         -- enable them again if the parser does not provided highlights
         local h_query = vim.treesitter.query.get(lang, 'highlights')
         if not h_query then vim.bo.syntax = 'ON' end
-
-        -- enable the (experimental) treesitter indents if available
-        local i_query = vim.treesitter.query.get(lang, 'indents')
-        if i_query then
-          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        end
-      end,
-    })
-  end
+      end
+    end,
+  })
 
   -- wildfire does incremental selection
   -- (using this because treesitter dropped this capability)
@@ -120,21 +114,5 @@ function M.config()
     })
   end
 end
-
-vim.api.nvim_create_autocmd('PackChanged', {
-  desc = 'Handle nvim-treesitter updates',
-  group = vim.api.nvim_create_augroup(
-    'nvim-treesitter-pack-changed-update-handler',
-    { clear = true }
-  ),
-  callback = function(event)
-    if event.data.kind == 'update' then
-      vim.notify('nvim-treesitter updated, running :TSUpdate', vim.log.levels.INFO)
-      ---@diagnostic disable-next-line: param-type-mismatch
-      local ok = pcall(vim.cmd, 'TSUpdate')
-      if not ok then vim.notify('TSUpdate failed', vim.log.levels.WARN) end
-    end
-  end,
-})
 
 return M
