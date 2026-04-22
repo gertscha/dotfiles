@@ -51,15 +51,7 @@ function M.config()
 
       local lang = vim.treesitter.language.get_lang(ft) or ft
       local is_available = vim.treesitter.language.add(lang)
-      if not is_available then
-        if ft ~= 'text' then
-          vim.notify(
-            string.format("No parser available for filetype: '%s'", ft),
-            vim.log.levels.WARN,
-            { title = 'treesitter' }
-          )
-        end
-      else
+      if is_available then
         local ok, err = pcall(vim.treesitter.start, bufnr, lang)
         if not ok then
           vim.notify(
