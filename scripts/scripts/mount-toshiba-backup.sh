@@ -14,6 +14,7 @@ DISK_UUID="7a28ba26-eb27-4bb2-8014-bca982519e57"
 MAPPER_NAME="ToshibaBackup"
 MOUNT_POINT="/mnt/backup"
 
+ORIGINAL_USER=${SUDO_USER:-$USER}
 
 if [[ $EUID -ne 0 ]]; then
    echo "This script needs root privileges. Re-running with sudo..."
@@ -29,6 +30,30 @@ for cmd in keepassxc-cli cryptsetup findfs mktemp shred mount; do
 done
 
 mkdir -p "$MOUNT_POINT"
+
+# ==========================================
+# UNMOUNT/LOCK (if already mounted)
+# ==========================================
+
+if mountpoint -q "$MOUNT_POINT"; then
+    echo "Trying to unmount the disk"
+
+    if ! umount "$MOUNT_POINT"; then
+        echo "Error: Failed to unmount $MOUNT_POINT." >&2
+        exit 1
+    fi
+
+    if ! cryptsetup close "$MAPPER_NAME"; then
+        echo "Error: Failed to lock LUKS volume '$MAPPER_NAME'." >&2
+        exit 1
+    fi
+    echo "Disk safely unmounted and locked."
+    exit 0
+fi
+
+# ==========================================
+# UNLOCK/MOUNT (if not mounted)
+# ==========================================
 
 DEVICE_PATH=$(findfs "UUID=$DISK_UUID")
 if [[ -z "$DEVICE_PATH" ]]; then
@@ -57,11 +82,14 @@ if ! cryptsetup luksOpen --key-file="$KEY_FILE" "$DEVICE_PATH" "$MAPPER_NAME"; t
     exit 1 # Trap will run
 fi
 
+echo "Mounting..."
 if ! mount "/dev/mapper/$MAPPER_NAME" "$MOUNT_POINT"; then
     echo "Error: Failed to mount the unlocked volume" >&2
     cryptsetup luksClose "$MAPPER_NAME"
     exit 1 # Trap will run
 fi
 
-echo "Success! Disk mounted at $MOUNT_POINT"
+# Give ownership back to your regular user so you can write files to it
+chown -R "$ORIGINAL_USER:$ORIGINAL_USER" "$MOUNT_POINT"
 
+echo "ToshibaBackup mounted at $MOUNT_POINT"

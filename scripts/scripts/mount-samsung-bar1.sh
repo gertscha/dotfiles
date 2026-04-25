@@ -27,6 +27,7 @@ mkdir -p "$MOUNT_POINT"
 # ==========================================
 # UNMOUNT/LOCK (if already mounted)
 # ==========================================
+
 if mountpoint -q "$MOUNT_POINT"; then
     echo "Trying to unmount stick"
 
@@ -40,7 +41,7 @@ if mountpoint -q "$MOUNT_POINT"; then
         exit 1
     fi
 
-    echo "Disk safely unmounted and locked."
+    echo "Stick safely unmounted and locked."
     exit 0
 fi
 
