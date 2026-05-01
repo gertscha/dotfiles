@@ -5,9 +5,7 @@
 //
 // load base settings
 //
-include "base-config.kdl"
-// TODO next release this will be valid
-// include optional=true "base-config.kdl"
+include optional=true "base-config.kdl"
 
 
 //
