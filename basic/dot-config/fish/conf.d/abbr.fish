@@ -11,6 +11,17 @@ abbr --add coa conda activate
 abbr --add mm rmpc
 abbr --add htop btop
 
+abbr --add cmppdf 'mutool clean -gggg -mzcfie 90'
+abbr --add cmpgspdf 'gs -sDEVICE=pdfwrite -dNOPAUSE \
+  -dQUIET -dBATCH \
+  -dEmbedAllFonts=true -dSubsetFonts=true \
+  -dRemoveUnusedResources=true -dCompressFonts=true \
+  -dSubsetFonts=true -dNOTRANSPARENCY \
+  -dCompatibilityLevel=1.4 \
+  -dPDFSETTINGS=/ebook \
+  -sOutputFile=output.pdf \
+  <in>'
+
 if command -sq eza
     # runs through function 'ls' first, which calls eza
     abbr --add lsf ls -af
