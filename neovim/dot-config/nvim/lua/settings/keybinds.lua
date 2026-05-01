@@ -12,6 +12,10 @@ local function opts(desc)
   return { desc = desc, noremap = true, silent = true }
 end
 
+-- I like to close floats with q, but sometimes recording macros is still
+-- needed in those (for example in Oil)
+keymap('n', '<leader>q', 'q', opts('Record macro (alternative)'))
+
 -- Highlighting toggles
 keymap('n', '<leader>tlc', '<cmd>se cuc!<cr>', opts('Show Column Hi'))
 keymap('n', '<leader>tll', '<cmd>se cul!<cr>', opts('Show Line Hi'))
