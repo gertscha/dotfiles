@@ -27,6 +27,7 @@ function M.config()
       vert = 'glsl',
       frag = 'glsl',
       typ = 'typst',
+      templ = "templ" ,
     },
   })
 
@@ -77,6 +78,7 @@ function M.config()
     'tinymist',
     'texlab',
     'gopls',
+    'templ',
     'ocamllsp',
     'qmlls',
   })
