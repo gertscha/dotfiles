@@ -94,6 +94,7 @@ keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", opts('Move current line down'))
 
 -- Easily hit escape in terminal mode.
 keymap('t', '<esc>', '<c-\\><c-n>', opts('Escape the terminal'))
+keymap('t', '<leader><esc>', '<esc>', opts('Press escacpe in terminal'))
 
 -- open/close quickfix list, navigate with '[q' and ']q'
 keymap('n', '<M-w>', '<cmd>copen<cr>', opts('Open Quickfix list'))
