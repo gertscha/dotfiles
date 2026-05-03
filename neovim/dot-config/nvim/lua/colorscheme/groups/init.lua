@@ -35,6 +35,7 @@ function M.load_groups(t)
     syntax = init('syntax'),
     treesitter = init('treesitter'),
     fugitive = init('fugitive'),
+    fzflua = init('fzf'),
     markup = init('markup'),
   }
 end
