@@ -38,7 +38,7 @@
 [branch]
 	sort = -committerdate
 [tag]
-	sort = -taggerdate
+	sort = -creatordate
 [stash]
 	showIncludeUntracked = true
 [rerere]
